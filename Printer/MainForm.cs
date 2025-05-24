@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Printer.Class.Model;
 using Sunny.UI;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace Printer
 {
@@ -17,6 +18,12 @@ namespace Printer
     {
         private readonly LabelPrinter printer;
         private readonly UnitBoxSN _boxsn;
+        private static string customer="";
+        private static string ordertype ="";
+        private static string productGroup = "";
+        private static string vendorcode ="";
+
+        
         public MainForm()
         {
             InitializeComponent();
@@ -27,6 +34,118 @@ namespace Printer
         private void MainForm_Load(object sender, EventArgs e)
         {
             LoadPrinters();
+            InitializeRadioButtonEvents();
+
+           
+        }
+        private void InitializeRadioButtonEvents()
+        {
+            rdocustomerdirectorder.CheckedChanged += RadioButton_CheckedChanged;
+            rdoSEDAM.CheckedChanged += RadioButton_CheckedChanged;
+            rdoSEDAC.CheckedChanged += RadioButton_CheckedChanged;
+            rdoSEC.CheckedChanged += RadioButton_CheckedChanged;
+            rdoSIELN.CheckedChanged += RadioButton_CheckedChanged;
+            rdoSEIN.CheckedChanged += RadioButton_CheckedChanged;
+            rdoTSTC.CheckedChanged += RadioButton_CheckedChanged;
+            rdoSEVT.CheckedChanged += RadioButton_CheckedChanged;
+            rdoSEV.CheckedChanged += RadioButton_CheckedChanged;
+            rdoinbox.CheckedChanged += RadioButton_CheckedChangedOrdertype;
+            rdodirect.CheckedChanged += RadioButton_CheckedChangedOrdertype;
+
+            rdomp3.CheckedChanged += RadioButton_CheckedChangedProducttype;
+            rdohhp.CheckedChanged += RadioButton_CheckedChangedProducttype;
+            rdomedicaldevices.CheckedChanged += RadioButton_CheckedChangedProducttype;
+        }
+        private void RadioButton_CheckedChangedProducttype(object sender, EventArgs e)
+        {
+
+            if (rdomp3.Checked)
+            {
+                rdomp3.Checked = true;
+                rdohhp.Checked = false;
+                rdomedicaldevices.Checked = false;
+                productGroup = "1";
+            }
+            else if (rdohhp.Checked)
+            {
+                rdomp3.Checked = false;
+                rdohhp.Checked = true;
+                rdomedicaldevices.Checked = false;
+                productGroup = "R";
+            }
+            else if (rdodirect.Checked)
+            {
+                rdomp3.Checked = false;
+                rdohhp.Checked = false;
+                rdomedicaldevices.Checked = true;
+                productGroup = "1";
+            }
+        }
+        private void RadioButton_CheckedChangedOrdertype(object sender, EventArgs e)
+        {
+
+            if (rdoinbox.Checked)
+            {
+                rdoinbox.Checked = true;
+                rdodirect.Checked = false;
+                ordertype = "A";
+            }
+            else if (rdodirect.Checked)
+            {
+                rdoinbox.Checked = false;
+                rdodirect.Checked = true;
+                ordertype = "B";
+            }
+        }
+       
+        private void RadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (sender is UIRadioButton radioButton && radioButton.Checked)
+            {
+                // Gán giá trị customer dựa trên RadioButton được chọn
+                switch (radioButton)
+                {
+                    case var rb when rb == rdocustomerdirectorder:
+                        customer = "A";
+                        break;
+                    case var rb when rb == rdoSEDAM:
+                        customer = "X";
+                        break;
+                    case var rb when rb == rdoSEDAC:
+                        customer = "Q";
+                        break;
+                    case var rb when rb == rdoSEC:
+                        customer = "3";
+                        break;
+                    case var rb when rb == rdoSIELN:
+                        customer = "Z";
+                        break;
+                    case var rb when rb == rdoSEIN:
+                        customer = "R";
+                        break;
+                    case var rb when rb == rdoTSTC:
+                        customer = "V";
+                        break;
+                    case var rb when rb == rdoSEVT:
+                        customer = "5";
+                        break;
+                    case var rb when rb == rdoSEV:
+                        customer = "F";
+                        break;
+                }
+            }
+            //if (rdoSEV.Checked)
+            //{
+            //    rdoSEV.Checked = true;
+            //    rdoSEVT.Checked = false;
+            //    customer = "F";
+            //}
+            //else if (rdoSEVT.Checked)
+            //{
+            //    rdoSEV.Checked = false;
+            //    rdoSEVT.Checked = true;
+            //    customer = "5";
+            //}
         }
 
         private void LoadPrinters()
@@ -105,7 +224,32 @@ namespace Printer
                 string sn;
                 if (string.IsNullOrWhiteSpace(txtunitsn1.Text))
                 {
-                    sn = _boxsn.GenerateSerialNumber();
+                    if (string.IsNullOrWhiteSpace(customer))
+                    {
+                        MessageBox.Show("Please select Customer !", "Error",MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    if (string.IsNullOrWhiteSpace(productGroup))
+                    {
+                        MessageBox.Show("Please select Product Type !", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    if (string.IsNullOrWhiteSpace(ordertype))
+                    {
+                        MessageBox.Show("Please select Order Type !", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    if (string.IsNullOrWhiteSpace(vendorcode))
+                    {
+                        MessageBox.Show("Please select Vendor Code !", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+
+                    sn = _boxsn.GenerateSerialNumber(productGroup,customer,vendorcode,ordertype);
                 }
 
                 sn = txtunitsn1.Text.Trim();

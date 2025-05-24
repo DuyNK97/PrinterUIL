@@ -51,17 +51,14 @@ public class UnitBoxSN
     /// Sinh mã S/N cho Unit Box (14 chữ số).
     /// </summary>
     /// <param name="productGroup">Mã nhóm sản phẩm (R, 1, M).</param>
-    /// <param name="productionSite">Mã nơi sản xuất (V, F, 5, ...).</param>
+    /// <param name="customer">Mã nơi sản xuất (V, F, 5, ...).</param>
     /// <param name="productType">Mã loại sản phẩm (7 cho APS).</param>
     /// <param name="yearCode">Mã năm sản xuất (Y cho 2025).</param>
     /// <param name="monthCode">Mã tháng sản xuất (1-9, A-C).</param>
     /// <param name="vendorCode">Mã nhà cung cấp (2 chữ cái).</param>
     /// <param name="deliveryType">Loại giao hàng (A: Inbox, B: Bán lẻ).</param>
     /// <returns>Mã S/N 14 chữ số.</returns>
-    public static string GenerateSerialNumber(
-        char productGroup = 'R', // HHP
-        char productionSite = '5', // SEVT
-        char productType = '7', // APS
+    public static string GenerateSerialNumber(char productGroup = 'R', char customer ='F',   char productType = '7',
         char yearCode = 'Y', // 2025
         char monthCode = '5', // Tháng 5
         string vendorCode = "TY", // Nhà cung cấp giả định
@@ -72,7 +69,7 @@ public class UnitBoxSN
             throw new ArgumentException("Mã nhà cung cấp phải là 2 chữ cái.");
         if (!"R1M".Contains(productGroup))
             throw new ArgumentException("Mã nhóm sản phẩm không hợp lệ.");
-        if (!"VFZQRX356A".Contains(productionSite))
+        if (!"VFZQRX356A".Contains(customer))
             throw new ArgumentException("Mã nơi sản xuất không hợp lệ.");
         if (productType != '7')
             throw new ArgumentException("Mã loại sản phẩm phải là 7 cho APS.");
@@ -89,7 +86,7 @@ public class UnitBoxSN
         string serialBase33 = ToBase33(newSerial);
 
         // Tạo mã S/N: [Nhóm sản phẩm][Nơi sản xuất][Loại sản phẩm][Năm][Tháng][Số thứ tự][Check Digit][Nhà cung cấp][Loại giao hàng]
-        string serialNumber = $"{productGroup}{productionSite}{productType}{yearCode}{monthCode}{serialBase33}X{vendorCode}{deliveryType}";
+        string serialNumber = $"{productGroup}{customer}{productType}{yearCode}{monthCode}{serialBase33}X{vendorCode}{deliveryType}";
 
         // Lưu số thứ tự mới
         SaveLastSerial(newSerial);
