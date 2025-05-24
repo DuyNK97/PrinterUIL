@@ -226,33 +226,42 @@ namespace Printer
                 {
                     if (string.IsNullOrWhiteSpace(customer))
                     {
-                        MessageBox.Show("Please select Customer !", "Error",MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Please select Customer!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
-
                     if (string.IsNullOrWhiteSpace(productGroup))
                     {
-                        MessageBox.Show("Please select Product Type !", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Please select Product Type!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
-
                     if (string.IsNullOrWhiteSpace(ordertype))
                     {
-                        MessageBox.Show("Please select Order Type !", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Please select Order Type!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
-
                     if (string.IsNullOrWhiteSpace(vendorcode))
                     {
-                        MessageBox.Show("Please select Vendor Code !", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Please select Vendor Code!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
 
+                    char yearCode = 'Y'; 
+                    char monthCode = "123456789ABC"[DateTime.Now.Month - 1]; 
 
-                    sn = _boxsn.GenerateSerialNumber(productGroup,customer,vendorcode,ordertype);
+                    sn = UnitBoxSN.GenerateSerialNumber(
+                        productGroup[0],         
+                        customer[0],            
+                        '7',                      
+                        yearCode,
+                        monthCode,
+                        vendorcode,              
+                        ordertype[0]            
+                    );
                 }
-
-                sn = txtunitsn1.Text.Trim();
+                else
+                {
+                    sn = txtunitsn1.Text.Trim();
+                }
 
                 UNITDATA unitdata = new UNITDATA
                 {
