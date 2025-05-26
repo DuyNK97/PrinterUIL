@@ -1,0 +1,173 @@
+Dưới đây là tổng hợp các lệnh ZPL (Zebra Programming Language) được hỗ trợ bởi Labelary, dựa trên tài liệu tại https://labelary.com/docs.html, kèm ví dụ minh họa cho từng lệnh. Tôi sẽ liệt kê các lệnh chính, giải thích ngắn gọn và cung cấp ví dụ sử dụng. Vì danh sách lệnh ZPL rất dài, tôi sẽ tập trung vào các lệnh phổ biến liên quan đến định dạng nhãn, mã vạch, văn bản, và đồ họa, đồng thời đảm bảo ví dụ rõ ràng và dễ hiểu. Nếu bạn muốn một danh sách đầy đủ hơn hoặc chi tiết về một lệnh cụ thể, hãy cho tôi biết!
+
+Lưu ý:
+Labelary hỗ trợ hầu hết các lệnh ZPL liên quan đến định dạng nhãn, nhưng một số lệnh liên quan đến cấu hình phần cứng hoặc giao tiếp nối tiếp không được hỗ trợ vì chúng không ảnh hưởng đến việc render nhãn.
+Mỗi ví dụ sử dụng cấu trúc nhãn cơ bản với ^XA (bắt đầu nhãn) và ^XZ (kết thúc nhãn).
+Các ví dụ sử dụng tọa độ (^FO) để đặt vị trí và dữ liệu (^FD) để chỉ định nội dung.
+Các lệnh ZPL phổ biến và ví dụ
+1. Lệnh định dạng nhãn
+
+Lệnh	Mô tả	Ví dụ
+^XA	Bắt đầu một định dạng nhãn mới	^XA^XZ
+In một nhãn rỗng.
+^XZ	Kết thúc định dạng nhãn	^XA^FDHello World^FS^XZ
+In nhãn với văn bản "Hello World".
+^LHx,y	Đặt tọa độ gốc (Label Home)	^XA^LH50,50^FDText^FS^XZ
+Đặt gốc nhãn tại (50,50) và in "Text".
+^LLy	Đặt chiều dài nhãn (theo dot)	^XA^LL800^FDLong Label^FS^XZ
+Đặt chiều dài nhãn 800 dot.
+2. Lệnh định dạng văn bản
+
+Lệnh	Mô tả	Ví dụ
+^Afo,h,w	Chọn font và kích thước (f: font, o: hướng, h: chiều cao, w: chiều rộng)	^XA^FO50,50^A0N,30,30^FDHello^FS^XZ
+In "Hello" với font 0, hướng bình thường, cao/rộng 30 dot.
+^FDdata	Chỉ định dữ liệu văn bản	^XA^FO50,50^FDProduct: ABC^FS^XZ
+In văn bản "Product: ABC" tại (50,50).
+^FS	Kết thúc trường dữ liệu	Dùng trong mọi ví dụ với ^FD.
+^FBx,y,n,m,j	Tạo hộp văn bản (x: chiều rộng, y: số dòng, n: căn chỉnh, m: chế độ, j: thụt đầu dòng)	^XA^FO50,50^FB200,3,L^FDLine 1\nLine 2\nLine 3^FS^XZ
+In 3 dòng văn bản, căn trái, trong hộp rộng 200 dot.
+3. Lệnh mã vạch
+
+Lệnh	Mô tả	Ví dụ
+^B3o,h,f,g,e	Mã vạch Code 39 (o: hướng, h: chiều cao, f: in dòng chữ, g: in dòng chữ phía trên, e: kiểm tra ký tự)	^XA^FO50,50^B3N,100,Y,N,N^FD123456^FS^XZ
+In mã vạch Code 39, cao 100 dot, có dòng chữ bên dưới.
+^B8o,h,f,g	Mã vạch Code 128	^XA^FO50,50^B8N,100,Y,N^FD1234567890^FS^XZ
+In mã vạch Code 128, cao 100 dot, dòng chữ bên dưới.
+^BQo,h,m,s	Mã vạch QR (o: hướng, h: chiều cao, m: mô hình, s: cấp độ lỗi)	^XA^FO50,50^BQN,2,5^FDhttps://example.com^FS^XZ
+In mã QR với URL, kích thước cấp 5.
+^BYw,r,b	Đặt chiều rộng module mã vạch (w: chiều rộng, r: tỷ lệ, b: chiều rộng thanh hẹp)	^XA^BY2^FO50,50^B3N,100,Y,N^FD123456^FS^XZ
+Đặt chiều rộng module là 2 dot cho mã Code 39.
+4. Lệnh đồ họa
+
+Lệnh	Mô tả	Ví dụ
+^GBw,h,t,c,r	Vẽ hộp (w: chiều rộng, h: chiều cao, t: độ dày, c: màu, r: độ bo góc)	^XA^FO50,50^GB100,100,3,B,0^FS^XZ
+Vẽ hộp 100x100 dot, độ dày 3, màu đen.
+^GCd,t,c	Vẽ vòng tròn (d: đường kính, t: độ dày, c: màu)	^XA^FO50,50^GC50,3,B^FS^XZ
+Vẽ vòng tròn đường kính 50 dot, độ dày 3, màu đen.
+^GLx,y,w,h	Vẽ đường thẳng (x,y: điểm bắt đầu, w: chiều rộng, h: chiều cao)	^XA^FO50,50^GL100,0,3^FS^XZ
+Vẽ đường ngang dài 100 dot, dày 3 dot.
+5. Lệnh hình ảnh và font
+
+Lệnh	Mô tả	Ví dụ
+^GFA,w,h,d,data	In hình ảnh nén (w: chiều rộng, h: chiều cao, d: dữ liệu, data: hex)	^XA^FO50,50^GFA,100,100,100,::^FS^XZ
+In hình ảnh nén (yêu cầu dữ liệu hex).
+^DUf,d	Tải font (f: tên font, d: dữ liệu font)	^XA^DUZ:MYFONT.TTF^FS^XZ
+Tải font tùy chỉnh (yêu cầu dữ liệu font).
+~DYf,d,r,t,w,h	Tải hình ảnh (f: tên, d: dữ liệu, r: định dạng, t: loại, w: rộng, h: cao)	^XA~DYR:IMAGE.GRF,B,100,100^FS^XZ
+Tải hình ảnh GRF.
+6. Lệnh không chuẩn (Labelary-specific)
+
+Lệnh	Mô tả	Ví dụ
+~BRx,y,w,h,c	Vẽ hình chữ nhật màu nền (x,y: tọa độ, w,h: kích thước, c: màu RGB)	^XA~BR50,50,200,100,FF0000^FS^XZ
+Vẽ hình chữ nhật đỏ tại (50,50), kích thước 200x100.
+~BIx,y,w,h,i	Chèn hình ảnh nền (x,y: tọa độ, w,h: kích thước, i: URL hình ảnh)	^XA~BI50,50,100,100,http://example.com/logo.png^FS^XZ
+Chèn logo từ URL vào nhãn.
+7. Lệnh điều khiển in
+
+Lệnh	Mô tả	Ví dụ
+^PQn	In số lượng nhãn (n: số nhãn)	^XA^PQ3^FDLabel^FS^XZ
+In 3 nhãn với nội dung "Label".
+^JMA	Đặt chế độ in (Media Tracking)	^XA^JMA^FDTrack^FS^XZ
+Đặt chế độ theo dõi giấy liên tục.
+
+^GFA,<total_bytes>,<bytes_used>,<bytes_per_row>,<data_format>:<encoded_data>
+<total_bytes>: Tổng số byte của ảnh gốc.
+
+<bytes_used>: Số byte sử dụng thực tế.
+
+<bytes_per_row>: Số byte cho mỗi dòng ảnh.
+
+<encoded_data>: Dữ liệu ảnh mã hóa theo chuẩn Z64 (Zlib + Base64)
+
+
+^BY2,3,24^  MÃ VẠCH 128
+2: Chiều rộng module hẹp (narrow bar width) là 2 dot.
+3: Tỷ lệ rộng-hẹp (wide-to-narrow ratio) là 3:1.
+24: Chiều cao mã vạch là 24 dot.
+
+^FT98,280^A0N,20,25^FH^FDS/N:^FS   BẮT ĐẦU VÀ KẾT THỨC TRONG CẶP ^FT^FS
+X,Y
+NẾU DÙNG FO Ở ĐẦU THÌ LUÔN TÍNH TỪ GỐC (0,0) 
+^A0N,20,25^
+CHỈNH ĐỘ CAO RỘNG CỦA CHỮ
+
+
+a. ^BY2,3,130
+Ý nghĩa: Lệnh này định dạng kích thước và tỷ lệ của mã vạch.
+Cú pháp: ^BYw,r,h
+w (2): Chiều rộng của module hẹp (narrow bar width), tính bằng dot. Ở đây là 2 dot. Với độ phân giải 203 dpi (8 dot/mm), 2 dot ≈ 0.25 mm.
+r (3): Tỷ lệ giữa module rộng và module hẹp (wide-to-narrow ratio), ở đây là 3:1. Điều này có nghĩa thanh hoặc khoảng trống rộng sẽ rộng gấp 3 lần thanh hẹp, tức là 3 x 2 = 6 dot (≈ 0.75 mm).
+h (130): Chiều cao của mã vạch, tính bằng dot, ở đây là 130 dot. Với 203 dpi, 130 dot ≈ 16.25 mm.
+Chức năng: Định nghĩa kích thước cơ bản của mã vạch (thanh hẹp, tỷ lệ, và chiều cao) trước khi in. Giá trị này áp dụng cho mã vạch được định nghĩa ngay sau đó.
+b. ^FT160,1326
+Ý nghĩa: Lệnh này định vị tọa độ của phần tử (trong trường hợp này là mã vạch) trên nhãn.
+Cú pháp: ^FTx,y
+x (160): Độ dịch ngang (offset) theo trục X, tính bằng dot, ở đây là 160 dot (≈ 20 mm).
+y (1326): Độ dịch dọc (offset) theo trục Y, tính bằng dot, ở đây là 1326 dot (≈ 165.75 mm).
+Chức năng: Đặt vị trí bắt đầu của mã vạch tại tọa độ (160, 1326) so với gốc nhãn (thường là góc trên cùng bên trái trừ khi có ^LH thay đổi). Lệnh ^FT thường được dùng để tinh chỉnh vị trí văn bản hoặc mã vạch.
+Lưu ý: Tọa độ Y = 1326 dot khá lớn, có thể vượt quá kích thước nhãn tiêu chuẩn (ví dụ: 960 dot cho nhãn 12 cm). Điều này cần được kiểm tra với kích thước nhãn thực tế (^PW và ^LL).
+c. ^BCB,,N,N
+Ý nghĩa: Lệnh này chỉ định kiểu mã vạch và các tùy chọn định dạng.
+Cú pháp: ^BCt,m,h,r
+t (B): Loại mã vạch, ở đây là Code 128 với biến thể B. Trong ZPL, ^BCB là Code 128, sử dụng tập ký tự B (chứa chữ cái và số).
+m (,): Không chỉ định chiều cao (sử dụng giá trị từ ^BY, tức là 130 dot).
+h (,): Không xoay mã vạch (góc 0 độ).
+r (N,N): Tùy chọn bổ sung:
+Đầu tiên N: Không in thêm dòng chữ giải mã (human-readable text) bên dưới mã vạch.
+Thứ hai N: Không tính toán và kiểm tra chữ số kiểm tra (check digit), mặc dù Code 128 tự động tính chữ số kiểm tra nội bộ.
+Chức năng: Định nghĩa mã vạch là Code 128 với các thông số cụ thể, không hiển thị văn bản giải mã và không yêu cầu kiểm tra chữ số thủ công.
+d. ^FD>EB-PA500USEGWWTYGC31Z001 003TY^FS
+Ý nghĩa: Lệnh này xác định dữ liệu của mã vạch.
+Cú pháp:
+^FD: Bắt đầu định nghĩa dữ liệu trường (field data).
+>EB-PA500USEGWWTYGC31Z001 003TY: Dữ liệu mã vạch.
+>: Ký tự điều khiển (control character) trong Code 128, thường dùng để chuyển đổi giữa các tập ký tự (A, B, C) hoặc định dạng đặc biệt.
+EB-PA500USEGWWTYGC31Z001 003TY: Chuỗi dữ liệu, bao gồm cả ký tự khoảng trắng. Chuỗi này có thể đại diện cho một mã sản phẩm hoặc số serial, với "EB-" có thể là tiền tố đặc biệt.
+^FS: Kết thúc trường dữ liệu.
+
+Trong ZPL, tham số orientation của lệnh ^A có các giá trị sau:
+
+N (Normal): Không xoay, văn bản nằm ngang từ trái sang phải.
+R (Rotated): Xoay 90° ngược chiều kim đồng hồ (văn bản nằm dọc, đọc từ dưới lên trên).
+I (Inverted): Xoay 180° (văn bản nằm ngang nhưng ngược đầu).
+B (Bottom): Xoay 270° ngược chiều kim đồng hồ (văn bản nằm dọc, đọc từ trên xuống dưới).
+
+2. Cách xoay mã vạch
+Trong ZPL, lệnh ^B (bao gồm ^BEN) hỗ trợ tham số orientation để xoay mã vạch:
+
+Không có tham số orientation: Mặc định là 0° (mã vạch nằm ngang, các thanh song song với trục X).
+Tham số orientation:
+N (Normal): 0° (hiện tại là mặc định).
+R (Rotated): 90° ngược chiều kim đồng hồ (mã vạch nằm dọc, các thanh song song với trục Y, đọc từ dưới lên trên).
+I (Inverted): 180° (mã vạch nằm ngang nhưng ngược hướng).
+B (Bottom): 270° ngược chiều kim đồng hồ (mã vạch nằm dọc, các thanh song song với trục Y, đọc từ trên xuống dưới).
+
+***
+^FT100,840^BY400,400^BXR,10,200,0,0,1,~^FH\^FDIMPORTED AND MARKETED BY: SAMSUNG INDIA ELECTRONICS PVT.LTD. (1?)IMPORTED AND MARKETED BY:\0D\0A        SAMSUNG INDIA ELECTRONICS PVT. LTD\0D\0A^FS
+
+^FT100,840
+Ý nghĩa: Lệnh ^FT (Field Typeset) định vị tọa độ của phần tử (ở đây là mã vạch) trên nhãn.
+Cú pháp: ^FTx,y
+x (100): Độ dịch ngang theo trục X, tính bằng dot, là 100 dot (≈ 12.5 mm với 203 dpi).
+y (840): Độ dịch dọc theo trục Y, tính bằng dot, là 840 dot (≈ 105 mm).
+Chức năng: Đặt vị trí bắt đầu của mã vạch tại tọa độ (100, 840) so với gốc nhãn (thường là góc trên cùng bên trái, trừ khi có ^LH thay đổi).
+b. ^BY400,400
+Ý nghĩa: Lệnh ^BY định dạng kích thước và tỷ lệ của mã vạch.
+Cú pháp: ^BYw,r,h
+w (400): Chiều rộng module hẹp (narrow bar width), tính bằng dot, là 400 dot (≈ 50 mm). Giá trị này khá lớn và không hợp lý cho module hẹp (thường là 2-3 dot), có thể là lỗi hoặc ý định đặc biệt (xem thêm ở phần ^BXR).
+r (400): Tỷ lệ rộng-hẹp (wide-to-narrow ratio), là 400:1. Giá trị này cũng bất thường vì tỷ lệ thường nằm trong khoảng 2:1 đến 3:1, có thể là lỗi nhập liệu.
+h (không có): Không chỉ định chiều cao riêng, sẽ lấy từ tham số chiều cao trong ^BXR (200 dot).
+Chức năng: Định nghĩa kích thước cơ bản của mã vạch. Tuy nhiên, các giá trị w = 400 và r = 400 có vẻ không hợp lý cho mã vạch thông thường, có thể là lỗi hoặc cần điều chỉnh.
+c. ^BXR,10,200,0,0,1,~
+Ý nghĩa: Lệnh ^BXR là một biến thể của mã vạch QR Code trong ZPL.
+Cú pháp: ^BXR,w,h,m,v,e,c
+w (10): Chiều rộng của module (cell size) của QR Code, tính bằng dot, là 10 dot (≈ 1.25 mm). Điều này xác định độ lớn của mỗi ô trong QR Code.
+h (200): Chiều cao của QR Code, tính bằng dot, là 200 dot (≈ 25 mm). Tuy nhiên, QR Code là hình vuông, nên chiều cao thường bằng chiều rộng (xem thêm dưới đây).
+m (0): Biên độ (margin) xung quanh QR Code, tính bằng dot, là 0 dot (không có biên độ).
+v (0): Hiệu chỉnh phiên bản QR Code (version), là 0 (tự động chọn phiên bản dựa trên dữ liệu).
+e (0): Mức sai sót (error correction level), là 0 (mặc định, thường là M - Medium, khoảng 15% sai sót).
+c (1): Cột (column) hoặc chế độ nén, là 1 (chế độ nén tiêu chuẩn).
+~: Ký tự kết thúc tham số, chỉ định rằng không có tham số bổ sung.
+Chức năng: In một mã vạch QR Code tại tọa độ (100, 840), với kích thước module 10 dot, chiều cao 200 dot (nhưng QR Code thường là hình vuông, nên chiều rộng cũng sẽ là 200 dot trừ khi có lỗi). Dữ liệu sẽ được lấy từ ^FD.
+Lưu ý: Giá trị w = 400 và r = 400 từ ^BY không áp dụng cho ^BXR, vì QR Code không sử dụng module hẹp/rộng như mã vạch 1D. Có thể ^BY400,400 là lỗi và không ảnh hưởng trực tiếp đến ^BXR.
+

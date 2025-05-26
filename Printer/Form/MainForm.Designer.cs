@@ -29,17 +29,25 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
             this.maintab = new Sunny.UI.UITableLayoutPanel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.tabmain = new Sunny.UI.UITabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tableLayoutprintunitbox = new Sunny.UI.UITableLayoutPanel();
-            this.btprintunitbox = new System.Windows.Forms.Button();
+            this.radiopanel = new Sunny.UI.UIPanel();
             this.uiTableLayoutPanel5 = new Sunny.UI.UITableLayoutPanel();
             this.uiGroupBox3 = new Sunny.UI.UIGroupBox();
             this.uiPanel38 = new Sunny.UI.UIPanel();
-            this.rdoinbox = new Sunny.UI.UIRadioButton();
-            this.rdodirect = new Sunny.UI.UIRadioButton();
             this.uiGroupBox1 = new Sunny.UI.UIGroupBox();
             this.uiTableLayoutPanel7 = new Sunny.UI.UITableLayoutPanel();
             this.rdocustomerdirectorder = new Sunny.UI.UIRadioButton();
@@ -56,9 +64,10 @@
             this.rdomedicaldevices = new Sunny.UI.UIRadioButton();
             this.rdomp3 = new Sunny.UI.UIRadioButton();
             this.rdohhp = new Sunny.UI.UIRadioButton();
-            this.uiPanel37 = new Sunny.UI.UIPanel();
+            this.uiPanel39 = new Sunny.UI.UIPanel();
             this.uiLabel19 = new Sunny.UI.UILabel();
-            this.uiTextBox1 = new Sunny.UI.UITextBox();
+            this.txvendor = new Sunny.UI.UITextBox();
+            this.btprintunitbox = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new Sunny.UI.UITableLayoutPanel();
             this.panel13 = new Sunny.UI.UIPanel();
             this.txtunitsn1 = new Sunny.UI.UITextBox();
@@ -69,8 +78,7 @@
             this.panel10 = new Sunny.UI.UIPanel();
             this.label9 = new Sunny.UI.UILabel();
             this.panel9 = new Sunny.UI.UIPanel();
-            this.unitdatetime = new Sunny.UI.UIDatetimePicker();
-            this.txtunitmanufacturedate = new Sunny.UI.UITextBox();
+            this.datepick = new Sunny.UI.UIDatePicker();
             this.panel8 = new Sunny.UI.UIPanel();
             this.label8 = new Sunny.UI.UILabel();
             this.panel7 = new Sunny.UI.UIPanel();
@@ -87,7 +95,20 @@
             this.label5 = new Sunny.UI.UILabel();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.uiTableLayoutPanel1 = new Sunny.UI.UITableLayoutPanel();
+            this.uiPanel37 = new Sunny.UI.UIPanel();
+            this.uiPanel43 = new Sunny.UI.UIPanel();
+            this.uiTableLayoutPanel9 = new Sunny.UI.UITableLayoutPanel();
+            this.btndeleteall = new Sunny.UI.UIButton();
+            this.btdelete = new Sunny.UI.UIButton();
+            this.btprintmiddlebox = new System.Windows.Forms.Button();
+            this.dgvsn = new Sunny.UI.UIDataGridView();
+            this.SN = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.uiPanel41 = new Sunny.UI.UIPanel();
+            this.uiLabel20 = new Sunny.UI.UILabel();
+            this.txmiddlevendorcode = new Sunny.UI.UITextBox();
             this.uiTableLayoutPanel2 = new Sunny.UI.UITableLayoutPanel();
+            this.uiPanel40 = new Sunny.UI.UIPanel();
+            this.uiLabel21 = new Sunny.UI.UILabel();
             this.uiPanel1 = new Sunny.UI.UIPanel();
             this.txmidleqty = new Sunny.UI.UITextBox();
             this.uiPanel2 = new Sunny.UI.UIPanel();
@@ -109,7 +130,7 @@
             this.uiPanel10 = new Sunny.UI.UIPanel();
             this.uiLabel5 = new Sunny.UI.UILabel();
             this.uiPanel11 = new Sunny.UI.UIPanel();
-            this.txmidlebarcode = new Sunny.UI.UITextBox();
+            this.txmidlelotnobarcode = new Sunny.UI.UITextBox();
             this.uiPanel12 = new Sunny.UI.UIPanel();
             this.uiLabel6 = new Sunny.UI.UILabel();
             this.uiPanel13 = new Sunny.UI.UIPanel();
@@ -124,10 +145,17 @@
             this.uiLabel9 = new Sunny.UI.UILabel();
             this.uiPanel20 = new Sunny.UI.UIPanel();
             this.txmidlebarcodeean = new Sunny.UI.UITextBox();
-            this.btprintmiddlebox = new System.Windows.Forms.Button();
+            this.uiPanel42 = new Sunny.UI.UIPanel();
+            this.txmiddlesn = new Sunny.UI.UITextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.uiTableLayoutPanel3 = new Sunny.UI.UITableLayoutPanel();
             this.uiTableLayoutPanel4 = new Sunny.UI.UITableLayoutPanel();
+            this.uiPanel47 = new Sunny.UI.UIPanel();
+            this.uiLabel23 = new Sunny.UI.UILabel();
+            this.uiPanel45 = new Sunny.UI.UIPanel();
+            this.uiPanel44 = new Sunny.UI.UIPanel();
+            this.uiLabel22 = new Sunny.UI.UILabel();
+            this.uiTextBox1 = new Sunny.UI.UITextBox();
             this.uiPanel18 = new Sunny.UI.UIPanel();
             this.txmasterqty = new Sunny.UI.UITextBox();
             this.uiPanel19 = new Sunny.UI.UIPanel();
@@ -164,16 +192,31 @@
             this.uiLabel18 = new Sunny.UI.UILabel();
             this.uiPanel36 = new Sunny.UI.UIPanel();
             this.txmasterbarcodeean = new Sunny.UI.UITextBox();
+            this.uiPanel46 = new Sunny.UI.UIPanel();
+            this.txmtsn = new Sunny.UI.UITextBox();
+            this.uiPanel48 = new Sunny.UI.UIPanel();
+            this.txmtvendercode = new Sunny.UI.UITextBox();
+            this.uiPanel49 = new Sunny.UI.UIPanel();
+            this.uiPanel50 = new Sunny.UI.UIPanel();
+            this.uiTableLayoutPanel8 = new Sunny.UI.UITableLayoutPanel();
+            this.btnmtdeleteall = new Sunny.UI.UIButton();
+            this.btnmtdelete = new Sunny.UI.UIButton();
             this.btprintmasterbox = new System.Windows.Forms.Button();
+            this.dgvmastersn = new Sunny.UI.UIDataGridView();
+            this.SNMT = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.header = new Sunny.UI.UITableLayoutPanel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.comboBoxPrinters = new System.Windows.Forms.ComboBox();
+            this.uiTableLayoutPanel10 = new Sunny.UI.UITableLayoutPanel();
+            this.rdodirect = new Sunny.UI.UIRadioButton();
+            this.rdoinbox = new Sunny.UI.UIRadioButton();
             this.maintab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.tabmain.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutprintunitbox.SuspendLayout();
+            this.radiopanel.SuspendLayout();
             this.uiTableLayoutPanel5.SuspendLayout();
             this.uiGroupBox3.SuspendLayout();
             this.uiPanel38.SuspendLayout();
@@ -181,7 +224,7 @@
             this.uiTableLayoutPanel7.SuspendLayout();
             this.uiGroupBox2.SuspendLayout();
             this.uiTableLayoutPanel6.SuspendLayout();
-            this.uiPanel37.SuspendLayout();
+            this.uiPanel39.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel13.SuspendLayout();
             this.panel12.SuspendLayout();
@@ -197,7 +240,13 @@
             this.panel2.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.uiTableLayoutPanel1.SuspendLayout();
+            this.uiPanel37.SuspendLayout();
+            this.uiPanel43.SuspendLayout();
+            this.uiTableLayoutPanel9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvsn)).BeginInit();
+            this.uiPanel41.SuspendLayout();
             this.uiTableLayoutPanel2.SuspendLayout();
+            this.uiPanel40.SuspendLayout();
             this.uiPanel1.SuspendLayout();
             this.uiPanel2.SuspendLayout();
             this.uiPanel3.SuspendLayout();
@@ -216,9 +265,13 @@
             this.uiPanel16.SuspendLayout();
             this.uiPanel17.SuspendLayout();
             this.uiPanel20.SuspendLayout();
+            this.uiPanel42.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.uiTableLayoutPanel3.SuspendLayout();
             this.uiTableLayoutPanel4.SuspendLayout();
+            this.uiPanel47.SuspendLayout();
+            this.uiPanel45.SuspendLayout();
+            this.uiPanel44.SuspendLayout();
             this.uiPanel18.SuspendLayout();
             this.uiPanel19.SuspendLayout();
             this.uiPanel21.SuspendLayout();
@@ -237,9 +290,16 @@
             this.uiPanel34.SuspendLayout();
             this.uiPanel35.SuspendLayout();
             this.uiPanel36.SuspendLayout();
+            this.uiPanel46.SuspendLayout();
+            this.uiPanel48.SuspendLayout();
+            this.uiPanel49.SuspendLayout();
+            this.uiPanel50.SuspendLayout();
+            this.uiTableLayoutPanel8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvmastersn)).BeginInit();
             this.header.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
+            this.uiTableLayoutPanel10.SuspendLayout();
             this.SuspendLayout();
             // 
             // maintab
@@ -293,6 +353,7 @@
             this.tabmain.TabIndex = 2;
             this.tabmain.TabUnSelectedForeColor = System.Drawing.Color.Black;
             this.tabmain.TipsFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.tabmain.SelectedIndexChanged += new System.EventHandler(this.tabmain_SelectedIndexChanged);
             // 
             // tabPage1
             // 
@@ -310,11 +371,11 @@
             // 
             this.tableLayoutprintunitbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
             this.tableLayoutprintunitbox.ColumnCount = 3;
-            this.tableLayoutprintunitbox.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.047F));
-            this.tableLayoutprintunitbox.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 19.59508F));
-            this.tableLayoutprintunitbox.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.35792F));
+            this.tableLayoutprintunitbox.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 67.17281F));
+            this.tableLayoutprintunitbox.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18.94432F));
+            this.tableLayoutprintunitbox.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13.95517F));
+            this.tableLayoutprintunitbox.Controls.Add(this.radiopanel, 0, 0);
             this.tableLayoutprintunitbox.Controls.Add(this.btprintunitbox, 2, 0);
-            this.tableLayoutprintunitbox.Controls.Add(this.uiTableLayoutPanel5, 0, 0);
             this.tableLayoutprintunitbox.Controls.Add(this.tableLayoutPanel1, 0, 0);
             this.tableLayoutprintunitbox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutprintunitbox.Location = new System.Drawing.Point(0, 0);
@@ -325,15 +386,19 @@
             this.tableLayoutprintunitbox.TabIndex = 0;
             this.tableLayoutprintunitbox.TagString = null;
             // 
-            // btprintunitbox
+            // radiopanel
             // 
-            this.btprintunitbox.Location = new System.Drawing.Point(896, 3);
-            this.btprintunitbox.Name = "btprintunitbox";
-            this.btprintunitbox.Size = new System.Drawing.Size(183, 44);
-            this.btprintunitbox.TabIndex = 2;
-            this.btprintunitbox.Text = "Print Unit Box";
-            this.btprintunitbox.UseVisualStyleBackColor = true;
-            this.btprintunitbox.Click += new System.EventHandler(this.btprintunitbox_Click);
+            this.radiopanel.Controls.Add(this.uiTableLayoutPanel5);
+            this.radiopanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radiopanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.radiopanel.Location = new System.Drawing.Point(932, 5);
+            this.radiopanel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.radiopanel.MinimumSize = new System.Drawing.Size(1, 1);
+            this.radiopanel.Name = "radiopanel";
+            this.radiopanel.Size = new System.Drawing.Size(253, 552);
+            this.radiopanel.TabIndex = 3;
+            this.radiopanel.Text = "uiPanel37";
+            this.radiopanel.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // uiTableLayoutPanel5
             // 
@@ -342,17 +407,17 @@
             this.uiTableLayoutPanel5.Controls.Add(this.uiGroupBox3, 0, 3);
             this.uiTableLayoutPanel5.Controls.Add(this.uiGroupBox1, 0, 0);
             this.uiTableLayoutPanel5.Controls.Add(this.uiGroupBox2, 0, 1);
-            this.uiTableLayoutPanel5.Controls.Add(this.uiPanel37, 0, 2);
+            this.uiTableLayoutPanel5.Controls.Add(this.uiPanel39, 0, 2);
             this.uiTableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.uiTableLayoutPanel5.Location = new System.Drawing.Point(626, 3);
+            this.uiTableLayoutPanel5.Location = new System.Drawing.Point(0, 0);
             this.uiTableLayoutPanel5.Name = "uiTableLayoutPanel5";
             this.uiTableLayoutPanel5.RowCount = 4;
             this.uiTableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 52.51799F));
             this.uiTableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.5036F));
             this.uiTableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.10791F));
             this.uiTableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.8705F));
-            this.uiTableLayoutPanel5.Size = new System.Drawing.Size(264, 556);
-            this.uiTableLayoutPanel5.TabIndex = 2;
+            this.uiTableLayoutPanel5.Size = new System.Drawing.Size(253, 552);
+            this.uiTableLayoutPanel5.TabIndex = 3;
             this.uiTableLayoutPanel5.TagString = null;
             // 
             // uiGroupBox3
@@ -360,55 +425,33 @@
             this.uiGroupBox3.Controls.Add(this.uiPanel38);
             this.uiGroupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiGroupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiGroupBox3.Location = new System.Drawing.Point(4, 494);
+            this.uiGroupBox3.Location = new System.Drawing.Point(4, 490);
             this.uiGroupBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiGroupBox3.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiGroupBox3.Name = "uiGroupBox3";
             this.uiGroupBox3.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
-            this.uiGroupBox3.Size = new System.Drawing.Size(256, 57);
+            this.uiGroupBox3.Size = new System.Drawing.Size(245, 57);
             this.uiGroupBox3.TabIndex = 13;
             this.uiGroupBox3.Text = "Order Type";
             this.uiGroupBox3.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // uiPanel38
             // 
-            this.uiPanel38.Controls.Add(this.rdoinbox);
-            this.uiPanel38.Controls.Add(this.rdodirect);
+            this.uiPanel38.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.uiPanel38.Controls.Add(this.uiTableLayoutPanel10);
             this.uiPanel38.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel38.Location = new System.Drawing.Point(12, 24);
+            this.uiPanel38.Location = new System.Drawing.Point(9, 31);
             this.uiPanel38.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel38.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel38.Name = "uiPanel38";
             this.uiPanel38.RectColor = System.Drawing.Color.White;
             this.uiPanel38.RectDisableColor = System.Drawing.Color.White;
-            this.uiPanel38.Size = new System.Drawing.Size(237, 28);
+            this.uiPanel38.Size = new System.Drawing.Size(230, 21);
             this.uiPanel38.TabIndex = 0;
             this.uiPanel38.Text = null;
             this.uiPanel38.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // rdoinbox
-            // 
-            this.rdoinbox.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.rdoinbox.Dock = System.Windows.Forms.DockStyle.Left;
-            this.rdoinbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.rdoinbox.Location = new System.Drawing.Point(134, 0);
-            this.rdoinbox.MinimumSize = new System.Drawing.Size(1, 1);
-            this.rdoinbox.Name = "rdoinbox";
-            this.rdoinbox.Size = new System.Drawing.Size(90, 28);
-            this.rdoinbox.TabIndex = 16;
-            this.rdoinbox.Text = "Inbox";
-            // 
-            // rdodirect
-            // 
-            this.rdodirect.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.rdodirect.Dock = System.Windows.Forms.DockStyle.Left;
-            this.rdodirect.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.rdodirect.Location = new System.Drawing.Point(0, 0);
-            this.rdodirect.MinimumSize = new System.Drawing.Size(1, 1);
-            this.rdodirect.Name = "rdodirect";
-            this.rdodirect.Size = new System.Drawing.Size(134, 28);
-            this.rdodirect.TabIndex = 15;
-            this.rdodirect.Text = "Direct order";
             // 
             // uiGroupBox1
             // 
@@ -420,13 +463,15 @@
             this.uiGroupBox1.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiGroupBox1.Name = "uiGroupBox1";
             this.uiGroupBox1.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
-            this.uiGroupBox1.Size = new System.Drawing.Size(256, 282);
+            this.uiGroupBox1.Size = new System.Drawing.Size(245, 279);
             this.uiGroupBox1.TabIndex = 4;
             this.uiGroupBox1.Text = "Customer";
             this.uiGroupBox1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // uiTableLayoutPanel7
             // 
+            this.uiTableLayoutPanel7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.uiTableLayoutPanel7.ColumnCount = 1;
             this.uiTableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.uiTableLayoutPanel7.Controls.Add(this.rdocustomerdirectorder, 0, 8);
@@ -438,7 +483,7 @@
             this.uiTableLayoutPanel7.Controls.Add(this.rdoTSTC, 0, 2);
             this.uiTableLayoutPanel7.Controls.Add(this.rdoSEVT, 0, 1);
             this.uiTableLayoutPanel7.Controls.Add(this.rdoSEV, 0, 0);
-            this.uiTableLayoutPanel7.Location = new System.Drawing.Point(9, 31);
+            this.uiTableLayoutPanel7.Location = new System.Drawing.Point(8, 27);
             this.uiTableLayoutPanel7.Name = "uiTableLayoutPanel7";
             this.uiTableLayoutPanel7.RowCount = 9;
             this.uiTableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
@@ -459,7 +504,7 @@
             this.uiTableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.uiTableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.uiTableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.uiTableLayoutPanel7.Size = new System.Drawing.Size(240, 245);
+            this.uiTableLayoutPanel7.Size = new System.Drawing.Size(231, 245);
             this.uiTableLayoutPanel7.TabIndex = 0;
             this.uiTableLayoutPanel7.TagString = null;
             // 
@@ -471,7 +516,7 @@
             this.rdocustomerdirectorder.Location = new System.Drawing.Point(3, 219);
             this.rdocustomerdirectorder.MinimumSize = new System.Drawing.Size(1, 1);
             this.rdocustomerdirectorder.Name = "rdocustomerdirectorder";
-            this.rdocustomerdirectorder.Size = new System.Drawing.Size(234, 23);
+            this.rdocustomerdirectorder.Size = new System.Drawing.Size(225, 23);
             this.rdocustomerdirectorder.TabIndex = 22;
             this.rdocustomerdirectorder.Text = "Direct order";
             // 
@@ -483,7 +528,7 @@
             this.rdoSEDAM.Location = new System.Drawing.Point(3, 192);
             this.rdoSEDAM.MinimumSize = new System.Drawing.Size(1, 1);
             this.rdoSEDAM.Name = "rdoSEDAM";
-            this.rdoSEDAM.Size = new System.Drawing.Size(226, 21);
+            this.rdoSEDAM.Size = new System.Drawing.Size(225, 21);
             this.rdoSEDAM.TabIndex = 21;
             this.rdoSEDAM.Text = "SEDA-M";
             // 
@@ -495,7 +540,7 @@
             this.rdoSEDAC.Location = new System.Drawing.Point(3, 165);
             this.rdoSEDAC.MinimumSize = new System.Drawing.Size(1, 1);
             this.rdoSEDAC.Name = "rdoSEDAC";
-            this.rdoSEDAC.Size = new System.Drawing.Size(234, 21);
+            this.rdoSEDAC.Size = new System.Drawing.Size(225, 21);
             this.rdoSEDAC.TabIndex = 20;
             this.rdoSEDAC.Text = "SEDA-C";
             // 
@@ -507,7 +552,7 @@
             this.rdoSEC.Location = new System.Drawing.Point(3, 138);
             this.rdoSEC.MinimumSize = new System.Drawing.Size(1, 1);
             this.rdoSEC.Name = "rdoSEC";
-            this.rdoSEC.Size = new System.Drawing.Size(234, 21);
+            this.rdoSEC.Size = new System.Drawing.Size(225, 21);
             this.rdoSEC.TabIndex = 19;
             this.rdoSEC.Text = "SEC";
             // 
@@ -519,7 +564,7 @@
             this.rdoSIELN.Location = new System.Drawing.Point(3, 111);
             this.rdoSIELN.MinimumSize = new System.Drawing.Size(1, 1);
             this.rdoSIELN.Name = "rdoSIELN";
-            this.rdoSIELN.Size = new System.Drawing.Size(234, 21);
+            this.rdoSIELN.Size = new System.Drawing.Size(225, 21);
             this.rdoSIELN.TabIndex = 18;
             this.rdoSIELN.Text = "SIEL-N";
             // 
@@ -531,7 +576,7 @@
             this.rdoSEIN.Location = new System.Drawing.Point(3, 84);
             this.rdoSEIN.MinimumSize = new System.Drawing.Size(1, 1);
             this.rdoSEIN.Name = "rdoSEIN";
-            this.rdoSEIN.Size = new System.Drawing.Size(234, 21);
+            this.rdoSEIN.Size = new System.Drawing.Size(225, 21);
             this.rdoSEIN.TabIndex = 17;
             this.rdoSEIN.Text = "SEIN";
             // 
@@ -543,7 +588,7 @@
             this.rdoTSTC.Location = new System.Drawing.Point(3, 57);
             this.rdoTSTC.MinimumSize = new System.Drawing.Size(1, 1);
             this.rdoTSTC.Name = "rdoTSTC";
-            this.rdoTSTC.Size = new System.Drawing.Size(234, 21);
+            this.rdoTSTC.Size = new System.Drawing.Size(225, 21);
             this.rdoTSTC.TabIndex = 16;
             this.rdoTSTC.Text = "TSTC";
             // 
@@ -555,7 +600,7 @@
             this.rdoSEVT.Location = new System.Drawing.Point(3, 30);
             this.rdoSEVT.MinimumSize = new System.Drawing.Size(1, 1);
             this.rdoSEVT.Name = "rdoSEVT";
-            this.rdoSEVT.Size = new System.Drawing.Size(234, 21);
+            this.rdoSEVT.Size = new System.Drawing.Size(225, 21);
             this.rdoSEVT.TabIndex = 15;
             this.rdoSEVT.Text = "SEVT";
             // 
@@ -567,7 +612,7 @@
             this.rdoSEV.Location = new System.Drawing.Point(3, 3);
             this.rdoSEV.MinimumSize = new System.Drawing.Size(1, 1);
             this.rdoSEV.Name = "rdoSEV";
-            this.rdoSEV.Size = new System.Drawing.Size(234, 21);
+            this.rdoSEV.Size = new System.Drawing.Size(225, 21);
             this.rdoSEV.TabIndex = 12;
             this.rdoSEV.Text = "SEV";
             // 
@@ -576,21 +621,20 @@
             this.uiGroupBox2.Controls.Add(this.uiTableLayoutPanel6);
             this.uiGroupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiGroupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiGroupBox2.Location = new System.Drawing.Point(4, 297);
+            this.uiGroupBox2.Location = new System.Drawing.Point(4, 294);
             this.uiGroupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiGroupBox2.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiGroupBox2.Name = "uiGroupBox2";
             this.uiGroupBox2.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
-            this.uiGroupBox2.Size = new System.Drawing.Size(256, 104);
+            this.uiGroupBox2.Size = new System.Drawing.Size(245, 103);
             this.uiGroupBox2.TabIndex = 5;
             this.uiGroupBox2.Text = "Produc Type";
             this.uiGroupBox2.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // uiTableLayoutPanel6
             // 
-            this.uiTableLayoutPanel6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.uiTableLayoutPanel6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.uiTableLayoutPanel6.ColumnCount = 1;
             this.uiTableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.uiTableLayoutPanel6.Controls.Add(this.rdomedicaldevices, 0, 1);
@@ -602,7 +646,7 @@
             this.uiTableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.uiTableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.uiTableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.uiTableLayoutPanel6.Size = new System.Drawing.Size(239, 74);
+            this.uiTableLayoutPanel6.Size = new System.Drawing.Size(230, 73);
             this.uiTableLayoutPanel6.TabIndex = 4;
             this.uiTableLayoutPanel6.TagString = null;
             // 
@@ -614,7 +658,7 @@
             this.rdomedicaldevices.Location = new System.Drawing.Point(3, 51);
             this.rdomedicaldevices.MinimumSize = new System.Drawing.Size(1, 1);
             this.rdomedicaldevices.Name = "rdomedicaldevices";
-            this.rdomedicaldevices.Size = new System.Drawing.Size(224, 20);
+            this.rdomedicaldevices.Size = new System.Drawing.Size(220, 19);
             this.rdomedicaldevices.TabIndex = 14;
             this.rdomedicaldevices.Text = "Medical Devices";
             // 
@@ -626,7 +670,7 @@
             this.rdomp3.Location = new System.Drawing.Point(3, 27);
             this.rdomp3.MinimumSize = new System.Drawing.Size(1, 1);
             this.rdomp3.Name = "rdomp3";
-            this.rdomp3.Size = new System.Drawing.Size(224, 18);
+            this.rdomp3.Size = new System.Drawing.Size(220, 18);
             this.rdomp3.TabIndex = 13;
             this.rdomp3.Text = "MP3 ,MID";
             // 
@@ -638,51 +682,62 @@
             this.rdohhp.Location = new System.Drawing.Point(3, 3);
             this.rdohhp.MinimumSize = new System.Drawing.Size(1, 1);
             this.rdohhp.Name = "rdohhp";
-            this.rdohhp.Size = new System.Drawing.Size(224, 18);
+            this.rdohhp.Size = new System.Drawing.Size(220, 18);
             this.rdohhp.TabIndex = 12;
             this.rdohhp.Text = "HHP, Tablet PC";
             // 
-            // uiPanel37
+            // uiPanel39
             // 
-            this.uiPanel37.Controls.Add(this.uiLabel19);
-            this.uiPanel37.Controls.Add(this.uiTextBox1);
-            this.uiPanel37.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.uiPanel37.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel37.Location = new System.Drawing.Point(4, 411);
-            this.uiPanel37.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiPanel37.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiPanel37.Name = "uiPanel37";
-            this.uiPanel37.Size = new System.Drawing.Size(256, 73);
-            this.uiPanel37.TabIndex = 12;
-            this.uiPanel37.Text = null;
-            this.uiPanel37.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.uiPanel39.Controls.Add(this.uiLabel19);
+            this.uiPanel39.Controls.Add(this.txvendor);
+            this.uiPanel39.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.uiPanel39.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.uiPanel39.Location = new System.Drawing.Point(4, 407);
+            this.uiPanel39.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiPanel39.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiPanel39.Name = "uiPanel39";
+            this.uiPanel39.Size = new System.Drawing.Size(245, 73);
+            this.uiPanel39.TabIndex = 12;
+            this.uiPanel39.Text = null;
+            this.uiPanel39.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // uiLabel19
             // 
             this.uiLabel19.AutoSize = true;
             this.uiLabel19.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.uiLabel19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.uiLabel19.Location = new System.Drawing.Point(8, 10);
+            this.uiLabel19.Location = new System.Drawing.Point(2, 10);
             this.uiLabel19.Name = "uiLabel19";
-            this.uiLabel19.Size = new System.Drawing.Size(245, 17);
+            this.uiLabel19.Size = new System.Drawing.Size(237, 17);
             this.uiLabel19.TabIndex = 20;
-            this.uiLabel19.Text = "협력사(제조사) 코드 표기 (Vendor code):";
+            this.uiLabel19.Text = "협력사(제조사)코드 표기 (Vendor code)";
             this.uiLabel19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // uiTextBox1
+            // txvendor
             // 
-            this.uiTextBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.uiTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiTextBox1.Location = new System.Drawing.Point(12, 32);
-            this.uiTextBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiTextBox1.MinimumSize = new System.Drawing.Size(1, 16);
-            this.uiTextBox1.Name = "uiTextBox1";
-            this.uiTextBox1.Padding = new System.Windows.Forms.Padding(5);
-            this.uiTextBox1.ShowText = false;
-            this.uiTextBox1.Size = new System.Drawing.Size(191, 26);
-            this.uiTextBox1.TabIndex = 19;
-            this.uiTextBox1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            this.uiTextBox1.Watermark = "";
+            this.txvendor.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txvendor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.txvendor.Location = new System.Drawing.Point(12, 32);
+            this.txvendor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txvendor.MinimumSize = new System.Drawing.Size(1, 16);
+            this.txvendor.Name = "txvendor";
+            this.txvendor.Padding = new System.Windows.Forms.Padding(5);
+            this.txvendor.ShowText = false;
+            this.txvendor.Size = new System.Drawing.Size(191, 26);
+            this.txvendor.TabIndex = 19;
+            this.txvendor.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.txvendor.Watermark = "";
+            this.txvendor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txvendor_KeyPress);
+            // 
+            // btprintunitbox
+            // 
+            this.btprintunitbox.Location = new System.Drawing.Point(1192, 3);
+            this.btprintunitbox.Name = "btprintunitbox";
+            this.btprintunitbox.Size = new System.Drawing.Size(183, 44);
+            this.btprintunitbox.TabIndex = 2;
+            this.btprintunitbox.Text = "Print Unit Box";
+            this.btprintunitbox.UseVisualStyleBackColor = true;
+            this.btprintunitbox.Click += new System.EventHandler(this.btprintunitbox_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -713,7 +768,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(617, 556);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(922, 556);
             this.tableLayoutPanel1.TabIndex = 0;
             this.tableLayoutPanel1.TagString = null;
             // 
@@ -722,11 +777,11 @@
             this.panel13.Controls.Add(this.txtunitsn1);
             this.panel13.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.panel13.Location = new System.Drawing.Point(212, 465);
+            this.panel13.Location = new System.Drawing.Point(314, 465);
             this.panel13.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel13.MinimumSize = new System.Drawing.Size(1, 1);
             this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(401, 86);
+            this.panel13.Size = new System.Drawing.Size(604, 86);
             this.panel13.TabIndex = 11;
             this.panel13.Text = null;
             this.panel13.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -734,14 +789,15 @@
             // txtunitsn1
             // 
             this.txtunitsn1.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtunitsn1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtunitsn1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txtunitsn1.Location = new System.Drawing.Point(4, 12);
+            this.txtunitsn1.Location = new System.Drawing.Point(0, 0);
             this.txtunitsn1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtunitsn1.MinimumSize = new System.Drawing.Size(1, 16);
             this.txtunitsn1.Name = "txtunitsn1";
             this.txtunitsn1.Padding = new System.Windows.Forms.Padding(5);
             this.txtunitsn1.ShowText = false;
-            this.txtunitsn1.Size = new System.Drawing.Size(253, 26);
+            this.txtunitsn1.Size = new System.Drawing.Size(604, 86);
             this.txtunitsn1.TabIndex = 19;
             this.txtunitsn1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.txtunitsn1.Watermark = "";
@@ -755,7 +811,7 @@
             this.panel12.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel12.MinimumSize = new System.Drawing.Size(1, 1);
             this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(200, 86);
+            this.panel12.Size = new System.Drawing.Size(302, 86);
             this.panel12.TabIndex = 10;
             this.panel12.Text = null;
             this.panel12.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -765,7 +821,7 @@
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.label10.Location = new System.Drawing.Point(20, 12);
+            this.label10.Location = new System.Drawing.Point(20, 29);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(51, 20);
             this.label10.TabIndex = 18;
@@ -777,11 +833,11 @@
             this.panel11.Controls.Add(this.txtunitorigin);
             this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.panel11.Location = new System.Drawing.Point(212, 373);
+            this.panel11.Location = new System.Drawing.Point(314, 373);
             this.panel11.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel11.MinimumSize = new System.Drawing.Size(1, 1);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(401, 82);
+            this.panel11.Size = new System.Drawing.Size(604, 82);
             this.panel11.TabIndex = 9;
             this.panel11.Text = null;
             this.panel11.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -789,14 +845,15 @@
             // txtunitorigin
             // 
             this.txtunitorigin.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtunitorigin.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtunitorigin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txtunitorigin.Location = new System.Drawing.Point(4, 5);
+            this.txtunitorigin.Location = new System.Drawing.Point(0, 0);
             this.txtunitorigin.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtunitorigin.MinimumSize = new System.Drawing.Size(1, 16);
             this.txtunitorigin.Name = "txtunitorigin";
             this.txtunitorigin.Padding = new System.Windows.Forms.Padding(5);
             this.txtunitorigin.ShowText = false;
-            this.txtunitorigin.Size = new System.Drawing.Size(375, 49);
+            this.txtunitorigin.Size = new System.Drawing.Size(604, 82);
             this.txtunitorigin.TabIndex = 17;
             this.txtunitorigin.Text = "MADE IN VIETNAM / FABRIQUE AU VIETNAM";
             this.txtunitorigin.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
@@ -811,7 +868,7 @@
             this.panel10.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel10.MinimumSize = new System.Drawing.Size(1, 1);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(200, 82);
+            this.panel10.Size = new System.Drawing.Size(302, 82);
             this.panel10.TabIndex = 8;
             this.panel10.Text = null;
             this.panel10.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -821,7 +878,7 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.label9.Location = new System.Drawing.Point(20, 5);
+            this.label9.Location = new System.Drawing.Point(20, 34);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(83, 20);
             this.label9.TabIndex = 16;
@@ -830,53 +887,38 @@
             // 
             // panel9
             // 
-            this.panel9.Controls.Add(this.unitdatetime);
-            this.panel9.Controls.Add(this.txtunitmanufacturedate);
+            this.panel9.Controls.Add(this.datepick);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.panel9.Location = new System.Drawing.Point(212, 281);
+            this.panel9.Location = new System.Drawing.Point(314, 281);
             this.panel9.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel9.MinimumSize = new System.Drawing.Size(1, 1);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(401, 82);
+            this.panel9.Size = new System.Drawing.Size(604, 82);
             this.panel9.TabIndex = 7;
             this.panel9.Text = null;
             this.panel9.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // unitdatetime
+            // datepick
             // 
-            this.unitdatetime.FillColor = System.Drawing.Color.White;
-            this.unitdatetime.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.unitdatetime.Location = new System.Drawing.Point(4, 48);
-            this.unitdatetime.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.unitdatetime.MaxLength = 19;
-            this.unitdatetime.MinimumSize = new System.Drawing.Size(63, 0);
-            this.unitdatetime.Name = "unitdatetime";
-            this.unitdatetime.Padding = new System.Windows.Forms.Padding(0, 0, 30, 2);
-            this.unitdatetime.Size = new System.Drawing.Size(253, 29);
-            this.unitdatetime.SymbolDropDown = 61555;
-            this.unitdatetime.SymbolNormal = 61555;
-            this.unitdatetime.SymbolSize = 24;
-            this.unitdatetime.TabIndex = 14;
-            this.unitdatetime.Text = "2025-05-24 16:09:18";
-            this.unitdatetime.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            this.unitdatetime.Value = new System.DateTime(2025, 5, 24, 16, 9, 18, 396);
-            this.unitdatetime.Watermark = "";
-            // 
-            // txtunitmanufacturedate
-            // 
-            this.txtunitmanufacturedate.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtunitmanufacturedate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txtunitmanufacturedate.Location = new System.Drawing.Point(4, 12);
-            this.txtunitmanufacturedate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtunitmanufacturedate.MinimumSize = new System.Drawing.Size(1, 16);
-            this.txtunitmanufacturedate.Name = "txtunitmanufacturedate";
-            this.txtunitmanufacturedate.Padding = new System.Windows.Forms.Padding(5);
-            this.txtunitmanufacturedate.ShowText = false;
-            this.txtunitmanufacturedate.Size = new System.Drawing.Size(253, 26);
-            this.txtunitmanufacturedate.TabIndex = 15;
-            this.txtunitmanufacturedate.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            this.txtunitmanufacturedate.Watermark = "";
+            this.datepick.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.datepick.FillColor = System.Drawing.Color.White;
+            this.datepick.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.datepick.Location = new System.Drawing.Point(0, 0);
+            this.datepick.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.datepick.MaxLength = 10;
+            this.datepick.MinimumSize = new System.Drawing.Size(63, 0);
+            this.datepick.Name = "datepick";
+            this.datepick.Padding = new System.Windows.Forms.Padding(0, 0, 30, 2);
+            this.datepick.Size = new System.Drawing.Size(604, 82);
+            this.datepick.SymbolDropDown = 61555;
+            this.datepick.SymbolNormal = 61555;
+            this.datepick.SymbolSize = 24;
+            this.datepick.TabIndex = 16;
+            this.datepick.Text = "2025-05-26";
+            this.datepick.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.datepick.Value = new System.DateTime(2025, 5, 26, 10, 20, 31, 0);
+            this.datepick.Watermark = "";
             // 
             // panel8
             // 
@@ -887,7 +929,7 @@
             this.panel8.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel8.MinimumSize = new System.Drawing.Size(1, 1);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(200, 82);
+            this.panel8.Size = new System.Drawing.Size(302, 82);
             this.panel8.TabIndex = 6;
             this.panel8.Text = null;
             this.panel8.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -897,7 +939,7 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.label8.Location = new System.Drawing.Point(20, 12);
+            this.label8.Location = new System.Drawing.Point(20, 26);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(195, 20);
             this.label8.TabIndex = 14;
@@ -909,11 +951,11 @@
             this.panel7.Controls.Add(this.txtunititemmodel);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.panel7.Location = new System.Drawing.Point(212, 189);
+            this.panel7.Location = new System.Drawing.Point(314, 189);
             this.panel7.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel7.MinimumSize = new System.Drawing.Size(1, 1);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(401, 82);
+            this.panel7.Size = new System.Drawing.Size(604, 82);
             this.panel7.TabIndex = 5;
             this.panel7.Text = null;
             this.panel7.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -921,17 +963,19 @@
             // txtunititemmodel
             // 
             this.txtunititemmodel.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtunititemmodel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtunititemmodel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txtunititemmodel.Location = new System.Drawing.Point(4, 12);
+            this.txtunititemmodel.Location = new System.Drawing.Point(0, 0);
             this.txtunititemmodel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtunititemmodel.MinimumSize = new System.Drawing.Size(1, 16);
             this.txtunititemmodel.Name = "txtunititemmodel";
             this.txtunititemmodel.Padding = new System.Windows.Forms.Padding(5);
             this.txtunititemmodel.ShowText = false;
-            this.txtunititemmodel.Size = new System.Drawing.Size(253, 26);
+            this.txtunititemmodel.Size = new System.Drawing.Size(604, 82);
             this.txtunititemmodel.TabIndex = 13;
             this.txtunititemmodel.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.txtunititemmodel.Watermark = "";
+            this.txtunititemmodel.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtunititemmodel_KeyPress);
             // 
             // panel6
             // 
@@ -942,7 +986,7 @@
             this.panel6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel6.MinimumSize = new System.Drawing.Size(1, 1);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(200, 82);
+            this.panel6.Size = new System.Drawing.Size(302, 82);
             this.panel6.TabIndex = 4;
             this.panel6.Text = null;
             this.panel6.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -952,7 +996,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.label7.Location = new System.Drawing.Point(20, 12);
+            this.label7.Location = new System.Drawing.Point(20, 18);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(134, 20);
             this.label7.TabIndex = 12;
@@ -964,11 +1008,11 @@
             this.panel5.Controls.Add(this.txtunitskucode);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.panel5.Location = new System.Drawing.Point(212, 97);
+            this.panel5.Location = new System.Drawing.Point(314, 97);
             this.panel5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel5.MinimumSize = new System.Drawing.Size(1, 1);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(401, 82);
+            this.panel5.Size = new System.Drawing.Size(604, 82);
             this.panel5.TabIndex = 3;
             this.panel5.Text = null;
             this.panel5.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -976,17 +1020,19 @@
             // txtunitskucode
             // 
             this.txtunitskucode.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtunitskucode.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtunitskucode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txtunitskucode.Location = new System.Drawing.Point(4, 12);
+            this.txtunitskucode.Location = new System.Drawing.Point(0, 0);
             this.txtunitskucode.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtunitskucode.MinimumSize = new System.Drawing.Size(1, 16);
             this.txtunitskucode.Name = "txtunitskucode";
             this.txtunitskucode.Padding = new System.Windows.Forms.Padding(5);
             this.txtunitskucode.ShowText = false;
-            this.txtunitskucode.Size = new System.Drawing.Size(253, 26);
+            this.txtunitskucode.Size = new System.Drawing.Size(604, 82);
             this.txtunitskucode.TabIndex = 11;
             this.txtunitskucode.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.txtunitskucode.Watermark = "";
+            this.txtunitskucode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtunitskucode_KeyPress);
             // 
             // panel4
             // 
@@ -997,7 +1043,7 @@
             this.panel4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel4.MinimumSize = new System.Drawing.Size(1, 1);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(200, 82);
+            this.panel4.Size = new System.Drawing.Size(302, 82);
             this.panel4.TabIndex = 2;
             this.panel4.Text = null;
             this.panel4.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1007,7 +1053,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.label6.Location = new System.Drawing.Point(20, 12);
+            this.label6.Location = new System.Drawing.Point(20, 26);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(108, 20);
             this.label6.TabIndex = 10;
@@ -1019,11 +1065,11 @@
             this.panel3.Controls.Add(this.txtunitearncode);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.panel3.Location = new System.Drawing.Point(212, 5);
+            this.panel3.Location = new System.Drawing.Point(314, 5);
             this.panel3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel3.MinimumSize = new System.Drawing.Size(1, 1);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(401, 82);
+            this.panel3.Size = new System.Drawing.Size(604, 82);
             this.panel3.TabIndex = 1;
             this.panel3.Text = null;
             this.panel3.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1031,17 +1077,19 @@
             // txtunitearncode
             // 
             this.txtunitearncode.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtunitearncode.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtunitearncode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txtunitearncode.Location = new System.Drawing.Point(4, 18);
+            this.txtunitearncode.Location = new System.Drawing.Point(0, 0);
             this.txtunitearncode.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtunitearncode.MinimumSize = new System.Drawing.Size(1, 16);
             this.txtunitearncode.Name = "txtunitearncode";
             this.txtunitearncode.Padding = new System.Windows.Forms.Padding(5);
             this.txtunitearncode.ShowText = false;
-            this.txtunitearncode.Size = new System.Drawing.Size(253, 26);
+            this.txtunitearncode.Size = new System.Drawing.Size(604, 82);
             this.txtunitearncode.TabIndex = 9;
             this.txtunitearncode.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.txtunitearncode.Watermark = "";
+            this.txtunitearncode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtunitearncode_KeyPress);
             // 
             // panel2
             // 
@@ -1052,7 +1100,7 @@
             this.panel2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel2.MinimumSize = new System.Drawing.Size(1, 1);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(200, 82);
+            this.panel2.Size = new System.Drawing.Size(302, 82);
             this.panel2.TabIndex = 0;
             this.panel2.Text = null;
             this.panel2.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1062,7 +1110,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.label5.Location = new System.Drawing.Point(20, 18);
+            this.label5.Location = new System.Drawing.Point(20, 24);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(189, 20);
             this.label5.TabIndex = 8;
@@ -1076,7 +1124,7 @@
             this.tabPage2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPage2.Location = new System.Drawing.Point(0, 40);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(200, 60);
+            this.tabPage2.Size = new System.Drawing.Size(1385, 564);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Print Middle Box";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1084,24 +1132,216 @@
             // uiTableLayoutPanel1
             // 
             this.uiTableLayoutPanel1.ColumnCount = 2;
-            this.uiTableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80.2521F));
-            this.uiTableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 19.7479F));
+            this.uiTableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
+            this.uiTableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.uiTableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.uiTableLayoutPanel1.Controls.Add(this.uiPanel37, 0, 0);
             this.uiTableLayoutPanel1.Controls.Add(this.uiTableLayoutPanel2, 0, 0);
-            this.uiTableLayoutPanel1.Controls.Add(this.btprintmiddlebox, 1, 0);
             this.uiTableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiTableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.uiTableLayoutPanel1.Name = "uiTableLayoutPanel1";
             this.uiTableLayoutPanel1.RowCount = 1;
-            this.uiTableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.uiTableLayoutPanel1.Size = new System.Drawing.Size(198, 58);
+            this.uiTableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.uiTableLayoutPanel1.Size = new System.Drawing.Size(1383, 562);
             this.uiTableLayoutPanel1.TabIndex = 1;
             this.uiTableLayoutPanel1.TagString = null;
+            // 
+            // uiPanel37
+            // 
+            this.uiPanel37.Controls.Add(this.uiPanel43);
+            this.uiPanel37.Controls.Add(this.btprintmiddlebox);
+            this.uiPanel37.Controls.Add(this.dgvsn);
+            this.uiPanel37.Controls.Add(this.uiPanel41);
+            this.uiPanel37.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.uiPanel37.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.uiPanel37.Location = new System.Drawing.Point(1041, 5);
+            this.uiPanel37.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiPanel37.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiPanel37.Name = "uiPanel37";
+            this.uiPanel37.Size = new System.Drawing.Size(338, 552);
+            this.uiPanel37.TabIndex = 4;
+            this.uiPanel37.Text = null;
+            this.uiPanel37.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // uiPanel43
+            // 
+            this.uiPanel43.Controls.Add(this.uiTableLayoutPanel9);
+            this.uiPanel43.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.uiPanel43.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.uiPanel43.Location = new System.Drawing.Point(0, 436);
+            this.uiPanel43.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiPanel43.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiPanel43.Name = "uiPanel43";
+            this.uiPanel43.Size = new System.Drawing.Size(338, 64);
+            this.uiPanel43.TabIndex = 18;
+            this.uiPanel43.Text = null;
+            this.uiPanel43.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // uiTableLayoutPanel9
+            // 
+            this.uiTableLayoutPanel9.ColumnCount = 2;
+            this.uiTableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.uiTableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.uiTableLayoutPanel9.Controls.Add(this.btndeleteall, 0, 0);
+            this.uiTableLayoutPanel9.Controls.Add(this.btdelete, 0, 0);
+            this.uiTableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.uiTableLayoutPanel9.Location = new System.Drawing.Point(0, 0);
+            this.uiTableLayoutPanel9.Name = "uiTableLayoutPanel9";
+            this.uiTableLayoutPanel9.RowCount = 1;
+            this.uiTableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.uiTableLayoutPanel9.Size = new System.Drawing.Size(338, 64);
+            this.uiTableLayoutPanel9.TabIndex = 20;
+            this.uiTableLayoutPanel9.TagString = null;
+            // 
+            // btndeleteall
+            // 
+            this.btndeleteall.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btndeleteall.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btndeleteall.FillColor = System.Drawing.Color.Red;
+            this.btndeleteall.FillColor2 = System.Drawing.Color.Red;
+            this.btndeleteall.FillHoverColor = System.Drawing.Color.Red;
+            this.btndeleteall.FillPressColor = System.Drawing.Color.Red;
+            this.btndeleteall.FillSelectedColor = System.Drawing.Color.Red;
+            this.btndeleteall.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btndeleteall.Location = new System.Drawing.Point(172, 3);
+            this.btndeleteall.MinimumSize = new System.Drawing.Size(1, 1);
+            this.btndeleteall.Name = "btndeleteall";
+            this.btndeleteall.Size = new System.Drawing.Size(163, 58);
+            this.btndeleteall.TabIndex = 2;
+            this.btndeleteall.Text = "Delete All ";
+            this.btndeleteall.TipsFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.btndeleteall.Click += new System.EventHandler(this.btndeleteall_Click);
+            // 
+            // btdelete
+            // 
+            this.btdelete.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btdelete.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btdelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btdelete.Location = new System.Drawing.Point(3, 3);
+            this.btdelete.MinimumSize = new System.Drawing.Size(1, 1);
+            this.btdelete.Name = "btdelete";
+            this.btdelete.Size = new System.Drawing.Size(163, 58);
+            this.btdelete.TabIndex = 1;
+            this.btdelete.Text = "Delete";
+            this.btdelete.TipsFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.btdelete.Click += new System.EventHandler(this.btdelete_Click);
+            // 
+            // btprintmiddlebox
+            // 
+            this.btprintmiddlebox.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btprintmiddlebox.Location = new System.Drawing.Point(0, 500);
+            this.btprintmiddlebox.Name = "btprintmiddlebox";
+            this.btprintmiddlebox.Size = new System.Drawing.Size(338, 52);
+            this.btprintmiddlebox.TabIndex = 17;
+            this.btprintmiddlebox.Text = "Print Middle Box";
+            this.btprintmiddlebox.UseVisualStyleBackColor = true;
+            this.btprintmiddlebox.Click += new System.EventHandler(this.btprintmiddlebox_Click);
+            // 
+            // dgvsn
+            // 
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.dgvsn.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle11;
+            this.dgvsn.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvsn.BackgroundColor = System.Drawing.Color.White;
+            this.dgvsn.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvsn.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            this.dgvsn.ColumnHeadersHeight = 32;
+            this.dgvsn.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvsn.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.SN});
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            dataGridViewCellStyle13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvsn.DefaultCellStyle = dataGridViewCellStyle13;
+            this.dgvsn.EnableHeadersVisualStyles = false;
+            this.dgvsn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.dgvsn.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
+            this.dgvsn.Location = new System.Drawing.Point(0, 75);
+            this.dgvsn.Name = "dgvsn";
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvsn.RowHeadersDefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle15.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.dgvsn.RowsDefaultCellStyle = dataGridViewCellStyle15;
+            this.dgvsn.SelectedIndex = -1;
+            this.dgvsn.Size = new System.Drawing.Size(338, 228);
+            this.dgvsn.StripeOddColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.dgvsn.TabIndex = 13;
+            // 
+            // SN
+            // 
+            this.SN.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.SN.HeaderText = "SN";
+            this.SN.Name = "SN";
+            // 
+            // uiPanel41
+            // 
+            this.uiPanel41.Controls.Add(this.uiLabel20);
+            this.uiPanel41.Controls.Add(this.txmiddlevendorcode);
+            this.uiPanel41.Dock = System.Windows.Forms.DockStyle.Top;
+            this.uiPanel41.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.uiPanel41.Location = new System.Drawing.Point(0, 0);
+            this.uiPanel41.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiPanel41.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiPanel41.Name = "uiPanel41";
+            this.uiPanel41.Size = new System.Drawing.Size(338, 75);
+            this.uiPanel41.TabIndex = 12;
+            this.uiPanel41.Text = null;
+            this.uiPanel41.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // uiLabel20
+            // 
+            this.uiLabel20.AutoSize = true;
+            this.uiLabel20.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.uiLabel20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.uiLabel20.Location = new System.Drawing.Point(8, 10);
+            this.uiLabel20.Name = "uiLabel20";
+            this.uiLabel20.Size = new System.Drawing.Size(245, 17);
+            this.uiLabel20.TabIndex = 20;
+            this.uiLabel20.Text = "협력사(제조사) 코드 표기 (Vendor code):";
+            this.uiLabel20.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txmiddlevendorcode
+            // 
+            this.txmiddlevendorcode.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txmiddlevendorcode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.txmiddlevendorcode.Location = new System.Drawing.Point(12, 32);
+            this.txmiddlevendorcode.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txmiddlevendorcode.MinimumSize = new System.Drawing.Size(1, 16);
+            this.txmiddlevendorcode.Name = "txmiddlevendorcode";
+            this.txmiddlevendorcode.Padding = new System.Windows.Forms.Padding(5);
+            this.txmiddlevendorcode.ShowText = false;
+            this.txmiddlevendorcode.Size = new System.Drawing.Size(191, 26);
+            this.txmiddlevendorcode.TabIndex = 19;
+            this.txmiddlevendorcode.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.txmiddlevendorcode.Watermark = "";
+            this.txmiddlevendorcode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txmiddlevendorcode_KeyPress);
             // 
             // uiTableLayoutPanel2
             // 
             this.uiTableLayoutPanel2.ColumnCount = 2;
             this.uiTableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.72093F));
             this.uiTableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66.27907F));
+            this.uiTableLayoutPanel2.Controls.Add(this.uiPanel40, 0, 9);
             this.uiTableLayoutPanel2.Controls.Add(this.uiPanel1, 1, 6);
             this.uiTableLayoutPanel2.Controls.Add(this.uiPanel2, 0, 6);
             this.uiTableLayoutPanel2.Controls.Add(this.uiPanel3, 1, 5);
@@ -1120,6 +1360,7 @@
             this.uiTableLayoutPanel2.Controls.Add(this.uiPanel16, 1, 7);
             this.uiTableLayoutPanel2.Controls.Add(this.uiPanel17, 0, 8);
             this.uiTableLayoutPanel2.Controls.Add(this.uiPanel20, 1, 8);
+            this.uiTableLayoutPanel2.Controls.Add(this.uiPanel42, 1, 9);
             this.uiTableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiTableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.uiTableLayoutPanel2.Name = "uiTableLayoutPanel2";
@@ -1134,20 +1375,46 @@
             this.uiTableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.uiTableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.uiTableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.uiTableLayoutPanel2.Size = new System.Drawing.Size(152, 52);
+            this.uiTableLayoutPanel2.Size = new System.Drawing.Size(1031, 556);
             this.uiTableLayoutPanel2.TabIndex = 0;
             this.uiTableLayoutPanel2.TagString = null;
+            // 
+            // uiPanel40
+            // 
+            this.uiPanel40.Controls.Add(this.uiLabel21);
+            this.uiPanel40.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.uiPanel40.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.uiPanel40.Location = new System.Drawing.Point(4, 500);
+            this.uiPanel40.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiPanel40.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiPanel40.Name = "uiPanel40";
+            this.uiPanel40.Size = new System.Drawing.Size(339, 51);
+            this.uiPanel40.TabIndex = 20;
+            this.uiPanel40.Text = null;
+            this.uiPanel40.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // uiLabel21
+            // 
+            this.uiLabel21.AutoSize = true;
+            this.uiLabel21.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.uiLabel21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.uiLabel21.Location = new System.Drawing.Point(3, 5);
+            this.uiLabel21.Name = "uiLabel21";
+            this.uiLabel21.Size = new System.Drawing.Size(51, 20);
+            this.uiLabel21.TabIndex = 19;
+            this.uiLabel21.Text = "[SN]  :";
+            this.uiLabel21.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // uiPanel1
             // 
             this.uiPanel1.Controls.Add(this.txmidleqty);
             this.uiPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel1.Location = new System.Drawing.Point(55, 35);
+            this.uiPanel1.Location = new System.Drawing.Point(351, 335);
             this.uiPanel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel1.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel1.Name = "uiPanel1";
-            this.uiPanel1.Size = new System.Drawing.Size(93, 1);
+            this.uiPanel1.Size = new System.Drawing.Size(676, 45);
             this.uiPanel1.TabIndex = 11;
             this.uiPanel1.Text = null;
             this.uiPanel1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1155,14 +1422,16 @@
             // txmidleqty
             // 
             this.txmidleqty.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txmidleqty.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txmidleqty.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txmidleqty.Location = new System.Drawing.Point(4, 3);
+            this.txmidleqty.Location = new System.Drawing.Point(0, 0);
             this.txmidleqty.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txmidleqty.MinimumSize = new System.Drawing.Size(1, 16);
             this.txmidleqty.Name = "txmidleqty";
             this.txmidleqty.Padding = new System.Windows.Forms.Padding(5);
+            this.txmidleqty.ReadOnly = true;
             this.txmidleqty.ShowText = false;
-            this.txmidleqty.Size = new System.Drawing.Size(253, 26);
+            this.txmidleqty.Size = new System.Drawing.Size(676, 45);
             this.txmidleqty.TabIndex = 19;
             this.txmidleqty.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.txmidleqty.Watermark = "";
@@ -1172,11 +1441,11 @@
             this.uiPanel2.Controls.Add(this.uiLabel1);
             this.uiPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel2.Location = new System.Drawing.Point(4, 35);
+            this.uiPanel2.Location = new System.Drawing.Point(4, 335);
             this.uiPanel2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel2.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel2.Name = "uiPanel2";
-            this.uiPanel2.Size = new System.Drawing.Size(43, 1);
+            this.uiPanel2.Size = new System.Drawing.Size(339, 45);
             this.uiPanel2.TabIndex = 10;
             this.uiPanel2.Text = null;
             this.uiPanel2.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1198,11 +1467,11 @@
             this.uiPanel3.Controls.Add(this.txmidleorigin);
             this.uiPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel3.Location = new System.Drawing.Point(55, 30);
+            this.uiPanel3.Location = new System.Drawing.Point(351, 280);
             this.uiPanel3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel3.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel3.Name = "uiPanel3";
-            this.uiPanel3.Size = new System.Drawing.Size(93, 1);
+            this.uiPanel3.Size = new System.Drawing.Size(676, 45);
             this.uiPanel3.TabIndex = 9;
             this.uiPanel3.Text = null;
             this.uiPanel3.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1210,14 +1479,15 @@
             // txmidleorigin
             // 
             this.txmidleorigin.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txmidleorigin.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txmidleorigin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txmidleorigin.Location = new System.Drawing.Point(4, 2);
+            this.txmidleorigin.Location = new System.Drawing.Point(0, 0);
             this.txmidleorigin.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txmidleorigin.MinimumSize = new System.Drawing.Size(1, 16);
             this.txmidleorigin.Name = "txmidleorigin";
             this.txmidleorigin.Padding = new System.Windows.Forms.Padding(5);
             this.txmidleorigin.ShowText = false;
-            this.txmidleorigin.Size = new System.Drawing.Size(253, 29);
+            this.txmidleorigin.Size = new System.Drawing.Size(676, 45);
             this.txmidleorigin.TabIndex = 17;
             this.txmidleorigin.Text = "MADE IN VIETNAM";
             this.txmidleorigin.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1228,11 +1498,11 @@
             this.uiPanel4.Controls.Add(this.uiLabel2);
             this.uiPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel4.Location = new System.Drawing.Point(4, 30);
+            this.uiPanel4.Location = new System.Drawing.Point(4, 280);
             this.uiPanel4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel4.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel4.Name = "uiPanel4";
-            this.uiPanel4.Size = new System.Drawing.Size(43, 1);
+            this.uiPanel4.Size = new System.Drawing.Size(339, 45);
             this.uiPanel4.TabIndex = 8;
             this.uiPanel4.Text = null;
             this.uiPanel4.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1254,11 +1524,11 @@
             this.uiPanel5.Controls.Add(this.txmidlelotno);
             this.uiPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel5.Location = new System.Drawing.Point(55, 25);
+            this.uiPanel5.Location = new System.Drawing.Point(351, 225);
             this.uiPanel5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel5.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel5.Name = "uiPanel5";
-            this.uiPanel5.Size = new System.Drawing.Size(93, 1);
+            this.uiPanel5.Size = new System.Drawing.Size(676, 45);
             this.uiPanel5.TabIndex = 7;
             this.uiPanel5.Text = null;
             this.uiPanel5.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1266,14 +1536,16 @@
             // txmidlelotno
             // 
             this.txmidlelotno.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txmidlelotno.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txmidlelotno.Enabled = false;
             this.txmidlelotno.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txmidlelotno.Location = new System.Drawing.Point(4, 3);
+            this.txmidlelotno.Location = new System.Drawing.Point(0, 0);
             this.txmidlelotno.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txmidlelotno.MinimumSize = new System.Drawing.Size(1, 16);
             this.txmidlelotno.Name = "txmidlelotno";
             this.txmidlelotno.Padding = new System.Windows.Forms.Padding(5);
             this.txmidlelotno.ShowText = false;
-            this.txmidlelotno.Size = new System.Drawing.Size(253, 26);
+            this.txmidlelotno.Size = new System.Drawing.Size(676, 45);
             this.txmidlelotno.TabIndex = 15;
             this.txmidlelotno.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.txmidlelotno.Watermark = "";
@@ -1283,11 +1555,11 @@
             this.uiPanel6.Controls.Add(this.uiLabel3);
             this.uiPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel6.Location = new System.Drawing.Point(4, 25);
+            this.uiPanel6.Location = new System.Drawing.Point(4, 225);
             this.uiPanel6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel6.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel6.Name = "uiPanel6";
-            this.uiPanel6.Size = new System.Drawing.Size(43, 1);
+            this.uiPanel6.Size = new System.Drawing.Size(339, 45);
             this.uiPanel6.TabIndex = 6;
             this.uiPanel6.Text = null;
             this.uiPanel6.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1309,11 +1581,11 @@
             this.uiPanel7.Controls.Add(this.txmidlesku);
             this.uiPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel7.Location = new System.Drawing.Point(55, 20);
+            this.uiPanel7.Location = new System.Drawing.Point(351, 170);
             this.uiPanel7.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel7.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel7.Name = "uiPanel7";
-            this.uiPanel7.Size = new System.Drawing.Size(93, 1);
+            this.uiPanel7.Size = new System.Drawing.Size(676, 45);
             this.uiPanel7.TabIndex = 5;
             this.uiPanel7.Text = null;
             this.uiPanel7.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1321,28 +1593,30 @@
             // txmidlesku
             // 
             this.txmidlesku.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txmidlesku.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txmidlesku.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txmidlesku.Location = new System.Drawing.Point(4, 4);
+            this.txmidlesku.Location = new System.Drawing.Point(0, 0);
             this.txmidlesku.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txmidlesku.MinimumSize = new System.Drawing.Size(1, 16);
             this.txmidlesku.Name = "txmidlesku";
             this.txmidlesku.Padding = new System.Windows.Forms.Padding(5);
             this.txmidlesku.ShowText = false;
-            this.txmidlesku.Size = new System.Drawing.Size(253, 26);
+            this.txmidlesku.Size = new System.Drawing.Size(676, 45);
             this.txmidlesku.TabIndex = 13;
             this.txmidlesku.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.txmidlesku.Watermark = "";
+            this.txmidlesku.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txmidlesku_KeyPress);
             // 
             // uiPanel8
             // 
             this.uiPanel8.Controls.Add(this.uiLabel4);
             this.uiPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel8.Location = new System.Drawing.Point(4, 20);
+            this.uiPanel8.Location = new System.Drawing.Point(4, 170);
             this.uiPanel8.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel8.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel8.Name = "uiPanel8";
-            this.uiPanel8.Size = new System.Drawing.Size(43, 1);
+            this.uiPanel8.Size = new System.Drawing.Size(339, 45);
             this.uiPanel8.TabIndex = 4;
             this.uiPanel8.Text = null;
             this.uiPanel8.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1364,11 +1638,11 @@
             this.uiPanel9.Controls.Add(this.txmidlemodel);
             this.uiPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel9.Location = new System.Drawing.Point(55, 15);
+            this.uiPanel9.Location = new System.Drawing.Point(351, 115);
             this.uiPanel9.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel9.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel9.Name = "uiPanel9";
-            this.uiPanel9.Size = new System.Drawing.Size(93, 1);
+            this.uiPanel9.Size = new System.Drawing.Size(676, 45);
             this.uiPanel9.TabIndex = 3;
             this.uiPanel9.Text = null;
             this.uiPanel9.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1376,14 +1650,16 @@
             // txmidlemodel
             // 
             this.txmidlemodel.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txmidlemodel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txmidlemodel.Enabled = false;
             this.txmidlemodel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txmidlemodel.Location = new System.Drawing.Point(4, 2);
+            this.txmidlemodel.Location = new System.Drawing.Point(0, 0);
             this.txmidlemodel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txmidlemodel.MinimumSize = new System.Drawing.Size(1, 16);
             this.txmidlemodel.Name = "txmidlemodel";
             this.txmidlemodel.Padding = new System.Windows.Forms.Padding(5);
             this.txmidlemodel.ShowText = false;
-            this.txmidlemodel.Size = new System.Drawing.Size(253, 26);
+            this.txmidlemodel.Size = new System.Drawing.Size(676, 45);
             this.txmidlemodel.TabIndex = 11;
             this.txmidlemodel.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.txmidlemodel.Watermark = "";
@@ -1393,11 +1669,11 @@
             this.uiPanel10.Controls.Add(this.uiLabel5);
             this.uiPanel10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel10.Location = new System.Drawing.Point(4, 15);
+            this.uiPanel10.Location = new System.Drawing.Point(4, 115);
             this.uiPanel10.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel10.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel10.Name = "uiPanel10";
-            this.uiPanel10.Size = new System.Drawing.Size(43, 1);
+            this.uiPanel10.Size = new System.Drawing.Size(339, 45);
             this.uiPanel10.TabIndex = 2;
             this.uiPanel10.Text = null;
             this.uiPanel10.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1416,32 +1692,34 @@
             // 
             // uiPanel11
             // 
-            this.uiPanel11.Controls.Add(this.txmidlebarcode);
+            this.uiPanel11.Controls.Add(this.txmidlelotnobarcode);
             this.uiPanel11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel11.Location = new System.Drawing.Point(55, 5);
+            this.uiPanel11.Location = new System.Drawing.Point(351, 5);
             this.uiPanel11.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel11.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel11.Name = "uiPanel11";
-            this.uiPanel11.Size = new System.Drawing.Size(93, 1);
+            this.uiPanel11.Size = new System.Drawing.Size(676, 45);
             this.uiPanel11.TabIndex = 1;
             this.uiPanel11.Text = null;
             this.uiPanel11.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // txmidlebarcode
+            // txmidlelotnobarcode
             // 
-            this.txmidlebarcode.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txmidlebarcode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txmidlebarcode.Location = new System.Drawing.Point(4, 4);
-            this.txmidlebarcode.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txmidlebarcode.MinimumSize = new System.Drawing.Size(1, 16);
-            this.txmidlebarcode.Name = "txmidlebarcode";
-            this.txmidlebarcode.Padding = new System.Windows.Forms.Padding(5);
-            this.txmidlebarcode.ShowText = false;
-            this.txmidlebarcode.Size = new System.Drawing.Size(253, 22);
-            this.txmidlebarcode.TabIndex = 9;
-            this.txmidlebarcode.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            this.txmidlebarcode.Watermark = "";
+            this.txmidlelotnobarcode.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txmidlelotnobarcode.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txmidlelotnobarcode.Enabled = false;
+            this.txmidlelotnobarcode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.txmidlelotnobarcode.Location = new System.Drawing.Point(0, 0);
+            this.txmidlelotnobarcode.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txmidlelotnobarcode.MinimumSize = new System.Drawing.Size(1, 16);
+            this.txmidlelotnobarcode.Name = "txmidlelotnobarcode";
+            this.txmidlelotnobarcode.Padding = new System.Windows.Forms.Padding(5);
+            this.txmidlelotnobarcode.ShowText = false;
+            this.txmidlelotnobarcode.Size = new System.Drawing.Size(676, 45);
+            this.txmidlelotnobarcode.TabIndex = 9;
+            this.txmidlelotnobarcode.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.txmidlelotnobarcode.Watermark = "";
             // 
             // uiPanel12
             // 
@@ -1452,7 +1730,7 @@
             this.uiPanel12.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel12.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel12.Name = "uiPanel12";
-            this.uiPanel12.Size = new System.Drawing.Size(43, 1);
+            this.uiPanel12.Size = new System.Drawing.Size(339, 45);
             this.uiPanel12.TabIndex = 0;
             this.uiPanel12.Text = null;
             this.uiPanel12.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1474,11 +1752,11 @@
             this.uiPanel13.Controls.Add(this.uiLabel7);
             this.uiPanel13.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel13.Location = new System.Drawing.Point(4, 10);
+            this.uiPanel13.Location = new System.Drawing.Point(4, 60);
             this.uiPanel13.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel13.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel13.Name = "uiPanel13";
-            this.uiPanel13.Size = new System.Drawing.Size(43, 1);
+            this.uiPanel13.Size = new System.Drawing.Size(339, 45);
             this.uiPanel13.TabIndex = 12;
             this.uiPanel13.Text = null;
             this.uiPanel13.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1500,11 +1778,11 @@
             this.uiPanel14.Controls.Add(this.txmidleitem);
             this.uiPanel14.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel14.Location = new System.Drawing.Point(55, 10);
+            this.uiPanel14.Location = new System.Drawing.Point(351, 60);
             this.uiPanel14.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel14.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel14.Name = "uiPanel14";
-            this.uiPanel14.Size = new System.Drawing.Size(93, 1);
+            this.uiPanel14.Size = new System.Drawing.Size(676, 45);
             this.uiPanel14.TabIndex = 13;
             this.uiPanel14.Text = null;
             this.uiPanel14.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1512,28 +1790,30 @@
             // txmidleitem
             // 
             this.txmidleitem.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txmidleitem.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txmidleitem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txmidleitem.Location = new System.Drawing.Point(4, 5);
+            this.txmidleitem.Location = new System.Drawing.Point(0, 0);
             this.txmidleitem.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txmidleitem.MinimumSize = new System.Drawing.Size(1, 16);
             this.txmidleitem.Name = "txmidleitem";
             this.txmidleitem.Padding = new System.Windows.Forms.Padding(5);
             this.txmidleitem.ShowText = false;
-            this.txmidleitem.Size = new System.Drawing.Size(253, 26);
+            this.txmidleitem.Size = new System.Drawing.Size(676, 45);
             this.txmidleitem.TabIndex = 12;
             this.txmidleitem.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.txmidleitem.Watermark = "";
+            this.txmidleitem.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txmidleitem_KeyPress);
             // 
             // uiPanel15
             // 
             this.uiPanel15.Controls.Add(this.uiLabel8);
             this.uiPanel15.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel15.Location = new System.Drawing.Point(4, 40);
+            this.uiPanel15.Location = new System.Drawing.Point(4, 390);
             this.uiPanel15.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel15.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel15.Name = "uiPanel15";
-            this.uiPanel15.Size = new System.Drawing.Size(43, 1);
+            this.uiPanel15.Size = new System.Drawing.Size(339, 45);
             this.uiPanel15.TabIndex = 14;
             this.uiPanel15.Text = null;
             this.uiPanel15.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1555,11 +1835,11 @@
             this.uiPanel16.Controls.Add(this.txmidlebarcodemodel);
             this.uiPanel16.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel16.Location = new System.Drawing.Point(55, 40);
+            this.uiPanel16.Location = new System.Drawing.Point(351, 390);
             this.uiPanel16.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel16.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel16.Name = "uiPanel16";
-            this.uiPanel16.Size = new System.Drawing.Size(93, 1);
+            this.uiPanel16.Size = new System.Drawing.Size(676, 45);
             this.uiPanel16.TabIndex = 15;
             this.uiPanel16.Text = null;
             this.uiPanel16.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1567,14 +1847,15 @@
             // txmidlebarcodemodel
             // 
             this.txmidlebarcodemodel.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txmidlebarcodemodel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txmidlebarcodemodel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txmidlebarcodemodel.Location = new System.Drawing.Point(4, 5);
+            this.txmidlebarcodemodel.Location = new System.Drawing.Point(0, 0);
             this.txmidlebarcodemodel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txmidlebarcodemodel.MinimumSize = new System.Drawing.Size(1, 16);
             this.txmidlebarcodemodel.Name = "txmidlebarcodemodel";
             this.txmidlebarcodemodel.Padding = new System.Windows.Forms.Padding(5);
             this.txmidlebarcodemodel.ShowText = false;
-            this.txmidlebarcodemodel.Size = new System.Drawing.Size(253, 26);
+            this.txmidlebarcodemodel.Size = new System.Drawing.Size(676, 45);
             this.txmidlebarcodemodel.TabIndex = 12;
             this.txmidlebarcodemodel.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.txmidlebarcodemodel.Watermark = "";
@@ -1584,11 +1865,11 @@
             this.uiPanel17.Controls.Add(this.uiLabel9);
             this.uiPanel17.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel17.Location = new System.Drawing.Point(4, 45);
+            this.uiPanel17.Location = new System.Drawing.Point(4, 445);
             this.uiPanel17.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel17.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel17.Name = "uiPanel17";
-            this.uiPanel17.Size = new System.Drawing.Size(43, 1);
+            this.uiPanel17.Size = new System.Drawing.Size(339, 45);
             this.uiPanel17.TabIndex = 16;
             this.uiPanel17.Text = null;
             this.uiPanel17.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1600,9 +1881,9 @@
             this.uiLabel9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
             this.uiLabel9.Location = new System.Drawing.Point(3, 5);
             this.uiLabel9.Name = "uiLabel9";
-            this.uiLabel9.Size = new System.Drawing.Size(205, 20);
+            this.uiLabel9.Size = new System.Drawing.Size(197, 20);
             this.uiLabel9.TabIndex = 19;
-            this.uiLabel9.Text = "[[BAR CODE (EAN/UPC)]]  :";
+            this.uiLabel9.Text = "[BAR CODE (EAN/UPC)]  :";
             this.uiLabel9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // uiPanel20
@@ -1610,11 +1891,11 @@
             this.uiPanel20.Controls.Add(this.txmidlebarcodeean);
             this.uiPanel20.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel20.Location = new System.Drawing.Point(55, 45);
+            this.uiPanel20.Location = new System.Drawing.Point(351, 445);
             this.uiPanel20.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel20.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel20.Name = "uiPanel20";
-            this.uiPanel20.Size = new System.Drawing.Size(93, 1);
+            this.uiPanel20.Size = new System.Drawing.Size(676, 45);
             this.uiPanel20.TabIndex = 19;
             this.uiPanel20.Text = null;
             this.uiPanel20.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1622,27 +1903,50 @@
             // txmidlebarcodeean
             // 
             this.txmidlebarcodeean.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txmidlebarcodeean.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txmidlebarcodeean.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txmidlebarcodeean.Location = new System.Drawing.Point(4, 5);
+            this.txmidlebarcodeean.Location = new System.Drawing.Point(0, 0);
             this.txmidlebarcodeean.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txmidlebarcodeean.MinimumSize = new System.Drawing.Size(1, 16);
             this.txmidlebarcodeean.Name = "txmidlebarcodeean";
             this.txmidlebarcodeean.Padding = new System.Windows.Forms.Padding(5);
             this.txmidlebarcodeean.ShowText = false;
-            this.txmidlebarcodeean.Size = new System.Drawing.Size(253, 21);
+            this.txmidlebarcodeean.Size = new System.Drawing.Size(676, 45);
             this.txmidlebarcodeean.TabIndex = 12;
             this.txmidlebarcodeean.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.txmidlebarcodeean.Watermark = "";
+            this.txmidlebarcodeean.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txmidlebarcodeean_KeyPress);
             // 
-            // btprintmiddlebox
+            // uiPanel42
             // 
-            this.btprintmiddlebox.Location = new System.Drawing.Point(161, 3);
-            this.btprintmiddlebox.Name = "btprintmiddlebox";
-            this.btprintmiddlebox.Size = new System.Drawing.Size(34, 52);
-            this.btprintmiddlebox.TabIndex = 1;
-            this.btprintmiddlebox.Text = "Print Middle Box";
-            this.btprintmiddlebox.UseVisualStyleBackColor = true;
-            this.btprintmiddlebox.Click += new System.EventHandler(this.btprintmiddlebox_Click);
+            this.uiPanel42.Controls.Add(this.txmiddlesn);
+            this.uiPanel42.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.uiPanel42.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.uiPanel42.Location = new System.Drawing.Point(351, 500);
+            this.uiPanel42.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiPanel42.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiPanel42.Name = "uiPanel42";
+            this.uiPanel42.Size = new System.Drawing.Size(676, 51);
+            this.uiPanel42.TabIndex = 21;
+            this.uiPanel42.Text = null;
+            this.uiPanel42.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // txmiddlesn
+            // 
+            this.txmiddlesn.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txmiddlesn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txmiddlesn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.txmiddlesn.Location = new System.Drawing.Point(0, 0);
+            this.txmiddlesn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txmiddlesn.MinimumSize = new System.Drawing.Size(1, 16);
+            this.txmiddlesn.Name = "txmiddlesn";
+            this.txmiddlesn.Padding = new System.Windows.Forms.Padding(5);
+            this.txmiddlesn.ShowText = false;
+            this.txmiddlesn.Size = new System.Drawing.Size(676, 51);
+            this.txmiddlesn.TabIndex = 0;
+            this.txmiddlesn.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.txmiddlesn.Watermark = "";
+            this.txmiddlesn.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txmiddlesn_KeyPress);
             // 
             // tabPage3
             // 
@@ -1651,7 +1955,7 @@
             this.tabPage3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPage3.Location = new System.Drawing.Point(0, 40);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(200, 60);
+            this.tabPage3.Size = new System.Drawing.Size(1385, 564);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Print Master Box";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1659,16 +1963,16 @@
             // uiTableLayoutPanel3
             // 
             this.uiTableLayoutPanel3.ColumnCount = 2;
-            this.uiTableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80.2521F));
-            this.uiTableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 19.7479F));
+            this.uiTableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 76.06652F));
+            this.uiTableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 23.93348F));
             this.uiTableLayoutPanel3.Controls.Add(this.uiTableLayoutPanel4, 0, 0);
-            this.uiTableLayoutPanel3.Controls.Add(this.btprintmasterbox, 1, 0);
+            this.uiTableLayoutPanel3.Controls.Add(this.uiPanel49, 1, 0);
             this.uiTableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiTableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
             this.uiTableLayoutPanel3.Name = "uiTableLayoutPanel3";
             this.uiTableLayoutPanel3.RowCount = 1;
             this.uiTableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.uiTableLayoutPanel3.Size = new System.Drawing.Size(198, 58);
+            this.uiTableLayoutPanel3.Size = new System.Drawing.Size(1383, 562);
             this.uiTableLayoutPanel3.TabIndex = 2;
             this.uiTableLayoutPanel3.TagString = null;
             // 
@@ -1677,6 +1981,8 @@
             this.uiTableLayoutPanel4.ColumnCount = 2;
             this.uiTableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.72093F));
             this.uiTableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66.27907F));
+            this.uiTableLayoutPanel4.Controls.Add(this.uiPanel47, 0, 10);
+            this.uiTableLayoutPanel4.Controls.Add(this.uiPanel45, 0, 9);
             this.uiTableLayoutPanel4.Controls.Add(this.uiPanel18, 1, 6);
             this.uiTableLayoutPanel4.Controls.Add(this.uiPanel19, 0, 6);
             this.uiTableLayoutPanel4.Controls.Add(this.uiPanel21, 1, 5);
@@ -1695,34 +2001,119 @@
             this.uiTableLayoutPanel4.Controls.Add(this.uiPanel34, 1, 7);
             this.uiTableLayoutPanel4.Controls.Add(this.uiPanel35, 0, 8);
             this.uiTableLayoutPanel4.Controls.Add(this.uiPanel36, 1, 8);
+            this.uiTableLayoutPanel4.Controls.Add(this.uiPanel46, 1, 9);
+            this.uiTableLayoutPanel4.Controls.Add(this.uiPanel48, 1, 10);
             this.uiTableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiTableLayoutPanel4.Location = new System.Drawing.Point(3, 3);
             this.uiTableLayoutPanel4.Name = "uiTableLayoutPanel4";
-            this.uiTableLayoutPanel4.RowCount = 10;
-            this.uiTableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.uiTableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.uiTableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.uiTableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.uiTableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.uiTableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.uiTableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.uiTableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.uiTableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.uiTableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.uiTableLayoutPanel4.Size = new System.Drawing.Size(152, 52);
+            this.uiTableLayoutPanel4.RowCount = 11;
+            this.uiTableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.090909F));
+            this.uiTableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.090909F));
+            this.uiTableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.090909F));
+            this.uiTableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.090909F));
+            this.uiTableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.090909F));
+            this.uiTableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.090909F));
+            this.uiTableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.090909F));
+            this.uiTableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.090909F));
+            this.uiTableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.090909F));
+            this.uiTableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.090909F));
+            this.uiTableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.090909F));
+            this.uiTableLayoutPanel4.Size = new System.Drawing.Size(1046, 556);
             this.uiTableLayoutPanel4.TabIndex = 0;
             this.uiTableLayoutPanel4.TagString = null;
+            // 
+            // uiPanel47
+            // 
+            this.uiPanel47.Controls.Add(this.uiLabel23);
+            this.uiPanel47.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.uiPanel47.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.uiPanel47.Location = new System.Drawing.Point(4, 505);
+            this.uiPanel47.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiPanel47.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiPanel47.Name = "uiPanel47";
+            this.uiPanel47.Size = new System.Drawing.Size(344, 46);
+            this.uiPanel47.TabIndex = 23;
+            this.uiPanel47.Text = null;
+            this.uiPanel47.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // uiLabel23
+            // 
+            this.uiLabel23.AutoSize = true;
+            this.uiLabel23.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.uiLabel23.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.uiLabel23.Location = new System.Drawing.Point(3, 5);
+            this.uiLabel23.Name = "uiLabel23";
+            this.uiLabel23.Size = new System.Drawing.Size(276, 20);
+            this.uiLabel23.TabIndex = 19;
+            this.uiLabel23.Text = "[협력사(제조사) 코드 표기 (Vendor code):]  :";
+            this.uiLabel23.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // uiPanel45
+            // 
+            this.uiPanel45.Controls.Add(this.uiPanel44);
+            this.uiPanel45.Controls.Add(this.uiTextBox1);
+            this.uiPanel45.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.uiPanel45.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.uiPanel45.Location = new System.Drawing.Point(4, 455);
+            this.uiPanel45.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiPanel45.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiPanel45.Name = "uiPanel45";
+            this.uiPanel45.Size = new System.Drawing.Size(344, 40);
+            this.uiPanel45.TabIndex = 21;
+            this.uiPanel45.Text = null;
+            this.uiPanel45.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // uiPanel44
+            // 
+            this.uiPanel44.Controls.Add(this.uiLabel22);
+            this.uiPanel44.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.uiPanel44.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.uiPanel44.Location = new System.Drawing.Point(0, 0);
+            this.uiPanel44.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiPanel44.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiPanel44.Name = "uiPanel44";
+            this.uiPanel44.Size = new System.Drawing.Size(344, 40);
+            this.uiPanel44.TabIndex = 21;
+            this.uiPanel44.Text = null;
+            this.uiPanel44.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // uiLabel22
+            // 
+            this.uiLabel22.AutoSize = true;
+            this.uiLabel22.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.uiLabel22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.uiLabel22.Location = new System.Drawing.Point(3, 5);
+            this.uiLabel22.Name = "uiLabel22";
+            this.uiLabel22.Size = new System.Drawing.Size(51, 20);
+            this.uiLabel22.TabIndex = 19;
+            this.uiLabel22.Text = "[SN]  :";
+            this.uiLabel22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // uiTextBox1
+            // 
+            this.uiTextBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.uiTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.uiTextBox1.Location = new System.Drawing.Point(4, 5);
+            this.uiTextBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiTextBox1.MinimumSize = new System.Drawing.Size(1, 16);
+            this.uiTextBox1.Name = "uiTextBox1";
+            this.uiTextBox1.Padding = new System.Windows.Forms.Padding(5);
+            this.uiTextBox1.ShowText = false;
+            this.uiTextBox1.Size = new System.Drawing.Size(253, 26);
+            this.uiTextBox1.TabIndex = 12;
+            this.uiTextBox1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.uiTextBox1.Watermark = "";
             // 
             // uiPanel18
             // 
             this.uiPanel18.Controls.Add(this.txmasterqty);
             this.uiPanel18.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel18.Location = new System.Drawing.Point(55, 35);
+            this.uiPanel18.Location = new System.Drawing.Point(356, 305);
             this.uiPanel18.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel18.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel18.Name = "uiPanel18";
-            this.uiPanel18.Size = new System.Drawing.Size(93, 1);
+            this.uiPanel18.Size = new System.Drawing.Size(686, 40);
             this.uiPanel18.TabIndex = 11;
             this.uiPanel18.Text = null;
             this.uiPanel18.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1730,14 +2121,16 @@
             // txmasterqty
             // 
             this.txmasterqty.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txmasterqty.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txmasterqty.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txmasterqty.Location = new System.Drawing.Point(4, 3);
+            this.txmasterqty.Location = new System.Drawing.Point(0, 0);
             this.txmasterqty.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txmasterqty.MinimumSize = new System.Drawing.Size(1, 16);
             this.txmasterqty.Name = "txmasterqty";
             this.txmasterqty.Padding = new System.Windows.Forms.Padding(5);
+            this.txmasterqty.ReadOnly = true;
             this.txmasterqty.ShowText = false;
-            this.txmasterqty.Size = new System.Drawing.Size(253, 26);
+            this.txmasterqty.Size = new System.Drawing.Size(686, 40);
             this.txmasterqty.TabIndex = 19;
             this.txmasterqty.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.txmasterqty.Watermark = "";
@@ -1747,11 +2140,11 @@
             this.uiPanel19.Controls.Add(this.uiLabel10);
             this.uiPanel19.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel19.Location = new System.Drawing.Point(4, 35);
+            this.uiPanel19.Location = new System.Drawing.Point(4, 305);
             this.uiPanel19.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel19.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel19.Name = "uiPanel19";
-            this.uiPanel19.Size = new System.Drawing.Size(43, 1);
+            this.uiPanel19.Size = new System.Drawing.Size(344, 40);
             this.uiPanel19.TabIndex = 10;
             this.uiPanel19.Text = null;
             this.uiPanel19.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1773,11 +2166,11 @@
             this.uiPanel21.Controls.Add(this.txmasterorigin);
             this.uiPanel21.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel21.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel21.Location = new System.Drawing.Point(55, 30);
+            this.uiPanel21.Location = new System.Drawing.Point(356, 255);
             this.uiPanel21.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel21.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel21.Name = "uiPanel21";
-            this.uiPanel21.Size = new System.Drawing.Size(93, 1);
+            this.uiPanel21.Size = new System.Drawing.Size(686, 40);
             this.uiPanel21.TabIndex = 9;
             this.uiPanel21.Text = null;
             this.uiPanel21.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1785,14 +2178,15 @@
             // txmasterorigin
             // 
             this.txmasterorigin.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txmasterorigin.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txmasterorigin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txmasterorigin.Location = new System.Drawing.Point(4, 2);
+            this.txmasterorigin.Location = new System.Drawing.Point(0, 0);
             this.txmasterorigin.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txmasterorigin.MinimumSize = new System.Drawing.Size(1, 16);
             this.txmasterorigin.Name = "txmasterorigin";
             this.txmasterorigin.Padding = new System.Windows.Forms.Padding(5);
             this.txmasterorigin.ShowText = false;
-            this.txmasterorigin.Size = new System.Drawing.Size(253, 29);
+            this.txmasterorigin.Size = new System.Drawing.Size(686, 40);
             this.txmasterorigin.TabIndex = 17;
             this.txmasterorigin.Text = "MADE IN VIETNAM";
             this.txmasterorigin.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1803,11 +2197,11 @@
             this.uiPanel22.Controls.Add(this.uiLabel11);
             this.uiPanel22.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel22.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel22.Location = new System.Drawing.Point(4, 30);
+            this.uiPanel22.Location = new System.Drawing.Point(4, 255);
             this.uiPanel22.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel22.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel22.Name = "uiPanel22";
-            this.uiPanel22.Size = new System.Drawing.Size(43, 1);
+            this.uiPanel22.Size = new System.Drawing.Size(344, 40);
             this.uiPanel22.TabIndex = 8;
             this.uiPanel22.Text = null;
             this.uiPanel22.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1829,11 +2223,11 @@
             this.uiPanel23.Controls.Add(this.txmasterlotno);
             this.uiPanel23.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel23.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel23.Location = new System.Drawing.Point(55, 25);
+            this.uiPanel23.Location = new System.Drawing.Point(356, 205);
             this.uiPanel23.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel23.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel23.Name = "uiPanel23";
-            this.uiPanel23.Size = new System.Drawing.Size(93, 1);
+            this.uiPanel23.Size = new System.Drawing.Size(686, 40);
             this.uiPanel23.TabIndex = 7;
             this.uiPanel23.Text = null;
             this.uiPanel23.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1841,14 +2235,16 @@
             // txmasterlotno
             // 
             this.txmasterlotno.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txmasterlotno.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txmasterlotno.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txmasterlotno.Location = new System.Drawing.Point(4, 3);
+            this.txmasterlotno.Location = new System.Drawing.Point(0, 0);
             this.txmasterlotno.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txmasterlotno.MinimumSize = new System.Drawing.Size(1, 16);
             this.txmasterlotno.Name = "txmasterlotno";
             this.txmasterlotno.Padding = new System.Windows.Forms.Padding(5);
+            this.txmasterlotno.ReadOnly = true;
             this.txmasterlotno.ShowText = false;
-            this.txmasterlotno.Size = new System.Drawing.Size(253, 26);
+            this.txmasterlotno.Size = new System.Drawing.Size(686, 40);
             this.txmasterlotno.TabIndex = 15;
             this.txmasterlotno.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.txmasterlotno.Watermark = "";
@@ -1858,11 +2254,11 @@
             this.uiPanel24.Controls.Add(this.uiLabel12);
             this.uiPanel24.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel24.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel24.Location = new System.Drawing.Point(4, 25);
+            this.uiPanel24.Location = new System.Drawing.Point(4, 205);
             this.uiPanel24.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel24.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel24.Name = "uiPanel24";
-            this.uiPanel24.Size = new System.Drawing.Size(43, 1);
+            this.uiPanel24.Size = new System.Drawing.Size(344, 40);
             this.uiPanel24.TabIndex = 6;
             this.uiPanel24.Text = null;
             this.uiPanel24.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1884,11 +2280,11 @@
             this.uiPanel25.Controls.Add(this.txmastersku);
             this.uiPanel25.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel25.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel25.Location = new System.Drawing.Point(55, 20);
+            this.uiPanel25.Location = new System.Drawing.Point(356, 155);
             this.uiPanel25.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel25.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel25.Name = "uiPanel25";
-            this.uiPanel25.Size = new System.Drawing.Size(93, 1);
+            this.uiPanel25.Size = new System.Drawing.Size(686, 40);
             this.uiPanel25.TabIndex = 5;
             this.uiPanel25.Text = null;
             this.uiPanel25.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1896,28 +2292,30 @@
             // txmastersku
             // 
             this.txmastersku.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txmastersku.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txmastersku.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txmastersku.Location = new System.Drawing.Point(4, 4);
+            this.txmastersku.Location = new System.Drawing.Point(0, 0);
             this.txmastersku.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txmastersku.MinimumSize = new System.Drawing.Size(1, 16);
             this.txmastersku.Name = "txmastersku";
             this.txmastersku.Padding = new System.Windows.Forms.Padding(5);
             this.txmastersku.ShowText = false;
-            this.txmastersku.Size = new System.Drawing.Size(253, 26);
+            this.txmastersku.Size = new System.Drawing.Size(686, 40);
             this.txmastersku.TabIndex = 13;
             this.txmastersku.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.txmastersku.Watermark = "";
+            this.txmastersku.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txmastersku_KeyPress);
             // 
             // uiPanel26
             // 
             this.uiPanel26.Controls.Add(this.uiLabel13);
             this.uiPanel26.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel26.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel26.Location = new System.Drawing.Point(4, 20);
+            this.uiPanel26.Location = new System.Drawing.Point(4, 155);
             this.uiPanel26.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel26.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel26.Name = "uiPanel26";
-            this.uiPanel26.Size = new System.Drawing.Size(43, 1);
+            this.uiPanel26.Size = new System.Drawing.Size(344, 40);
             this.uiPanel26.TabIndex = 4;
             this.uiPanel26.Text = null;
             this.uiPanel26.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1939,11 +2337,11 @@
             this.uiPanel27.Controls.Add(this.txmastermodel);
             this.uiPanel27.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel27.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel27.Location = new System.Drawing.Point(55, 15);
+            this.uiPanel27.Location = new System.Drawing.Point(356, 105);
             this.uiPanel27.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel27.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel27.Name = "uiPanel27";
-            this.uiPanel27.Size = new System.Drawing.Size(93, 1);
+            this.uiPanel27.Size = new System.Drawing.Size(686, 40);
             this.uiPanel27.TabIndex = 3;
             this.uiPanel27.Text = null;
             this.uiPanel27.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1951,14 +2349,16 @@
             // txmastermodel
             // 
             this.txmastermodel.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txmastermodel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txmastermodel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txmastermodel.Location = new System.Drawing.Point(4, 2);
+            this.txmastermodel.Location = new System.Drawing.Point(0, 0);
             this.txmastermodel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txmastermodel.MinimumSize = new System.Drawing.Size(1, 16);
             this.txmastermodel.Name = "txmastermodel";
             this.txmastermodel.Padding = new System.Windows.Forms.Padding(5);
+            this.txmastermodel.ReadOnly = true;
             this.txmastermodel.ShowText = false;
-            this.txmastermodel.Size = new System.Drawing.Size(253, 26);
+            this.txmastermodel.Size = new System.Drawing.Size(686, 40);
             this.txmastermodel.TabIndex = 11;
             this.txmastermodel.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.txmastermodel.Watermark = "";
@@ -1968,11 +2368,11 @@
             this.uiPanel28.Controls.Add(this.uiLabel14);
             this.uiPanel28.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel28.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel28.Location = new System.Drawing.Point(4, 15);
+            this.uiPanel28.Location = new System.Drawing.Point(4, 105);
             this.uiPanel28.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel28.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel28.Name = "uiPanel28";
-            this.uiPanel28.Size = new System.Drawing.Size(43, 1);
+            this.uiPanel28.Size = new System.Drawing.Size(344, 40);
             this.uiPanel28.TabIndex = 2;
             this.uiPanel28.Text = null;
             this.uiPanel28.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1994,11 +2394,11 @@
             this.uiPanel29.Controls.Add(this.txmasterbarcode);
             this.uiPanel29.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel29.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel29.Location = new System.Drawing.Point(55, 5);
+            this.uiPanel29.Location = new System.Drawing.Point(356, 5);
             this.uiPanel29.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel29.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel29.Name = "uiPanel29";
-            this.uiPanel29.Size = new System.Drawing.Size(93, 1);
+            this.uiPanel29.Size = new System.Drawing.Size(686, 40);
             this.uiPanel29.TabIndex = 1;
             this.uiPanel29.Text = null;
             this.uiPanel29.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2006,14 +2406,16 @@
             // txmasterbarcode
             // 
             this.txmasterbarcode.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txmasterbarcode.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txmasterbarcode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txmasterbarcode.Location = new System.Drawing.Point(4, 4);
+            this.txmasterbarcode.Location = new System.Drawing.Point(0, 0);
             this.txmasterbarcode.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txmasterbarcode.MinimumSize = new System.Drawing.Size(1, 16);
             this.txmasterbarcode.Name = "txmasterbarcode";
             this.txmasterbarcode.Padding = new System.Windows.Forms.Padding(5);
+            this.txmasterbarcode.ReadOnly = true;
             this.txmasterbarcode.ShowText = false;
-            this.txmasterbarcode.Size = new System.Drawing.Size(253, 22);
+            this.txmasterbarcode.Size = new System.Drawing.Size(686, 40);
             this.txmasterbarcode.TabIndex = 9;
             this.txmasterbarcode.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.txmasterbarcode.Watermark = "";
@@ -2027,7 +2429,7 @@
             this.uiPanel30.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel30.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel30.Name = "uiPanel30";
-            this.uiPanel30.Size = new System.Drawing.Size(43, 1);
+            this.uiPanel30.Size = new System.Drawing.Size(344, 40);
             this.uiPanel30.TabIndex = 0;
             this.uiPanel30.Text = null;
             this.uiPanel30.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2049,11 +2451,11 @@
             this.uiPanel31.Controls.Add(this.uiLabel16);
             this.uiPanel31.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel31.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel31.Location = new System.Drawing.Point(4, 10);
+            this.uiPanel31.Location = new System.Drawing.Point(4, 55);
             this.uiPanel31.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel31.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel31.Name = "uiPanel31";
-            this.uiPanel31.Size = new System.Drawing.Size(43, 1);
+            this.uiPanel31.Size = new System.Drawing.Size(344, 40);
             this.uiPanel31.TabIndex = 12;
             this.uiPanel31.Text = null;
             this.uiPanel31.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2075,11 +2477,11 @@
             this.uiPanel32.Controls.Add(this.txmasteritem);
             this.uiPanel32.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel32.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel32.Location = new System.Drawing.Point(55, 10);
+            this.uiPanel32.Location = new System.Drawing.Point(356, 55);
             this.uiPanel32.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel32.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel32.Name = "uiPanel32";
-            this.uiPanel32.Size = new System.Drawing.Size(93, 1);
+            this.uiPanel32.Size = new System.Drawing.Size(686, 40);
             this.uiPanel32.TabIndex = 13;
             this.uiPanel32.Text = null;
             this.uiPanel32.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2087,28 +2489,30 @@
             // txmasteritem
             // 
             this.txmasteritem.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txmasteritem.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txmasteritem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txmasteritem.Location = new System.Drawing.Point(4, 5);
+            this.txmasteritem.Location = new System.Drawing.Point(0, 0);
             this.txmasteritem.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txmasteritem.MinimumSize = new System.Drawing.Size(1, 16);
             this.txmasteritem.Name = "txmasteritem";
             this.txmasteritem.Padding = new System.Windows.Forms.Padding(5);
             this.txmasteritem.ShowText = false;
-            this.txmasteritem.Size = new System.Drawing.Size(253, 26);
+            this.txmasteritem.Size = new System.Drawing.Size(686, 40);
             this.txmasteritem.TabIndex = 12;
             this.txmasteritem.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.txmasteritem.Watermark = "";
+            this.txmasteritem.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txmasteritem_KeyPress);
             // 
             // uiPanel33
             // 
             this.uiPanel33.Controls.Add(this.uiLabel17);
             this.uiPanel33.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel33.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel33.Location = new System.Drawing.Point(4, 40);
+            this.uiPanel33.Location = new System.Drawing.Point(4, 355);
             this.uiPanel33.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel33.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel33.Name = "uiPanel33";
-            this.uiPanel33.Size = new System.Drawing.Size(43, 1);
+            this.uiPanel33.Size = new System.Drawing.Size(344, 40);
             this.uiPanel33.TabIndex = 14;
             this.uiPanel33.Text = null;
             this.uiPanel33.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2130,11 +2534,11 @@
             this.uiPanel34.Controls.Add(this.txmasterbarcodemodel);
             this.uiPanel34.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel34.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel34.Location = new System.Drawing.Point(55, 40);
+            this.uiPanel34.Location = new System.Drawing.Point(356, 355);
             this.uiPanel34.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel34.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel34.Name = "uiPanel34";
-            this.uiPanel34.Size = new System.Drawing.Size(93, 1);
+            this.uiPanel34.Size = new System.Drawing.Size(686, 40);
             this.uiPanel34.TabIndex = 15;
             this.uiPanel34.Text = null;
             this.uiPanel34.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2142,14 +2546,15 @@
             // txmasterbarcodemodel
             // 
             this.txmasterbarcodemodel.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txmasterbarcodemodel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txmasterbarcodemodel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txmasterbarcodemodel.Location = new System.Drawing.Point(4, 5);
+            this.txmasterbarcodemodel.Location = new System.Drawing.Point(0, 0);
             this.txmasterbarcodemodel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txmasterbarcodemodel.MinimumSize = new System.Drawing.Size(1, 16);
             this.txmasterbarcodemodel.Name = "txmasterbarcodemodel";
             this.txmasterbarcodemodel.Padding = new System.Windows.Forms.Padding(5);
             this.txmasterbarcodemodel.ShowText = false;
-            this.txmasterbarcodemodel.Size = new System.Drawing.Size(253, 26);
+            this.txmasterbarcodemodel.Size = new System.Drawing.Size(686, 40);
             this.txmasterbarcodemodel.TabIndex = 12;
             this.txmasterbarcodemodel.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.txmasterbarcodemodel.Watermark = "";
@@ -2159,11 +2564,11 @@
             this.uiPanel35.Controls.Add(this.uiLabel18);
             this.uiPanel35.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel35.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel35.Location = new System.Drawing.Point(4, 45);
+            this.uiPanel35.Location = new System.Drawing.Point(4, 405);
             this.uiPanel35.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel35.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel35.Name = "uiPanel35";
-            this.uiPanel35.Size = new System.Drawing.Size(43, 1);
+            this.uiPanel35.Size = new System.Drawing.Size(344, 40);
             this.uiPanel35.TabIndex = 16;
             this.uiPanel35.Text = null;
             this.uiPanel35.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2175,9 +2580,9 @@
             this.uiLabel18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
             this.uiLabel18.Location = new System.Drawing.Point(3, 5);
             this.uiLabel18.Name = "uiLabel18";
-            this.uiLabel18.Size = new System.Drawing.Size(205, 20);
+            this.uiLabel18.Size = new System.Drawing.Size(197, 20);
             this.uiLabel18.TabIndex = 19;
-            this.uiLabel18.Text = "[[BAR CODE (EAN/UPC)]]  :";
+            this.uiLabel18.Text = "[BAR CODE (EAN/UPC)]  :";
             this.uiLabel18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // uiPanel36
@@ -2185,11 +2590,11 @@
             this.uiPanel36.Controls.Add(this.txmasterbarcodeean);
             this.uiPanel36.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel36.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.uiPanel36.Location = new System.Drawing.Point(55, 45);
+            this.uiPanel36.Location = new System.Drawing.Point(356, 405);
             this.uiPanel36.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel36.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel36.Name = "uiPanel36";
-            this.uiPanel36.Size = new System.Drawing.Size(93, 1);
+            this.uiPanel36.Size = new System.Drawing.Size(686, 40);
             this.uiPanel36.TabIndex = 19;
             this.uiPanel36.Text = null;
             this.uiPanel36.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2197,27 +2602,229 @@
             // txmasterbarcodeean
             // 
             this.txmasterbarcodeean.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txmasterbarcodeean.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txmasterbarcodeean.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txmasterbarcodeean.Location = new System.Drawing.Point(4, 5);
+            this.txmasterbarcodeean.Location = new System.Drawing.Point(0, 0);
             this.txmasterbarcodeean.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txmasterbarcodeean.MinimumSize = new System.Drawing.Size(1, 16);
             this.txmasterbarcodeean.Name = "txmasterbarcodeean";
             this.txmasterbarcodeean.Padding = new System.Windows.Forms.Padding(5);
             this.txmasterbarcodeean.ShowText = false;
-            this.txmasterbarcodeean.Size = new System.Drawing.Size(253, 26);
+            this.txmasterbarcodeean.Size = new System.Drawing.Size(686, 40);
             this.txmasterbarcodeean.TabIndex = 12;
             this.txmasterbarcodeean.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.txmasterbarcodeean.Watermark = "";
+            this.txmasterbarcodeean.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txmasterbarcodeean_KeyPress);
+            // 
+            // uiPanel46
+            // 
+            this.uiPanel46.Controls.Add(this.txmtsn);
+            this.uiPanel46.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.uiPanel46.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.uiPanel46.Location = new System.Drawing.Point(356, 455);
+            this.uiPanel46.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiPanel46.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiPanel46.Name = "uiPanel46";
+            this.uiPanel46.Size = new System.Drawing.Size(686, 40);
+            this.uiPanel46.TabIndex = 22;
+            this.uiPanel46.Text = null;
+            this.uiPanel46.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // txmtsn
+            // 
+            this.txmtsn.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txmtsn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txmtsn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.txmtsn.Location = new System.Drawing.Point(0, 0);
+            this.txmtsn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txmtsn.MinimumSize = new System.Drawing.Size(1, 16);
+            this.txmtsn.Name = "txmtsn";
+            this.txmtsn.Padding = new System.Windows.Forms.Padding(5);
+            this.txmtsn.ShowText = false;
+            this.txmtsn.Size = new System.Drawing.Size(686, 40);
+            this.txmtsn.TabIndex = 13;
+            this.txmtsn.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.txmtsn.Watermark = "";
+            this.txmtsn.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txmtsn_KeyPress);
+            // 
+            // uiPanel48
+            // 
+            this.uiPanel48.Controls.Add(this.txmtvendercode);
+            this.uiPanel48.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.uiPanel48.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.uiPanel48.Location = new System.Drawing.Point(356, 505);
+            this.uiPanel48.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiPanel48.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiPanel48.Name = "uiPanel48";
+            this.uiPanel48.Size = new System.Drawing.Size(686, 46);
+            this.uiPanel48.TabIndex = 24;
+            this.uiPanel48.Text = null;
+            this.uiPanel48.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // txmtvendercode
+            // 
+            this.txmtvendercode.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txmtvendercode.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txmtvendercode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.txmtvendercode.Location = new System.Drawing.Point(0, 0);
+            this.txmtvendercode.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txmtvendercode.MinimumSize = new System.Drawing.Size(1, 16);
+            this.txmtvendercode.Name = "txmtvendercode";
+            this.txmtvendercode.Padding = new System.Windows.Forms.Padding(5);
+            this.txmtvendercode.ShowText = false;
+            this.txmtvendercode.Size = new System.Drawing.Size(686, 46);
+            this.txmtvendercode.TabIndex = 20;
+            this.txmtvendercode.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.txmtvendercode.Watermark = "";
+            this.txmtvendercode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txmtvendercode_KeyPress);
+            // 
+            // uiPanel49
+            // 
+            this.uiPanel49.Controls.Add(this.uiPanel50);
+            this.uiPanel49.Controls.Add(this.btprintmasterbox);
+            this.uiPanel49.Controls.Add(this.dgvmastersn);
+            this.uiPanel49.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.uiPanel49.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.uiPanel49.Location = new System.Drawing.Point(1056, 5);
+            this.uiPanel49.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiPanel49.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiPanel49.Name = "uiPanel49";
+            this.uiPanel49.Size = new System.Drawing.Size(323, 552);
+            this.uiPanel49.TabIndex = 1;
+            this.uiPanel49.Text = null;
+            this.uiPanel49.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // uiPanel50
+            // 
+            this.uiPanel50.Controls.Add(this.uiTableLayoutPanel8);
+            this.uiPanel50.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.uiPanel50.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.uiPanel50.Location = new System.Drawing.Point(0, 436);
+            this.uiPanel50.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiPanel50.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiPanel50.Name = "uiPanel50";
+            this.uiPanel50.Size = new System.Drawing.Size(323, 64);
+            this.uiPanel50.TabIndex = 19;
+            this.uiPanel50.Text = null;
+            this.uiPanel50.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // uiTableLayoutPanel8
+            // 
+            this.uiTableLayoutPanel8.ColumnCount = 2;
+            this.uiTableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.uiTableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.uiTableLayoutPanel8.Controls.Add(this.btnmtdeleteall, 0, 0);
+            this.uiTableLayoutPanel8.Controls.Add(this.btnmtdelete, 0, 0);
+            this.uiTableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.uiTableLayoutPanel8.Location = new System.Drawing.Point(0, 0);
+            this.uiTableLayoutPanel8.Name = "uiTableLayoutPanel8";
+            this.uiTableLayoutPanel8.RowCount = 1;
+            this.uiTableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.uiTableLayoutPanel8.Size = new System.Drawing.Size(323, 64);
+            this.uiTableLayoutPanel8.TabIndex = 20;
+            this.uiTableLayoutPanel8.TagString = null;
+            // 
+            // btnmtdeleteall
+            // 
+            this.btnmtdeleteall.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnmtdeleteall.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnmtdeleteall.FillColor = System.Drawing.Color.Red;
+            this.btnmtdeleteall.FillColor2 = System.Drawing.Color.Red;
+            this.btnmtdeleteall.FillHoverColor = System.Drawing.Color.Red;
+            this.btnmtdeleteall.FillPressColor = System.Drawing.Color.Red;
+            this.btnmtdeleteall.FillSelectedColor = System.Drawing.Color.Red;
+            this.btnmtdeleteall.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btnmtdeleteall.Location = new System.Drawing.Point(164, 3);
+            this.btnmtdeleteall.MinimumSize = new System.Drawing.Size(1, 1);
+            this.btnmtdeleteall.Name = "btnmtdeleteall";
+            this.btnmtdeleteall.Size = new System.Drawing.Size(156, 58);
+            this.btnmtdeleteall.TabIndex = 2;
+            this.btnmtdeleteall.Text = "Delete All ";
+            this.btnmtdeleteall.TipsFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.btnmtdeleteall.Click += new System.EventHandler(this.btnmtdeleteall_Click);
+            // 
+            // btnmtdelete
+            // 
+            this.btnmtdelete.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnmtdelete.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnmtdelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btnmtdelete.Location = new System.Drawing.Point(3, 3);
+            this.btnmtdelete.MinimumSize = new System.Drawing.Size(1, 1);
+            this.btnmtdelete.Name = "btnmtdelete";
+            this.btnmtdelete.Size = new System.Drawing.Size(155, 58);
+            this.btnmtdelete.TabIndex = 1;
+            this.btnmtdelete.Text = "Delete";
+            this.btnmtdelete.TipsFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.btnmtdelete.Click += new System.EventHandler(this.btnmtdelete_Click);
             // 
             // btprintmasterbox
             // 
-            this.btprintmasterbox.Location = new System.Drawing.Point(161, 3);
+            this.btprintmasterbox.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btprintmasterbox.Location = new System.Drawing.Point(0, 500);
             this.btprintmasterbox.Name = "btprintmasterbox";
-            this.btprintmasterbox.Size = new System.Drawing.Size(34, 52);
-            this.btprintmasterbox.TabIndex = 1;
+            this.btprintmasterbox.Size = new System.Drawing.Size(323, 52);
+            this.btprintmasterbox.TabIndex = 18;
             this.btprintmasterbox.Text = "Print Master Box";
             this.btprintmasterbox.UseVisualStyleBackColor = true;
             this.btprintmasterbox.Click += new System.EventHandler(this.btprintmasterbox_Click);
+            // 
+            // dgvmastersn
+            // 
+            dataGridViewCellStyle16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.dgvmastersn.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle16;
+            this.dgvmastersn.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvmastersn.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvmastersn.BackgroundColor = System.Drawing.Color.White;
+            this.dgvmastersn.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            dataGridViewCellStyle17.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvmastersn.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
+            this.dgvmastersn.ColumnHeadersHeight = 32;
+            this.dgvmastersn.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvmastersn.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.SNMT});
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            dataGridViewCellStyle18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvmastersn.DefaultCellStyle = dataGridViewCellStyle18;
+            this.dgvmastersn.EnableHeadersVisualStyles = false;
+            this.dgvmastersn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.dgvmastersn.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
+            this.dgvmastersn.Location = new System.Drawing.Point(0, 0);
+            this.dgvmastersn.Name = "dgvmastersn";
+            this.dgvmastersn.ReadOnly = true;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle19.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            dataGridViewCellStyle19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvmastersn.RowHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle20.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.dgvmastersn.RowsDefaultCellStyle = dataGridViewCellStyle20;
+            this.dgvmastersn.SelectedIndex = -1;
+            this.dgvmastersn.Size = new System.Drawing.Size(323, 433);
+            this.dgvmastersn.StripeOddColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.dgvmastersn.TabIndex = 0;
+            // 
+            // SNMT
+            // 
+            this.SNMT.HeaderText = "SN";
+            this.SNMT.Name = "SNMT";
+            this.SNMT.ReadOnly = true;
             // 
             // header
             // 
@@ -2264,6 +2871,46 @@
             this.comboBoxPrinters.Size = new System.Drawing.Size(217, 24);
             this.comboBoxPrinters.TabIndex = 1;
             // 
+            // uiTableLayoutPanel10
+            // 
+            this.uiTableLayoutPanel10.ColumnCount = 2;
+            this.uiTableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.54546F));
+            this.uiTableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.45454F));
+            this.uiTableLayoutPanel10.Controls.Add(this.rdoinbox, 0, 0);
+            this.uiTableLayoutPanel10.Controls.Add(this.rdodirect, 0, 0);
+            this.uiTableLayoutPanel10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.uiTableLayoutPanel10.Location = new System.Drawing.Point(0, 0);
+            this.uiTableLayoutPanel10.Name = "uiTableLayoutPanel10";
+            this.uiTableLayoutPanel10.RowCount = 1;
+            this.uiTableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.uiTableLayoutPanel10.Size = new System.Drawing.Size(230, 21);
+            this.uiTableLayoutPanel10.TabIndex = 1;
+            this.uiTableLayoutPanel10.TagString = null;
+            // 
+            // rdodirect
+            // 
+            this.rdodirect.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.rdodirect.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rdodirect.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.rdodirect.Location = new System.Drawing.Point(3, 3);
+            this.rdodirect.MinimumSize = new System.Drawing.Size(1, 1);
+            this.rdodirect.Name = "rdodirect";
+            this.rdodirect.Size = new System.Drawing.Size(119, 15);
+            this.rdodirect.TabIndex = 16;
+            this.rdodirect.Text = "Direct order";
+            // 
+            // rdoinbox
+            // 
+            this.rdoinbox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.rdoinbox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rdoinbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.rdoinbox.Location = new System.Drawing.Point(128, 3);
+            this.rdoinbox.MinimumSize = new System.Drawing.Size(1, 1);
+            this.rdoinbox.Name = "rdoinbox";
+            this.rdoinbox.Size = new System.Drawing.Size(99, 15);
+            this.rdoinbox.TabIndex = 17;
+            this.rdoinbox.Text = "Inbox";
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -2278,6 +2925,7 @@
             this.tabmain.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tableLayoutprintunitbox.ResumeLayout(false);
+            this.radiopanel.ResumeLayout(false);
             this.uiTableLayoutPanel5.ResumeLayout(false);
             this.uiGroupBox3.ResumeLayout(false);
             this.uiPanel38.ResumeLayout(false);
@@ -2285,8 +2933,8 @@
             this.uiTableLayoutPanel7.ResumeLayout(false);
             this.uiGroupBox2.ResumeLayout(false);
             this.uiTableLayoutPanel6.ResumeLayout(false);
-            this.uiPanel37.ResumeLayout(false);
-            this.uiPanel37.PerformLayout();
+            this.uiPanel39.ResumeLayout(false);
+            this.uiPanel39.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel13.ResumeLayout(false);
             this.panel12.ResumeLayout(false);
@@ -2308,7 +2956,15 @@
             this.panel2.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.uiTableLayoutPanel1.ResumeLayout(false);
+            this.uiPanel37.ResumeLayout(false);
+            this.uiPanel43.ResumeLayout(false);
+            this.uiTableLayoutPanel9.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvsn)).EndInit();
+            this.uiPanel41.ResumeLayout(false);
+            this.uiPanel41.PerformLayout();
             this.uiTableLayoutPanel2.ResumeLayout(false);
+            this.uiPanel40.ResumeLayout(false);
+            this.uiPanel40.PerformLayout();
             this.uiPanel1.ResumeLayout(false);
             this.uiPanel2.ResumeLayout(false);
             this.uiPanel2.PerformLayout();
@@ -2336,9 +2992,15 @@
             this.uiPanel17.ResumeLayout(false);
             this.uiPanel17.PerformLayout();
             this.uiPanel20.ResumeLayout(false);
+            this.uiPanel42.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.uiTableLayoutPanel3.ResumeLayout(false);
             this.uiTableLayoutPanel4.ResumeLayout(false);
+            this.uiPanel47.ResumeLayout(false);
+            this.uiPanel47.PerformLayout();
+            this.uiPanel45.ResumeLayout(false);
+            this.uiPanel44.ResumeLayout(false);
+            this.uiPanel44.PerformLayout();
             this.uiPanel18.ResumeLayout(false);
             this.uiPanel19.ResumeLayout(false);
             this.uiPanel19.PerformLayout();
@@ -2366,9 +3028,16 @@
             this.uiPanel35.ResumeLayout(false);
             this.uiPanel35.PerformLayout();
             this.uiPanel36.ResumeLayout(false);
+            this.uiPanel46.ResumeLayout(false);
+            this.uiPanel48.ResumeLayout(false);
+            this.uiPanel49.ResumeLayout(false);
+            this.uiPanel50.ResumeLayout(false);
+            this.uiTableLayoutPanel8.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvmastersn)).EndInit();
             this.header.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.uiTableLayoutPanel10.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2407,10 +3076,9 @@
         private Sunny.UI.UIPanel uiPanel10;
         private Sunny.UI.UILabel uiLabel5;
         private Sunny.UI.UIPanel uiPanel11;
-        private Sunny.UI.UITextBox txmidlebarcode;
+        private Sunny.UI.UITextBox txmidlelotnobarcode;
         private Sunny.UI.UIPanel uiPanel12;
         private Sunny.UI.UILabel uiLabel6;
-        private System.Windows.Forms.Button btprintmiddlebox;
         private Sunny.UI.UIPanel uiPanel13;
         private Sunny.UI.UILabel uiLabel7;
         private Sunny.UI.UIPanel uiPanel14;
@@ -2423,8 +3091,76 @@
         private Sunny.UI.UILabel uiLabel9;
         private Sunny.UI.UIPanel uiPanel20;
         private Sunny.UI.UITextBox txmidlebarcodeean;
+        private Sunny.UI.UITableLayoutPanel tableLayoutprintunitbox;
+        private System.Windows.Forms.Button btprintunitbox;
+        private Sunny.UI.UITableLayoutPanel tableLayoutPanel1;
+        private Sunny.UI.UIPanel panel13;
+        private Sunny.UI.UITextBox txtunitsn1;
+        private Sunny.UI.UIPanel panel12;
+        private Sunny.UI.UILabel label10;
+        private Sunny.UI.UIPanel panel11;
+        private Sunny.UI.UITextBox txtunitorigin;
+        private Sunny.UI.UIPanel panel10;
+        private Sunny.UI.UILabel label9;
+        private Sunny.UI.UIPanel panel9;
+        private Sunny.UI.UIPanel panel8;
+        private Sunny.UI.UILabel label8;
+        private Sunny.UI.UIPanel panel7;
+        private Sunny.UI.UITextBox txtunititemmodel;
+        private Sunny.UI.UIPanel panel6;
+        private Sunny.UI.UILabel label7;
+        private Sunny.UI.UIPanel panel5;
+        private Sunny.UI.UITextBox txtunitskucode;
+        private Sunny.UI.UIPanel panel4;
+        private Sunny.UI.UILabel label6;
+        private Sunny.UI.UIPanel panel3;
+        private Sunny.UI.UITextBox txtunitearncode;
+        private Sunny.UI.UIPanel panel2;
+        private Sunny.UI.UILabel label5;
+        private System.Windows.Forms.ComboBox comboBoxPrinters;
+        private Sunny.UI.UIDatePicker datepick;
+        private Sunny.UI.UIPanel radiopanel;
+        private Sunny.UI.UITableLayoutPanel uiTableLayoutPanel5;
+        private Sunny.UI.UIGroupBox uiGroupBox3;
+        private Sunny.UI.UIPanel uiPanel38;
+        private Sunny.UI.UIGroupBox uiGroupBox1;
+        private Sunny.UI.UITableLayoutPanel uiTableLayoutPanel7;
+        private Sunny.UI.UIRadioButton rdocustomerdirectorder;
+        private Sunny.UI.UIRadioButton rdoSEDAM;
+        private Sunny.UI.UIRadioButton rdoSEDAC;
+        private Sunny.UI.UIRadioButton rdoSEC;
+        private Sunny.UI.UIRadioButton rdoSIELN;
+        private Sunny.UI.UIRadioButton rdoSEIN;
+        private Sunny.UI.UIRadioButton rdoTSTC;
+        private Sunny.UI.UIRadioButton rdoSEVT;
+        private Sunny.UI.UIRadioButton rdoSEV;
+        private Sunny.UI.UIGroupBox uiGroupBox2;
+        private Sunny.UI.UITableLayoutPanel uiTableLayoutPanel6;
+        private Sunny.UI.UIRadioButton rdomedicaldevices;
+        private Sunny.UI.UIRadioButton rdomp3;
+        private Sunny.UI.UIRadioButton rdohhp;
+        private Sunny.UI.UIPanel uiPanel39;
+        private Sunny.UI.UILabel uiLabel19;
+        private Sunny.UI.UITextBox txvendor;
+        private Sunny.UI.UIPanel uiPanel37;
+        private Sunny.UI.UIPanel uiPanel41;
+        private Sunny.UI.UILabel uiLabel20;
+        private Sunny.UI.UITextBox txmiddlevendorcode;
+        private Sunny.UI.UIPanel uiPanel40;
+        private Sunny.UI.UILabel uiLabel21;
+        private Sunny.UI.UIPanel uiPanel42;
+        private Sunny.UI.UITextBox txmiddlesn;
+        private Sunny.UI.UIDataGridView dgvsn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SN;
+        private System.Windows.Forms.Button btprintmiddlebox;
         private Sunny.UI.UITableLayoutPanel uiTableLayoutPanel3;
         private Sunny.UI.UITableLayoutPanel uiTableLayoutPanel4;
+        private Sunny.UI.UIPanel uiPanel47;
+        private Sunny.UI.UILabel uiLabel23;
+        private Sunny.UI.UIPanel uiPanel45;
+        private Sunny.UI.UIPanel uiPanel44;
+        private Sunny.UI.UILabel uiLabel22;
+        private Sunny.UI.UITextBox uiTextBox1;
         private Sunny.UI.UIPanel uiPanel18;
         private Sunny.UI.UITextBox txmasterqty;
         private Sunny.UI.UIPanel uiPanel19;
@@ -2461,59 +3197,24 @@
         private Sunny.UI.UILabel uiLabel18;
         private Sunny.UI.UIPanel uiPanel36;
         private Sunny.UI.UITextBox txmasterbarcodeean;
+        private Sunny.UI.UIPanel uiPanel46;
+        private Sunny.UI.UITextBox txmtsn;
+        private Sunny.UI.UIPanel uiPanel48;
+        private Sunny.UI.UITextBox txmtvendercode;
+        private Sunny.UI.UIPanel uiPanel49;
+        private Sunny.UI.UIDataGridView dgvmastersn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SNMT;
+        private Sunny.UI.UIPanel uiPanel50;
         private System.Windows.Forms.Button btprintmasterbox;
-        private Sunny.UI.UITableLayoutPanel tableLayoutprintunitbox;
-        private Sunny.UI.UITableLayoutPanel uiTableLayoutPanel5;
-        private System.Windows.Forms.Button btprintunitbox;
-        private Sunny.UI.UIGroupBox uiGroupBox1;
-        private Sunny.UI.UITableLayoutPanel uiTableLayoutPanel7;
-        private Sunny.UI.UIRadioButton rdocustomerdirectorder;
-        private Sunny.UI.UIRadioButton rdoSEDAM;
-        private Sunny.UI.UIRadioButton rdoSEDAC;
-        private Sunny.UI.UIRadioButton rdoSEC;
-        private Sunny.UI.UIRadioButton rdoSIELN;
-        private Sunny.UI.UIRadioButton rdoSEIN;
-        private Sunny.UI.UIRadioButton rdoTSTC;
-        private Sunny.UI.UIRadioButton rdoSEVT;
-        private Sunny.UI.UIRadioButton rdoSEV;
-        private Sunny.UI.UIGroupBox uiGroupBox2;
-        private Sunny.UI.UITableLayoutPanel uiTableLayoutPanel6;
-        private Sunny.UI.UITableLayoutPanel tableLayoutPanel1;
-        private Sunny.UI.UIPanel panel13;
-        private Sunny.UI.UITextBox txtunitsn1;
-        private Sunny.UI.UIPanel panel12;
-        private Sunny.UI.UILabel label10;
-        private Sunny.UI.UIPanel panel11;
-        private Sunny.UI.UITextBox txtunitorigin;
-        private Sunny.UI.UIPanel panel10;
-        private Sunny.UI.UILabel label9;
-        private Sunny.UI.UIPanel panel9;
-        private Sunny.UI.UIDatetimePicker unitdatetime;
-        private Sunny.UI.UITextBox txtunitmanufacturedate;
-        private Sunny.UI.UIPanel panel8;
-        private Sunny.UI.UILabel label8;
-        private Sunny.UI.UIPanel panel7;
-        private Sunny.UI.UITextBox txtunititemmodel;
-        private Sunny.UI.UIPanel panel6;
-        private Sunny.UI.UILabel label7;
-        private Sunny.UI.UIPanel panel5;
-        private Sunny.UI.UITextBox txtunitskucode;
-        private Sunny.UI.UIPanel panel4;
-        private Sunny.UI.UILabel label6;
-        private Sunny.UI.UIPanel panel3;
-        private Sunny.UI.UITextBox txtunitearncode;
-        private Sunny.UI.UIPanel panel2;
-        private Sunny.UI.UILabel label5;
-        private Sunny.UI.UIRadioButton rdomedicaldevices;
-        private Sunny.UI.UIRadioButton rdomp3;
-        private Sunny.UI.UIRadioButton rdohhp;
-        private Sunny.UI.UIGroupBox uiGroupBox3;
-        private Sunny.UI.UIPanel uiPanel37;
-        private Sunny.UI.UILabel uiLabel19;
-        private Sunny.UI.UITextBox uiTextBox1;
-        private Sunny.UI.UIPanel uiPanel38;
+        private Sunny.UI.UIPanel uiPanel43;
+        private Sunny.UI.UITableLayoutPanel uiTableLayoutPanel8;
+        private Sunny.UI.UIButton btnmtdeleteall;
+        private Sunny.UI.UIButton btnmtdelete;
+        private Sunny.UI.UITableLayoutPanel uiTableLayoutPanel9;
+        private Sunny.UI.UIButton btndeleteall;
+        private Sunny.UI.UIButton btdelete;
+        private Sunny.UI.UITableLayoutPanel uiTableLayoutPanel10;
         private Sunny.UI.UIRadioButton rdoinbox;
         private Sunny.UI.UIRadioButton rdodirect;
-        private System.Windows.Forms.ComboBox comboBoxPrinters;
     }
 }

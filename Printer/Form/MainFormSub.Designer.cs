@@ -1181,7 +1181,7 @@
             this.tabPage3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPage3.Location = new System.Drawing.Point(0, 40);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(200, 60);
+            this.tabPage3.Size = new System.Drawing.Size(988, 423);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Print Master Box";
             this.tabPage3.UseVisualStyleBackColor = true;

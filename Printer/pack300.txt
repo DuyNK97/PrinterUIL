@@ -1,0 +1,2419 @@
+// Decompiled with JetBrains decompiler
+// Type: GST.R2F.UI.PACK300C
+// Assembly: GST.R2F.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+// MVID: A25DA55D-C3FE-4661-AE8B-11B1244B99FC
+// Assembly location: D:\DNK\Printer\R2F\R2F\GST.R2F.UI.dll
+
+using DevExpress.Utils;
+using DevExpress.XtraEditors;
+using DevExpress.XtraEditors.Controls;
+using DevExpress.XtraEditors.Mask;
+using DevExpress.XtraGrid;
+using DevExpress.XtraGrid.Columns;
+using DevExpress.XtraGrid.Views.Base;
+using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraLayout;
+using DevExpress.XtraLayout.Utils;
+using GST.Core.BaseUserControl;
+using GST.Core.Controls;
+using GST.Core.Data;
+using GST.Core.DB;
+using GST.Core.ENUM;
+using GST.Core.Helper;
+using GST.Core.Message;
+using GST.Core.XtraHelper;
+using GST.R2F.UI.PRNT;
+using GST.R2F.UI.Properties;
+using System;
+using System.Collections;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Drawing.Printing;
+using System.Windows.Forms;
+
+#nullable disable
+namespace GST.R2F.UI
+{
+  public class PACK300C : GST_BaseForm
+  {
+    private XtraGridControlExt grid = (XtraGridControlExt) null;
+    private FrmCode33 frmcode33;
+    private string SAVE_MODE = "0";
+    private string str_PROC = "";
+    private DataTable dt_ReturnValue = (DataTable) null;
+    private clsDataCollection cdc_DataCollection = new clsDataCollection();
+    private static string[] _33Index = new string[33]
+    {
+      "0",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G",
+      "H",
+      "J",
+      "K",
+      "L",
+      "M",
+      "N",
+      "P",
+      "Q",
+      "R",
+      "S",
+      "T",
+      "V",
+      "W",
+      "X",
+      "Y",
+      "Z"
+    };
+    private double max_mid;
+    private double max_mst;
+    private int smst;
+    private int emst;
+    private double dbl_SERIAL = 0.0;
+    private DataTable dt = new DataTable();
+    private IContainer components = (IContainer) null;
+    private XtraLayoutControl xtraLayoutControl1;
+    private LayoutControlGroup layMain;
+    private XtraButton btnClear;
+    private LayoutControlItem layoutControlItem2;
+    private EmptySpaceItem emptySpaceItem1;
+    private XtraButton btnClose;
+    private LayoutControlItem layoutControlItem3;
+    private LayoutControlGroup laySearch;
+    private EmptySpaceItem emptySpaceItem3;
+    private XtraButton btnSearch;
+    private XtraButton btnAdd;
+    private XtraButton btnSave;
+    private XtraButton btnQrPrint;
+    private LayoutControlItem layoutControlItem6;
+    private LayoutControlItem layoutControlItem7;
+    private LayoutControlItem layoutControlItem9;
+    private LayoutControlItem layoutControlItem10;
+    private XtraGridControlExt grdMain;
+    private GridView grvMain;
+    private LayoutControlGroup layList;
+    private LayoutControlItem layoutControlItem1;
+    private XtraTextEdit s_txtLABL_LOTN;
+    private LayoutControlItem layoutControlItem21;
+    private XtraCheckEdit s_chkUSED_CHCK;
+    private LayoutControlItem layoutControlItem4;
+    private XtraDateEdit s_datLABL_SDAT;
+    private LayoutControlItem layoutControlItem27;
+    private XtraDateEdit s_datLABL_EDAT;
+    private LayoutControlItem layoutControlItem36;
+    private XtraImageComboBoxEdit s_cbxLABL_LINE;
+    private LayoutControlItem layoutControlItem37;
+    private XtraTextEdit s_txtLABL_MDCD;
+    private LayoutControlItem layoutControlItem38;
+    private XtraTextEdit s_txtLABL_SFIX;
+    private LayoutControlItem layoutControlItem31;
+    private EmptySpaceItem emptySpaceItem2;
+    private XtraImageComboBoxEdit s_txtLABL_STAT;
+    private LayoutControlItem layoutControlItem32;
+    private XtraTextEdit txtLBPT_SFIX;
+    private XtraTextEdit txtLBPT_LOTN;
+    private XtraTextEdit txtLBPT_CLOR;
+    private XtraTextEdit txtLBPT_YYMM;
+    private XtraTextEdit txtLBPT_EANC;
+    private XtraTextEdit txtLBPT_LOTQ;
+    private XtraTextEdit txtLBPT_LABL;
+    private XtraTextEdit txtLBPT_SMID;
+    private XtraTextEdit txtLBPT_EMID;
+    private XtraTextEdit txtLBPT_ESRL;
+    private XtraTextEdit txtLBPT_SSRL;
+    private XtraTextEdit txtLBPT_SS33;
+    private XtraTextEdit txtLBPT_ES33;
+    private XtraTextEdit txtLBPT_APMO;
+    private LayoutControlGroup layInfo;
+    private LayoutControlItem layoutControlItem41;
+    private LayoutControlItem layoutControlItem42;
+    private LayoutControlItem layoutControlItem43;
+    private LayoutControlItem layoutControlItem44;
+    private LayoutControlItem layoutControlItem45;
+    private LayoutControlItem layoutControlItem46;
+    private LayoutControlItem layoutControlItem47;
+    private LayoutControlItem layoutControlItem48;
+    private LayoutControlItem layoutControlItem49;
+    private LayoutControlItem layoutControlItem50;
+    private LayoutControlItem layoutControlItem51;
+    private LayoutControlItem layoutControlItem52;
+    private LayoutControlItem layoutControlItem53;
+    private LayoutControlItem layoutControlItem54;
+    private XtraDateEdit datLBPT_DATE;
+    private LayoutControlItem layoutControlItem5;
+    private XtraCheckEdit chkUSED_CHCK;
+    private LayoutControlItem layoutControlItem8;
+    private XtraTextEdit SEQ;
+    private LayoutControlItem layoutControlItem12;
+    private XtraPOPUPButtonEdit txtLBPT_MDCD;
+    private LayoutControlItem layoutControlItem19;
+    private XtraTextEdit txtLBPT_STAT;
+    private LayoutControlItem layoutControlItem11;
+    private XtraImageComboBoxEdit cbxLBPT_LINE;
+    private LayoutControlItem layoutControlItem13;
+    private XtraButton btnUnitPrint;
+    private LayoutControlItem layoutControlItem14;
+    private XtraButton btnMstPrint;
+    private LayoutControlItem layoutControlItem15;
+    private XtraButton btn33Convert;
+    private LayoutControlItem layoutControlItem16;
+
+    public PACK300C()
+    {
+      this.InitializeComponent();
+      GST_FormUtils.SetGroupTextChange((LayoutGroup) this.layMain);
+      GST_FormUtils.SetExcuteEnter(this.laySearch, this.btnSearch);
+      GridHelper.SetGridColumnAdd(this.grdMain, "선택", "CHK", false, false, HorzAlignment.Center, ColumnFieldType.EX, GridColumnType.Check, 50, 0, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, nameof (SEQ), "LBPT_SEQ", false, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 100, 15, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "YYYYMMDD", "LBPT_YEAR", true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 100, 15, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "LINE", "LBPT_LINE", true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 60, 50, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "PRIORITY", "LBPT_PRIO", true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 60, 50, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "LOT_NO", "LBPT_LOTN", true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 100, 10, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "MODEL_CODE", "LBPT_MDCD", true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 150, 50, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "SUFFIX", "LBPT_SFIX", true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 80, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "LOT_QTY", "LBPT_LOTQ", true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 80, 100, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "RESULT_QTY", "LBPT_RSTQ", true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 80, 20, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "APPLIED_MODEL", "LBPT_APMO", true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 150, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "EANCODE", "LBPT_EANC", true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 150, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "COLOR", "LBPT_CLOR", true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 120, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "START_SERIAL33", "LBPT_SS33", true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 120, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "END_SERIAL33", "LBPT_ES33", true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 120, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "START_SERIAL", "LBPT_SSRL", true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 120, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "END_SERIAL", "LBPT_ESRL", true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 120, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "START_MIDDLE", "LBPT_SMID", true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 120, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "END_MIDDLE", "LBPT_EMID", true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 120, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "START_MASTER", "LBPT_SMST", false, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 120, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "END_MASTER", "LBPT_EMST", false, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 120, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "STATUS", "LBPT_STAT", true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 120, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "LABEL_ID", "LBPT_LBID", false, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 120, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "LABEL", "LBPT_LABL", true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 120, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "USE_YN", "USED_CHCK", true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 60, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "CREATION_DATE", "LBPT_UPDT", false, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 150, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "MODEL_SEQ", "LBPT_MDSQ", true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 60, 30, string.Empty);
+      this.grdMain.SetFixedColumns("LBPT_MDCD");
+    }
+
+    protected override void OnShown(EventArgs e)
+    {
+      base.OnShown(e);
+      GST_FormUtils.SetFormClear((Control) this);
+      this.s_datLABL_SDAT.EditValue = (object) DateTime.Now.Date;
+      this.s_datLABL_EDAT.EditValue = (object) DateTime.Now.Date;
+      this.grdMain.SetGridViewRowSelected("grvMain_RowClick", 0);
+      this.btnSearch.PerformClick();
+    }
+
+    private void btnClear_Click(object sender, EventArgs e)
+    {
+      GST_FormUtils.SetFormClear((Control) this);
+      this.SAVE_MODE = "0";
+      this.s_datLABL_SDAT.EditValue = (object) DateTime.Now.Date;
+      this.s_datLABL_EDAT.EditValue = (object) DateTime.Now.Date;
+      this.btnSave.Enabled = false;
+    }
+
+    private void btnSearch_Click(object sender, EventArgs e)
+    {
+      GST_FormUtils.WaitDialogFormShow();
+      this.grdMain.DataSource = (object) this.GetMainDataSearch();
+      GST_FormUtils.WaitDialogFormClose();
+      this.btnQrPrint.Enabled = true;
+      this.btnSave.Enabled = false;
+    }
+
+    private void btnAdd_Click(object sender, EventArgs e)
+    {
+      GST_FormUtils.SetFormClear((LayoutGroup) this.layInfo);
+      this.SAVE_MODE = "0";
+      this.datLBPT_DATE.EditValue = (object) DateTime.Now.Date;
+      this.btnSave.Enabled = true;
+      this.btnQrPrint.Enabled = false;
+    }
+
+    private void btnQrPrint_Click(object sender, EventArgs e)
+    {
+      int num = (int) MessageBox.Show("현재는 QR 출력을 지원하지 않습니다.! ");
+    }
+
+    private void btnExcel_Click(object sender, EventArgs e)
+    {
+      GST_FormUtils.GetGridExportToExcel(this.grdMain);
+    }
+
+    private void btnClose_Click(object sender, EventArgs e) => this.Close();
+
+    private void btnSave_Click(object sender, EventArgs e)
+    {
+      if (this.datLBPT_DATE.EditValue.ToString() == "")
+      {
+        int num = (int) MessageBox.Show("생산일자를 선택하세요");
+        this.datLBPT_DATE.Focus();
+      }
+      else if (this.cbxLBPT_LINE.Text == "전체")
+      {
+        int num1 = (int) MessageBox.Show("생산라인을 선택하세요");
+      }
+      else if (this.txtLBPT_LOTN.EditValue.ToString() == "")
+      {
+        int num2 = (int) MessageBox.Show("제번을 입력하세요");
+        this.txtLBPT_LOTN.Focus();
+      }
+      else if (this.txtLBPT_MDCD.EditValue.ToString() == "")
+      {
+        int num3 = (int) MessageBox.Show("모델을 선택하세요");
+        this.txtLBPT_MDCD.Focus();
+      }
+      else if (this.txtLBPT_LOTQ.EditValue.ToString() == "")
+      {
+        int num4 = (int) MessageBox.Show("수량을 입력하신후 엔터키를 누르세요");
+        this.txtLBPT_LOTQ.Focus();
+      }
+      else if (this.txtLBPT_SSRL.EditValue.ToString() == "")
+      {
+        int num5 = (int) MessageBox.Show("수량을 입력하신후 엔터키를 누르세요");
+        this.txtLBPT_LOTQ.Focus();
+      }
+      else if (this.txtLBPT_ESRL.EditValue.ToString() == "")
+      {
+        int num6 = (int) MessageBox.Show("수량을 입력하신후 엔터키를 누르세요");
+        this.txtLBPT_LOTQ.Focus();
+      }
+      else if (this.txtLBPT_SS33.EditValue.ToString() == "")
+      {
+        int num7 = (int) MessageBox.Show("수량을 입력하신후 엔터키를 누르세요");
+        this.txtLBPT_LOTQ.Focus();
+      }
+      else if (this.txtLBPT_ES33.EditValue.ToString() == "")
+      {
+        int num8 = (int) MessageBox.Show("수량을 입력하신후 엔터키를 누르세요");
+        this.txtLBPT_LOTQ.Focus();
+      }
+      else if (this.txtLBPT_SMID.EditValue.ToString() == "")
+      {
+        int num9 = (int) MessageBox.Show("수량을 입력하신후 엔터키를 누르세요");
+        this.txtLBPT_LOTQ.Focus();
+      }
+      else if (this.txtLBPT_EMID.EditValue.ToString() == "")
+      {
+        int num10 = (int) MessageBox.Show("수량을 입력하신후 엔터키를 누르세요");
+        this.txtLBPT_LOTQ.Focus();
+      }
+      else
+      {
+        try
+        {
+          if (!GST_FormUtils.GetValidationCheck((LayoutGroup) this.layInfo) || !this.CheckDBData())
+            return;
+          this.str_PROC = "PACK300_PIUD";
+          this.cdc_DataCollection.Clear();
+          this.cdc_DataCollection.Add("@IN_SAVE_MODE", (object) this.SAVE_MODE);
+          this.cdc_DataCollection.Add("@IN_LBPT_SEQ", (object) this.SEQ.EditValue.ToString());
+          this.cdc_DataCollection.Add("@IN_LBPT_YEAR", (object) this.datLBPT_DATE.EditValue.ToString().Replace("-", "").Substring(0, 8));
+          this.cdc_DataCollection.Add("@IN_LBPT_LINE", (object) this.cbxLBPT_LINE.Text);
+          this.cdc_DataCollection.Add("@IN_LBPT_PRIO", (object) "");
+          this.cdc_DataCollection.Add("@IN_LBPT_LOTN", (object) this.txtLBPT_LOTN.EditValue.ToString());
+          this.cdc_DataCollection.Add("@IN_LBPT_MDCD", (object) this.txtLBPT_MDCD.EditValue.ToString());
+          this.cdc_DataCollection.Add("@IN_LBPT_SFIX", (object) this.txtLBPT_SFIX.EditValue.ToString());
+          this.cdc_DataCollection.Add("@IN_LBPT_LOTQ", (object) this.txtLBPT_LOTQ.EditValue.ToString());
+          this.cdc_DataCollection.Add("@IN_LBPT_RSTQ", (object) "0");
+          this.cdc_DataCollection.Add("@IN_LBPT_SS33", (object) this.txtLBPT_SS33.EditValue.ToString());
+          this.cdc_DataCollection.Add("@IN_LBPT_ES33", (object) this.txtLBPT_ES33.EditValue.ToString());
+          this.cdc_DataCollection.Add("@IN_LBPT_SSRL", (object) this.txtLBPT_SSRL.EditValue.ToString());
+          this.cdc_DataCollection.Add("@IN_LBPT_ESRL", (object) this.txtLBPT_ESRL.EditValue.ToString());
+          this.cdc_DataCollection.Add("@IN_LBPT_SMID", (object) this.txtLBPT_SMID.EditValue.ToString());
+          this.cdc_DataCollection.Add("@IN_LBPT_EMID", (object) this.txtLBPT_EMID.EditValue.ToString());
+          this.cdc_DataCollection.Add("@IN_LBPT_STAT", (object) this.txtLBPT_STAT.EditValue.ToString());
+          this.cdc_DataCollection.Add("@IN_LBPT_SMST", (object) this.smst.ToString());
+          this.cdc_DataCollection.Add("@IN_LBPT_EMST", (object) this.emst.ToString());
+          this.cdc_DataCollection.Add("@IN_LBPT_MMID", (object) this.max_mid.ToString());
+          this.cdc_DataCollection.Add("@IN_LBPT_MMST", (object) this.max_mst.ToString());
+          this.cdc_DataCollection.Add("@IN_USED_CHCK", this.chkUSED_CHCK.Checked ? (object) "N" : (object) "Y");
+          DBINFO.DBCON.ExcuteProcedure(this.str_PROC, this.cdc_DataCollection, CommandType.Text);
+          int num11 = (int) GST_MsgBox.Save();
+          this.btnClear.PerformClick();
+          this.s_datLABL_SDAT.EditValue = (object) DateTime.Now.Date;
+          this.s_datLABL_EDAT.EditValue = (object) DateTime.Now.Date;
+          this.btnSearch.PerformClick();
+          this.SAVE_MODE = "1";
+          this.btnQrPrint.Enabled = true;
+        }
+        catch (Exception ex)
+        {
+          GST_ErrorForm gstErrorForm = new GST_ErrorForm();
+          gstErrorForm.txtMSG.Text = ex.Message;
+          gstErrorForm.txtCODE.Text = "";
+          int num12 = (int) gstErrorForm.ShowDialog();
+          gstErrorForm.Text = ex.ToString();
+        }
+      }
+    }
+
+    private void txtLBPT_MDCD_ButtonClick(object sender, ButtonPressedEventArgs e)
+    {
+      this.fun_GetCustSearchPopup("2");
+    }
+
+    private void grvMain_RowClick(object sender, RowClickEventArgs e)
+    {
+      DataRow focusedDataRow = this.grvMain.GetFocusedDataRow();
+      if (focusedDataRow == null)
+        return;
+      GST_FormUtils.SetFormDataBind((LayoutGroup) this.layInfo, focusedDataRow);
+      this.txtLBPT_YYMM.EditValue = (object) this.datLBPT_DATE.EditValue.ToString().Replace("-", "").Substring(3, 3);
+      this.SAVE_MODE = "1";
+      this.btnQrPrint.Enabled = true;
+      this.btnSave.Enabled = true;
+    }
+
+    private DataTable GetMainDataSearch()
+    {
+      this.str_PROC = "PACK400_PS";
+      this.cdc_DataCollection.Clear();
+      this.cdc_DataCollection.Add("@IN_SRCH_MODE", (object) "0");
+      this.cdc_DataCollection.Add("@IN_LBPT_SDAT", (object) this.s_datLABL_SDAT.EditValue.ToString().Replace("-", "").Substring(0, 8));
+      this.cdc_DataCollection.Add("@IN_LBPT_EDAT", (object) this.s_datLABL_EDAT.EditValue.ToString().Replace("-", "").Substring(0, 8));
+      if (this.s_cbxLABL_LINE.Text == "전체")
+        this.cdc_DataCollection.Add("@IN_LBPT_LINE", (object) "");
+      else
+        this.cdc_DataCollection.Add("@IN_LBPT_LINE", (object) this.s_cbxLABL_LINE.Text.ToString());
+      this.cdc_DataCollection.Add("@IN_LBPT_LOTN", (object) this.s_txtLABL_LOTN.EditValue.ToString());
+      this.cdc_DataCollection.Add("@IN_LBPT_MDCD", (object) this.s_txtLABL_MDCD.EditValue.ToString());
+      this.cdc_DataCollection.Add("@IN_LBPT_SFIX", (object) this.s_txtLABL_SFIX.EditValue.ToString());
+      this.cdc_DataCollection.Add("@IN_USED_CHCK", this.s_chkUSED_CHCK.Checked ? (object) "N" : (object) "Y");
+      return DBINFO.DBCON.ExcuteSelectProcedureDT(this.str_PROC, this.cdc_DataCollection, CommandType.Text, false);
+    }
+
+    private DataTable GetSearch()
+    {
+      this.str_PROC = "PACK400_PS";
+      this.cdc_DataCollection.Clear();
+      this.cdc_DataCollection.Add("@IN_SRCH_MODE", (object) "5");
+      this.cdc_DataCollection.Add("@IN_LBPT_SDAT", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_EDAT", (object) this.datLBPT_DATE.EditValue.ToString().Replace("-", "").Substring(0, 8));
+      this.cdc_DataCollection.Add("@IN_LBPT_LINE", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_LOTN", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_MDCD", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_SFIX", (object) "");
+      this.cdc_DataCollection.Add("@IN_USED_CHCK", (object) "");
+      return DBINFO.DBCON.ExcuteSelectProcedureDT(this.str_PROC, this.cdc_DataCollection, CommandType.Text, false);
+    }
+
+    private bool CheckDBData()
+    {
+      this.str_PROC = "PACK400_PS";
+      this.cdc_DataCollection.Clear();
+      this.cdc_DataCollection.Add("@IN_SRCH_MODE", (object) "1");
+      this.cdc_DataCollection.Add("@IN_LBPT_SDAT", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_EDAT", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_LINE", (object) this.cbxLBPT_LINE.Text);
+      this.cdc_DataCollection.Add("@IN_LBPT_LOTN", (object) this.txtLBPT_LOTN.EditValue.ToString());
+      this.cdc_DataCollection.Add("@IN_LBPT_MDCD", (object) this.txtLBPT_MDCD.EditValue.ToString());
+      this.cdc_DataCollection.Add("@IN_LBPT_SFIX", (object) this.txtLBPT_SFIX.EditValue.ToString());
+      this.cdc_DataCollection.Add("@IN_USED_CHCK", this.s_chkUSED_CHCK.Checked ? (object) "N" : (object) "Y");
+      this.dt_ReturnValue = DBINFO.DBCON.ExcuteSelectProcedureDT(this.str_PROC, this.cdc_DataCollection, CommandType.Text, true);
+      if (!(this.SAVE_MODE == "0") || this.dt_ReturnValue.Rows.Count <= 0)
+        ;
+      if (!(this.SAVE_MODE == "1") || this.dt_ReturnValue.Rows.Count != 0)
+        ;
+      return true;
+    }
+
+    private string oper10to33(int data)
+    {
+      string str1 = "";
+      int num = data;
+      string str2;
+      if (data < 33)
+      {
+        str2 = PACK300C._33Index[data];
+      }
+      else
+      {
+        int index1;
+        while (true)
+        {
+          index1 = num / 33;
+          int index2 = num % 33;
+          str1 = PACK300C._33Index[index2] + str1;
+          if (index1 >= 33)
+            num = index1;
+          else
+            break;
+        }
+        str2 = PACK300C._33Index[index1] + str1;
+      }
+      return str2;
+    }
+
+    private double oper33to10(string data)
+    {
+      double num1 = 0.0;
+      int num2 = data.Length - 1;
+      for (int startIndex = 0; startIndex <= num2; ++startIndex)
+        num1 += (double) this.get33Index(char.Parse(data.Substring(startIndex, 1))) * Math.Pow(33.0, (double) (num2 - startIndex));
+      return num1;
+    }
+
+    private int get33Index(char _val)
+    {
+      int num = 0;
+      if (_val <= '9')
+      {
+        num = (int) _val - 48;
+      }
+      else
+      {
+        switch ((int) _val - 65)
+        {
+          case 0:
+            num = 10;
+            break;
+          case 1:
+            num = 11;
+            break;
+          case 2:
+            num = 12;
+            break;
+          case 3:
+            num = 13;
+            break;
+          case 4:
+            num = 14;
+            break;
+          case 5:
+            num = 15;
+            break;
+          case 6:
+            num = 16;
+            break;
+          case 7:
+            num = 17;
+            break;
+          case 9:
+            num = 18;
+            break;
+          case 10:
+            num = 19;
+            break;
+          case 11:
+            num = 20;
+            break;
+          case 12:
+            num = 21;
+            break;
+          case 13:
+            num = 22;
+            break;
+          case 15:
+            num = 23;
+            break;
+          case 16:
+            num = 24;
+            break;
+          case 17:
+            num = 25;
+            break;
+          case 18:
+            num = 26;
+            break;
+          case 19:
+            num = 27;
+            break;
+          case 21:
+            num = 28;
+            break;
+          case 22:
+            num = 29;
+            break;
+          case 23:
+            num = 30;
+            break;
+          case 24:
+            num = 31;
+            break;
+          case 25:
+            num = 32;
+            break;
+        }
+      }
+      return num;
+    }
+
+    private void txtLBPT_MDCD_KeyDown(object sender, KeyEventArgs e)
+    {
+      if (e.KeyCode != Keys.Return)
+        return;
+      this.fun_GetCustSearchPopup("1");
+    }
+
+    private void fun_GetCustSearchPopup(string strGBN)
+    {
+      UIExtenalParameter paramter = new UIExtenalParameter();
+      paramter["LBPT_MDCD"] = (object) this.txtLBPT_MDCD.Text;
+      paramter["LBPT_SFIX"] = (object) this.txtLBPT_SFIX.Text;
+      PACK301P pacK301P = new PACK301P(paramter);
+      pacK301P.MDCDSearchSelectRow += new PACK301P.MDCDSeletRow(this.SetMDCDSearchDataBind);
+      if (!string.IsNullOrWhiteSpace(this.txtLBPT_MDCD.Text))
+      {
+        DataTable dataSearch = pacK301P.GetDataSearch();
+        if (dataSearch.Rows.Count == 1)
+        {
+          this.SetMDCDSearchDataBind(dataSearch.Rows[0]);
+          pacK301P.Dispose();
+        }
+      }
+      if (pacK301P.IsDisposed)
+        return;
+      int num = (int) pacK301P.ShowDialog();
+    }
+
+    private void SetMDCDSearchDataBind(DataRow row)
+    {
+      this.grvMain.GetFocusedDataRow();
+      this.txtLBPT_MDCD.Text = row["LBPT_MDCD"].ToString();
+      this.txtLBPT_SFIX.Text = row["LBPT_SFIX"].ToString();
+    }
+
+    private void txtLBPT_LOTQ_KeyPress(object sender, KeyPressEventArgs e)
+    {
+      int num1 = 0;
+      int num2 = 0;
+      if (e.KeyChar != '\r' || e.KeyChar != '\r')
+        return;
+      this.dt = this.GetSearch();
+      DataTable modelSpec = this.GetModelSpec();
+      if (modelSpec.Rows.Count > 0 && modelSpec.Rows[0]["MIDDLE_COUNT"].ToString() != "" && modelSpec.Rows[0]["MASTER_COUNT"].ToString() != "")
+      {
+        num1 = int.Parse(modelSpec.Rows[0]["MIDDLE_COUNT"].ToString());
+        num2 = int.Parse(modelSpec.Rows[0]["MASTER_COUNT"].ToString());
+      }
+      if (this.dt.Rows.Count > 0)
+      {
+        if (this.dt.Rows[0]["LBPT_ESSR"].ToString() == "" || this.dt.Rows[0]["LBPT_ESSR"].ToString() == null)
+        {
+          this.txtLBPT_SSRL.EditValue = (object) 1.ToString();
+          this.txtLBPT_ESRL.EditValue = (object) int.Parse(this.txtLBPT_LOTQ.EditValue.ToString()).ToString();
+        }
+        else
+        {
+          this.txtLBPT_SSRL.EditValue = (object) (int.Parse(this.dt.Rows[0]["LBPT_ESSR"].ToString()) + 1).ToString();
+          this.txtLBPT_ESRL.EditValue = (object) (int.Parse(this.dt.Rows[0]["LBPT_ESSR"].ToString()) + int.Parse(this.txtLBPT_LOTQ.EditValue.ToString())).ToString();
+        }
+      }
+      this.txtLBPT_SS33.EditValue = (object) this.oper10to33(int.Parse(this.txtLBPT_SSRL.EditValue.ToString())).PadLeft(5, '0');
+      this.txtLBPT_ES33.EditValue = (object) this.oper10to33(int.Parse(this.txtLBPT_ESRL.EditValue.ToString())).PadLeft(5, '0');
+      double num3 = double.Parse(this.txtLBPT_LOTQ.Text) / (double) num1;
+      int num4 = int.Parse(this.txtLBPT_LOTQ.Text) / num1;
+      if (num3 > (double) num4)
+        ++num4;
+      this.max_mid = (double) num4;
+      if (this.dt.Rows[0]["LBPT_EMID"].ToString() == "" || this.dt.Rows[0]["LBPT_EMID"].ToString() == null || this.dt.Rows[0]["LBPT_EMID"].ToString() == "0")
+      {
+        this.txtLBPT_SMID.EditValue = (object) 1;
+        this.txtLBPT_EMID.EditValue = (object) num4;
+      }
+      else
+      {
+        this.txtLBPT_SMID.EditValue = (object) (int.Parse(this.dt.Rows[0]["LBPT_EMID"].ToString()) + 1);
+        this.txtLBPT_EMID.EditValue = (object) (int.Parse(this.dt.Rows[0]["LBPT_EMID"].ToString()) + num4);
+      }
+      double num5 = this.max_mid / (double) num2;
+      int num6 = int.Parse(this.max_mid.ToString()) / num2;
+      if (num5 > (double) num6)
+        ++num6;
+      this.max_mst = (double) num6;
+      if (this.dt.Rows[0]["LBPT_EMST"].ToString() == "" || this.dt.Rows[0]["LBPT_EMST"].ToString() == null || this.dt.Rows[0]["LBPT_EMST"].ToString() == "0")
+      {
+        this.smst = 1;
+        this.emst = num6;
+      }
+      else
+      {
+        this.smst = int.Parse(this.dt.Rows[0]["LBPT_EMST"].ToString()) + 1;
+        this.emst = int.Parse(this.dt.Rows[0]["LBPT_EMST"].ToString()) + num6;
+      }
+    }
+
+    private void btnUnitPrint_Click(object sender, EventArgs e)
+    {
+      string str1 = "";
+      string str2 = "";
+      string str3 = "";
+      string str4 = "  ";
+      DataTable dataTable1 = new DataTable();
+      DataTable modelSpec = this.GetModelSpec();
+      if (modelSpec.Rows.Count > 0 && modelSpec.Rows[0]["COLOR"].ToString() != "")
+        str3 = modelSpec.Rows[0]["COLOR"].ToString();
+      switch (this.datLBPT_DATE.EditValue.ToString().Substring(0, 4))
+      {
+        case "2018":
+          str1 = "K";
+          break;
+        case "2019":
+          str1 = "M";
+          break;
+        case "2020":
+          str1 = "N";
+          break;
+        case "2021":
+          str1 = "R";
+          break;
+        case "2022":
+          str1 = "T";
+          break;
+        case "2023":
+          str1 = "W";
+          break;
+        case "2024":
+          str1 = "X";
+          break;
+        case "2025":
+          str1 = "Y";
+          break;
+        case "2026":
+          str1 = "L";
+          break;
+        case "2027":
+          str1 = "P";
+          break;
+        case "2028":
+          str1 = "Q";
+          break;
+        case "2029":
+          str1 = "S";
+          break;
+      }
+      switch (this.datLBPT_DATE.EditValue.ToString().Substring(5, 2))
+      {
+        case "01":
+          str2 = "1";
+          break;
+        case "02":
+          str2 = "2";
+          break;
+        case "03":
+          str2 = "3";
+          break;
+        case "04":
+          str2 = "4";
+          break;
+        case "05":
+          str2 = "5";
+          break;
+        case "06":
+          str2 = "6";
+          break;
+        case "07":
+          str2 = "7";
+          break;
+        case "08":
+          str2 = "8";
+          break;
+        case "09":
+          str2 = "9";
+          break;
+        case "10":
+          str2 = "A";
+          break;
+        case "11":
+          str2 = "B";
+          break;
+        case "12":
+          str2 = "C";
+          break;
+      }
+      DataTable dataTable2 = new DataTable();
+      DataTable data1 = this.GetData();
+      string str5 = data1.Rows[0]["PRODUCT_NAME"].ToString() + str4 + str3;
+      string str6 = data1.Rows[0]["MODL_DELV"].ToString();
+      for (int data2 = int.Parse(this.txtLBPT_SSRL.EditValue.ToString()); data2 <= int.Parse(this.txtLBPT_ESRL.EditValue.ToString()); ++data2)
+      {
+        string s1 = this.oper10to33(data2);
+        string szString;
+        if (this.txtLBPT_SFIX.Text == "RU")
+          szString = "^XA^PON^LH0,0^LL0444" + (!(this.txtLBPT_MDCD.Text.Substring(3, 3) == "SLR") ? (!(this.txtLBPT_MDCD.Text.Substring(3, 3) == "SFR") && !(this.txtLBPT_MDCD.Text.Substring(3, 3) == "SRR") ? "^FT018,200^GFA,02816,02816,00044,:Z64:eJzt1DFr20AUB/BTHeIMV9vjCcuoH+FUgSKIqQP5IlccpCUUpR7aIdQygWRzOmpI26/g0YXSSKjgJSSrh9CqCOytKJtDhNR3OrkppFA6BDr4DbKRf/x5fnonhFa1qlWt6n7t/QdWVCQ+Kj5cqu6v2+3iKvFfK8u7UtLvTBIWHEeq3z0JF3nHZxm1kzfq5CZjYVL3tcn3tD8q8hb9zmUSBSfcflja+SJX49uMTZJ6pF/Gpa2OeW4UvHdU334Xp9zmYOdqCLkTU030r/tZaZWY1mgUnFISWWaM/SeIhXRGQq8iu9EFwVRXtKFvcruudOkaTQKPNphFe8Jqs1bgVWWXnStgiXa0TQuLu5A7CjyTgNWX9vHAqzTB4g2wW7/ZNQ0sabBdp7DbpZURu8IKNYi8LmwNQb9gx4SwPVZYX9hH0O8UY2qY8pHoF6MdyH0bjEgj2hO5/kS3WoMp7/cKY8egctkDRnHnQhvnI6L6PDfruH6mW033w2Ez609xPXpGm0f90u50vmheYV8zPRXWvpG+xTK3atSm8OUuV/fyMVGjA7a1KOymfetym/Pctimn+VjYEPolRb8HTF8U/Rr29WA6h37hvzmQmy7nENKavgBbzCEB64aGHQ+mvSa3G9SgzYWwazxXT3ku22U6EtaSBl4P5jvl86UyKnMxz02L+b5wuJXc8LOwbgQzMzdN2S33AfNcXDw3eMaFDdrcvuL7gHFDJ7K7fMY8F5f70BO5nyzp0HvJ90HZMHVvy2XCKpD7FBd7ZtMutyg0LSn0bOj3nCh8z8p+qy3INWrBqUMi24xFrmmh2Jvx/TWxo5/ul/1WPuZn58Z6MHTUqNuKUd4JUA52rs5kfi7qiTbcd8vzdpufpWDhvEVw3sCGKAObqz+a4rxpl3Fppev87Arssa+i5yeHRW5KLdRWh3LOQjix2iRAwqJ44JI/vh/wvfcDkqQ78Leq/IN9qNxVPWT9BDmsjnQ=:CBFB" : "^FT018,200^GFA,1500,1500,50,uG0781FC7FDFE1E1C307801FC07803F06H0HFBFEC3078787BFE0307E0C39F81E07F8HFBFE6183C038307F0C0E1HF60C3C3C3HC0FC1FC7FDFE1E1C30FC01FC0FC03F86H0HFBFEC3078787BFE0307F0C39FC3F07F8HFBFE6187E038307F0C3F1HF60C3C3C3HC0HF1FC7FDFE1E1C30FE01FE1FC03FC6H0HFBFEC3078787BFE0207F0C39FC3F87F8HFBFE6187F018607F8C3F9HF60C3C3C3HC1C718C601861F1C31C6018E18E031C6H0CH060C30F878FBI020638C798C7186H0C3BH0618E301C6061HC7383860C3E3E3HC18718C601861F1CH3870186386030C6H0CH060C30D878FBI020618C798H61C6H0C3BH0618C380CE061C46183860C3E3E3HC18218C601861F1CH3830186306030C6H0CH060C30D868FBI020618C798H60C6H0C3BH0618C180CE061C461C3860C3E3E2HC18018C601863F1CH3830186306030C6H0CH060C30D868FBI060618CF98H60C6H0C3BH0618C180CE061C46083860C7E3E2HC3H018C60186H31CH3030186703030C6H0CH060C30HC68FBI060618CF986C0E6H0C3BH06198180EC061ICH03860CH63E2HC3H018C60186H31CH303018E703031C7F0CH060C30HC6CHBI060630CF98EC0E7F0C3BH061981806C06180CH03860CH63A6HC3H018C7F986H31HF30301FC70303F87F8HF060HF0HC6CHBFE0607F0DF98HC0E7F8C3BFC7F981806C07FH0FC0387FCH63A6HC3H018C7F986319HF30301FC70303F87FCHF060HF18C6CHBFE0607F0DB9FHC0E7FHC3BFC7F981807C07FH0FC0387FC673A6HC3H018C7F986319HF30301FE70303FC61CHF060HF18C6CHBFE0407F8DB9FHC0E61HC3BFC7F981807807FC0FC0387FC673A6HC3H030C60186319CH3030186703030C60HCH060C318C67HBI040618DB9F8C0E60HC3BH0619818038061C0CH03860C673BIC3H030C601867F9CH3030183703030E60HCH060C31FE67HBI04061CF3980C0E60HC3BH061981803H060C0CH03860CHF3BIC18230C601867F9CH383018H306030E60HCH060C31FE67HBI04061CF398060C60HC3BH0618C1803H060C06083860CHF3BIC18730C601867F9CH383018H306030E60HCH060C31FE67HBI0C061CF398060C60HC3BH0618C1803H060C060C3860CHF3BIC18730C6018H61DCH387018H386030E61HCH060CH38H673BI0C061CF398061C61HC3BH0618C3803H060C06183860DC3B9IC1CF30C6018H60DC31C6018718E030E61HCH060CH30H673BI0C061CE398071861HC3BH0618E3H03H061C07183860DC1B9IC0FE7FE7HF8H60DC30FE01FE1FC03FC7FCHF860CH30H673BFE0C07F8E39803F87FDC3BFE6187FH0EH07FC03F83860DC1B9IC0FC7FE7HF86E0DC30FC01FE0FC03FC7F8HF860CH307673BFE1807F0E39803F07F9C3BFE6187EH0EH07F803F03860DC1B9IC0787FE7HF06C0DC307801FC07803F87F0HF860CH3036H3BFE1807F0C39801E07F183BFE6183CH0CH07FH01E03860D81B98HCI0406jW0406jW0406jW0406jW0406oT0") : "^FT018,200^GFA,1700,1700,50,tX0C6jX0C6jX0C6pG03E03FE3HF8HFC1E030381FI07F801C1DC0CIF0F81HFC37F81C1C7F807C07FE1HFCHFE70301EH01HFH01C1981CHFE1E03807F83FE3HF8HFC1F030383F8H07FC01C3DC1CIF0F81HFC37FC1C1C7FC0FE07FE1HFCHFE70307F801HFH01C7983CHFE1F0380HF83FE3HF8HFC1F030387FCH07FC01C3DC1CIF0F81HFC67FE1C1C7FE1HF07FE1HFCHFE70307FC01HF801C7983CHFE1F0381HFC3FE3HF8HFC1F03038HFEH07FE01C71C3CIF0F81HFC67FE1C3C7FE3HF87FE1HFCHFE7030HFC01HFC01CE183CHFE1F0381E3C38E38H0E0C1B83038F1EH061E01C61C7C06H0FC1CH0670E1C7C70E7C787H01C1CEH07031E1E01C3C01CE187C0E01B8381C1E38E38H0E0C1B83038C06H060E01CE1C7C06H0FC1CH067061C7C70670187H01C1CEH07031C0E01C1C01CE187C0E01B8383C0838E38H0E0C3B83039C07H060E01CE1C7C0601FC1CH0C7061C7C706701C7H01C1CEH070H3C0F01C1C01CE18FC0E03B83838H038E38H0E0C39C3039C07H061C01HC1C6C0601CE1CH0C70E1C7C70E701C7H01C1CEH070H380701C3801DC18DC0E039C3838H038E3HF0E0C39C3HF9C07H07FC01HC1CEC0601CE1HF8C7FE1CFC7FE701C7FC1C1CHFC7HF380701HF801DC18DC0E039C3838H038E3HF0E0C79C3HF9C07H07FC01FC1DHC0603CE1HF8C7FC1HDC7FE701C7FE1C1CHFC7HF380701HFH01F819DC0E079C3838H038E3HF0E0C71C3HF9C07H07FC01FC1DHC0603861HF9C7FE1HDC7FC701C7HF1C1CHFC7HF380701HF801F819DC0E071C3838H070E3HF0E0C71C3HF9C07H07FE01FC1D8C0603861HF9C7FE1F9C7F8701C7HF1C1CHFC7HF380701HFC01FC1B9C0E071C38380870E38H0E0CHFC3039C07H060F01CE1D8C0603FE1C01C7071F9C7H0701C7079C1CEH070H380701C1C01DE1B1C0E0HFC383C1E70E38H0E0CHFE3039C07H060701CE1F8C0603HF1C01C7071F9C7H0701C7039C1CEH070H3C0F01C0C01CE1F1C0E0HFE381C1E70E38H0E0CHFE3038E0EH060701C71F0C0603HF1C0187071F1C7H078387039C1CEH07031E1E01C0C01CE1F1C0E0HFE381E3C70E38H0E0CE0E3038F1EH060F01C71F0C0607071C0187071F1C7H07C787079C1CEH07031E1E01C1C01CF1F1C0E0E0E381HFDIFBHFBE0CE073038HFEH07HF01C31E0C0607039HFD87HF1E1C7H03HF87IFC1CHFE7030HFC01HFC01C71E1C0E0E07380HF9IFBHFBE0CE0730387FCH07FE01C39E0C0607039HFD87FE1C1C7H01HF07HF7C1CHFE70307FC01HFC01C79C1C0E0E073807F9IFBHFBC0DE0730383F8H07FC01C39E0C060F039IF07FE1C1C7I0FE07FE7C1CHFE70307F801HF801C39C1C0E1E073803E1IFBHFB80DC0H30381FI07FC01C3DC0C060E01DIF07FC1C1C7I07C07FC781CHFE70301EH01HFH01C3981C0E1C0H38I01C038jU01C038jU01C038jU01C038yR0") + "^BY3,2,59^FT080,60^BEN,,Y,N^FD" + this.txtLBPT_EANC.Text + "^FS^FT115,110^A0N,25,24^FH\\^FD" + this.txtLBPT_MDCD.EditValue.ToString() + "^FS^FO010,150^GFA,714,714,42,nP03F871FE1C03FCFC1F08H3E1F81E0FE1E3FDFC1CH0C1FC387F86H0FE20CF81E1FE6098260BFCFC0EK03F871FE1C03FCFC3FH8H7F1FC7F8FE3F3FDFC1CH0C1FC387F86H0FE20CFC3F9FE6098H60BFCFE0EK02085830160304C620H876390C61H8H218618436H081842C0C0BH0CH21C86219806098E60860821AK02085830160304C260C874190HC0H82610618436H081842C0C0BH0CH21C8640D806098E60860821AK02085830160304CH60C8B0310HC0H826H0618436H081842C0C0BH0CH23C8640D8060H9A60860821AK020I830230304FC60C9B061F8C0H826H061FCH2H0818H460C1980FE26CFC40DFC7F9B260860FCH1K0208F8303F0304C060CB301906C0H826H061823E0101847E0C1F80C12HC8040D87609A260860831FK0609FC307F0304C060CE341906C098261061827F010304FE0C3F80C138C8040D83609C2608608H3F8J06098430610304C0208E36390H6198H218618241010304C20C3080C138C8021987609C26086083218J0HFD8430610304C03F8C37F1FC7FBHF3F061FC410307FEC20C3080FE30C803F9FE609C27FC60FE218J0IF0630C08304C01F08H3E1F81E3HF1E061FHC18307HF810C6040FE20C801E1FC609827FC60FC60CJ0C0CgJ0303R0602gM0CQ0C0CgJ0303R0602gM0CQ0C0CgJ0303R0602gM0CjS0^FT341,162^A0N,17,18^FH\\^FD: " + this.datLBPT_DATE.EditValue.ToString().Replace("-", ".").Substring(0, 10) + "^FS^FT018,128^A0N,17,18^FH\\^FD" + str5 + "^FS^BY2,3,24^FT018,333^BCN,,Y,N^FD>:RF7" + str1 + str2 + s1.PadLeft(5, '0') + "X" + this.txtLBPT_LOTN.EditValue.ToString().Substring(0, 2) + str6 + "^FS^FT075,353^A0N,20,25^FH\\^FDS/N:^FS^BY2,3,24^FT018,275^BCN,,Y,N^FD>:RF7" + str1 + str2 + s1.PadLeft(5, '0') + "X" + this.txtLBPT_LOTN.EditValue.ToString().Substring(0, 2) + str6 + "^FS^FT075,295^A0N,20,25^FH\\^FDS/N:^FS^FT420,353^A0N,17,20^FH\\^FDC^FS^FT420,292^A0N,17,20^FH\\^FDB^FS^BY2,3,24^FT018,221^BCN,,Y,N^FD>:RF7" + str1 + str2 + s1.PadLeft(5, '0') + "X" + this.txtLBPT_LOTN.EditValue.ToString().Substring(0, 2) + str6 + "^FS^FT075,241^A0N,20,25^FH\\^FDS/N:^FS^FT420,239^A0N,17,20^FH\\^FDA^FS^XZ";
+        else if (this.txtLBPT_SFIX.Text == "CN")
+        {
+          szString = "^XA^PON^LH0,0^LL0444^FT018,133^GFA,153,153,9,M08H04M06L08H04H0H24H0H1FC1F081IF8H24O08H0401IF8M07FH04H0H24I03FEI090HFE0H24H070403F89H0401IF80104H0419H04H1I080108H08H13IF90208010H809H1H0CI02I0H104089101H20IFH013FA17A10H2C0821H01H0238E10E1H0821H068J04H3H280821H047FE01C603C6H027P01C01802gG0^FT018,198^GFA,00768,00768,00012,:Z64:eJxjYBgBgAMIGRgMwWwBBh4G+w+C9kAmYwfz/x8KAvWLQGyIpCCIZv7/IKFBwcBQGchmEmBQaDAQkAep5+Ng/P8DqFeJgbGBB6xDQB5EcnAASah65v+NDAwGAmDzGcDiAv8XgM0Gq2dQBIszMwDdIARSz///E0i9oSNYng2k/kAfvcJlFDAAAIsyGTA=:255C" + (!(this.txtLBPT_MDCD.Text.Substring(3, 3) == "SLR") ? (!(this.txtLBPT_MDCD.Text.Substring(3, 3) == "SFR") && !(this.txtLBPT_MDCD.Text.Substring(3, 3) == "SRR") ? "^FT018,226^GFA,01024,01024,00016,:Z64:eJztkrFOwzAQhs/xEJCsmhGkQF8BNrO0fQV2hkoMrK5YK8XsPEL7HoyX96BSEANjMxYp5PjPLQ/AhJC4Jfr03e/4Tib6a2X2n2j48oaJWpu8SDdqiXeLRDQrSfkCfrlg8kNBDt1jWfFEhMZSUpV5zWdgaqVXP4U/Vp6B6yHW8K+Nno+8TfMwr7g1iXyPvEnxJJ7zhwiPnFWP/he+FkkjV3fOKG/4Ct73xcH3TN/5uo8Uz5sd/qf5I3hqTw9ckuansml2taAf97HPc9wve/8pfWVW8GsOnSdiWzn7FMPbikOrXFaaDw/wmh8K52SI4Q5+P3+l84f6MXPOK28TT3SvXN5mvjcsmYslGPN73mIeeOxOOmywec9s836p9ZwwP/yeo+ffeR//9ZP6AiEork4=:0A95" : "^FT018,200^GFA,464,464,16,gT038018J01CK03K018N03C01EJ01EK038H0701C08FK03801FJ03CJ0738H0701E0EFK03801FCI03CJ0F38H07H0F1HEK03801FE1LFC0E380E7H061CEJ07HFE1HC1LFC0IFHE7I03IFCH07LF1LFC1IFHE7I03IFCH07LFI038I01IFHE70707IFCI0383IF07KF03C380E707C70EK03839CH07KF038380E703C70EJ0JF9HC07KF03JFE701CJFEH0JF8FE071E3C703JFE7I0JFEH0JF8FC070E38703JFE7I0JFEI03838FC070E387I0380E7K0EJ03B838F8073IF701IFHE707E3IF8H03HFHB78073IF701IFHE707E3IF8H03BFBHFH073IF701IFHE707E3IF8H03BJFB0701C0701C38HE7H0E38038H03B8HFBF8H7IF701C38HE7H0E38038H03F8E7EF0H7IF701C38HE7H0E3IF8H07F81F1F0H7IF701C38HE7H0E3IF8H07F8160E0701C0701C38HE7H0F3IF8H0H7C0CI0701C0701C39HE701FB8038H0E2HF07E0701C7F01C3FE0F07FEI0781E1JFE0701C7D01C3BC3F07AKF81C03IFE0701C36I03BC3A071JFB8O0701C38I03801CI03IFCgS0") : "^FT018,200^GFA,496,496,16,hO0EV03CI03LF010FH01C02021CL03CI03LF01HEH01E07839CL038I03LF01CEH01C07C39CL038I03CJ0F03CEH01C01C79CL038I03CJ0F03IFBDCH087IF8J038I03DKF03IFB9CI0JF8H07JFE03DKF07IFB9C080JF8H07JFE03DKF070E039C1E1E1CJ07JFE03C0780F070E039C1F1C1CJ070380E03C0780F07JF9C07841CJ070380E03C0780F07JF9C0H3JF8H070380E03CIFEF07JF9CH03JF8H070380E03CIFEFI0E039CH03JF8H070380E03CIFEFI0E039CJ01CJ07JFE03C07F8F07IFB9C1FC7IFI07JFE03C07DCF07IFB9C1FC7IFI07JFE03C07ACF07IFB9C1FC7IFI070380E03C079CF070E3B9C01C7H07I070380E03LF070E3B9C01C7H07K038I03LF070E3B9C01C7IFK038I03LF070E3B9C01C7IFK038I03CJ0F070E3B9C03C7IFK038I03CJ0F070E3B9C07E7H07K038I03LF070EF81C1HFCH01EJ038I03LF070EF8FC1LFEJ038I03LFI0EF0740C3IFHEJ038I03CJ0FI0EH078I0JFP03ChU0") + "^BY3,2,59^FT080,60^BEN,,Y,N^FD" + this.txtLBPT_EANC.Text + "^FS^FT114,110^A0N,25,24^FH\\^FD" + this.txtLBPT_MDCD.EditValue.ToString() + "^FS^FT100,166^A0N,17,16^FH\\^FD :  " + this.datLBPT_DATE.EditValue.ToString().Replace("-", ".").Substring(0, 10) + "^FS^FT119,128^A0N,17,18^FH\\^FD(" + this.txtLBPT_MDCD.EditValue.ToString().Substring(0, 8) + ")" + str4 + str3 + "^FS^FT078,148^A0N,17,16^FH\\^FD : ^FS^BY2,3,24^FT018,224^BCN,,Y,N^FD>:RF7" + str1 + str2 + s1.PadLeft(5, '0') + "X" + this.txtLBPT_LOTN.EditValue.ToString().Substring(0, 2) + str6 + "^FS^FT075,244^A0N,20,25^FH\\^FDS/N:^FS^FT420,242^A0N,17,20^FH\\^FDA^FS^BY2,3,24^FT018,332^BCN,,Y,N^FD>:RF7" + str1 + str2 + s1.PadLeft(5, '0') + "X" + this.txtLBPT_LOTN.EditValue.ToString().Substring(0, 2) + str6 + "^FS^FT075,352^A0N,20,25^FH\\^FDS/N:^FS^FT420,295^A0N,17,20^FH\\^FDB^FS^BY2,3,24^FT018,275^BCN,,Y,N^FD>:RF7" + str1 + str2 + s1.PadLeft(5, '0') + "X" + this.txtLBPT_LOTN.EditValue.ToString().Substring(0, 2) + str6 + "^FS^FT075,295^A0N,20,25^FH\\^FDS/N:^FS^FT420,349^A0N,17,20^FH\\^FDC^FS^XZ";
+        }
+        else
+        {
+          string str7;
+          string str8;
+          if (this.txtLBPT_MDCD.Text.Substring(3, 3) == "SLR")
+          {
+            str7 = "MADE IN CHINA / FABRIQUE EN CHINE";
+            str8 = "^FO257,133^GFA,00256,00256,00004,:Z64:eJxjYKAnOADEDxgYGD8AMZBmBvKZgULsQMxEV4fAAQBLYQRC:3CC2";
+          }
+          else if (this.txtLBPT_MDCD.Text.Substring(3, 3) == "SFR" || this.txtLBPT_MDCD.Text.Substring(3, 3) == "SRR")
+          {
+            str7 = "MADE IN VIETNAM / FABRIQUE AU VIETNAM";
+            str8 = "^FO279,133^GFA,00256,00256,00004,:Z64:eJxjYKAnOADEDxgYGD8AMZBmBvKZgULsQMxEV4fAAQBLYQRC:3CC2";
+          }
+          else
+          {
+            str7 = "MADE IN KOREA / FABRIQUE EN COREE";
+            str8 = "^FO257,133^GFA,00256,00256,00004,:Z64:eJxjYKAnOADEDxgYGD8AMZBmBvKZgULsQMxEV4fAAQBLYQRC:3CC2^FO330,133^GFA,00512,00512,00008,:Z64:eJxjYBi2gAlKs0Np/gZUWh4qLgOlLaC0AI3dNagAALvRAas=:BE95";
+          }
+          string str9 = "^XA^PON^LH0,0^LL0444" + str8;
+          szString = (this.txtLBPT_EANC.Text.Length >= 13 ? str9 + "^BY3,2,59^FT080,60^BEN,,Y,N" : str9 + "^BY3,2,59^FT080,60^BUN,,Y,N") + "^FD" + this.txtLBPT_EANC.Text + "^FS^FT115,110^A0N,25,24^FH\\^FD" + this.txtLBPT_MDCD.EditValue.ToString() + "^FS^FT018,161^A0N,17,16^FH\\^FDMANUFACTURE DATE :" + this.datLBPT_DATE.EditValue.ToString().Replace("-", ".").Substring(0, 10) + "^FS^FT018,128^A0N,17,18^FH\\^FD" + str5 + "^FS^FT018,191^A0N,25,22^FH\\^FD" + str7 + "^FS^BY2,3,24^FT018,333^BCN,,Y,N^FD>:RF7" + str1 + str2 + s1.PadLeft(5, '0') + "X" + this.txtLBPT_LOTN.EditValue.ToString().Substring(0, 2) + str6 + "^FS^FT075,353^A0N,20,25^FH\\^FDS/N:^FS^BY2,3,24^FT018,275^BCN,,Y,N^FD>:RF7" + str1 + str2 + s1.PadLeft(5, '0') + "X" + this.txtLBPT_LOTN.EditValue.ToString().Substring(0, 2) + str6 + "^FS^FT075,295^A0N,20,25^FH\\^FDS/N:^FS^FT420,353^A0N,17,20^FH\\^FDC^FS^FT420,292^A0N,17,20^FH\\^FDB^FS^BY2,3,24^FT018,221^BCN,,Y,N^FD>:RF7" + str1 + str2 + s1.PadLeft(5, '0') + "X" + this.txtLBPT_LOTN.EditValue.ToString().Substring(0, 2) + str6 + "^FS^FT075,241^A0N,20,25^FH\\^FDS/N:^FS^FT420,239^A0N,17,20^FH\\^FDA^FS^XZ";
+        }
+        ZPrint.SendStringToPrinter(new PrintDialog()
+        {
+          PrinterSettings = new PrinterSettings()
+        }.PrinterSettings.PrinterName, szString);
+        this.srl(this.datLBPT_DATE.EditValue.ToString().Replace("-", "").Substring(0, 8), s1);
+      }
+    }
+
+    private DataTable GetData()
+    {
+      this.str_PROC = "PACK400_PS";
+      this.cdc_DataCollection.Clear();
+      this.cdc_DataCollection.Add("@IN_SRCH_MODE", (object) "6");
+      this.cdc_DataCollection.Add("@IN_LBPT_SDAT", (object) this.s_datLABL_SDAT.EditValue.ToString().Replace("-", "").Substring(0, 8));
+      this.cdc_DataCollection.Add("@IN_LBPT_EDAT", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_LINE", (object) this.txtLBPT_SSRL.Text);
+      this.cdc_DataCollection.Add("@IN_LBPT_LOTN", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_MDCD", (object) this.txtLBPT_MDCD.Text);
+      this.cdc_DataCollection.Add("@IN_LBPT_SFIX", (object) "");
+      this.cdc_DataCollection.Add("@IN_USED_CHCK", (object) "");
+      return DBINFO.DBCON.ExcuteSelectProcedureDT(this.str_PROC, this.cdc_DataCollection, CommandType.Text, false);
+    }
+
+    private void srl(string s, string s1)
+    {
+      try
+      {
+        this.str_PROC = "PACK300_PIUD";
+        this.cdc_DataCollection.Clear();
+        this.cdc_DataCollection.Add("@IN_SAVE_MODE", (object) "6");
+        this.cdc_DataCollection.Add("@IN_LBPT_SEQ", (object) "");
+        this.cdc_DataCollection.Add("@IN_LBPT_YEAR", (object) s.Replace(".", "").Substring(0, 8));
+        this.cdc_DataCollection.Add("@IN_LBPT_LINE", (object) s1);
+        this.cdc_DataCollection.Add("@IN_LBPT_PRIO", (object) "");
+        this.cdc_DataCollection.Add("@IN_LBPT_LOTN", (object) "");
+        this.cdc_DataCollection.Add("@IN_LBPT_MDCD", (object) "");
+        this.cdc_DataCollection.Add("@IN_LBPT_SFIX", (object) "");
+        this.cdc_DataCollection.Add("@IN_LBPT_LOTQ", (object) "");
+        this.cdc_DataCollection.Add("@IN_LBPT_RSTQ", (object) "");
+        this.cdc_DataCollection.Add("@IN_LBPT_SS33", (object) "");
+        this.cdc_DataCollection.Add("@IN_LBPT_ES33", (object) "");
+        this.cdc_DataCollection.Add("@IN_LBPT_SSRL", (object) "");
+        this.cdc_DataCollection.Add("@IN_LBPT_ESRL", (object) "");
+        this.cdc_DataCollection.Add("@IN_LBPT_SMID", (object) "");
+        this.cdc_DataCollection.Add("@IN_LBPT_EMID", (object) "");
+        this.cdc_DataCollection.Add("@IN_LBPT_STAT", (object) "");
+        this.cdc_DataCollection.Add("@IN_LBPT_SMST", (object) "");
+        this.cdc_DataCollection.Add("@IN_LBPT_EMST", (object) "");
+        this.cdc_DataCollection.Add("@IN_LBPT_MMID", (object) "");
+        this.cdc_DataCollection.Add("@IN_LBPT_MMST", (object) "");
+        this.cdc_DataCollection.Add("@IN_USED_CHCK", (object) "");
+        DBINFO.DBCON.ExcuteProcedure(this.str_PROC, this.cdc_DataCollection, CommandType.Text);
+      }
+      catch (Exception ex)
+      {
+        GST_ErrorForm gstErrorForm = new GST_ErrorForm();
+        gstErrorForm.txtMSG.Text = ex.Message;
+        gstErrorForm.txtCODE.Text = "";
+        int num = (int) gstErrorForm.ShowDialog();
+        gstErrorForm.Text = ex.ToString();
+      }
+    }
+
+    private DataTable GetModelSpec()
+    {
+      this.str_PROC = "PACK400_PS";
+      this.cdc_DataCollection.Clear();
+      this.cdc_DataCollection.Add("@IN_SRCH_MODE", (object) "13");
+      this.cdc_DataCollection.Add("@IN_LBPT_SDAT", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_EDAT", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_LINE", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_LOTN", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_MDCD", (object) this.txtLBPT_MDCD.Text);
+      this.cdc_DataCollection.Add("@IN_LBPT_SFIX", (object) "");
+      this.cdc_DataCollection.Add("@IN_USED_CHCK", (object) "");
+      return DBINFO.DBCON.ExcuteSelectProcedureDT(this.str_PROC, this.cdc_DataCollection, CommandType.Text, false);
+    }
+
+    private void btnMstPrint_Click(object sender, EventArgs e)
+    {
+      int num = (int) MessageBox.Show("현재는 지원하지 않습니다.");
+    }
+
+    public DataTable dataFIND(string date, string serial)
+    {
+      this.str_PROC = "tb_data_PS";
+      this.cdc_DataCollection.Clear();
+      this.cdc_DataCollection.Add("@IN_SRCH_MODE", (object) "0");
+      this.cdc_DataCollection.Add("@IN_year", (object) date);
+      this.cdc_DataCollection.Add("@IN_data", (object) int.Parse(serial));
+      return DBINFO.DBCON.ExcuteSelectProcedureDT(this.str_PROC, this.cdc_DataCollection, CommandType.Text, false);
+    }
+
+    private DataTable GetMAX()
+    {
+      this.str_PROC = "PACK400_PS";
+      this.cdc_DataCollection.Clear();
+      this.cdc_DataCollection.Add("@IN_SRCH_MODE", (object) "9");
+      this.cdc_DataCollection.Add("@IN_LBPT_SDAT", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_EDAT", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_LINE", (object) UserInfo.USER_ID);
+      this.cdc_DataCollection.Add("@IN_LBPT_LOTN", (object) this.dbl_SERIAL.ToString());
+      this.cdc_DataCollection.Add("@IN_LBPT_MDCD", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_SFIX", (object) "");
+      this.cdc_DataCollection.Add("@IN_USED_CHCK", (object) "");
+      return DBINFO.DBCON.ExcuteSelectProcedureDT(this.str_PROC, this.cdc_DataCollection, CommandType.Text, false);
+    }
+
+    public void dataSave(string date, string serial)
+    {
+      this.str_PROC = "tb_data_PS";
+      this.cdc_DataCollection.Clear();
+      this.cdc_DataCollection.Add("@IN_SRCH_MODE", (object) "1");
+      this.cdc_DataCollection.Add("@IN_year", (object) date);
+      this.cdc_DataCollection.Add("@IN_data", (object) int.Parse(serial));
+      DBINFO.DBCON.ExcuteProcedure(this.str_PROC, this.cdc_DataCollection, CommandType.Text);
+    }
+
+    private void btn33Convert_Click(object sender, EventArgs e)
+    {
+      this.frmcode33 = new FrmCode33();
+      int num = (int) this.frmcode33.ShowDialog();
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+      if (disposing && this.components != null)
+        this.components.Dispose();
+      base.Dispose(disposing);
+    }
+
+    private void InitializeComponent()
+    {
+      ComponentResourceManager componentResourceManager = new ComponentResourceManager(typeof (PACK300C));
+      SerializableAppearanceObject appearance = new SerializableAppearanceObject();
+      this.xtraLayoutControl1 = new XtraLayoutControl();
+      this.btn33Convert = new XtraButton();
+      this.chkUSED_CHCK = new XtraCheckEdit();
+      this.s_chkUSED_CHCK = new XtraCheckEdit();
+      this.s_txtLABL_LOTN = new XtraTextEdit();
+      this.btnSearch = new XtraButton();
+      this.btnAdd = new XtraButton();
+      this.btnSave = new XtraButton();
+      this.btnUnitPrint = new XtraButton();
+      this.btnQrPrint = new XtraButton();
+      this.btnClose = new XtraButton();
+      this.btnClear = new XtraButton();
+      this.grdMain = new XtraGridControlExt();
+      this.grvMain = new GridView();
+      this.s_datLABL_SDAT = new XtraDateEdit();
+      this.s_datLABL_EDAT = new XtraDateEdit();
+      this.s_cbxLABL_LINE = new XtraImageComboBoxEdit();
+      this.s_txtLABL_MDCD = new XtraTextEdit();
+      this.s_txtLABL_SFIX = new XtraTextEdit();
+      this.s_txtLABL_STAT = new XtraImageComboBoxEdit();
+      this.txtLBPT_SFIX = new XtraTextEdit();
+      this.txtLBPT_LOTN = new XtraTextEdit();
+      this.txtLBPT_CLOR = new XtraTextEdit();
+      this.txtLBPT_YYMM = new XtraTextEdit();
+      this.txtLBPT_EANC = new XtraTextEdit();
+      this.txtLBPT_LOTQ = new XtraTextEdit();
+      this.txtLBPT_LABL = new XtraTextEdit();
+      this.txtLBPT_SMID = new XtraTextEdit();
+      this.txtLBPT_EMID = new XtraTextEdit();
+      this.txtLBPT_ESRL = new XtraTextEdit();
+      this.txtLBPT_SSRL = new XtraTextEdit();
+      this.txtLBPT_SS33 = new XtraTextEdit();
+      this.txtLBPT_ES33 = new XtraTextEdit();
+      this.txtLBPT_APMO = new XtraTextEdit();
+      this.datLBPT_DATE = new XtraDateEdit();
+      this.SEQ = new XtraTextEdit();
+      this.txtLBPT_MDCD = new XtraPOPUPButtonEdit();
+      this.txtLBPT_STAT = new XtraTextEdit();
+      this.cbxLBPT_LINE = new XtraImageComboBoxEdit();
+      this.btnMstPrint = new XtraButton();
+      this.layMain = new LayoutControlGroup();
+      this.layoutControlItem2 = new LayoutControlItem();
+      this.emptySpaceItem1 = new EmptySpaceItem();
+      this.layoutControlItem3 = new LayoutControlItem();
+      this.laySearch = new LayoutControlGroup();
+      this.emptySpaceItem3 = new EmptySpaceItem();
+      this.layoutControlItem4 = new LayoutControlItem();
+      this.layoutControlItem27 = new LayoutControlItem();
+      this.layoutControlItem36 = new LayoutControlItem();
+      this.layoutControlItem37 = new LayoutControlItem();
+      this.layoutControlItem21 = new LayoutControlItem();
+      this.layoutControlItem38 = new LayoutControlItem();
+      this.layoutControlItem31 = new LayoutControlItem();
+      this.emptySpaceItem2 = new EmptySpaceItem();
+      this.layoutControlItem32 = new LayoutControlItem();
+      this.layoutControlItem6 = new LayoutControlItem();
+      this.layoutControlItem7 = new LayoutControlItem();
+      this.layoutControlItem9 = new LayoutControlItem();
+      this.layoutControlItem10 = new LayoutControlItem();
+      this.layList = new LayoutControlGroup();
+      this.layoutControlItem1 = new LayoutControlItem();
+      this.layInfo = new LayoutControlGroup();
+      this.layoutControlItem41 = new LayoutControlItem();
+      this.layoutControlItem42 = new LayoutControlItem();
+      this.layoutControlItem43 = new LayoutControlItem();
+      this.layoutControlItem44 = new LayoutControlItem();
+      this.layoutControlItem45 = new LayoutControlItem();
+      this.layoutControlItem46 = new LayoutControlItem();
+      this.layoutControlItem47 = new LayoutControlItem();
+      this.layoutControlItem48 = new LayoutControlItem();
+      this.layoutControlItem49 = new LayoutControlItem();
+      this.layoutControlItem50 = new LayoutControlItem();
+      this.layoutControlItem51 = new LayoutControlItem();
+      this.layoutControlItem52 = new LayoutControlItem();
+      this.layoutControlItem53 = new LayoutControlItem();
+      this.layoutControlItem54 = new LayoutControlItem();
+      this.layoutControlItem5 = new LayoutControlItem();
+      this.layoutControlItem8 = new LayoutControlItem();
+      this.layoutControlItem12 = new LayoutControlItem();
+      this.layoutControlItem19 = new LayoutControlItem();
+      this.layoutControlItem11 = new LayoutControlItem();
+      this.layoutControlItem13 = new LayoutControlItem();
+      this.layoutControlItem14 = new LayoutControlItem();
+      this.layoutControlItem15 = new LayoutControlItem();
+      this.layoutControlItem16 = new LayoutControlItem();
+      this.xtraLayoutControl1.BeginInit();
+      this.xtraLayoutControl1.SuspendLayout();
+      this.chkUSED_CHCK.Properties.BeginInit();
+      this.s_chkUSED_CHCK.Properties.BeginInit();
+      this.s_txtLABL_LOTN.Properties.BeginInit();
+      this.grdMain.BeginInit();
+      this.grvMain.BeginInit();
+      this.s_datLABL_SDAT.Properties.CalendarTimeProperties.BeginInit();
+      this.s_datLABL_SDAT.Properties.BeginInit();
+      this.s_datLABL_EDAT.Properties.CalendarTimeProperties.BeginInit();
+      this.s_datLABL_EDAT.Properties.BeginInit();
+      this.s_cbxLABL_LINE.Properties.BeginInit();
+      this.s_txtLABL_MDCD.Properties.BeginInit();
+      this.s_txtLABL_SFIX.Properties.BeginInit();
+      this.s_txtLABL_STAT.Properties.BeginInit();
+      this.txtLBPT_SFIX.Properties.BeginInit();
+      this.txtLBPT_LOTN.Properties.BeginInit();
+      this.txtLBPT_CLOR.Properties.BeginInit();
+      this.txtLBPT_YYMM.Properties.BeginInit();
+      this.txtLBPT_EANC.Properties.BeginInit();
+      this.txtLBPT_LOTQ.Properties.BeginInit();
+      this.txtLBPT_LABL.Properties.BeginInit();
+      this.txtLBPT_SMID.Properties.BeginInit();
+      this.txtLBPT_EMID.Properties.BeginInit();
+      this.txtLBPT_ESRL.Properties.BeginInit();
+      this.txtLBPT_SSRL.Properties.BeginInit();
+      this.txtLBPT_SS33.Properties.BeginInit();
+      this.txtLBPT_ES33.Properties.BeginInit();
+      this.txtLBPT_APMO.Properties.BeginInit();
+      this.datLBPT_DATE.Properties.CalendarTimeProperties.BeginInit();
+      this.datLBPT_DATE.Properties.BeginInit();
+      this.SEQ.Properties.BeginInit();
+      this.txtLBPT_MDCD.Properties.BeginInit();
+      this.txtLBPT_STAT.Properties.BeginInit();
+      this.cbxLBPT_LINE.Properties.BeginInit();
+      this.layMain.BeginInit();
+      this.layoutControlItem2.BeginInit();
+      this.emptySpaceItem1.BeginInit();
+      this.layoutControlItem3.BeginInit();
+      this.laySearch.BeginInit();
+      this.emptySpaceItem3.BeginInit();
+      this.layoutControlItem4.BeginInit();
+      this.layoutControlItem27.BeginInit();
+      this.layoutControlItem36.BeginInit();
+      this.layoutControlItem37.BeginInit();
+      this.layoutControlItem21.BeginInit();
+      this.layoutControlItem38.BeginInit();
+      this.layoutControlItem31.BeginInit();
+      this.emptySpaceItem2.BeginInit();
+      this.layoutControlItem32.BeginInit();
+      this.layoutControlItem6.BeginInit();
+      this.layoutControlItem7.BeginInit();
+      this.layoutControlItem9.BeginInit();
+      this.layoutControlItem10.BeginInit();
+      this.layList.BeginInit();
+      this.layoutControlItem1.BeginInit();
+      this.layInfo.BeginInit();
+      this.layoutControlItem41.BeginInit();
+      this.layoutControlItem42.BeginInit();
+      this.layoutControlItem43.BeginInit();
+      this.layoutControlItem44.BeginInit();
+      this.layoutControlItem45.BeginInit();
+      this.layoutControlItem46.BeginInit();
+      this.layoutControlItem47.BeginInit();
+      this.layoutControlItem48.BeginInit();
+      this.layoutControlItem49.BeginInit();
+      this.layoutControlItem50.BeginInit();
+      this.layoutControlItem51.BeginInit();
+      this.layoutControlItem52.BeginInit();
+      this.layoutControlItem53.BeginInit();
+      this.layoutControlItem54.BeginInit();
+      this.layoutControlItem5.BeginInit();
+      this.layoutControlItem8.BeginInit();
+      this.layoutControlItem12.BeginInit();
+      this.layoutControlItem19.BeginInit();
+      this.layoutControlItem11.BeginInit();
+      this.layoutControlItem13.BeginInit();
+      this.layoutControlItem14.BeginInit();
+      this.layoutControlItem15.BeginInit();
+      this.layoutControlItem16.BeginInit();
+      this.SuspendLayout();
+      this.xtraLayoutControl1.Controls.Add((Control) this.btn33Convert);
+      this.xtraLayoutControl1.Controls.Add((Control) this.chkUSED_CHCK);
+      this.xtraLayoutControl1.Controls.Add((Control) this.s_chkUSED_CHCK);
+      this.xtraLayoutControl1.Controls.Add((Control) this.s_txtLABL_LOTN);
+      this.xtraLayoutControl1.Controls.Add((Control) this.btnSearch);
+      this.xtraLayoutControl1.Controls.Add((Control) this.btnAdd);
+      this.xtraLayoutControl1.Controls.Add((Control) this.btnSave);
+      this.xtraLayoutControl1.Controls.Add((Control) this.btnUnitPrint);
+      this.xtraLayoutControl1.Controls.Add((Control) this.btnQrPrint);
+      this.xtraLayoutControl1.Controls.Add((Control) this.btnClose);
+      this.xtraLayoutControl1.Controls.Add((Control) this.btnClear);
+      this.xtraLayoutControl1.Controls.Add((Control) this.grdMain);
+      this.xtraLayoutControl1.Controls.Add((Control) this.s_datLABL_SDAT);
+      this.xtraLayoutControl1.Controls.Add((Control) this.s_datLABL_EDAT);
+      this.xtraLayoutControl1.Controls.Add((Control) this.s_cbxLABL_LINE);
+      this.xtraLayoutControl1.Controls.Add((Control) this.s_txtLABL_MDCD);
+      this.xtraLayoutControl1.Controls.Add((Control) this.s_txtLABL_SFIX);
+      this.xtraLayoutControl1.Controls.Add((Control) this.s_txtLABL_STAT);
+      this.xtraLayoutControl1.Controls.Add((Control) this.txtLBPT_SFIX);
+      this.xtraLayoutControl1.Controls.Add((Control) this.txtLBPT_LOTN);
+      this.xtraLayoutControl1.Controls.Add((Control) this.txtLBPT_CLOR);
+      this.xtraLayoutControl1.Controls.Add((Control) this.txtLBPT_YYMM);
+      this.xtraLayoutControl1.Controls.Add((Control) this.txtLBPT_EANC);
+      this.xtraLayoutControl1.Controls.Add((Control) this.txtLBPT_LOTQ);
+      this.xtraLayoutControl1.Controls.Add((Control) this.txtLBPT_LABL);
+      this.xtraLayoutControl1.Controls.Add((Control) this.txtLBPT_SMID);
+      this.xtraLayoutControl1.Controls.Add((Control) this.txtLBPT_EMID);
+      this.xtraLayoutControl1.Controls.Add((Control) this.txtLBPT_ESRL);
+      this.xtraLayoutControl1.Controls.Add((Control) this.txtLBPT_SSRL);
+      this.xtraLayoutControl1.Controls.Add((Control) this.txtLBPT_SS33);
+      this.xtraLayoutControl1.Controls.Add((Control) this.txtLBPT_ES33);
+      this.xtraLayoutControl1.Controls.Add((Control) this.txtLBPT_APMO);
+      this.xtraLayoutControl1.Controls.Add((Control) this.datLBPT_DATE);
+      this.xtraLayoutControl1.Controls.Add((Control) this.SEQ);
+      this.xtraLayoutControl1.Controls.Add((Control) this.txtLBPT_MDCD);
+      this.xtraLayoutControl1.Controls.Add((Control) this.txtLBPT_STAT);
+      this.xtraLayoutControl1.Controls.Add((Control) this.cbxLBPT_LINE);
+      this.xtraLayoutControl1.Controls.Add((Control) this.btnMstPrint);
+      this.xtraLayoutControl1.Dock = DockStyle.Fill;
+      this.xtraLayoutControl1.Location = new Point(0, 0);
+      this.xtraLayoutControl1.Name = "xtraLayoutControl1";
+      this.xtraLayoutControl1.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new Rectangle?(new Rectangle(0, 204, 250, 350));
+      this.xtraLayoutControl1.Root = this.layMain;
+      this.xtraLayoutControl1.Size = new Size(1100, 800);
+      this.xtraLayoutControl1.TabIndex = 0;
+      this.xtraLayoutControl1.Text = "xtraLayoutControl1";
+      this.btn33Convert.BtnIconType = BtnIconType.조회;
+      this.btn33Convert.ExecuteQuery = (ArrayList) componentResourceManager.GetObject("btn33Convert.ExecuteQuery");
+      this.btn33Convert.ExecuteQueryType = (ArrayList) componentResourceManager.GetObject("btn33Convert.ExecuteQueryType");
+      this.btn33Convert.ExecuteTable = (ArrayList) componentResourceManager.GetObject("btn33Convert.ExecuteTable");
+      this.btn33Convert.Image = (Image) componentResourceManager.GetObject("btn33Convert.Image");
+      this.btn33Convert.Location = new Point(192, 12);
+      this.btn33Convert.MaximumSize = new Size(96, 26);
+      this.btn33Convert.MinimumSize = new Size(96, 26);
+      this.btn33Convert.Name = "btn33Convert";
+      this.btn33Convert.Size = new Size(96, 26);
+      this.btn33Convert.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.btn33Convert.TabIndex = 48;
+      this.btn33Convert.Text = "33코드 변환";
+      this.btn33Convert.Click += new EventHandler(this.btn33Convert_Click);
+      this.chkUSED_CHCK.CheckedValue = "Y";
+      this.chkUSED_CHCK.ColorSkin = ColorSkinType.Nomal;
+      this.chkUSED_CHCK.CtrlErrorText = "";
+      this.chkUSED_CHCK.DataField = "USED_CHCK";
+      this.chkUSED_CHCK.EnterExcuteBtn = (SimpleButton) null;
+      this.chkUSED_CHCK.IsRequired = false;
+      this.chkUSED_CHCK.Location = new Point(896, 229);
+      this.chkUSED_CHCK.Name = "chkUSED_CHCK";
+      this.chkUSED_CHCK.Properties.Appearance.BackColor = Color.Transparent;
+      this.chkUSED_CHCK.Properties.Appearance.Options.UseBackColor = true;
+      this.chkUSED_CHCK.Properties.Caption = "미사용";
+      this.chkUSED_CHCK.Properties.NullStyle = StyleIndeterminate.Unchecked;
+      this.chkUSED_CHCK.SetSuperToolTip = (SuperToolTip) null;
+      this.chkUSED_CHCK.Size = new Size(66, 19);
+      this.chkUSED_CHCK.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.chkUSED_CHCK.TabIndex = 47;
+      this.chkUSED_CHCK.TABLE = (string) null;
+      this.chkUSED_CHCK.UnCheckedValue = "N";
+      this.chkUSED_CHCK.WHEREFIELD = false;
+      this.s_chkUSED_CHCK.CheckedValue = "Y";
+      this.s_chkUSED_CHCK.ColorSkin = ColorSkinType.Nomal;
+      this.s_chkUSED_CHCK.CtrlErrorText = "";
+      this.s_chkUSED_CHCK.DataField = (string) null;
+      this.s_chkUSED_CHCK.EnterExcuteBtn = (SimpleButton) null;
+      this.s_chkUSED_CHCK.IsRequired = false;
+      this.s_chkUSED_CHCK.Location = new Point(828, 73);
+      this.s_chkUSED_CHCK.Name = "s_chkUSED_CHCK";
+      this.s_chkUSED_CHCK.Properties.Appearance.BackColor = Color.Transparent;
+      this.s_chkUSED_CHCK.Properties.Appearance.Options.UseBackColor = true;
+      this.s_chkUSED_CHCK.Properties.Caption = "미사용조회";
+      this.s_chkUSED_CHCK.Properties.NullStyle = StyleIndeterminate.Unchecked;
+      this.s_chkUSED_CHCK.SetSuperToolTip = (SuperToolTip) null;
+      this.s_chkUSED_CHCK.Size = new Size(230, 19);
+      this.s_chkUSED_CHCK.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.s_chkUSED_CHCK.TabIndex = 46;
+      this.s_chkUSED_CHCK.TABLE = (string) null;
+      this.s_chkUSED_CHCK.UnCheckedValue = "N";
+      this.s_chkUSED_CHCK.WHEREFIELD = false;
+      this.s_txtLABL_LOTN.ColorSkin = ColorSkinType.Nomal;
+      this.s_txtLABL_LOTN.CtrlErrorText = "";
+      this.s_txtLABL_LOTN.DataField = "EQUP_CODE";
+      this.s_txtLABL_LOTN.EditValue = (object) "";
+      this.s_txtLABL_LOTN.EnterExcuteBtn = (SimpleButton) null;
+      this.s_txtLABL_LOTN.IsDataFormatType = TextEditTextFormatType.CustomType;
+      this.s_txtLABL_LOTN.IsPK = false;
+      this.s_txtLABL_LOTN.IsRequired = false;
+      this.s_txtLABL_LOTN.Location = new Point(107, 99);
+      this.s_txtLABL_LOTN.Name = "s_txtLABL_LOTN";
+      this.s_txtLABL_LOTN.Properties.Appearance.BackColor = Color.White;
+      this.s_txtLABL_LOTN.Properties.Appearance.Options.UseBackColor = true;
+      this.s_txtLABL_LOTN.SetSuperToolTip = (SuperToolTip) null;
+      this.s_txtLABL_LOTN.Size = new Size(248, 20);
+      this.s_txtLABL_LOTN.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.s_txtLABL_LOTN.TabIndex = 2;
+      this.s_txtLABL_LOTN.TABLE = (string) null;
+      this.s_txtLABL_LOTN.WHEREFIELD = false;
+      this.btnSearch.BtnIconType = BtnIconType.조회;
+      this.btnSearch.ExecuteQuery = (ArrayList) componentResourceManager.GetObject("btnSearch.ExecuteQuery");
+      this.btnSearch.ExecuteQueryType = (ArrayList) componentResourceManager.GetObject("btnSearch.ExecuteQueryType");
+      this.btnSearch.ExecuteTable = (ArrayList) componentResourceManager.GetObject("btnSearch.ExecuteTable");
+      this.btnSearch.Image = (Image) componentResourceManager.GetObject("btnSearch.Image");
+      this.btnSearch.Location = new Point(592, 12);
+      this.btnSearch.MaximumSize = new Size(96, 26);
+      this.btnSearch.MinimumSize = new Size(96, 26);
+      this.btnSearch.Name = "btnSearch";
+      this.btnSearch.Size = new Size(96, 26);
+      this.btnSearch.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.btnSearch.TabIndex = 41;
+      this.btnSearch.Text = "조회";
+      this.btnSearch.Click += new EventHandler(this.btnSearch_Click);
+      this.btnAdd.BtnIconType = BtnIconType.추가;
+      this.btnAdd.ExecuteQuery = (ArrayList) componentResourceManager.GetObject("btnAdd.ExecuteQuery");
+      this.btnAdd.ExecuteQueryType = (ArrayList) componentResourceManager.GetObject("btnAdd.ExecuteQueryType");
+      this.btnAdd.ExecuteTable = (ArrayList) componentResourceManager.GetObject("btnAdd.ExecuteTable");
+      this.btnAdd.Image = (Image) componentResourceManager.GetObject("btnAdd.Image");
+      this.btnAdd.Location = new Point(692, 12);
+      this.btnAdd.MaximumSize = new Size(96, 26);
+      this.btnAdd.MinimumSize = new Size(96, 26);
+      this.btnAdd.Name = "btnAdd";
+      this.btnAdd.Size = new Size(96, 26);
+      this.btnAdd.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.btnAdd.TabIndex = 43;
+      this.btnAdd.Text = "추가";
+      this.btnAdd.Click += new EventHandler(this.btnAdd_Click);
+      this.btnSave.BtnIconType = BtnIconType.저장;
+      this.btnSave.ExecuteQuery = (ArrayList) componentResourceManager.GetObject("btnSave.ExecuteQuery");
+      this.btnSave.ExecuteQueryType = (ArrayList) componentResourceManager.GetObject("btnSave.ExecuteQueryType");
+      this.btnSave.ExecuteTable = (ArrayList) componentResourceManager.GetObject("btnSave.ExecuteTable");
+      this.btnSave.Image = (Image) componentResourceManager.GetObject("btnSave.Image");
+      this.btnSave.Location = new Point(792, 12);
+      this.btnSave.MaximumSize = new Size(96, 26);
+      this.btnSave.MinimumSize = new Size(96, 26);
+      this.btnSave.Name = "btnSave";
+      this.btnSave.Size = new Size(96, 26);
+      this.btnSave.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.btnSave.TabIndex = 40;
+      this.btnSave.Text = "저장";
+      this.btnSave.Click += new EventHandler(this.btnSave_Click);
+      this.btnUnitPrint.BtnIconType = BtnIconType.출력;
+      this.btnUnitPrint.ExecuteQuery = (ArrayList) componentResourceManager.GetObject("btnUnitPrint.ExecuteQuery");
+      this.btnUnitPrint.ExecuteQueryType = (ArrayList) componentResourceManager.GetObject("btnUnitPrint.ExecuteQueryType");
+      this.btnUnitPrint.ExecuteTable = (ArrayList) componentResourceManager.GetObject("btnUnitPrint.ExecuteTable");
+      this.btnUnitPrint.Image = (Image) componentResourceManager.GetObject("btnUnitPrint.Image");
+      this.btnUnitPrint.Location = new Point(392, 12);
+      this.btnUnitPrint.MaximumSize = new Size(96, 26);
+      this.btnUnitPrint.MinimumSize = new Size(96, 26);
+      this.btnUnitPrint.Name = "btnUnitPrint";
+      this.btnUnitPrint.Size = new Size(96, 26);
+      this.btnUnitPrint.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.btnUnitPrint.TabIndex = 44;
+      this.btnUnitPrint.Text = "유니트 출력";
+      this.btnUnitPrint.Click += new EventHandler(this.btnUnitPrint_Click);
+      this.btnQrPrint.BtnIconType = BtnIconType.출력;
+      this.btnQrPrint.ExecuteQuery = (ArrayList) componentResourceManager.GetObject("btnQrPrint.ExecuteQuery");
+      this.btnQrPrint.ExecuteQueryType = (ArrayList) componentResourceManager.GetObject("btnQrPrint.ExecuteQueryType");
+      this.btnQrPrint.ExecuteTable = (ArrayList) componentResourceManager.GetObject("btnQrPrint.ExecuteTable");
+      this.btnQrPrint.Image = (Image) componentResourceManager.GetObject("btnQrPrint.Image");
+      this.btnQrPrint.Location = new Point(892, 12);
+      this.btnQrPrint.MaximumSize = new Size(96, 26);
+      this.btnQrPrint.MinimumSize = new Size(96, 26);
+      this.btnQrPrint.Name = "btnQrPrint";
+      this.btnQrPrint.Size = new Size(96, 26);
+      this.btnQrPrint.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.btnQrPrint.TabIndex = 44;
+      this.btnQrPrint.Text = "QR 출력";
+      this.btnQrPrint.Click += new EventHandler(this.btnQrPrint_Click);
+      this.btnClose.BtnIconType = BtnIconType.닫기;
+      this.btnClose.ExecuteQuery = (ArrayList) componentResourceManager.GetObject("btnClose.ExecuteQuery");
+      this.btnClose.ExecuteQueryType = (ArrayList) componentResourceManager.GetObject("btnClose.ExecuteQueryType");
+      this.btnClose.ExecuteTable = (ArrayList) componentResourceManager.GetObject("btnClose.ExecuteTable");
+      this.btnClose.Image = (Image) componentResourceManager.GetObject("btnClose.Image");
+      this.btnClose.Location = new Point(992, 12);
+      this.btnClose.MaximumSize = new Size(96, 26);
+      this.btnClose.MinimumSize = new Size(96, 26);
+      this.btnClose.Name = "btnClose";
+      this.btnClose.Size = new Size(96, 26);
+      this.btnClose.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.btnClose.TabIndex = 7;
+      this.btnClose.Text = "닫기";
+      this.btnClose.Click += new EventHandler(this.btnClose_Click);
+      this.btnClear.BtnIconType = BtnIconType.초기화;
+      this.btnClear.ExecuteQuery = (ArrayList) componentResourceManager.GetObject("btnClear.ExecuteQuery");
+      this.btnClear.ExecuteQueryType = (ArrayList) componentResourceManager.GetObject("btnClear.ExecuteQueryType");
+      this.btnClear.ExecuteTable = (ArrayList) componentResourceManager.GetObject("btnClear.ExecuteTable");
+      this.btnClear.Image = (Image) componentResourceManager.GetObject("btnClear.Image");
+      this.btnClear.Location = new Point(492, 12);
+      this.btnClear.MaximumSize = new Size(96, 26);
+      this.btnClear.MinimumSize = new Size(96, 26);
+      this.btnClear.Name = "btnClear";
+      this.btnClear.Size = new Size(96, 26);
+      this.btnClear.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.btnClear.TabIndex = 42;
+      this.btnClear.Text = "초기화";
+      this.btnClear.Click += new EventHandler(this.btnClear_Click);
+      this.grdMain.CheckBoxFieldName = "CHK";
+      this.grdMain.DataRowCountZeroMessage = "조회된 자료가 없습니다.";
+      this.grdMain.DataSourceChangedMoveFirstRowHandle = false;
+      this.grdMain.EmbeddedNavigator.Buttons.Append.ImageIndex = 0;
+      this.grdMain.EmbeddedNavigator.Buttons.Append.Visible = false;
+      this.grdMain.EmbeddedNavigator.Buttons.CancelEdit.Visible = false;
+      this.grdMain.EmbeddedNavigator.Buttons.Edit.Visible = false;
+      this.grdMain.EmbeddedNavigator.Buttons.EndEdit.Visible = false;
+      this.grdMain.EmbeddedNavigator.Buttons.Remove.Visible = false;
+      this.grdMain.FocusedColumn = (GridColumn) null;
+      this.grdMain.FocusedRowHandle = int.MinValue;
+      this.grdMain.GridViewStyle = XtraGridViewType.Default;
+      this.grdMain.IsApplyDataSourceEffect = true;
+      this.grdMain.IsCellValueChangedCheckedItem = true;
+      this.grdMain.IsDataRowCountZeroMessage = true;
+      this.grdMain.IsHeaderClickAllCheckedItem = true;
+      this.grdMain.IsRecordAddCheckedItem = true;
+      this.grdMain.IsSetCustomDrawRowIndicator = true;
+      this.grdMain.IsShowRowNumber = true;
+      this.grdMain.IsWriteMode = false;
+      this.grdMain.Location = new Point(24, 309);
+      this.grdMain.MainView = (BaseView) this.grvMain;
+      this.grdMain.Name = "grdMain";
+      this.grdMain.ReportHeaderTitle = "";
+      this.grdMain.Size = new Size(1052, 467);
+      this.grdMain.TabIndex = 5;
+      this.grdMain.UseEmbeddedNavigator = true;
+      this.grdMain.ViewCollection.AddRange(new BaseView[1]
+      {
+        (BaseView) this.grvMain
+      });
+      this.grvMain.FocusRectStyle = DrawFocusRectStyle.RowFocus;
+      this.grvMain.GridControl = (GridControl) this.grdMain;
+      this.grvMain.Name = "grvMain";
+      this.grvMain.OptionsView.ColumnAutoWidth = false;
+      this.grvMain.OptionsView.ShowGroupPanel = false;
+      this.grvMain.RowClick += new RowClickEventHandler(this.grvMain_RowClick);
+      this.s_datLABL_SDAT.ColorSkin = ColorSkinType.Nomal;
+      this.s_datLABL_SDAT.CtrlErrorText = "";
+      this.s_datLABL_SDAT.DataField = (string) null;
+      this.s_datLABL_SDAT.DateFoamatType = DateEditType.YYYYMMDD;
+      this.s_datLABL_SDAT.EditValue = (object) null;
+      this.s_datLABL_SDAT.EnterExcuteBtn = (SimpleButton) null;
+      this.s_datLABL_SDAT.IsRequired = true;
+      this.s_datLABL_SDAT.Location = new Point(107, 73);
+      this.s_datLABL_SDAT.Name = "s_datLABL_SDAT";
+      this.s_datLABL_SDAT.Properties.Appearance.BackColor = Color.White;
+      this.s_datLABL_SDAT.Properties.Appearance.Options.UseBackColor = true;
+      this.s_datLABL_SDAT.Properties.Buttons.AddRange(new EditorButton[1]
+      {
+        new EditorButton(ButtonPredefines.Combo)
+      });
+      this.s_datLABL_SDAT.Properties.CalendarTimeProperties.Buttons.AddRange(new EditorButton[1]
+      {
+        new EditorButton()
+      });
+      this.s_datLABL_SDAT.SetSuperToolTip = (SuperToolTip) null;
+      this.s_datLABL_SDAT.Size = new Size(113, 20);
+      this.s_datLABL_SDAT.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.s_datLABL_SDAT.TabIndex = 5;
+      this.s_datLABL_SDAT.TABLE = (string) null;
+      this.s_datLABL_SDAT.WHEREFIELD = false;
+      this.s_datLABL_EDAT.ColorSkin = ColorSkinType.Nomal;
+      this.s_datLABL_EDAT.CtrlErrorText = "";
+      this.s_datLABL_EDAT.DataField = (string) null;
+      this.s_datLABL_EDAT.DateFoamatType = DateEditType.YYYYMMDD;
+      this.s_datLABL_EDAT.EditValue = (object) null;
+      this.s_datLABL_EDAT.EnterExcuteBtn = (SimpleButton) null;
+      this.s_datLABL_EDAT.IsRequired = true;
+      this.s_datLABL_EDAT.Location = new Point(234, 73);
+      this.s_datLABL_EDAT.Name = "s_datLABL_EDAT";
+      this.s_datLABL_EDAT.Properties.Appearance.BackColor = Color.White;
+      this.s_datLABL_EDAT.Properties.Appearance.Options.UseBackColor = true;
+      this.s_datLABL_EDAT.Properties.Buttons.AddRange(new EditorButton[1]
+      {
+        new EditorButton(ButtonPredefines.Combo)
+      });
+      this.s_datLABL_EDAT.Properties.CalendarTimeProperties.Buttons.AddRange(new EditorButton[1]
+      {
+        new EditorButton()
+      });
+      this.s_datLABL_EDAT.SetSuperToolTip = (SuperToolTip) null;
+      this.s_datLABL_EDAT.Size = new Size(121, 20);
+      this.s_datLABL_EDAT.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.s_datLABL_EDAT.TabIndex = 5;
+      this.s_datLABL_EDAT.TABLE = (string) null;
+      this.s_datLABL_EDAT.WHEREFIELD = false;
+      this.s_cbxLABL_LINE.CODEID = "ROUT_CODE";
+      this.s_cbxLABL_LINE.ColorSkin = ColorSkinType.Nomal;
+      this.s_cbxLABL_LINE.CtrlErrorText = "";
+      this.s_cbxLABL_LINE.DataField = (string) null;
+      this.s_cbxLABL_LINE.DispalyItemAdd = ItemAppendType.top;
+      this.s_cbxLABL_LINE.DisplayItemAddText = "전체";
+      this.s_cbxLABL_LINE.DisplayItemAddValue = (string) null;
+      this.s_cbxLABL_LINE.DisplayType = "{text}";
+      this.s_cbxLABL_LINE.EditValue = (object) "";
+      this.s_cbxLABL_LINE.EnterExcuteBtn = (SimpleButton) null;
+      this.s_cbxLABL_LINE.IsRequired = false;
+      this.s_cbxLABL_LINE.Location = new Point(429, 73);
+      this.s_cbxLABL_LINE.Name = "s_cbxLABL_LINE";
+      this.s_cbxLABL_LINE.Properties.Appearance.BackColor = Color.White;
+      this.s_cbxLABL_LINE.Properties.Appearance.Options.UseBackColor = true;
+      this.s_cbxLABL_LINE.Properties.Buttons.AddRange(new EditorButton[1]
+      {
+        new EditorButton(ButtonPredefines.Combo)
+      });
+      this.s_cbxLABL_LINE.SetSuperToolTip = (SuperToolTip) null;
+      this.s_cbxLABL_LINE.Size = new Size(126, 20);
+      this.s_cbxLABL_LINE.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.s_cbxLABL_LINE.TabIndex = 15;
+      this.s_cbxLABL_LINE.TABLE = (string) null;
+      this.s_cbxLABL_LINE.WHEREFIELD = false;
+      this.s_txtLABL_MDCD.ColorSkin = ColorSkinType.Nomal;
+      this.s_txtLABL_MDCD.CtrlErrorText = "";
+      this.s_txtLABL_MDCD.DataField = "EQUP_CODE";
+      this.s_txtLABL_MDCD.EditValue = (object) "";
+      this.s_txtLABL_MDCD.EnterExcuteBtn = (SimpleButton) null;
+      this.s_txtLABL_MDCD.IsDataFormatType = TextEditTextFormatType.CustomType;
+      this.s_txtLABL_MDCD.IsPK = false;
+      this.s_txtLABL_MDCD.IsRequired = false;
+      this.s_txtLABL_MDCD.Location = new Point(429, 99);
+      this.s_txtLABL_MDCD.Name = "s_txtLABL_MDCD";
+      this.s_txtLABL_MDCD.Properties.Appearance.BackColor = Color.White;
+      this.s_txtLABL_MDCD.Properties.Appearance.Options.UseBackColor = true;
+      this.s_txtLABL_MDCD.SetSuperToolTip = (SuperToolTip) null;
+      this.s_txtLABL_MDCD.Size = new Size(126, 20);
+      this.s_txtLABL_MDCD.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.s_txtLABL_MDCD.TabIndex = 2;
+      this.s_txtLABL_MDCD.TABLE = (string) null;
+      this.s_txtLABL_MDCD.WHEREFIELD = false;
+      this.s_txtLABL_SFIX.ColorSkin = ColorSkinType.Nomal;
+      this.s_txtLABL_SFIX.CtrlErrorText = "";
+      this.s_txtLABL_SFIX.DataField = "EQUP_CODE";
+      this.s_txtLABL_SFIX.EditValue = (object) "";
+      this.s_txtLABL_SFIX.EnterExcuteBtn = (SimpleButton) null;
+      this.s_txtLABL_SFIX.IsDataFormatType = TextEditTextFormatType.CustomType;
+      this.s_txtLABL_SFIX.IsPK = false;
+      this.s_txtLABL_SFIX.IsRequired = false;
+      this.s_txtLABL_SFIX.Location = new Point(629, 99);
+      this.s_txtLABL_SFIX.Name = "s_txtLABL_SFIX";
+      this.s_txtLABL_SFIX.Properties.Appearance.BackColor = Color.White;
+      this.s_txtLABL_SFIX.Properties.Appearance.Options.UseBackColor = true;
+      this.s_txtLABL_SFIX.SetSuperToolTip = (SuperToolTip) null;
+      this.s_txtLABL_SFIX.Size = new Size(190, 20);
+      this.s_txtLABL_SFIX.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.s_txtLABL_SFIX.TabIndex = 2;
+      this.s_txtLABL_SFIX.TABLE = (string) null;
+      this.s_txtLABL_SFIX.WHEREFIELD = false;
+      this.s_txtLABL_STAT.CODEID = "ROUT_CODE";
+      this.s_txtLABL_STAT.ColorSkin = ColorSkinType.Nomal;
+      this.s_txtLABL_STAT.CtrlErrorText = "";
+      this.s_txtLABL_STAT.DataField = (string) null;
+      this.s_txtLABL_STAT.DispalyItemAdd = ItemAppendType.top;
+      this.s_txtLABL_STAT.DisplayItemAddText = "전체";
+      this.s_txtLABL_STAT.DisplayItemAddValue = (string) null;
+      this.s_txtLABL_STAT.DisplayType = "{value}-{text}";
+      this.s_txtLABL_STAT.EditValue = (object) "";
+      this.s_txtLABL_STAT.EnterExcuteBtn = (SimpleButton) null;
+      this.s_txtLABL_STAT.IsRequired = false;
+      this.s_txtLABL_STAT.Location = new Point(629, 73);
+      this.s_txtLABL_STAT.Name = "s_txtLABL_STAT";
+      this.s_txtLABL_STAT.Properties.Appearance.BackColor = Color.White;
+      this.s_txtLABL_STAT.Properties.Appearance.Options.UseBackColor = true;
+      this.s_txtLABL_STAT.Properties.Buttons.AddRange(new EditorButton[1]
+      {
+        new EditorButton(ButtonPredefines.Combo)
+      });
+      this.s_txtLABL_STAT.SetSuperToolTip = (SuperToolTip) null;
+      this.s_txtLABL_STAT.Size = new Size(190, 20);
+      this.s_txtLABL_STAT.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.s_txtLABL_STAT.TabIndex = 15;
+      this.s_txtLABL_STAT.TABLE = (string) null;
+      this.s_txtLABL_STAT.WHEREFIELD = false;
+      this.txtLBPT_SFIX.ColorSkin = ColorSkinType.Nomal;
+      this.txtLBPT_SFIX.CtrlErrorText = "";
+      this.txtLBPT_SFIX.DataField = "LBPT_SFIX";
+      this.txtLBPT_SFIX.EditValue = (object) "";
+      this.txtLBPT_SFIX.EnterExcuteBtn = (SimpleButton) null;
+      this.txtLBPT_SFIX.IsDataFormatType = TextEditTextFormatType.CustomType;
+      this.txtLBPT_SFIX.IsPK = false;
+      this.txtLBPT_SFIX.IsRequired = false;
+      this.txtLBPT_SFIX.Location = new Point(979, 179);
+      this.txtLBPT_SFIX.Name = "txtLBPT_SFIX";
+      this.txtLBPT_SFIX.Properties.Appearance.BackColor = Color.White;
+      this.txtLBPT_SFIX.Properties.Appearance.Options.UseBackColor = true;
+      this.txtLBPT_SFIX.Properties.MaxLength = 50;
+      this.txtLBPT_SFIX.SetSuperToolTip = (SuperToolTip) null;
+      this.txtLBPT_SFIX.Size = new Size(97, 20);
+      this.txtLBPT_SFIX.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.txtLBPT_SFIX.TabIndex = 12;
+      this.txtLBPT_SFIX.TABLE = (string) null;
+      this.txtLBPT_SFIX.WHEREFIELD = false;
+      this.txtLBPT_LOTN.ColorSkin = ColorSkinType.Nomal;
+      this.txtLBPT_LOTN.CtrlErrorText = "";
+      this.txtLBPT_LOTN.DataField = "LBPT_LOTN";
+      this.txtLBPT_LOTN.EditValue = (object) "";
+      this.txtLBPT_LOTN.EnterExcuteBtn = (SimpleButton) null;
+      this.txtLBPT_LOTN.IsDataFormatType = TextEditTextFormatType.CustomType;
+      this.txtLBPT_LOTN.IsPK = false;
+      this.txtLBPT_LOTN.IsRequired = false;
+      this.txtLBPT_LOTN.Location = new Point(525, 179);
+      this.txtLBPT_LOTN.Name = "txtLBPT_LOTN";
+      this.txtLBPT_LOTN.Properties.Appearance.BackColor = Color.White;
+      this.txtLBPT_LOTN.Properties.Appearance.Options.UseBackColor = true;
+      this.txtLBPT_LOTN.Properties.MaxLength = 50;
+      this.txtLBPT_LOTN.SetSuperToolTip = (SuperToolTip) null;
+      this.txtLBPT_LOTN.Size = new Size(122, 20);
+      this.txtLBPT_LOTN.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.txtLBPT_LOTN.TabIndex = 12;
+      this.txtLBPT_LOTN.TABLE = (string) null;
+      this.txtLBPT_LOTN.WHEREFIELD = false;
+      this.txtLBPT_CLOR.ColorSkin = ColorSkinType.ReadOnly;
+      this.txtLBPT_CLOR.CtrlErrorText = "";
+      this.txtLBPT_CLOR.DataField = "LBPT_CLOR";
+      this.txtLBPT_CLOR.EditValue = (object) "";
+      this.txtLBPT_CLOR.EnterExcuteBtn = (SimpleButton) null;
+      this.txtLBPT_CLOR.IsDataFormatType = TextEditTextFormatType.CustomType;
+      this.txtLBPT_CLOR.IsPK = false;
+      this.txtLBPT_CLOR.IsRequired = false;
+      this.txtLBPT_CLOR.Location = new Point(107, 205);
+      this.txtLBPT_CLOR.Name = "txtLBPT_CLOR";
+      this.txtLBPT_CLOR.Properties.Appearance.BackColor = Color.FromArgb((int) byte.MaxValue, (int) byte.MaxValue, 175);
+      this.txtLBPT_CLOR.Properties.Appearance.Options.UseBackColor = true;
+      this.txtLBPT_CLOR.Properties.MaxLength = 50;
+      this.txtLBPT_CLOR.Properties.ReadOnly = true;
+      this.txtLBPT_CLOR.SetSuperToolTip = (SuperToolTip) null;
+      this.txtLBPT_CLOR.Size = new Size(122, 20);
+      this.txtLBPT_CLOR.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.txtLBPT_CLOR.TabIndex = 12;
+      this.txtLBPT_CLOR.TABLE = (string) null;
+      this.txtLBPT_CLOR.WHEREFIELD = false;
+      this.txtLBPT_YYMM.ColorSkin = ColorSkinType.ReadOnly;
+      this.txtLBPT_YYMM.CtrlErrorText = "";
+      this.txtLBPT_YYMM.DataField = "LBPT_YYMM";
+      this.txtLBPT_YYMM.EditValue = (object) "";
+      this.txtLBPT_YYMM.EnterExcuteBtn = (SimpleButton) null;
+      this.txtLBPT_YYMM.IsDataFormatType = TextEditTextFormatType.CustomType;
+      this.txtLBPT_YYMM.IsPK = false;
+      this.txtLBPT_YYMM.IsRequired = false;
+      this.txtLBPT_YYMM.Location = new Point(979, 205);
+      this.txtLBPT_YYMM.Name = "txtLBPT_YYMM";
+      this.txtLBPT_YYMM.Properties.Appearance.BackColor = Color.FromArgb((int) byte.MaxValue, (int) byte.MaxValue, 175);
+      this.txtLBPT_YYMM.Properties.Appearance.Options.UseBackColor = true;
+      this.txtLBPT_YYMM.Properties.MaxLength = 50;
+      this.txtLBPT_YYMM.Properties.ReadOnly = true;
+      this.txtLBPT_YYMM.SetSuperToolTip = (SuperToolTip) null;
+      this.txtLBPT_YYMM.Size = new Size(97, 20);
+      this.txtLBPT_YYMM.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.txtLBPT_YYMM.TabIndex = 12;
+      this.txtLBPT_YYMM.TABLE = (string) null;
+      this.txtLBPT_YYMM.WHEREFIELD = false;
+      this.txtLBPT_EANC.ColorSkin = ColorSkinType.ReadOnly;
+      this.txtLBPT_EANC.CtrlErrorText = "";
+      this.txtLBPT_EANC.DataField = "LBPT_EANC";
+      this.txtLBPT_EANC.EditValue = (object) "";
+      this.txtLBPT_EANC.EnterExcuteBtn = (SimpleButton) null;
+      this.txtLBPT_EANC.IsDataFormatType = TextEditTextFormatType.CustomType;
+      this.txtLBPT_EANC.IsPK = false;
+      this.txtLBPT_EANC.IsRequired = false;
+      this.txtLBPT_EANC.Location = new Point(525, 205);
+      this.txtLBPT_EANC.Name = "txtLBPT_EANC";
+      this.txtLBPT_EANC.Properties.Appearance.BackColor = Color.FromArgb((int) byte.MaxValue, (int) byte.MaxValue, 175);
+      this.txtLBPT_EANC.Properties.Appearance.Options.UseBackColor = true;
+      this.txtLBPT_EANC.Properties.MaxLength = 50;
+      this.txtLBPT_EANC.Properties.ReadOnly = true;
+      this.txtLBPT_EANC.SetSuperToolTip = (SuperToolTip) null;
+      this.txtLBPT_EANC.Size = new Size(122, 20);
+      this.txtLBPT_EANC.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.txtLBPT_EANC.TabIndex = 12;
+      this.txtLBPT_EANC.TABLE = (string) null;
+      this.txtLBPT_EANC.WHEREFIELD = false;
+      this.txtLBPT_LOTQ.ColorSkin = ColorSkinType.Nomal;
+      this.txtLBPT_LOTQ.CtrlErrorText = "";
+      this.txtLBPT_LOTQ.DataField = "LBPT_LOTQ";
+      this.txtLBPT_LOTQ.EditValue = (object) "";
+      this.txtLBPT_LOTQ.EnterExcuteBtn = (SimpleButton) null;
+      this.txtLBPT_LOTQ.IsDataFormatType = TextEditTextFormatType.숫자;
+      this.txtLBPT_LOTQ.IsPK = false;
+      this.txtLBPT_LOTQ.IsRequired = false;
+      this.txtLBPT_LOTQ.Location = new Point(734, 205);
+      this.txtLBPT_LOTQ.Name = "txtLBPT_LOTQ";
+      this.txtLBPT_LOTQ.Properties.Appearance.BackColor = Color.White;
+      this.txtLBPT_LOTQ.Properties.Appearance.Options.UseBackColor = true;
+      this.txtLBPT_LOTQ.Properties.Mask.EditMask = "[0-9]+";
+      this.txtLBPT_LOTQ.Properties.Mask.MaskType = MaskType.RegEx;
+      this.txtLBPT_LOTQ.Properties.MaxLength = 50;
+      this.txtLBPT_LOTQ.SetSuperToolTip = (SuperToolTip) null;
+      this.txtLBPT_LOTQ.Size = new Size(158, 20);
+      this.txtLBPT_LOTQ.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.txtLBPT_LOTQ.TabIndex = 12;
+      this.txtLBPT_LOTQ.TABLE = (string) null;
+      this.txtLBPT_LOTQ.WHEREFIELD = false;
+      this.txtLBPT_LOTQ.KeyPress += new KeyPressEventHandler(this.txtLBPT_LOTQ_KeyPress);
+      this.txtLBPT_LABL.ColorSkin = ColorSkinType.ReadOnly;
+      this.txtLBPT_LABL.CtrlErrorText = "";
+      this.txtLBPT_LABL.DataField = "LBPT_LABL";
+      this.txtLBPT_LABL.EditValue = (object) "";
+      this.txtLBPT_LABL.EnterExcuteBtn = (SimpleButton) null;
+      this.txtLBPT_LABL.IsDataFormatType = TextEditTextFormatType.CustomType;
+      this.txtLBPT_LABL.IsPK = false;
+      this.txtLBPT_LABL.IsRequired = false;
+      this.txtLBPT_LABL.Location = new Point(734, 229);
+      this.txtLBPT_LABL.Name = "txtLBPT_LABL";
+      this.txtLBPT_LABL.Properties.Appearance.BackColor = Color.FromArgb((int) byte.MaxValue, (int) byte.MaxValue, 175);
+      this.txtLBPT_LABL.Properties.Appearance.Options.UseBackColor = true;
+      this.txtLBPT_LABL.Properties.MaxLength = 50;
+      this.txtLBPT_LABL.Properties.ReadOnly = true;
+      this.txtLBPT_LABL.SetSuperToolTip = (SuperToolTip) null;
+      this.txtLBPT_LABL.Size = new Size(158, 20);
+      this.txtLBPT_LABL.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.txtLBPT_LABL.TabIndex = 12;
+      this.txtLBPT_LABL.TABLE = (string) null;
+      this.txtLBPT_LABL.WHEREFIELD = false;
+      this.txtLBPT_SMID.ColorSkin = ColorSkinType.Nomal;
+      this.txtLBPT_SMID.CtrlErrorText = "";
+      this.txtLBPT_SMID.DataField = "LBPT_SMID";
+      this.txtLBPT_SMID.EditValue = (object) "";
+      this.txtLBPT_SMID.EnterExcuteBtn = (SimpleButton) null;
+      this.txtLBPT_SMID.IsDataFormatType = TextEditTextFormatType.CustomType;
+      this.txtLBPT_SMID.IsPK = false;
+      this.txtLBPT_SMID.IsRequired = false;
+      this.txtLBPT_SMID.Location = new Point(525, 229);
+      this.txtLBPT_SMID.Name = "txtLBPT_SMID";
+      this.txtLBPT_SMID.Properties.Appearance.BackColor = Color.White;
+      this.txtLBPT_SMID.Properties.Appearance.Options.UseBackColor = true;
+      this.txtLBPT_SMID.Properties.MaxLength = 50;
+      this.txtLBPT_SMID.SetSuperToolTip = (SuperToolTip) null;
+      this.txtLBPT_SMID.Size = new Size(50, 20);
+      this.txtLBPT_SMID.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.txtLBPT_SMID.TabIndex = 12;
+      this.txtLBPT_SMID.TABLE = (string) null;
+      this.txtLBPT_SMID.WHEREFIELD = false;
+      this.txtLBPT_EMID.ColorSkin = ColorSkinType.Nomal;
+      this.txtLBPT_EMID.CtrlErrorText = "";
+      this.txtLBPT_EMID.DataField = "LBPT_EMID";
+      this.txtLBPT_EMID.EditValue = (object) "";
+      this.txtLBPT_EMID.EnterExcuteBtn = (SimpleButton) null;
+      this.txtLBPT_EMID.IsDataFormatType = TextEditTextFormatType.CustomType;
+      this.txtLBPT_EMID.IsPK = false;
+      this.txtLBPT_EMID.IsRequired = false;
+      this.txtLBPT_EMID.Location = new Point(597, 229);
+      this.txtLBPT_EMID.Name = "txtLBPT_EMID";
+      this.txtLBPT_EMID.Properties.Appearance.BackColor = Color.White;
+      this.txtLBPT_EMID.Properties.Appearance.Options.UseBackColor = true;
+      this.txtLBPT_EMID.Properties.MaxLength = 50;
+      this.txtLBPT_EMID.SetSuperToolTip = (SuperToolTip) null;
+      this.txtLBPT_EMID.Size = new Size(50, 20);
+      this.txtLBPT_EMID.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.txtLBPT_EMID.TabIndex = 12;
+      this.txtLBPT_EMID.TABLE = (string) null;
+      this.txtLBPT_EMID.WHEREFIELD = false;
+      this.txtLBPT_ESRL.ColorSkin = ColorSkinType.Nomal;
+      this.txtLBPT_ESRL.CtrlErrorText = "";
+      this.txtLBPT_ESRL.DataField = "LBPT_ESRL";
+      this.txtLBPT_ESRL.EditValue = (object) "";
+      this.txtLBPT_ESRL.EnterExcuteBtn = (SimpleButton) null;
+      this.txtLBPT_ESRL.IsDataFormatType = TextEditTextFormatType.CustomType;
+      this.txtLBPT_ESRL.IsPK = false;
+      this.txtLBPT_ESRL.IsRequired = false;
+      this.txtLBPT_ESRL.Location = new Point(179, 229);
+      this.txtLBPT_ESRL.Name = "txtLBPT_ESRL";
+      this.txtLBPT_ESRL.Properties.Appearance.BackColor = Color.White;
+      this.txtLBPT_ESRL.Properties.Appearance.Options.UseBackColor = true;
+      this.txtLBPT_ESRL.Properties.MaxLength = 50;
+      this.txtLBPT_ESRL.SetSuperToolTip = (SuperToolTip) null;
+      this.txtLBPT_ESRL.Size = new Size(50, 20);
+      this.txtLBPT_ESRL.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.txtLBPT_ESRL.TabIndex = 12;
+      this.txtLBPT_ESRL.TABLE = (string) null;
+      this.txtLBPT_ESRL.WHEREFIELD = false;
+      this.txtLBPT_SSRL.ColorSkin = ColorSkinType.Nomal;
+      this.txtLBPT_SSRL.CtrlErrorText = "";
+      this.txtLBPT_SSRL.DataField = "LBPT_SSRL";
+      this.txtLBPT_SSRL.EditValue = (object) "";
+      this.txtLBPT_SSRL.EnterExcuteBtn = (SimpleButton) null;
+      this.txtLBPT_SSRL.IsDataFormatType = TextEditTextFormatType.CustomType;
+      this.txtLBPT_SSRL.IsPK = false;
+      this.txtLBPT_SSRL.IsRequired = false;
+      this.txtLBPT_SSRL.Location = new Point(107, 229);
+      this.txtLBPT_SSRL.Name = "txtLBPT_SSRL";
+      this.txtLBPT_SSRL.Properties.Appearance.BackColor = Color.White;
+      this.txtLBPT_SSRL.Properties.Appearance.Options.UseBackColor = true;
+      this.txtLBPT_SSRL.Properties.MaxLength = 50;
+      this.txtLBPT_SSRL.SetSuperToolTip = (SuperToolTip) null;
+      this.txtLBPT_SSRL.Size = new Size(50, 20);
+      this.txtLBPT_SSRL.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.txtLBPT_SSRL.TabIndex = 12;
+      this.txtLBPT_SSRL.TABLE = (string) null;
+      this.txtLBPT_SSRL.WHEREFIELD = false;
+      this.txtLBPT_SS33.ColorSkin = ColorSkinType.Nomal;
+      this.txtLBPT_SS33.CtrlErrorText = "";
+      this.txtLBPT_SS33.DataField = "LBPT_SS33";
+      this.txtLBPT_SS33.EditValue = (object) "";
+      this.txtLBPT_SS33.EnterExcuteBtn = (SimpleButton) null;
+      this.txtLBPT_SS33.IsDataFormatType = TextEditTextFormatType.CustomType;
+      this.txtLBPT_SS33.IsPK = false;
+      this.txtLBPT_SS33.IsRequired = false;
+      this.txtLBPT_SS33.Location = new Point(316, 229);
+      this.txtLBPT_SS33.Name = "txtLBPT_SS33";
+      this.txtLBPT_SS33.Properties.Appearance.BackColor = Color.White;
+      this.txtLBPT_SS33.Properties.Appearance.Options.UseBackColor = true;
+      this.txtLBPT_SS33.Properties.MaxLength = 50;
+      this.txtLBPT_SS33.SetSuperToolTip = (SuperToolTip) null;
+      this.txtLBPT_SS33.Size = new Size(50, 20);
+      this.txtLBPT_SS33.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.txtLBPT_SS33.TabIndex = 12;
+      this.txtLBPT_SS33.TABLE = (string) null;
+      this.txtLBPT_SS33.WHEREFIELD = false;
+      this.txtLBPT_ES33.ColorSkin = ColorSkinType.Nomal;
+      this.txtLBPT_ES33.CtrlErrorText = "";
+      this.txtLBPT_ES33.DataField = "LBPT_ES33";
+      this.txtLBPT_ES33.EditValue = (object) "";
+      this.txtLBPT_ES33.EnterExcuteBtn = (SimpleButton) null;
+      this.txtLBPT_ES33.IsDataFormatType = TextEditTextFormatType.CustomType;
+      this.txtLBPT_ES33.IsPK = false;
+      this.txtLBPT_ES33.IsRequired = false;
+      this.txtLBPT_ES33.Location = new Point(388, 229);
+      this.txtLBPT_ES33.Name = "txtLBPT_ES33";
+      this.txtLBPT_ES33.Properties.Appearance.BackColor = Color.White;
+      this.txtLBPT_ES33.Properties.Appearance.Options.UseBackColor = true;
+      this.txtLBPT_ES33.Properties.MaxLength = 50;
+      this.txtLBPT_ES33.SetSuperToolTip = (SuperToolTip) null;
+      this.txtLBPT_ES33.Size = new Size(50, 20);
+      this.txtLBPT_ES33.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.txtLBPT_ES33.TabIndex = 12;
+      this.txtLBPT_ES33.TABLE = (string) null;
+      this.txtLBPT_ES33.WHEREFIELD = false;
+      this.txtLBPT_APMO.ColorSkin = ColorSkinType.ReadOnly;
+      this.txtLBPT_APMO.CtrlErrorText = "";
+      this.txtLBPT_APMO.DataField = "LBPT_APMO";
+      this.txtLBPT_APMO.EditValue = (object) "";
+      this.txtLBPT_APMO.EnterExcuteBtn = (SimpleButton) null;
+      this.txtLBPT_APMO.IsDataFormatType = TextEditTextFormatType.CustomType;
+      this.txtLBPT_APMO.IsPK = false;
+      this.txtLBPT_APMO.IsRequired = false;
+      this.txtLBPT_APMO.Location = new Point(316, 205);
+      this.txtLBPT_APMO.Name = "txtLBPT_APMO";
+      this.txtLBPT_APMO.Properties.Appearance.BackColor = Color.FromArgb((int) byte.MaxValue, (int) byte.MaxValue, 175);
+      this.txtLBPT_APMO.Properties.Appearance.Options.UseBackColor = true;
+      this.txtLBPT_APMO.Properties.MaxLength = 50;
+      this.txtLBPT_APMO.Properties.ReadOnly = true;
+      this.txtLBPT_APMO.SetSuperToolTip = (SuperToolTip) null;
+      this.txtLBPT_APMO.Size = new Size(122, 20);
+      this.txtLBPT_APMO.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.txtLBPT_APMO.TabIndex = 12;
+      this.txtLBPT_APMO.TABLE = (string) null;
+      this.txtLBPT_APMO.WHEREFIELD = false;
+      this.datLBPT_DATE.ColorSkin = ColorSkinType.Nomal;
+      this.datLBPT_DATE.CtrlErrorText = "";
+      this.datLBPT_DATE.DataField = "LBPT_YEAR";
+      this.datLBPT_DATE.DateFoamatType = DateEditType.YYYYMMDD;
+      this.datLBPT_DATE.EditValue = (object) null;
+      this.datLBPT_DATE.EnterExcuteBtn = (SimpleButton) null;
+      this.datLBPT_DATE.IsRequired = true;
+      this.datLBPT_DATE.Location = new Point(107, 179);
+      this.datLBPT_DATE.Name = "datLBPT_DATE";
+      this.datLBPT_DATE.Properties.Appearance.BackColor = Color.White;
+      this.datLBPT_DATE.Properties.Appearance.Options.UseBackColor = true;
+      this.datLBPT_DATE.Properties.Buttons.AddRange(new EditorButton[1]
+      {
+        new EditorButton(ButtonPredefines.Combo)
+      });
+      this.datLBPT_DATE.Properties.CalendarTimeProperties.Buttons.AddRange(new EditorButton[1]
+      {
+        new EditorButton()
+      });
+      this.datLBPT_DATE.SetSuperToolTip = (SuperToolTip) null;
+      this.datLBPT_DATE.Size = new Size(122, 20);
+      this.datLBPT_DATE.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.datLBPT_DATE.TabIndex = 5;
+      this.datLBPT_DATE.TABLE = (string) null;
+      this.datLBPT_DATE.WHEREFIELD = false;
+      this.SEQ.ColorSkin = ColorSkinType.Nomal;
+      this.SEQ.CtrlErrorText = "";
+      this.SEQ.DataField = "LBPT_SEQ";
+      this.SEQ.EditValue = (object) "";
+      this.SEQ.EnterExcuteBtn = (SimpleButton) null;
+      this.SEQ.IsDataFormatType = TextEditTextFormatType.CustomType;
+      this.SEQ.IsPK = false;
+      this.SEQ.IsRequired = false;
+      this.SEQ.Location = new Point(966, 229);
+      this.SEQ.Name = "SEQ";
+      this.SEQ.Properties.Appearance.BackColor = Color.White;
+      this.SEQ.Properties.Appearance.Options.UseBackColor = true;
+      this.SEQ.Properties.MaxLength = 50;
+      this.SEQ.SetSuperToolTip = (SuperToolTip) null;
+      this.SEQ.Size = new Size(56, 20);
+      this.SEQ.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.SEQ.TabIndex = 12;
+      this.SEQ.TABLE = (string) null;
+      this.SEQ.Visible = false;
+      this.SEQ.WHEREFIELD = false;
+      this.txtLBPT_MDCD.ColorSkin = ColorSkinType.Required;
+      this.txtLBPT_MDCD.CtrlErrorText = "";
+      this.txtLBPT_MDCD.DataField = "LBPT_MDCD";
+      this.txtLBPT_MDCD.EditValue = (object) "";
+      this.txtLBPT_MDCD.EnterExcuteBtn = (SimpleButton) null;
+      this.txtLBPT_MDCD.IsRequired = false;
+      this.txtLBPT_MDCD.Location = new Point(734, 179);
+      this.txtLBPT_MDCD.Name = "txtLBPT_MDCD";
+      this.txtLBPT_MDCD.Properties.Appearance.BackColor = Color.FromArgb((int) byte.MaxValue, 239, 239);
+      this.txtLBPT_MDCD.Properties.Appearance.Options.UseBackColor = true;
+      this.txtLBPT_MDCD.Properties.Buttons.AddRange(new EditorButton[1]
+      {
+        new EditorButton(ButtonPredefines.Glyph, "", -1, true, true, false, ImageLocation.MiddleCenter, (Image) componentResourceManager.GetObject("txtLBPT_MDCD.Properties.Buttons"), new KeyShortcut(Keys.None), (AppearanceObject) appearance, "", (object) null, (SuperToolTip) null, true)
+      });
+      this.txtLBPT_MDCD.Properties.MaxLength = 5;
+      this.txtLBPT_MDCD.REF_CODE = "";
+      this.txtLBPT_MDCD.SetPOPUPSearchType = PopupSearchType.NONE;
+      this.txtLBPT_MDCD.SetSuperToolTip = (SuperToolTip) null;
+      this.txtLBPT_MDCD.SetTargetControl = (XtraTextEdit) null;
+      this.txtLBPT_MDCD.Size = new Size(158, 22);
+      this.txtLBPT_MDCD.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.txtLBPT_MDCD.TabIndex = 32;
+      this.txtLBPT_MDCD.TABLE = (string) null;
+      this.txtLBPT_MDCD.Tag = (object) "POPUP";
+      this.txtLBPT_MDCD.TargetDisplayFieldName = "NAME";
+      this.txtLBPT_MDCD.ThisDisplayFieldName = "CODE";
+      this.txtLBPT_MDCD.WHEREFIELD = false;
+      this.txtLBPT_MDCD.ButtonClick += new ButtonPressedEventHandler(this.txtLBPT_MDCD_ButtonClick);
+      this.txtLBPT_MDCD.KeyDown += new KeyEventHandler(this.txtLBPT_MDCD_KeyDown);
+      this.txtLBPT_STAT.ColorSkin = ColorSkinType.Nomal;
+      this.txtLBPT_STAT.CtrlErrorText = "";
+      this.txtLBPT_STAT.DataField = "LBPT_STAT";
+      this.txtLBPT_STAT.EditValue = (object) "";
+      this.txtLBPT_STAT.EnterExcuteBtn = (SimpleButton) null;
+      this.txtLBPT_STAT.IsDataFormatType = TextEditTextFormatType.CustomType;
+      this.txtLBPT_STAT.IsPK = false;
+      this.txtLBPT_STAT.IsRequired = false;
+      this.txtLBPT_STAT.Location = new Point(1026, 229);
+      this.txtLBPT_STAT.Name = "txtLBPT_STAT";
+      this.txtLBPT_STAT.Properties.Appearance.BackColor = Color.White;
+      this.txtLBPT_STAT.Properties.Appearance.Options.UseBackColor = true;
+      this.txtLBPT_STAT.Properties.MaxLength = 50;
+      this.txtLBPT_STAT.SetSuperToolTip = (SuperToolTip) null;
+      this.txtLBPT_STAT.Size = new Size(50, 20);
+      this.txtLBPT_STAT.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.txtLBPT_STAT.TabIndex = 12;
+      this.txtLBPT_STAT.TABLE = (string) null;
+      this.txtLBPT_STAT.Visible = false;
+      this.txtLBPT_STAT.WHEREFIELD = false;
+      this.cbxLBPT_LINE.CODEID = "ROUT_CODE";
+      this.cbxLBPT_LINE.ColorSkin = ColorSkinType.Nomal;
+      this.cbxLBPT_LINE.CtrlErrorText = "";
+      this.cbxLBPT_LINE.DataField = "LBPT_LINE";
+      this.cbxLBPT_LINE.DispalyItemAdd = ItemAppendType.top;
+      this.cbxLBPT_LINE.DisplayItemAddText = "전체";
+      this.cbxLBPT_LINE.DisplayItemAddValue = (string) null;
+      this.cbxLBPT_LINE.DisplayType = "{text}";
+      this.cbxLBPT_LINE.EditValue = (object) "";
+      this.cbxLBPT_LINE.EnterExcuteBtn = (SimpleButton) null;
+      this.cbxLBPT_LINE.IsRequired = false;
+      this.cbxLBPT_LINE.Location = new Point(316, 179);
+      this.cbxLBPT_LINE.Name = "cbxLBPT_LINE";
+      this.cbxLBPT_LINE.Properties.Appearance.BackColor = Color.White;
+      this.cbxLBPT_LINE.Properties.Appearance.Options.UseBackColor = true;
+      this.cbxLBPT_LINE.Properties.Buttons.AddRange(new EditorButton[1]
+      {
+        new EditorButton(ButtonPredefines.Combo)
+      });
+      this.cbxLBPT_LINE.SetSuperToolTip = (SuperToolTip) null;
+      this.cbxLBPT_LINE.Size = new Size(122, 20);
+      this.cbxLBPT_LINE.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.cbxLBPT_LINE.TabIndex = 15;
+      this.cbxLBPT_LINE.TABLE = (string) null;
+      this.cbxLBPT_LINE.WHEREFIELD = false;
+      this.btnMstPrint.BtnIconType = BtnIconType.출력;
+      this.btnMstPrint.ExecuteQuery = (ArrayList) componentResourceManager.GetObject("btnMstPrint.ExecuteQuery");
+      this.btnMstPrint.ExecuteQueryType = (ArrayList) componentResourceManager.GetObject("btnMstPrint.ExecuteQueryType");
+      this.btnMstPrint.ExecuteTable = (ArrayList) componentResourceManager.GetObject("btnMstPrint.ExecuteTable");
+      this.btnMstPrint.Image = (Image) componentResourceManager.GetObject("btnMstPrint.Image");
+      this.btnMstPrint.Location = new Point(292, 12);
+      this.btnMstPrint.MaximumSize = new Size(96, 26);
+      this.btnMstPrint.MinimumSize = new Size(96, 26);
+      this.btnMstPrint.Name = "btnMstPrint";
+      this.btnMstPrint.Size = new Size(96, 26);
+      this.btnMstPrint.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.btnMstPrint.TabIndex = 44;
+      this.btnMstPrint.Text = "마스터 출력";
+      this.btnMstPrint.Click += new EventHandler(this.btnMstPrint_Click);
+      this.layMain.EnableIndentsWithoutBorders = DefaultBoolean.True;
+      this.layMain.GroupBordersVisible = false;
+      this.layMain.Items.AddRange(new BaseLayoutItem[13]
+      {
+        (BaseLayoutItem) this.layoutControlItem2,
+        (BaseLayoutItem) this.emptySpaceItem1,
+        (BaseLayoutItem) this.layoutControlItem3,
+        (BaseLayoutItem) this.laySearch,
+        (BaseLayoutItem) this.layoutControlItem6,
+        (BaseLayoutItem) this.layoutControlItem7,
+        (BaseLayoutItem) this.layoutControlItem9,
+        (BaseLayoutItem) this.layoutControlItem10,
+        (BaseLayoutItem) this.layList,
+        (BaseLayoutItem) this.layInfo,
+        (BaseLayoutItem) this.layoutControlItem14,
+        (BaseLayoutItem) this.layoutControlItem15,
+        (BaseLayoutItem) this.layoutControlItem16
+      });
+      this.layMain.Location = new Point(0, 0);
+      this.layMain.Name = "Root";
+      this.layMain.Size = new Size(1100, 800);
+      this.layMain.Tag = (object) "";
+      this.layMain.TextVisible = false;
+      this.layoutControlItem2.Control = (Control) this.btnClear;
+      this.layoutControlItem2.Location = new Point(480, 0);
+      this.layoutControlItem2.Name = "layoutControlItem2";
+      this.layoutControlItem2.Size = new Size(100, 30);
+      this.layoutControlItem2.TextSize = new Size(0, 0);
+      this.layoutControlItem2.TextVisible = false;
+      this.emptySpaceItem1.AllowHotTrack = false;
+      this.emptySpaceItem1.Location = new Point(0, 0);
+      this.emptySpaceItem1.Name = "emptySpaceItem1";
+      this.emptySpaceItem1.Size = new Size(180, 30);
+      this.emptySpaceItem1.TextSize = new Size(0, 0);
+      this.layoutControlItem3.Control = (Control) this.btnClose;
+      this.layoutControlItem3.Location = new Point(980, 0);
+      this.layoutControlItem3.Name = "layoutControlItem3";
+      this.layoutControlItem3.Size = new Size(100, 30);
+      this.layoutControlItem3.TextSize = new Size(0, 0);
+      this.layoutControlItem3.TextVisible = false;
+      this.laySearch.CustomizationFormText = " ";
+      this.laySearch.Items.AddRange(new BaseLayoutItem[10]
+      {
+        (BaseLayoutItem) this.emptySpaceItem3,
+        (BaseLayoutItem) this.layoutControlItem4,
+        (BaseLayoutItem) this.layoutControlItem27,
+        (BaseLayoutItem) this.layoutControlItem36,
+        (BaseLayoutItem) this.layoutControlItem37,
+        (BaseLayoutItem) this.layoutControlItem21,
+        (BaseLayoutItem) this.layoutControlItem38,
+        (BaseLayoutItem) this.layoutControlItem31,
+        (BaseLayoutItem) this.emptySpaceItem2,
+        (BaseLayoutItem) this.layoutControlItem32
+      });
+      this.laySearch.Location = new Point(0, 30);
+      this.laySearch.Name = "laySearch";
+      this.laySearch.Size = new Size(1080, 93);
+      this.laySearch.Text = " ";
+      this.emptySpaceItem3.AllowHotTrack = false;
+      this.emptySpaceItem3.Location = new Point(1038, 0);
+      this.emptySpaceItem3.Name = "emptySpaceItem3";
+      this.emptySpaceItem3.Size = new Size(18, 26);
+      this.emptySpaceItem3.TextSize = new Size(0, 0);
+      this.layoutControlItem4.Control = (Control) this.s_chkUSED_CHCK;
+      this.layoutControlItem4.Location = new Point(799, 0);
+      this.layoutControlItem4.Name = "layoutControlItem4";
+      this.layoutControlItem4.Size = new Size(239, 26);
+      this.layoutControlItem4.Spacing = new DevExpress.XtraLayout.Utils.Padding(5, 0, 0, 0);
+      this.layoutControlItem4.TextSize = new Size(0, 0);
+      this.layoutControlItem4.TextVisible = false;
+      this.layoutControlItem27.Control = (Control) this.s_datLABL_SDAT;
+      this.layoutControlItem27.CustomizationFormText = "일자";
+      this.layoutControlItem27.Image = (Image) Resources.blue;
+      this.layoutControlItem27.Location = new Point(0, 0);
+      this.layoutControlItem27.MaxSize = new Size(300, 26);
+      this.layoutControlItem27.MinSize = new Size(200, 26);
+      this.layoutControlItem27.Name = "layoutControlItem27";
+      this.layoutControlItem27.Size = new Size(200, 26);
+      this.layoutControlItem27.SizeConstraintsType = SizeConstraintsType.Custom;
+      this.layoutControlItem27.Spacing = new DevExpress.XtraLayout.Utils.Padding(5, 0, 0, 0);
+      this.layoutControlItem27.Text = "일자";
+      this.layoutControlItem27.TextAlignMode = TextAlignModeItem.CustomSize;
+      this.layoutControlItem27.TextSize = new Size(75, 20);
+      this.layoutControlItem27.TextToControlDistance = 3;
+      this.layoutControlItem36.Control = (Control) this.s_datLABL_EDAT;
+      this.layoutControlItem36.CustomizationFormText = "~";
+      this.layoutControlItem36.Location = new Point(200, 0);
+      this.layoutControlItem36.MaxSize = new Size(235, 26);
+      this.layoutControlItem36.MinSize = new Size(135, 26);
+      this.layoutControlItem36.Name = "layoutControlItem36";
+      this.layoutControlItem36.Size = new Size(135, 26);
+      this.layoutControlItem36.SizeConstraintsType = SizeConstraintsType.Custom;
+      this.layoutControlItem36.Text = "~";
+      this.layoutControlItem36.TextAlignMode = TextAlignModeItem.CustomSize;
+      this.layoutControlItem36.TextSize = new Size(10, 0);
+      this.layoutControlItem36.TextToControlDistance = 0;
+      this.layoutControlItem37.Control = (Control) this.s_cbxLABL_LINE;
+      this.layoutControlItem37.CustomizationFormText = "라인";
+      this.layoutControlItem37.Image = (Image) componentResourceManager.GetObject("layoutControlItem37.Image");
+      this.layoutControlItem37.Location = new Point(335, 0);
+      this.layoutControlItem37.MaxSize = new Size(300, 26);
+      this.layoutControlItem37.MinSize = new Size(200, 26);
+      this.layoutControlItem37.Name = "layoutControlItem37";
+      this.layoutControlItem37.Size = new Size(200, 26);
+      this.layoutControlItem37.SizeConstraintsType = SizeConstraintsType.Custom;
+      this.layoutControlItem37.Spacing = new DevExpress.XtraLayout.Utils.Padding(5, 0, 0, 0);
+      this.layoutControlItem37.Text = "라인";
+      this.layoutControlItem37.TextAlignMode = TextAlignModeItem.CustomSize;
+      this.layoutControlItem37.TextSize = new Size(60, 20);
+      this.layoutControlItem37.TextToControlDistance = 5;
+      this.layoutControlItem21.Control = (Control) this.s_txtLABL_LOTN;
+      this.layoutControlItem21.CustomizationFormText = "LotNo";
+      this.layoutControlItem21.Image = (Image) componentResourceManager.GetObject("layoutControlItem21.Image");
+      this.layoutControlItem21.Location = new Point(0, 26);
+      this.layoutControlItem21.Name = "layoutControlItem21";
+      this.layoutControlItem21.Size = new Size(335, 24);
+      this.layoutControlItem21.Spacing = new DevExpress.XtraLayout.Utils.Padding(5, 0, 0, 0);
+      this.layoutControlItem21.Text = "Lot No";
+      this.layoutControlItem21.TextSize = new Size(75, 16);
+      this.layoutControlItem38.Control = (Control) this.s_txtLABL_MDCD;
+      this.layoutControlItem38.CustomizationFormText = "Model";
+      this.layoutControlItem38.Image = (Image) componentResourceManager.GetObject("layoutControlItem38.Image");
+      this.layoutControlItem38.Location = new Point(335, 26);
+      this.layoutControlItem38.Name = "layoutControlItem38";
+      this.layoutControlItem38.Size = new Size(200, 24);
+      this.layoutControlItem38.Spacing = new DevExpress.XtraLayout.Utils.Padding(5, 0, 0, 0);
+      this.layoutControlItem38.Text = "Model";
+      this.layoutControlItem38.TextAlignMode = TextAlignModeItem.CustomSize;
+      this.layoutControlItem38.TextSize = new Size(60, 20);
+      this.layoutControlItem38.TextToControlDistance = 5;
+      this.layoutControlItem31.Control = (Control) this.s_txtLABL_SFIX;
+      this.layoutControlItem31.CustomizationFormText = "suffix";
+      this.layoutControlItem31.Image = (Image) componentResourceManager.GetObject("layoutControlItem31.Image");
+      this.layoutControlItem31.Location = new Point(535, 26);
+      this.layoutControlItem31.Name = "layoutControlItem31";
+      this.layoutControlItem31.Size = new Size(264, 24);
+      this.layoutControlItem31.Spacing = new DevExpress.XtraLayout.Utils.Padding(5, 0, 0, 0);
+      this.layoutControlItem31.Text = "suffix";
+      this.layoutControlItem31.TextAlignMode = TextAlignModeItem.CustomSize;
+      this.layoutControlItem31.TextSize = new Size(60, 20);
+      this.layoutControlItem31.TextToControlDistance = 5;
+      this.emptySpaceItem2.AllowHotTrack = false;
+      this.emptySpaceItem2.CustomizationFormText = "emptySpaceItem3";
+      this.emptySpaceItem2.Location = new Point(799, 26);
+      this.emptySpaceItem2.Name = "emptySpaceItem2";
+      this.emptySpaceItem2.Size = new Size(257, 24);
+      this.emptySpaceItem2.Text = "emptySpaceItem3";
+      this.emptySpaceItem2.TextSize = new Size(0, 0);
+      this.layoutControlItem32.Control = (Control) this.s_txtLABL_STAT;
+      this.layoutControlItem32.CustomizationFormText = "Status";
+      this.layoutControlItem32.Image = (Image) componentResourceManager.GetObject("layoutControlItem32.Image");
+      this.layoutControlItem32.Location = new Point(535, 0);
+      this.layoutControlItem32.MaxSize = new Size(300, 26);
+      this.layoutControlItem32.MinSize = new Size(200, 26);
+      this.layoutControlItem32.Name = "layoutControlItem32";
+      this.layoutControlItem32.Size = new Size(264, 26);
+      this.layoutControlItem32.SizeConstraintsType = SizeConstraintsType.Custom;
+      this.layoutControlItem32.Spacing = new DevExpress.XtraLayout.Utils.Padding(5, 0, 0, 0);
+      this.layoutControlItem32.Text = "Status";
+      this.layoutControlItem32.TextAlignMode = TextAlignModeItem.CustomSize;
+      this.layoutControlItem32.TextSize = new Size(60, 20);
+      this.layoutControlItem32.TextToControlDistance = 5;
+      this.layoutControlItem6.Control = (Control) this.btnQrPrint;
+      this.layoutControlItem6.Location = new Point(880, 0);
+      this.layoutControlItem6.Name = "layoutControlItem6";
+      this.layoutControlItem6.Size = new Size(100, 30);
+      this.layoutControlItem6.TextSize = new Size(0, 0);
+      this.layoutControlItem6.TextVisible = false;
+      this.layoutControlItem7.Control = (Control) this.btnSave;
+      this.layoutControlItem7.Location = new Point(780, 0);
+      this.layoutControlItem7.Name = "layoutControlItem7";
+      this.layoutControlItem7.Size = new Size(100, 30);
+      this.layoutControlItem7.TextSize = new Size(0, 0);
+      this.layoutControlItem7.TextVisible = false;
+      this.layoutControlItem9.Control = (Control) this.btnAdd;
+      this.layoutControlItem9.Location = new Point(680, 0);
+      this.layoutControlItem9.Name = "layoutControlItem9";
+      this.layoutControlItem9.Size = new Size(100, 30);
+      this.layoutControlItem9.TextAlignMode = TextAlignModeItem.CustomSize;
+      this.layoutControlItem9.TextSize = new Size(0, 0);
+      this.layoutControlItem9.TextToControlDistance = 0;
+      this.layoutControlItem9.TextVisible = false;
+      this.layoutControlItem10.Control = (Control) this.btnSearch;
+      this.layoutControlItem10.Location = new Point(580, 0);
+      this.layoutControlItem10.Name = "layoutControlItem10";
+      this.layoutControlItem10.Size = new Size(100, 30);
+      this.layoutControlItem10.TextSize = new Size(0, 0);
+      this.layoutControlItem10.TextVisible = false;
+      this.layList.AppearanceGroup.Font = new Font("Tahoma", 9f, FontStyle.Bold);
+      this.layList.AppearanceGroup.Options.UseFont = true;
+      this.layList.CaptionImage = (Image) Resources._1494856530_MB__tasks;
+      this.layList.Items.AddRange(new BaseLayoutItem[1]
+      {
+        (BaseLayoutItem) this.layoutControlItem1
+      });
+      this.layList.Location = new Point(0, 253);
+      this.layList.Name = "layList";
+      this.layList.Size = new Size(1080, 527);
+      this.layList.Text = "리스트";
+      this.layoutControlItem1.Control = (Control) this.grdMain;
+      this.layoutControlItem1.Location = new Point(0, 0);
+      this.layoutControlItem1.Name = "layoutControlItem1";
+      this.layoutControlItem1.Size = new Size(1056, 471);
+      this.layoutControlItem1.TextSize = new Size(0, 0);
+      this.layoutControlItem1.TextVisible = false;
+      this.layInfo.CaptionImage = (Image) Resources._circle_info;
+      this.layInfo.CustomizationFormText = "정보";
+      this.layInfo.Items.AddRange(new BaseLayoutItem[20]
+      {
+        (BaseLayoutItem) this.layoutControlItem41,
+        (BaseLayoutItem) this.layoutControlItem42,
+        (BaseLayoutItem) this.layoutControlItem43,
+        (BaseLayoutItem) this.layoutControlItem44,
+        (BaseLayoutItem) this.layoutControlItem45,
+        (BaseLayoutItem) this.layoutControlItem46,
+        (BaseLayoutItem) this.layoutControlItem47,
+        (BaseLayoutItem) this.layoutControlItem48,
+        (BaseLayoutItem) this.layoutControlItem49,
+        (BaseLayoutItem) this.layoutControlItem50,
+        (BaseLayoutItem) this.layoutControlItem51,
+        (BaseLayoutItem) this.layoutControlItem52,
+        (BaseLayoutItem) this.layoutControlItem53,
+        (BaseLayoutItem) this.layoutControlItem54,
+        (BaseLayoutItem) this.layoutControlItem5,
+        (BaseLayoutItem) this.layoutControlItem8,
+        (BaseLayoutItem) this.layoutControlItem12,
+        (BaseLayoutItem) this.layoutControlItem19,
+        (BaseLayoutItem) this.layoutControlItem11,
+        (BaseLayoutItem) this.layoutControlItem13
+      });
+      this.layInfo.Location = new Point(0, 123);
+      this.layInfo.Name = "layInfo1";
+      this.layInfo.Size = new Size(1080, 130);
+      this.layInfo.Text = "정보";
+      this.layoutControlItem41.Control = (Control) this.txtLBPT_SFIX;
+      this.layoutControlItem41.CustomizationFormText = "Surffix";
+      this.layoutControlItem41.Image = (Image) componentResourceManager.GetObject("layoutControlItem41.Image");
+      this.layoutControlItem41.Location = new Point(872, 0);
+      this.layoutControlItem41.Name = "layoutControlItem41";
+      this.layoutControlItem41.Size = new Size(184, 26);
+      this.layoutControlItem41.Spacing = new DevExpress.XtraLayout.Utils.Padding(5, 0, 0, 0);
+      this.layoutControlItem41.Text = "Surffix";
+      this.layoutControlItem41.TextSize = new Size(75, 16);
+      this.layoutControlItem42.Control = (Control) this.txtLBPT_LOTN;
+      this.layoutControlItem42.CustomizationFormText = "제번";
+      this.layoutControlItem42.Image = (Image) componentResourceManager.GetObject("layoutControlItem42.Image");
+      this.layoutControlItem42.Location = new Point(418, 0);
+      this.layoutControlItem42.Name = "layoutControlItem42";
+      this.layoutControlItem42.Size = new Size(209, 26);
+      this.layoutControlItem42.Spacing = new DevExpress.XtraLayout.Utils.Padding(5, 0, 0, 0);
+      this.layoutControlItem42.Text = "제번";
+      this.layoutControlItem42.TextSize = new Size(75, 16);
+      this.layoutControlItem43.Control = (Control) this.txtLBPT_CLOR;
+      this.layoutControlItem43.CustomizationFormText = "제품색상";
+      this.layoutControlItem43.Image = (Image) componentResourceManager.GetObject("layoutControlItem43.Image");
+      this.layoutControlItem43.Location = new Point(0, 26);
+      this.layoutControlItem43.Name = "layoutControlItem43";
+      this.layoutControlItem43.Size = new Size(209, 24);
+      this.layoutControlItem43.Spacing = new DevExpress.XtraLayout.Utils.Padding(5, 0, 0, 0);
+      this.layoutControlItem43.Text = "제품색상";
+      this.layoutControlItem43.TextSize = new Size(75, 16);
+      this.layoutControlItem44.Control = (Control) this.txtLBPT_YYMM;
+      this.layoutControlItem44.CustomizationFormText = "생산년월";
+      this.layoutControlItem44.Image = (Image) componentResourceManager.GetObject("layoutControlItem44.Image");
+      this.layoutControlItem44.Location = new Point(872, 26);
+      this.layoutControlItem44.Name = "layoutControlItem44";
+      this.layoutControlItem44.Size = new Size(184, 24);
+      this.layoutControlItem44.Spacing = new DevExpress.XtraLayout.Utils.Padding(5, 0, 0, 0);
+      this.layoutControlItem44.Text = "생산년월";
+      this.layoutControlItem44.TextSize = new Size(75, 16);
+      this.layoutControlItem45.Control = (Control) this.txtLBPT_EANC;
+      this.layoutControlItem45.CustomizationFormText = "EanCode";
+      this.layoutControlItem45.Image = (Image) componentResourceManager.GetObject("layoutControlItem45.Image");
+      this.layoutControlItem45.Location = new Point(418, 26);
+      this.layoutControlItem45.Name = "layoutControlItem45";
+      this.layoutControlItem45.Size = new Size(209, 24);
+      this.layoutControlItem45.Spacing = new DevExpress.XtraLayout.Utils.Padding(5, 0, 0, 0);
+      this.layoutControlItem45.Text = "EanCode";
+      this.layoutControlItem45.TextSize = new Size(75, 16);
+      this.layoutControlItem46.Control = (Control) this.txtLBPT_LOTQ;
+      this.layoutControlItem46.CustomizationFormText = "생산수량";
+      this.layoutControlItem46.Image = (Image) componentResourceManager.GetObject("layoutControlItem46.Image");
+      this.layoutControlItem46.Location = new Point(627, 26);
+      this.layoutControlItem46.Name = "layoutControlItem46";
+      this.layoutControlItem46.Size = new Size(245, 24);
+      this.layoutControlItem46.Spacing = new DevExpress.XtraLayout.Utils.Padding(5, 0, 0, 0);
+      this.layoutControlItem46.Text = "생산수량";
+      this.layoutControlItem46.TextSize = new Size(75, 16);
+      this.layoutControlItem47.Control = (Control) this.txtLBPT_LABL;
+      this.layoutControlItem47.CustomizationFormText = "라벨";
+      this.layoutControlItem47.Image = (Image) componentResourceManager.GetObject("layoutControlItem47.Image");
+      this.layoutControlItem47.Location = new Point(627, 50);
+      this.layoutControlItem47.Name = "layoutControlItem47";
+      this.layoutControlItem47.Size = new Size(245, 24);
+      this.layoutControlItem47.Spacing = new DevExpress.XtraLayout.Utils.Padding(5, 0, 0, 0);
+      this.layoutControlItem47.Text = "라벨";
+      this.layoutControlItem47.TextSize = new Size(75, 16);
+      this.layoutControlItem48.Control = (Control) this.txtLBPT_SMID;
+      this.layoutControlItem48.CustomizationFormText = "박스번호";
+      this.layoutControlItem48.Image = (Image) componentResourceManager.GetObject("layoutControlItem48.Image");
+      this.layoutControlItem48.Location = new Point(418, 50);
+      this.layoutControlItem48.Name = "layoutControlItem48";
+      this.layoutControlItem48.Size = new Size(137, 24);
+      this.layoutControlItem48.Spacing = new DevExpress.XtraLayout.Utils.Padding(5, 0, 0, 0);
+      this.layoutControlItem48.Text = "박스번호";
+      this.layoutControlItem48.TextSize = new Size(75, 16);
+      this.layoutControlItem49.Control = (Control) this.txtLBPT_EMID;
+      this.layoutControlItem49.CustomizationFormText = "박스번호2";
+      this.layoutControlItem49.Location = new Point(555, 50);
+      this.layoutControlItem49.Name = "layoutControlItem49";
+      this.layoutControlItem49.Size = new Size(72, 24);
+      this.layoutControlItem49.Spacing = new DevExpress.XtraLayout.Utils.Padding(5, 0, 0, 0);
+      this.layoutControlItem49.Text = "~";
+      this.layoutControlItem49.TextAlignMode = TextAlignModeItem.CustomSize;
+      this.layoutControlItem49.TextSize = new Size(10, 0);
+      this.layoutControlItem49.TextToControlDistance = 3;
+      this.layoutControlItem50.Control = (Control) this.txtLBPT_ESRL;
+      this.layoutControlItem50.CustomizationFormText = "라인2";
+      this.layoutControlItem50.Location = new Point(137, 50);
+      this.layoutControlItem50.Name = "layoutControlItem50";
+      this.layoutControlItem50.Size = new Size(72, 24);
+      this.layoutControlItem50.Spacing = new DevExpress.XtraLayout.Utils.Padding(5, 0, 0, 0);
+      this.layoutControlItem50.Text = "~";
+      this.layoutControlItem50.TextAlignMode = TextAlignModeItem.CustomSize;
+      this.layoutControlItem50.TextSize = new Size(10, 0);
+      this.layoutControlItem50.TextToControlDistance = 3;
+      this.layoutControlItem51.Control = (Control) this.txtLBPT_SSRL;
+      this.layoutControlItem51.CustomizationFormText = "시리얼번호";
+      this.layoutControlItem51.Image = (Image) componentResourceManager.GetObject("layoutControlItem51.Image");
+      this.layoutControlItem51.Location = new Point(0, 50);
+      this.layoutControlItem51.Name = "layoutControlItem51";
+      this.layoutControlItem51.Size = new Size(137, 24);
+      this.layoutControlItem51.Spacing = new DevExpress.XtraLayout.Utils.Padding(5, 0, 0, 0);
+      this.layoutControlItem51.Text = "시리얼 번호";
+      this.layoutControlItem51.TextSize = new Size(75, 16);
+      this.layoutControlItem52.Control = (Control) this.txtLBPT_SS33;
+      this.layoutControlItem52.CustomizationFormText = "33번호";
+      this.layoutControlItem52.Image = (Image) componentResourceManager.GetObject("layoutControlItem52.Image");
+      this.layoutControlItem52.Location = new Point(209, 50);
+      this.layoutControlItem52.Name = "layoutControlItem52";
+      this.layoutControlItem52.Size = new Size(137, 24);
+      this.layoutControlItem52.Spacing = new DevExpress.XtraLayout.Utils.Padding(5, 0, 0, 0);
+      this.layoutControlItem52.Text = "33 번호";
+      this.layoutControlItem52.TextSize = new Size(75, 16);
+      this.layoutControlItem53.Control = (Control) this.txtLBPT_ES33;
+      this.layoutControlItem53.CustomizationFormText = "33번호2";
+      this.layoutControlItem53.Location = new Point(346, 50);
+      this.layoutControlItem53.Name = "layoutControlItem53";
+      this.layoutControlItem53.Size = new Size(72, 24);
+      this.layoutControlItem53.Spacing = new DevExpress.XtraLayout.Utils.Padding(5, 0, 0, 0);
+      this.layoutControlItem53.Text = "~";
+      this.layoutControlItem53.TextAlignMode = TextAlignModeItem.CustomSize;
+      this.layoutControlItem53.TextSize = new Size(10, 0);
+      this.layoutControlItem53.TextToControlDistance = 3;
+      this.layoutControlItem54.Control = (Control) this.txtLBPT_APMO;
+      this.layoutControlItem54.CustomizationFormText = "적용모델";
+      this.layoutControlItem54.Image = (Image) componentResourceManager.GetObject("layoutControlItem54.Image");
+      this.layoutControlItem54.Location = new Point(209, 26);
+      this.layoutControlItem54.Name = "layoutControlItem54";
+      this.layoutControlItem54.Size = new Size(209, 24);
+      this.layoutControlItem54.Spacing = new DevExpress.XtraLayout.Utils.Padding(5, 0, 0, 0);
+      this.layoutControlItem54.Text = "적용모델";
+      this.layoutControlItem54.TextSize = new Size(75, 16);
+      this.layoutControlItem5.Control = (Control) this.datLBPT_DATE;
+      this.layoutControlItem5.CustomizationFormText = "일자";
+      this.layoutControlItem5.Image = (Image) componentResourceManager.GetObject("layoutControlItem5.Image");
+      this.layoutControlItem5.Location = new Point(0, 0);
+      this.layoutControlItem5.MaxSize = new Size(300, 24);
+      this.layoutControlItem5.MinSize = new Size(200, 24);
+      this.layoutControlItem5.Name = "layoutControlItem5";
+      this.layoutControlItem5.Size = new Size(209, 26);
+      this.layoutControlItem5.SizeConstraintsType = SizeConstraintsType.Custom;
+      this.layoutControlItem5.Spacing = new DevExpress.XtraLayout.Utils.Padding(5, 0, 0, 0);
+      this.layoutControlItem5.Text = "일자";
+      this.layoutControlItem5.TextAlignMode = TextAlignModeItem.CustomSize;
+      this.layoutControlItem5.TextSize = new Size(75, 16);
+      this.layoutControlItem5.TextToControlDistance = 3;
+      this.layoutControlItem8.Control = (Control) this.chkUSED_CHCK;
+      this.layoutControlItem8.Location = new Point(872, 50);
+      this.layoutControlItem8.Name = "layoutControlItem8";
+      this.layoutControlItem8.Size = new Size(70, 24);
+      this.layoutControlItem8.TextSize = new Size(0, 0);
+      this.layoutControlItem8.TextVisible = false;
+      this.layoutControlItem12.Control = (Control) this.SEQ;
+      this.layoutControlItem12.CustomizationFormText = "LBPT_SEQ";
+      this.layoutControlItem12.Location = new Point(942, 50);
+      this.layoutControlItem12.MaxSize = new Size(0, 24);
+      this.layoutControlItem12.MinSize = new Size(54, 24);
+      this.layoutControlItem12.Name = "layoutControlItem12";
+      this.layoutControlItem12.Size = new Size(60, 24);
+      this.layoutControlItem12.SizeConstraintsType = SizeConstraintsType.Custom;
+      this.layoutControlItem12.Text = " ";
+      this.layoutControlItem12.TextAlignMode = TextAlignModeItem.CustomSize;
+      this.layoutControlItem12.TextSize = new Size(0, 0);
+      this.layoutControlItem12.TextToControlDistance = 0;
+      this.layoutControlItem12.TextVisible = false;
+      this.layoutControlItem12.Visibility = LayoutVisibility.Never;
+      this.layoutControlItem19.Control = (Control) this.txtLBPT_MDCD;
+      this.layoutControlItem19.CustomizationFormText = "모델";
+      this.layoutControlItem19.Image = (Image) Resources.blue;
+      this.layoutControlItem19.Location = new Point(627, 0);
+      this.layoutControlItem19.MaxSize = new Size(245, 26);
+      this.layoutControlItem19.MinSize = new Size(245, 26);
+      this.layoutControlItem19.Name = "layoutControlItem19";
+      this.layoutControlItem19.Size = new Size(245, 26);
+      this.layoutControlItem19.SizeConstraintsType = SizeConstraintsType.Custom;
+      this.layoutControlItem19.Spacing = new DevExpress.XtraLayout.Utils.Padding(5, 0, 0, 0);
+      this.layoutControlItem19.Text = "모델";
+      this.layoutControlItem19.TextAlignMode = TextAlignModeItem.CustomSize;
+      this.layoutControlItem19.TextSize = new Size(75, 16);
+      this.layoutControlItem19.TextToControlDistance = 3;
+      this.layoutControlItem11.Control = (Control) this.txtLBPT_STAT;
+      this.layoutControlItem11.CustomizationFormText = "LBPT_STAT";
+      this.layoutControlItem11.Location = new Point(1002, 50);
+      this.layoutControlItem11.MaxSize = new Size(0, 24);
+      this.layoutControlItem11.MinSize = new Size(54, 24);
+      this.layoutControlItem11.Name = "layoutControlItem11";
+      this.layoutControlItem11.Size = new Size(54, 24);
+      this.layoutControlItem11.SizeConstraintsType = SizeConstraintsType.Custom;
+      this.layoutControlItem11.Text = " ";
+      this.layoutControlItem11.TextAlignMode = TextAlignModeItem.CustomSize;
+      this.layoutControlItem11.TextSize = new Size(0, 0);
+      this.layoutControlItem11.TextToControlDistance = 0;
+      this.layoutControlItem11.TextVisible = false;
+      this.layoutControlItem11.Visibility = LayoutVisibility.Never;
+      this.layoutControlItem13.Control = (Control) this.cbxLBPT_LINE;
+      this.layoutControlItem13.CustomizationFormText = "라인";
+      this.layoutControlItem13.Image = (Image) componentResourceManager.GetObject("layoutControlItem13.Image");
+      this.layoutControlItem13.Location = new Point(209, 0);
+      this.layoutControlItem13.MaxSize = new Size(300, 26);
+      this.layoutControlItem13.MinSize = new Size(200, 26);
+      this.layoutControlItem13.Name = "layoutControlItem13";
+      this.layoutControlItem13.Size = new Size(209, 26);
+      this.layoutControlItem13.SizeConstraintsType = SizeConstraintsType.Custom;
+      this.layoutControlItem13.Spacing = new DevExpress.XtraLayout.Utils.Padding(5, 0, 0, 0);
+      this.layoutControlItem13.Text = "라인";
+      this.layoutControlItem13.TextAlignMode = TextAlignModeItem.CustomSize;
+      this.layoutControlItem13.TextSize = new Size(73, 20);
+      this.layoutControlItem13.TextToControlDistance = 5;
+      this.layoutControlItem14.Control = (Control) this.btnUnitPrint;
+      this.layoutControlItem14.Location = new Point(380, 0);
+      this.layoutControlItem14.Name = "layoutControlItem14";
+      this.layoutControlItem14.Size = new Size(100, 30);
+      this.layoutControlItem14.TextSize = new Size(0, 0);
+      this.layoutControlItem14.TextVisible = false;
+      this.layoutControlItem15.Control = (Control) this.btnMstPrint;
+      this.layoutControlItem15.CustomizationFormText = "layoutControlItem14";
+      this.layoutControlItem15.Location = new Point(280, 0);
+      this.layoutControlItem15.Name = "layoutControlItem15";
+      this.layoutControlItem15.Size = new Size(100, 30);
+      this.layoutControlItem15.Text = "layoutControlItem14";
+      this.layoutControlItem15.TextSize = new Size(0, 0);
+      this.layoutControlItem15.TextVisible = false;
+      this.layoutControlItem16.Control = (Control) this.btn33Convert;
+      this.layoutControlItem16.Location = new Point(180, 0);
+      this.layoutControlItem16.Name = "layoutControlItem16";
+      this.layoutControlItem16.Size = new Size(100, 30);
+      this.layoutControlItem16.TextSize = new Size(0, 0);
+      this.layoutControlItem16.TextVisible = false;
+      this.AutoScaleDimensions = new SizeF(7f, 12f);
+      this.AutoScaleMode = AutoScaleMode.Font;
+      this.Controls.Add((Control) this.xtraLayoutControl1);
+      this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+      this.Name = nameof (PACK300C);
+      this.xtraLayoutControl1.EndInit();
+      this.xtraLayoutControl1.ResumeLayout(false);
+      this.chkUSED_CHCK.Properties.EndInit();
+      this.s_chkUSED_CHCK.Properties.EndInit();
+      this.s_txtLABL_LOTN.Properties.EndInit();
+      this.grdMain.EndInit();
+      this.grvMain.EndInit();
+      this.s_datLABL_SDAT.Properties.CalendarTimeProperties.EndInit();
+      this.s_datLABL_SDAT.Properties.EndInit();
+      this.s_datLABL_EDAT.Properties.CalendarTimeProperties.EndInit();
+      this.s_datLABL_EDAT.Properties.EndInit();
+      this.s_cbxLABL_LINE.Properties.EndInit();
+      this.s_txtLABL_MDCD.Properties.EndInit();
+      this.s_txtLABL_SFIX.Properties.EndInit();
+      this.s_txtLABL_STAT.Properties.EndInit();
+      this.txtLBPT_SFIX.Properties.EndInit();
+      this.txtLBPT_LOTN.Properties.EndInit();
+      this.txtLBPT_CLOR.Properties.EndInit();
+      this.txtLBPT_YYMM.Properties.EndInit();
+      this.txtLBPT_EANC.Properties.EndInit();
+      this.txtLBPT_LOTQ.Properties.EndInit();
+      this.txtLBPT_LABL.Properties.EndInit();
+      this.txtLBPT_SMID.Properties.EndInit();
+      this.txtLBPT_EMID.Properties.EndInit();
+      this.txtLBPT_ESRL.Properties.EndInit();
+      this.txtLBPT_SSRL.Properties.EndInit();
+      this.txtLBPT_SS33.Properties.EndInit();
+      this.txtLBPT_ES33.Properties.EndInit();
+      this.txtLBPT_APMO.Properties.EndInit();
+      this.datLBPT_DATE.Properties.CalendarTimeProperties.EndInit();
+      this.datLBPT_DATE.Properties.EndInit();
+      this.SEQ.Properties.EndInit();
+      this.txtLBPT_MDCD.Properties.EndInit();
+      this.txtLBPT_STAT.Properties.EndInit();
+      this.cbxLBPT_LINE.Properties.EndInit();
+      this.layMain.EndInit();
+      this.layoutControlItem2.EndInit();
+      this.emptySpaceItem1.EndInit();
+      this.layoutControlItem3.EndInit();
+      this.laySearch.EndInit();
+      this.emptySpaceItem3.EndInit();
+      this.layoutControlItem4.EndInit();
+      this.layoutControlItem27.EndInit();
+      this.layoutControlItem36.EndInit();
+      this.layoutControlItem37.EndInit();
+      this.layoutControlItem21.EndInit();
+      this.layoutControlItem38.EndInit();
+      this.layoutControlItem31.EndInit();
+      this.emptySpaceItem2.EndInit();
+      this.layoutControlItem32.EndInit();
+      this.layoutControlItem6.EndInit();
+      this.layoutControlItem7.EndInit();
+      this.layoutControlItem9.EndInit();
+      this.layoutControlItem10.EndInit();
+      this.layList.EndInit();
+      this.layoutControlItem1.EndInit();
+      this.layInfo.EndInit();
+      this.layoutControlItem41.EndInit();
+      this.layoutControlItem42.EndInit();
+      this.layoutControlItem43.EndInit();
+      this.layoutControlItem44.EndInit();
+      this.layoutControlItem45.EndInit();
+      this.layoutControlItem46.EndInit();
+      this.layoutControlItem47.EndInit();
+      this.layoutControlItem48.EndInit();
+      this.layoutControlItem49.EndInit();
+      this.layoutControlItem50.EndInit();
+      this.layoutControlItem51.EndInit();
+      this.layoutControlItem52.EndInit();
+      this.layoutControlItem53.EndInit();
+      this.layoutControlItem54.EndInit();
+      this.layoutControlItem5.EndInit();
+      this.layoutControlItem8.EndInit();
+      this.layoutControlItem12.EndInit();
+      this.layoutControlItem19.EndInit();
+      this.layoutControlItem11.EndInit();
+      this.layoutControlItem13.EndInit();
+      this.layoutControlItem14.EndInit();
+      this.layoutControlItem15.EndInit();
+      this.layoutControlItem16.EndInit();
+      this.ResumeLayout(false);
+    }
+
+    private delegate void DelegateCloseClick(object sender, EventArgs e);
+  }
+}

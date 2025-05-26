@@ -1,0 +1,1895 @@
+// Decompiled with JetBrains decompiler
+// Type: GST.R2F.UI.PACK800C
+// Assembly: GST.R2F.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+// MVID: A25DA55D-C3FE-4661-AE8B-11B1244B99FC
+// Assembly location: D:\DNK\Printer\R2F\R2F\GST.R2F.UI.dll
+
+using DevExpress.Utils;
+using DevExpress.XtraEditors;
+using DevExpress.XtraEditors.Controls;
+using DevExpress.XtraGrid;
+using DevExpress.XtraGrid.Columns;
+using DevExpress.XtraGrid.Views.Base;
+using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraLayout;
+using DevExpress.XtraLayout.Utils;
+using GST.Core.BaseUserControl;
+using GST.Core.Controls;
+using GST.Core.Data;
+using GST.Core.DB;
+using GST.Core.ENUM;
+using GST.Core.Helper;
+using GST.Core.XtraHelper;
+using GST.R2F.UI.Properties;
+using System;
+using System.Collections;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.IO.Ports;
+using System.Windows.Forms;
+
+#nullable disable
+namespace GST.R2F.UI
+{
+  public class PACK800C : GST_BaseForm
+  {
+    private XtraGridControlExt grid = (XtraGridControlExt) null;
+    private string SAVE_MODE = "0";
+    private string str_PROC = "";
+    private DataTable dt_ReturnValue = (DataTable) null;
+    private clsDataCollection cdc_DataCollection = new clsDataCollection();
+    private int MID_COUNT = 0;
+    private int MST_COUNT = 0;
+    private string L_QTY = "0";
+    private string R_QTY = "0";
+    private string array_count = "";
+    private string mst_array = "";
+    private int int_mid_no = 0;
+    private int int_mst_no = 0;
+    private string str_mdcd = "";
+    private string str_lotno = "";
+    private string str_EAN = "";
+    private string str_prod = "";
+    private DataTable dt_val = new DataTable();
+    private int Temp = 0;
+    private int oldTemp = 0;
+    private string LBPT_LOTN = "";
+    private string LBPT_MDCD = "";
+    private string LBPT_SEQ = "";
+    private Timer t = new Timer();
+    private string serial_data = "";
+    private static string[] _33Index = new string[33]
+    {
+      "0",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G",
+      "H",
+      "J",
+      "K",
+      "L",
+      "M",
+      "N",
+      "P",
+      "Q",
+      "R",
+      "S",
+      "T",
+      "V",
+      "W",
+      "X",
+      "Y",
+      "Z"
+    };
+    private IContainer components = (IContainer) null;
+    private XtraLayoutControl xtraLayoutControl1;
+    private LayoutControlGroup layMain;
+    private LayoutControlGroup laySearch;
+    private XtraButton btnClear;
+    private LayoutControlItem layoutControlItem2;
+    private EmptySpaceItem emptySpaceItem1;
+    private XtraButton btnClose;
+    private LayoutControlItem layoutControlItem3;
+    private XtraButton btnSearch;
+    private XtraButton btnAdd;
+    private XtraButton btnSave;
+    private XtraButton btnPrint;
+    private LayoutControlItem layoutControlItem6;
+    private LayoutControlItem layoutControlItem7;
+    private LayoutControlItem layoutControlItem9;
+    private LayoutControlItem layoutControlItem10;
+    private LayoutControlGroup layInfo;
+    private XtraTextEdit xtraTextEdit1;
+    private XtraTextEdit xtraTextEdit2;
+    private LayoutControlItem layoutControlItem5;
+    private LayoutControlItem layoutControlItem8;
+    private XtraTextEdit xtraTextEdit4;
+    private XtraTextEdit xtraTextEdit3;
+    private LayoutControlItem layoutControlItem12;
+    private LayoutControlItem layoutControlItem11;
+    private XtraGridControlExt grdMain;
+    private GridView grvMain;
+    private LayoutControlGroup layList;
+    private LayoutControlItem layoutControlItem1;
+    private TextBox txtCONT_SRIAL;
+    private LayoutControlItem layoutControlItem13;
+    private SerialPort serialPort1;
+    private XtraCheckEdit chk_DATA_CHCK;
+    private LayoutControlItem layoutControlItem14;
+
+    public PACK800C()
+    {
+      this.InitializeComponent();
+      GST_FormUtils.SetGroupTextChange((LayoutGroup) this.layMain);
+      this.serialPort1.PortName = "COM4";
+      this.serialPort1.BaudRate = 9600;
+      this.serialPort1.DataBits = 8;
+      this.serialPort1.Parity = Parity.None;
+      this.serialPort1.StopBits = StopBits.One;
+      GridHelper.SetGridColumnAdd(this.grdMain, "선택", "CHK", false, false, HorzAlignment.Center, ColumnFieldType.EX, GridColumnType.Check, 50, 0, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "YYYYMMDD", "LBPT_YEAR", true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 100, 15, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "LINE", "LBPT_LINE", true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 60, 50, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "PRIORITY", "LBPT_PRIO", true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 60, 50, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "LOT_NO", nameof (LBPT_LOTN), true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 100, 10, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "MODEL_CODE", nameof (LBPT_MDCD), true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 150, 50, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "SUFFIX", "LBPT_SFIX", true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 80, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "LOT_QTY", "LBPT_LOTQ", true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 80, 100, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "RESULT_QTY", "LBPT_RSTQ", true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 80, 20, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "APPLIED_MODEL", "LBPT_APMO", true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 150, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "COLOR", "LBPT_CLOR", true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 120, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "START_SERIAL33", "LBPT_SS33", false, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 120, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "END_SERIAL33", "LBPT_ES33", false, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 120, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "START_SERIAL", "LBPT_SSRL", false, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 120, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "END_SERIAL", "LBPT_ESRL", false, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 120, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "START_MIDDLE", "LBPT_SMID", false, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 120, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "END_MIDDLE", "LBPT_EMID", false, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 120, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "START_MASTER", "LBPT_SMST", false, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 120, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "END_MASTER", "LBPT_EMST", false, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 120, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "STATUS", "LBPT_STAT", true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 120, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "LABEL_ID", "LBPT_LBID", false, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 120, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "LABEL", "LBPT_LABL", false, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 120, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "USE_YN", "USED_CHCK", true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 60, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "CREATION_DATE", "LBPT_UPDT", false, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 150, 30, string.Empty);
+      GridHelper.SetGridColumnAdd(this.grdMain, "MODEL_SEQ", "LBPT_MDSQ", true, false, HorzAlignment.Near, ColumnFieldType.EX, GridColumnType.Text, 60, 30, string.Empty);
+      this.grdMain.SetFixedColumns(nameof (LBPT_MDCD));
+    }
+
+    protected override void OnShown(EventArgs e)
+    {
+      base.OnShown(e);
+      GST_FormUtils.SetFormClear((Control) this);
+      this.grdMain.SetGridViewRowSelected("grvMain_RowClick", 0);
+      this.btnSearch.PerformClick();
+      this.xtraTextEdit1.Text = "0";
+      this.xtraTextEdit2.Text = "0";
+      this.xtraTextEdit3.Text = "0";
+      this.xtraTextEdit4.Text = "0";
+      this.txtCONT_SRIAL.Focus();
+    }
+
+    private void btnClear_Click(object sender, EventArgs e)
+    {
+      GST_FormUtils.SetFormClear((Control) this);
+      this.SAVE_MODE = "0";
+      this.xtraTextEdit1.Text = "0";
+      this.xtraTextEdit2.Text = "0";
+      this.xtraTextEdit3.Text = "0";
+      this.xtraTextEdit4.Text = "0";
+    }
+
+    private void btnSearch_Click(object sender, EventArgs e)
+    {
+      GST_FormUtils.WaitDialogFormShow();
+      this.grdMain.DataSource = (object) this.GetMainDataSearch();
+      GST_FormUtils.WaitDialogFormClose();
+      this.txtCONT_SRIAL.Text = "";
+      this.txtCONT_SRIAL.Focus();
+    }
+
+    private void btnAdd_Click(object sender, EventArgs e)
+    {
+      GST_FormUtils.SetFormClear((LayoutGroup) this.layInfo);
+      this.SAVE_MODE = "0";
+    }
+
+    private void btnPrint_Click(object sender, EventArgs e)
+    {
+    }
+
+    private void btnClose_Click(object sender, EventArgs e) => this.Close();
+
+    private void grvMain_RowClick(object sender, RowClickEventArgs e)
+    {
+      DataRow focusedDataRow = this.grvMain.GetFocusedDataRow();
+      this.txtCONT_SRIAL.Focus();
+      if (focusedDataRow != null)
+        ;
+    }
+
+    private DataTable GetMainDataSearch()
+    {
+      this.str_PROC = "PACK400_PS";
+      this.cdc_DataCollection.Clear();
+      this.cdc_DataCollection.Add("@IN_SRCH_MODE", (object) "8");
+      this.cdc_DataCollection.Add("@IN_LBPT_SDAT", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_EDAT", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_LINE", (object) UserInfo.USER_ID);
+      this.cdc_DataCollection.Add("@IN_LBPT_LOTN", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_MDCD", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_SFIX", (object) "");
+      this.cdc_DataCollection.Add("@IN_USED_CHCK", (object) "");
+      return DBINFO.DBCON.ExcuteSelectProcedureDT(this.str_PROC, this.cdc_DataCollection, CommandType.Text, false);
+    }
+
+    private DataTable GetData()
+    {
+      this.str_PROC = "PACK400_PS";
+      this.cdc_DataCollection.Clear();
+      this.cdc_DataCollection.Add("@IN_SRCH_MODE", (object) "9");
+      this.cdc_DataCollection.Add("@IN_LBPT_SDAT", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_EDAT", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_LINE", (object) UserInfo.USER_ID);
+      this.cdc_DataCollection.Add("@IN_LBPT_LOTN", (object) this.get33(this.serial_data).ToString());
+      this.cdc_DataCollection.Add("@IN_LBPT_MDCD", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_SFIX", (object) "");
+      this.cdc_DataCollection.Add("@IN_USED_CHCK", (object) "");
+      return DBINFO.DBCON.ExcuteSelectProcedureDT(this.str_PROC, this.cdc_DataCollection, CommandType.Text, false);
+    }
+
+    private void xtraTextEdit2_Click(object sender, EventArgs e) => this.txtCONT_SRIAL.Focus();
+
+    private void xtraTextEdit4_Click(object sender, EventArgs e) => this.txtCONT_SRIAL.Focus();
+
+    private void xtraTextEdit3_Click(object sender, EventArgs e) => this.txtCONT_SRIAL.Focus();
+
+    private void xtraTextEdit11_Click(object sender, EventArgs e) => this.txtCONT_SRIAL.Focus();
+
+    private void xtraTextEdit12_Click(object sender, EventArgs e) => this.txtCONT_SRIAL.Focus();
+
+    private void xtraTextEdit1_Click(object sender, EventArgs e) => this.txtCONT_SRIAL.Focus();
+
+    private void txtCONT_SRIAL_TextChanged(object sender, EventArgs e)
+    {
+    }
+
+    private void save(string seq, string date, string mdcd, string lot)
+    {
+      this.str_PROC = "PACK300_PIUD";
+      this.cdc_DataCollection.Clear();
+      this.cdc_DataCollection.Add("@IN_SAVE_MODE", (object) '4');
+      this.cdc_DataCollection.Add("@IN_LBPT_SEQ", (object) seq);
+      this.cdc_DataCollection.Add("@IN_LBPT_YEAR", (object) date);
+      this.cdc_DataCollection.Add("@IN_LBPT_LINE", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_PRIO", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_LOTN", (object) lot);
+      this.cdc_DataCollection.Add("@IN_LBPT_MDCD", (object) mdcd);
+      this.cdc_DataCollection.Add("@IN_LBPT_SFIX", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_LOTQ", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_RSTQ", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_SS33", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_ES33", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_SSRL", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_ESRL", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_SMID", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_EMID", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_STAT", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_SMST", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_EMST", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_MMID", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_MMST", (object) "");
+      this.cdc_DataCollection.Add("@IN_USED_CHCK", (object) "");
+      DBINFO.DBCON.ExcuteProcedure(this.str_PROC, this.cdc_DataCollection, CommandType.Text);
+    }
+
+    private void save1(string seq, string date, string mdcd, string lot)
+    {
+      this.str_PROC = "PACK300_PIUD";
+      this.cdc_DataCollection.Clear();
+      this.cdc_DataCollection.Add("@IN_SAVE_MODE", (object) '5');
+      this.cdc_DataCollection.Add("@IN_LBPT_SEQ", (object) seq);
+      this.cdc_DataCollection.Add("@IN_LBPT_YEAR", (object) date);
+      this.cdc_DataCollection.Add("@IN_LBPT_LINE", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_PRIO", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_LOTN", (object) lot);
+      this.cdc_DataCollection.Add("@IN_LBPT_MDCD", (object) mdcd);
+      this.cdc_DataCollection.Add("@IN_LBPT_SFIX", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_LOTQ", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_RSTQ", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_SS33", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_ES33", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_SSRL", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_ESRL", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_SMID", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_EMID", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_STAT", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_SMST", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_EMST", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_MMID", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_MMST", (object) "");
+      this.cdc_DataCollection.Add("@IN_USED_CHCK", (object) "");
+      DBINFO.DBCON.ExcuteProcedure(this.str_PROC, this.cdc_DataCollection, CommandType.Text);
+    }
+
+    private double get33(string str)
+    {
+      double num1 = 0.0;
+      long num2 = 33;
+      long num3 = 1089;
+      long num4 = 35937;
+      long num5 = 1185921;
+      int num6 = 0;
+      int num7 = str.Length - 1;
+      for (int startIndex = 0; startIndex <= num7; ++startIndex)
+      {
+        switch (str.Substring(startIndex, 1))
+        {
+          case "0":
+            num6 = 0;
+            break;
+          case "1":
+            num6 = 1;
+            break;
+          case "2":
+            num6 = 2;
+            break;
+          case "3":
+            num6 = 3;
+            break;
+          case "4":
+            num6 = 4;
+            break;
+          case "5":
+            num6 = 5;
+            break;
+          case "6":
+            num6 = 6;
+            break;
+          case "7":
+            num6 = 7;
+            break;
+          case "8":
+            num6 = 8;
+            break;
+          case "9":
+            num6 = 9;
+            break;
+          case "A":
+            num6 = 10;
+            break;
+          case "B":
+            num6 = 11;
+            break;
+          case "C":
+            num6 = 12;
+            break;
+          case "D":
+            num6 = 13;
+            break;
+          case "E":
+            num6 = 14;
+            break;
+          case "F":
+            num6 = 15;
+            break;
+          case "G":
+            num6 = 16;
+            break;
+          case "H":
+            num6 = 17;
+            break;
+          case "I":
+            num6 = 0;
+            break;
+          case "J":
+            num6 = 18;
+            break;
+          case "K":
+            num6 = 19;
+            break;
+          case "L":
+            num6 = 20;
+            break;
+          case "M":
+            num6 = 21;
+            break;
+          case "N":
+            num6 = 22;
+            break;
+          case "O":
+            num6 = 0;
+            break;
+          case "P":
+            num6 = 23;
+            break;
+          case "Q":
+            num6 = 24;
+            break;
+          case "R":
+            num6 = 25;
+            break;
+          case "S":
+            num6 = 26;
+            break;
+          case "T":
+            num6 = 27;
+            break;
+          case "U":
+            num6 = 0;
+            break;
+          case "V":
+            num6 = 28;
+            break;
+          case "W":
+            num6 = 29;
+            break;
+          case "X":
+            num6 = 30;
+            break;
+          case "Y":
+            num6 = 31;
+            break;
+          case "Z":
+            num6 = 32;
+            break;
+        }
+        switch (startIndex)
+        {
+          case 0:
+            if (num6 < 10)
+            {
+              num1 += (double) ((long) num6 * num5);
+              break;
+            }
+            switch (str.Substring(startIndex, 1))
+            {
+              case "A":
+                num1 += (double) (10L * num5);
+                break;
+              case "B":
+                num1 += (double) (11L * num5);
+                break;
+              case "C":
+                num1 += (double) (12L * num5);
+                break;
+              case "D":
+                num1 += (double) (13L * num5);
+                break;
+              case "E":
+                num1 += (double) (14L * num5);
+                break;
+              case "F":
+                num1 += (double) (15L * num5);
+                break;
+              case "G":
+                num1 += (double) (16L * num5);
+                break;
+              case "H":
+                num1 += (double) (17L * num5);
+                break;
+              case "I":
+                num1 += 0.0;
+                break;
+              case "J":
+                num1 += (double) (18L * num5);
+                break;
+              case "K":
+                num1 += (double) (19L * num5);
+                break;
+              case "L":
+                num1 += (double) (20L * num5);
+                break;
+              case "M":
+                num1 += (double) (21L * num5);
+                break;
+              case "N":
+                num1 += (double) (22L * num5);
+                break;
+              case "O":
+                num1 += 0.0;
+                break;
+              case "P":
+                num1 += (double) (23L * num5);
+                break;
+              case "Q":
+                num1 += (double) (24L * num5);
+                break;
+              case "R":
+                num1 += (double) (25L * num5);
+                break;
+              case "S":
+                num1 += (double) (26L * num5);
+                break;
+              case "T":
+                num1 += (double) (27L * num5);
+                break;
+              case "U":
+                num1 += 0.0;
+                break;
+              case "V":
+                num1 += (double) (28L * num5);
+                break;
+              case "W":
+                num1 += (double) (29L * num5);
+                break;
+              case "X":
+                num1 += (double) (30L * num5);
+                break;
+              case "Y":
+                num1 += (double) (31L * num5);
+                break;
+              case "Z":
+                num1 += (double) (32L * num5);
+                break;
+            }
+            break;
+          case 1:
+            if (num6 < 10)
+            {
+              num1 += (double) ((long) num6 * num4);
+              break;
+            }
+            switch (str.Substring(startIndex, 1))
+            {
+              case "A":
+                num1 += (double) (10L * num4);
+                break;
+              case "B":
+                num1 += (double) (11L * num4);
+                break;
+              case "C":
+                num1 += (double) (12L * num4);
+                break;
+              case "D":
+                num1 += (double) (13L * num4);
+                break;
+              case "E":
+                num1 += (double) (14L * num4);
+                break;
+              case "F":
+                num1 += (double) (15L * num4);
+                break;
+              case "G":
+                num1 += (double) (16L * num4);
+                break;
+              case "H":
+                num1 += (double) (17L * num4);
+                break;
+              case "I":
+                num1 += 0.0;
+                break;
+              case "J":
+                num1 += (double) (18L * num4);
+                break;
+              case "K":
+                num1 += (double) (19L * num4);
+                break;
+              case "L":
+                num1 += (double) (20L * num4);
+                break;
+              case "M":
+                num1 += (double) (21L * num4);
+                break;
+              case "N":
+                num1 += (double) (22L * num4);
+                break;
+              case "O":
+                num1 += 0.0;
+                break;
+              case "P":
+                num1 += (double) (23L * num4);
+                break;
+              case "Q":
+                num1 += (double) (24L * num4);
+                break;
+              case "R":
+                num1 += (double) (25L * num4);
+                break;
+              case "S":
+                num1 += (double) (26L * num4);
+                break;
+              case "T":
+                num1 += (double) (27L * num4);
+                break;
+              case "U":
+                num1 += 0.0;
+                break;
+              case "V":
+                num1 += (double) (28L * num4);
+                break;
+              case "W":
+                num1 += (double) (29L * num4);
+                break;
+              case "X":
+                num1 += (double) (30L * num4);
+                break;
+              case "Y":
+                num1 += (double) (31L * num4);
+                break;
+              case "Z":
+                num1 += (double) (32L * num4);
+                break;
+            }
+            break;
+          case 2:
+            if (num6 < 10)
+            {
+              num1 += (double) ((long) num6 * num3);
+              break;
+            }
+            switch (str.Substring(startIndex, 1))
+            {
+              case "A":
+                num1 += (double) (10L * num3);
+                break;
+              case "B":
+                num1 += (double) (11L * num3);
+                break;
+              case "C":
+                num1 += (double) (12L * num3);
+                break;
+              case "D":
+                num1 += (double) (13L * num3);
+                break;
+              case "E":
+                num1 += (double) (14L * num3);
+                break;
+              case "F":
+                num1 += (double) (15L * num3);
+                break;
+              case "G":
+                num1 += (double) (16L * num3);
+                break;
+              case "H":
+                num1 += (double) (17L * num3);
+                break;
+              case "I":
+                num1 += 0.0;
+                break;
+              case "J":
+                num1 += (double) (18L * num3);
+                break;
+              case "K":
+                num1 += (double) (19L * num3);
+                break;
+              case "L":
+                num1 += (double) (20L * num3);
+                break;
+              case "M":
+                num1 += (double) (21L * num3);
+                break;
+              case "N":
+                num1 += (double) (22L * num3);
+                break;
+              case "O":
+                num1 += 0.0;
+                break;
+              case "P":
+                num1 += (double) (23L * num3);
+                break;
+              case "Q":
+                num1 += (double) (24L * num3);
+                break;
+              case "R":
+                num1 += (double) (25L * num3);
+                break;
+              case "S":
+                num1 += (double) (26L * num3);
+                break;
+              case "T":
+                num1 += (double) (27L * num3);
+                break;
+              case "U":
+                num1 += 0.0;
+                break;
+              case "V":
+                num1 += (double) (28L * num3);
+                break;
+              case "W":
+                num1 += (double) (29L * num3);
+                break;
+              case "X":
+                num1 += (double) (30L * num3);
+                break;
+              case "Y":
+                num1 += (double) (31L * num3);
+                break;
+              case "Z":
+                num1 += (double) (32L * num3);
+                break;
+            }
+            break;
+          case 3:
+            if (num6 < 10)
+            {
+              num1 += (double) ((long) num6 * num2);
+              break;
+            }
+            switch (str.Substring(startIndex, 1))
+            {
+              case "A":
+                num1 += (double) (10L * num2);
+                break;
+              case "B":
+                num1 += (double) (11L * num2);
+                break;
+              case "C":
+                num1 += (double) (12L * num2);
+                break;
+              case "D":
+                num1 += (double) (13L * num2);
+                break;
+              case "E":
+                num1 += (double) (14L * num2);
+                break;
+              case "F":
+                num1 += (double) (15L * num2);
+                break;
+              case "G":
+                num1 += (double) (16L * num2);
+                break;
+              case "H":
+                num1 += (double) (17L * num2);
+                break;
+              case "I":
+                num1 += 0.0;
+                break;
+              case "J":
+                num1 += (double) (18L * num2);
+                break;
+              case "K":
+                num1 += (double) (19L * num2);
+                break;
+              case "L":
+                num1 += (double) (20L * num2);
+                break;
+              case "M":
+                num1 += (double) (21L * num2);
+                break;
+              case "N":
+                num1 += (double) (22L * num2);
+                break;
+              case "O":
+                num1 += 0.0;
+                break;
+              case "P":
+                num1 += (double) (23L * num2);
+                break;
+              case "Q":
+                num1 += (double) (24L * num2);
+                break;
+              case "R":
+                num1 += (double) (25L * num2);
+                break;
+              case "S":
+                num1 += (double) (26L * num2);
+                break;
+              case "T":
+                num1 += (double) (27L * num2);
+                break;
+              case "U":
+                num1 += 0.0;
+                break;
+              case "V":
+                num1 += (double) (28L * num2);
+                break;
+              case "W":
+                num1 += (double) (29L * num2);
+                break;
+              case "X":
+                num1 += (double) (30L * num2);
+                break;
+              case "Y":
+                num1 += (double) (31L * num2);
+                break;
+              case "Z":
+                num1 += (double) (32L * num2);
+                break;
+            }
+            break;
+          case 4:
+            if (num6 < 10)
+            {
+              num1 += (double) num6;
+            }
+            else
+            {
+              switch (str.Substring(startIndex, 1))
+              {
+                case "A":
+                  num1 += 10.0;
+                  break;
+                case "B":
+                  num1 += 11.0;
+                  break;
+                case "C":
+                  num1 += 12.0;
+                  break;
+                case "D":
+                  num1 += 13.0;
+                  break;
+                case "E":
+                  num1 += 14.0;
+                  break;
+                case "F":
+                  num1 += 15.0;
+                  break;
+                case "G":
+                  num1 += 16.0;
+                  break;
+                case "H":
+                  num1 += 17.0;
+                  break;
+                case "I":
+                  num1 += 0.0;
+                  break;
+                case "J":
+                  num1 += 18.0;
+                  break;
+                case "K":
+                  num1 += 19.0;
+                  break;
+                case "L":
+                  num1 += 20.0;
+                  break;
+                case "M":
+                  num1 += 21.0;
+                  break;
+                case "N":
+                  num1 += 22.0;
+                  break;
+                case "O":
+                  num1 += 0.0;
+                  break;
+                case "P":
+                  num1 += 23.0;
+                  break;
+                case "Q":
+                  num1 += 24.0;
+                  break;
+                case "R":
+                  num1 += 25.0;
+                  break;
+                case "S":
+                  num1 += 26.0;
+                  break;
+                case "T":
+                  num1 += 27.0;
+                  break;
+                case "U":
+                  num1 += 0.0;
+                  break;
+                case "V":
+                  num1 += 28.0;
+                  break;
+                case "W":
+                  num1 += 29.0;
+                  break;
+                case "X":
+                  num1 += 30.0;
+                  break;
+                case "Y":
+                  num1 += 31.0;
+                  break;
+                case "Z":
+                  num1 += 32.0;
+                  break;
+              }
+            }
+            break;
+        }
+      }
+      return num1;
+    }
+
+    private void mid_serial_save(
+      string model_code,
+      string lot_no,
+      string count,
+      string serial_data)
+    {
+      this.str_PROC = "PACK301_PIUD";
+      this.cdc_DataCollection.Clear();
+      this.cdc_DataCollection.Add("@IN_SAVE_MODE", (object) '0');
+      this.cdc_DataCollection.Add("@IN_LBPT_LOTN", (object) lot_no);
+      this.cdc_DataCollection.Add("@IN_LBPT_MDCD", (object) model_code);
+      this.cdc_DataCollection.Add("@IN_LBPT_QCNT", (object) count);
+      this.cdc_DataCollection.Add("@IN_LBPT_DATA", (object) serial_data);
+      DBINFO.DBCON.ExcuteProcedure(this.str_PROC, this.cdc_DataCollection, CommandType.Text);
+    }
+
+    private void mst_serial_save(
+      string model_code,
+      string lot_no,
+      string count,
+      string serial_data)
+    {
+      this.str_PROC = "PACK302_PIUD";
+      this.cdc_DataCollection.Clear();
+      this.cdc_DataCollection.Add("@IN_SAVE_MODE", (object) '0');
+      this.cdc_DataCollection.Add("@IN_LBPT_LOTN", (object) lot_no);
+      this.cdc_DataCollection.Add("@IN_LBPT_MDCD", (object) model_code);
+      this.cdc_DataCollection.Add("@IN_LBPT_QCNT", (object) count);
+      this.cdc_DataCollection.Add("@IN_LBPT_DATA", (object) serial_data);
+      DBINFO.DBCON.ExcuteProcedure(this.str_PROC, this.cdc_DataCollection, CommandType.Text);
+    }
+
+    private void mid_print()
+    {
+      DataTable dataTable1 = new DataTable();
+      this.dt_val = this.Getval();
+      this.array_count = this.array_count.ToString().Substring(1, this.array_count.Length - 1);
+      this.dt_ReturnValue = this.GetData();
+      DataTable dataTable2 = this.dataFIND(this.dt_ReturnValue.Rows[0]["LBPT_YEAR"].ToString(), "0");
+      string text = "";
+      switch (UserInfo.USER_ID)
+      {
+        case "s1":
+          if (this.str_mdcd.Substring(12, 2) == "IN")
+          {
+            text = "^XA^PON^LH0,0^BY2,3,82^FT188,1331^BCB,,N,N^FD>:" + this.str_mdcd + this.str_lotno + dataTable2.Rows[0]["data"].ToString().PadLeft(4, '0') + " " + this.int_mid_no.ToString().PadLeft(3, '0') + "SG^FS^BY2,3,76^FT289,848^BCB,,N,N^FD>:" + this.str_mdcd.Substring(0, 8) + "^FS^FT252,1333^A0B,50,30^FH\\^FD " + this.str_prod + "^FS^FT299,1333^A0B,50,50^FH\\^FDQuantity : " + this.int_mid_no.ToString() + " N^FS^FT343,1333^A0B,30,28^FH\\^FDMANUFACTURED BY : Samsung Electronics VIETNAM Co., Ltd.,^FS^FT370,1333^A0B,30,28^FH\\^FDYen Phong Industrial Park, Yen Trung Commune,^FS^FT397,1333^A0B,30,28^FH\\^FDYen Phong District, Bac Ninh Province, VIETNAM^FS^FT425,1333^A0B,30,28^FH\\^FDIMPORTED BY : Samsung India Electronics Pvt. Ltd.,^FS^FT451,1333^A0B,30,26^FH\\^FDhaving its registered office at 6th Floor,^FS^FT478,1333^A0B,30,26^FH\\^FDDLF Centre, Sansad Marg, New Delhi - 110001, India^FS^FT553,1333^A0B,50,50^FH\\^FDMODEL : " + this.str_mdcd.Substring(0, 8) + "^FS^FT601,1333^A0B,50,40^FH\\^FDSKU : " + this.str_mdcd + "^FS^FT645,1333^A0B,50,50^FH\\^FDLOT NO : " + this.str_lotno + dataTable2.Rows[0]["data"].ToString().PadLeft(4, '0') + "^FS^FO0,490^GB707,0,6^FS^BY88,88^FT608,389^BXB,4,200,0,0,1,~^FH\\^FD" + this.str_mdcd + "," + this.str_lotno + dataTable2.Rows[0]["data"].ToString().PadLeft(4, '0') + "," + this.int_mid_no.ToString().PadLeft(3, '0') + "," + this.array_count + "^FS^XZ";
+            break;
+          }
+          string str1 = !(this.str_mdcd.Substring(3, 3) == "SLR") ? (!(this.str_mdcd.Substring(3, 3) == "SFR") && !(this.str_mdcd.Substring(3, 3) == "SRR") ? "MADE IN KOREA" : "MADE IN VIETNAM") : "MADE IN CHINA";
+          string str2 = "^XA^PON^LH0,0^FO570,60^BY2,1.0^BCR,80,N,N,N^FD" + this.str_mdcd + this.str_lotno + dataTable2.Rows[0]["data"].ToString().PadLeft(4, '0') + " " + this.int_mid_no.ToString().PadLeft(3, '0') + "SG^FS^FO500,60^A0R,50,50^FD" + this.str_prod + "^FS^FO450,60^A0R,50,50^FDMODEL : " + this.str_mdcd.Substring(0, 8) + "^FS^FO400,60^A0R,50,50^FDSKU : " + this.str_mdcd + "^FS^FO350,60^A0R,50,50^FDLOT NO : " + this.dt_ReturnValue.Rows[0]["LBPT_LOTN"].ToString() + dataTable2.Rows[0]["data"].ToString().PadLeft(4, '0') + "^FS^FO300,60^A0R,50,50^FD" + str1 + "^FS^FO200,60^A0R,50,50^FDQ'TY : " + this.int_mid_no.ToString() + " PCS^FS^FO200,380^BY2,1.0^BCR,80,N,N,N^FD" + this.str_mdcd + this.int_mid_no.ToString().PadLeft(3, '0') + "^FS";
+          text = (this.str_EAN.Length >= 13 ? str2 + "^FO100,100^BY3,2.0^BER,80,Y,N^FD" + this.str_EAN + "^FS" : str2 + "^FO100,100^BY3,2.0^BUR,80,Y,N^FD" + this.str_EAN + "^FS") + "^FO300,1100^BY3.0^BXR,4,200^FD" + this.str_mdcd + "," + this.str_lotno + dataTable2.Rows[0]["data"].ToString().PadLeft(4, '0') + "," + this.int_mid_no.ToString().PadLeft(3, '0') + "," + this.array_count + "^FS^FO20,900^GB1000,0,5^FS^XZ";
+          break;
+        case "s2":
+          if (this.str_mdcd.Substring(12, 2) == "IN")
+          {
+            text = "^XA^PON^LH0,0^BY2,3,82^FT188,1331^BCB,,N,N^FD>:" + this.str_mdcd + this.str_lotno + dataTable2.Rows[0]["data"].ToString().PadLeft(4, '0') + " " + this.int_mid_no.ToString().PadLeft(3, '0') + "SG^FS^BY2,3,76^FT289,848^BCB,,N,N^FD>:" + this.str_mdcd.Substring(0, 8) + "^FS^FT252,1333^A0B,50,30^FH\\^FD " + this.str_prod + "^FS^FT299,1333^A0B,50,50^FH\\^FDQuantity : " + this.int_mid_no.ToString() + " N^FS^FT343,1333^A0B,30,28^FH\\^FDMANUFACTURED BY : SAMSUNG ELECTRONICS^FS^FT370,1333^A0B,30,28^FH\\^FDCO., LTD.C.P.O.BOX2775, SEOUL, KOREA^FS^FT397,1333^A0B,30,28^FH\\^FDIMPORTED AND MARKETED BY :^FS^FT425,1333^A0B,30,28^FH\\^FDSAMSUNG INDIA ELECTRONICS PVT.LTD^FS^FT451,1333^A0B,30,26^FH\\^FDhaving its registered office at : 6th FLOOR,^FS^FT478,1333^A0B,30,26^FH\\^FDDLF Centre, Sansad Marg, New Delhi - 110001^FS^FT553,1333^A0B,50,40^FH\\^FDSEC CODE : " + this.str_mdcd + "^FS^FT601,1333^A0B,50,50^FH\\^FDLOT NO : " + this.str_lotno + dataTable2.Rows[0]["data"].ToString().PadLeft(4, '0') + "^FS^FT645,1333^A0B,50,50^FH\\^FDMODEL : " + this.str_mdcd + "^FS^FO0,490^GB707,0,6^FS^BY88,88^FT608,389^BXB,4,200,0,0,1,~^FH\\^FD" + this.str_mdcd + "," + this.str_lotno + dataTable2.Rows[0]["data"].ToString().PadLeft(4, '0') + "," + this.int_mid_no.ToString().PadLeft(3, '0') + "," + this.array_count + "^FS^XZ";
+          }
+          else
+          {
+            string str3 = "^XA^PON^LH0,0^FO570,60^BY2,1.0^BCR,80,N,N,N^FD" + this.str_mdcd + this.str_lotno + dataTable2.Rows[0]["data"].ToString().PadLeft(4, '0') + " " + this.int_mid_no.ToString().PadLeft(3, '0') + "SG^FS^FO500,60^A0R,50,50^FD" + this.str_prod + "^FS^FO450,60^A0R,50,50^FDMODEL : " + this.str_mdcd.Substring(0, 8) + "^FS^FO400,60^A0R,50,50^FDSKU : " + this.str_mdcd + "^FS^FO350,60^A0R,50,50^FDLOT NO : " + this.dt_ReturnValue.Rows[0]["LBPT_LOTN"].ToString() + dataTable2.Rows[0]["data"].ToString().PadLeft(4, '0') + "^FS^FO300,60^A0R,50,50^FDMADE IN KOREA^FS^FO200,60^A0R,50,50^FDQ'TY : " + this.int_mid_no.ToString() + " PCS^FS^FO200,380^BY2,1.0^BCR,80,N,N,N^FD" + this.str_mdcd + this.int_mid_no.ToString().PadLeft(3, '0') + "^FS";
+            text = (this.str_EAN.Length >= 13 ? str3 + "^FO100,100^BY3,2.0^BER,80,Y,N^FD" + this.str_EAN + "^FS" : str3 + "^FO100,100^BY3,2.0^BUR,80,Y,N^FD" + this.str_EAN + "^FS") + "^FO300,1100^BY3.0^BXR,4,200^FD" + this.str_mdcd + "," + this.str_lotno + dataTable2.Rows[0]["data"].ToString().PadLeft(4, '0') + "," + this.int_mid_no.ToString().PadLeft(3, '0') + "," + this.array_count + "^FS^FO20,900^GB1000,0,5^FS^XZ";
+          }
+          break;
+      }
+      SerialPort serialPort = new SerialPort("COM1", 9600, Parity.None, 8, StopBits.One);
+      serialPort.Open();
+      serialPort.Write(text);
+      serialPort.Write(new byte[3]
+      {
+        (byte) 10,
+        (byte) 226,
+        byte.MaxValue
+      }, 0, 3);
+      serialPort.Close();
+      this.dataSave(this.dt_ReturnValue.Rows[0]["LBPT_YEAR"].ToString(), "1");
+      this.int_mid_no = 0;
+      this.array_count = "";
+      this.dt_ReturnValue = (DataTable) null;
+    }
+
+    private void mst_print()
+    {
+      DataTable dataTable1 = new DataTable();
+      this.dt_val = this.Getval();
+      this.mst_array = this.mst_array.ToString().Substring(1, this.mst_array.Length - 1);
+      this.dt_ReturnValue = this.GetData();
+      DataTable dataTable2 = this.dataFIND(this.dt_ReturnValue.Rows[0]["LBPT_YEAR"].ToString(), "0");
+      this.t.Start();
+      string text = "";
+      switch (UserInfo.USER_ID)
+      {
+        case "s1":
+          if (this.str_mdcd.Substring(12, 2) == "IN")
+          {
+            string str = "^XA^PON^LH0,0^BY2,3,118^FT212,1709^BCB,,N,N^FD>:" + this.str_mdcd + this.str_lotno + this.oper10to33(int.Parse(dataTable2.Rows[0]["data"].ToString())).ToString().PadLeft(4, '0') + " " + this.int_mst_no.ToString().PadLeft(3, '0') + "SG^FS^BY2,3,83^FT327,1200^BCB,,N,N^FD>:" + this.str_mdcd.Substring(0, 8) + "^FS^FT278,1712^A0B,50,30^FH\\^FD " + this.str_prod + "^FS^FT343,1712^A0B,50,50^FH\\^FDQuantity : " + this.int_mst_no.ToString() + " N^FS^FT384,1712^A0B,36,28^FH\\^FDMANUFACTURED BY : Samsung Electronics VIETNAM Co., Ltd.,^FS^FT419,1712^A0B,36,32^FH\\^FDYen Phong Industrial Park, Yen Trung Commune,^FS^FT454,1712^A0B,36,32^FH\\^FDYen Phong District, Bac Ninh Province, VIETNAM^FS^FT490,1712^A0B,36,32^FH\\^FDIMPORTED BY : Samsung India Electronics Pvt. Ltd.,^FS^FT525,1712^A0B,36,28^FH\\^FDhaving its registered office at 6th Floor,^FS^FT558,1712^A0B,36,32^FH\\^FDDLF Centre, Sansad Marg, New Delhi - 110001, India^FS^FT642,1712^A0B,50,50^FH\\^FDMODEL : " + this.str_mdcd.Substring(0, 8) + "^FS^FT695,1712^A0B,50,40^FH\\^FDSKU : " + this.str_mdcd + "^FS^FT749,1712^A0B,50,50^FH\\^FDLOT NO : " + this.str_lotno + this.oper10to33(int.Parse(dataTable2.Rows[0]["data"].ToString())).ToString().PadLeft(4, '0') + "^FS";
+            text = (this.str_EAN.Length >= 13 ? str + "^BY3,2,71^FT882,1502^BEB,80,Y,N^FD" + this.str_EAN + "^FS" : str + "^BY3,2,71^FT882,1502^BUB,80,Y,N^FD" + this.str_EAN + "^FS") + "^FO1,869^GB944,0,6^FS^BY110,110^FT697,685^BXB,5,200,0,0,1,~^FH\\^FD" + this.str_mdcd + "," + this.str_lotno + this.oper10to33(int.Parse(dataTable2.Rows[0]["data"].ToString())).ToString().PadLeft(4, '0') + "," + this.int_mst_no.ToString().PadLeft(3, '0') + "," + this.mst_array + "^FS^XZ";
+            break;
+          }
+          string str1 = !(this.str_mdcd.Substring(3, 3) == "SLR") ? (!(this.str_mdcd.Substring(3, 3) == "SFR") && !(this.str_mdcd.Substring(3, 3) == "SRR") ? "MADE IN KOREA" : "MADE IN VIETNAM") : "MADE IN CHINA";
+          string str2 = "^XA^PON^FO750,60^BY2,1.0^BCR,130,N,N,N^FD" + this.str_mdcd + this.str_lotno + this.oper10to33(int.Parse(dataTable2.Rows[0]["data"].ToString())).ToString().PadLeft(4, '0') + " " + this.int_mst_no.ToString().PadLeft(3, '0') + "SG^FS^FO660,60^A0R,60,60^FD" + this.str_prod + "^FS^FO580,60^A0R,60,60^FDMODEL : " + this.str_mdcd.Substring(0, 8) + "^FS^FO510,60^A0R,60,60^FDSKU : " + this.str_mdcd + "^FS^FO440,60^A0R,60,60^FDLOT NO : " + this.dt_ReturnValue.Rows[0]["LBPT_LOTN"].ToString() + this.oper10to33(int.Parse(dataTable2.Rows[0]["data"].ToString())).ToString().PadLeft(4, '0') + "^FS^FO370,60^A0R,60,60^FD" + str1 + "^FS^FO270,60^A0R,60,60^FDQ'TY : " + this.int_mst_no.ToString() + " PCS^FS^FO260,440^BY2,1.0^BCR,100,N,N,N^FD" + this.str_mdcd + this.int_mst_no.ToString().PadLeft(3, '0') + "^FS";
+          text = (this.str_EAN.Length >= 13 ? str2 + "^FO100,200^BY4,3.0^BER,130,Y,N^FD" + this.str_EAN + "^FS" : str2 + "^FO100,200^BY4,3.0^BUR,130,Y,N^FD" + this.str_EAN + "^FS") + "^FO150,1020^BY4.3^BXR,8,200^FD" + this.str_mdcd + "," + this.str_lotno + this.oper10to33(int.Parse(dataTable2.Rows[0]["data"].ToString())).ToString().PadLeft(4, '0') + "," + this.int_mst_no.ToString().PadLeft(3, '0') + "," + this.mst_array + "^FS^FO0,1000^GB1400,0,5^FS^XZ";
+          break;
+        case "s2":
+          if (this.str_mdcd.Substring(12, 2) == "IN")
+          {
+            string str3 = "^XA^PON^LH0,0^BY2,3,118^FT212,1709^BCB,,N,N^FD>:" + this.str_mdcd + this.str_lotno + this.oper10to33(int.Parse(dataTable2.Rows[0]["data"].ToString())).ToString().PadLeft(4, '0') + " " + this.int_mst_no.ToString().PadLeft(3, '0') + "SG^FS^BY2,3,83^FT327,1200^BCB,,N,N^FD>:" + this.str_mdcd.Substring(0, 8) + "^FS^FT278,1712^A0B,50,30^FH\\^FD " + this.str_prod + "^FS^FT343,1712^A0B,50,50^FH\\^FDQuantity : " + this.int_mst_no.ToString() + " N^FS^FT384,1712^A0B,36,28^FH\\^FDMANUFACTURED BY : SAMSUNG ELECTRONICS^FS^FT419,1712^A0B,36,32^FH\\^FDCO., LTD.C.P.O.BOX2775, SEOUL, KOREA^FS^FT454,1712^A0B,36,32^FH\\^FDIMPORTED AND MARKETED BY :^FS^FT490,1712^A0B,36,32^FH\\^FDSAMSUNG INDIA ELECTRONICS PVT.LTD^FS^FT525,1712^A0B,36,28^FH\\^FDhaving its registered office at : 6th FLOOR,^FS^FT558,1712^A0B,36,32^FH\\^FDDLF Centre, Sansad Marg, New Delhi - 110001^FS^FT642,1712^A0B,50,40^FH\\^FDSEC CODE : " + this.str_mdcd + "^FS^FT695,1712^A0B,50,50^FH\\^FDLOT NO : " + this.str_lotno + this.oper10to33(int.Parse(dataTable2.Rows[0]["data"].ToString())).ToString().PadLeft(4, '0') + "^FS^FT749,1712^A0B,50,50^FH\\^FDMODEL : " + this.str_mdcd + "^FS";
+            text = (this.str_EAN.Length >= 13 ? str3 + "^BY3,2,71^FT882,1502^BEB,80,Y,N^FD" + this.str_EAN + "^FS" : str3 + "^BY3,2,71^FT882,1502^BUB,80,Y,N^FD" + this.str_EAN + "^FS") + "^FO1,869^GB944,0,6^FS^BY110,110^FT697,685^BXB,5,200,0,0,1,~^FH\\^FD" + this.str_mdcd + "," + this.str_lotno + this.oper10to33(int.Parse(dataTable2.Rows[0]["data"].ToString())).ToString().PadLeft(4, '0') + "," + this.int_mst_no.ToString().PadLeft(3, '0') + "," + this.mst_array + "^FS^XZ";
+          }
+          else
+          {
+            string str4 = "^XA^PON^FO750,60^BY2,1.0^BCR,130,N,N,N^FD" + this.str_mdcd + this.str_lotno + this.oper10to33(int.Parse(dataTable2.Rows[0]["data"].ToString())).ToString().PadLeft(4, '0') + " " + this.int_mst_no.ToString().PadLeft(3, '0') + "SG^FS^FO660,60^A0R,60,60^FD" + this.str_prod + "^FS^FO580,60^A0R,60,60^FDMODEL : " + this.str_mdcd.Substring(0, 8) + "^FS^FO510,60^A0R,60,60^FDSKU : " + this.str_mdcd + "^FS^FO440,60^A0R,60,60^FDLOT NO : " + this.dt_ReturnValue.Rows[0]["LBPT_LOTN"].ToString() + this.oper10to33(int.Parse(dataTable2.Rows[0]["data"].ToString())).ToString().PadLeft(4, '0') + "^FS^FO370,60^A0R,60,60^FDMADE IN KOREA^FS^FO270,60^A0R,60,60^FDQ'TY : " + this.int_mst_no.ToString() + " PCS^FS^FO260,440^BY2,1.0^BCR,100,N,N,N^FD" + this.str_mdcd + this.int_mst_no.ToString().PadLeft(3, '0') + "^FS";
+            text = (this.str_EAN.Length >= 13 ? str4 + "^FO100,200^BY4,3.0^BER,130,Y,N^FD" + this.str_EAN + "^FS" : str4 + "^FO100,200^BY4,3.0^BUR,130,Y,N^FD" + this.str_EAN + "^FS") + "^FO200,1100^BY4.3^BXR,8,200^FD" + this.str_mdcd + "," + this.str_lotno + this.oper10to33(int.Parse(dataTable2.Rows[0]["data"].ToString())).ToString().PadLeft(4, '0') + "," + this.int_mst_no.ToString().PadLeft(3, '0') + "," + this.mst_array + "^FS^FO0,1000^GB1400,0,5^FS^XZ";
+          }
+          break;
+      }
+      this.t.Stop();
+      SerialPort serialPort = new SerialPort("COM2", 9600, Parity.None, 8, StopBits.One);
+      serialPort.Open();
+      serialPort.Write(text);
+      serialPort.Write(new byte[3]
+      {
+        (byte) 10,
+        (byte) 226,
+        byte.MaxValue
+      }, 0, 3);
+      serialPort.Close();
+      this.dataSave(this.dt_ReturnValue.Rows[0]["LBPT_YEAR"].ToString(), "1");
+      this.int_mst_no = 0;
+      this.mst_array = "";
+      this.dt_ReturnValue = (DataTable) null;
+    }
+
+    private DataTable GetData1(string s, string s1)
+    {
+      this.str_PROC = "PACK400_PS";
+      this.cdc_DataCollection.Clear();
+      this.cdc_DataCollection.Add("@IN_SRCH_MODE", (object) "11");
+      this.cdc_DataCollection.Add("@IN_LBPT_SDAT", (object) s.Replace("-", "").Substring(0, 8));
+      this.cdc_DataCollection.Add("@IN_LBPT_EDAT", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_LINE", (object) this.get33(s1.Substring(5, 5)));
+      this.cdc_DataCollection.Add("@IN_LBPT_LOTN", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_MDCD", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_SFIX", (object) "");
+      this.cdc_DataCollection.Add("@IN_USED_CHCK", (object) "");
+      return DBINFO.DBCON.ExcuteSelectProcedureDT(this.str_PROC, this.cdc_DataCollection, CommandType.Text, false);
+    }
+
+    private DataTable GetData2(string s, string s1)
+    {
+      this.str_PROC = "PACK400_PS";
+      this.cdc_DataCollection.Clear();
+      this.cdc_DataCollection.Add("@IN_SRCH_MODE", (object) "12");
+      this.cdc_DataCollection.Add("@IN_LBPT_SDAT", (object) s.Replace("-", "").Substring(0, 8));
+      this.cdc_DataCollection.Add("@IN_LBPT_EDAT", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_LINE", (object) this.get33(s1.Substring(5, 5)));
+      this.cdc_DataCollection.Add("@IN_LBPT_LOTN", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_MDCD", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_SFIX", (object) "");
+      this.cdc_DataCollection.Add("@IN_USED_CHCK", (object) "");
+      return DBINFO.DBCON.ExcuteSelectProcedureDT(this.str_PROC, this.cdc_DataCollection, CommandType.Text, false);
+    }
+
+    private DataTable Getval()
+    {
+      this.str_PROC = "tb_temp_PS";
+      this.cdc_DataCollection.Clear();
+      this.cdc_DataCollection.Add("@IN_SRCH_MODE", (object) "0");
+      this.cdc_DataCollection.Add("@IN_FILE_NAME", (object) (this.LBPT_LOTN + "_" + this.LBPT_MDCD + "_" + this.LBPT_SEQ));
+      this.cdc_DataCollection.Add("@IN_SERL_NUMB", (object) this.txtCONT_SRIAL.Text);
+      return DBINFO.DBCON.ExcuteSelectProcedureDT(this.str_PROC, this.cdc_DataCollection, CommandType.Text, false);
+    }
+
+    private string oper10to33(int data)
+    {
+      string str1 = "";
+      int num = data;
+      string str2;
+      if (data < 33)
+      {
+        str2 = PACK800C._33Index[data];
+      }
+      else
+      {
+        int index1;
+        while (true)
+        {
+          index1 = num / 33;
+          int index2 = num % 33;
+          str1 = PACK800C._33Index[index2] + str1;
+          if (index1 >= 33)
+            num = index1;
+          else
+            break;
+        }
+        str2 = PACK800C._33Index[index1] + str1;
+      }
+      return str2;
+    }
+
+    public DataTable logFIND(string date, string serial)
+    {
+      this.str_PROC = "tb_temp_PS";
+      this.cdc_DataCollection.Clear();
+      this.cdc_DataCollection.Add("@IN_SRCH_MODE", (object) "0");
+      this.cdc_DataCollection.Add("@IN_FILE_NAME", (object) date);
+      this.cdc_DataCollection.Add("@IN_SERL_NUMB", (object) serial);
+      return DBINFO.DBCON.ExcuteSelectProcedureDT(this.str_PROC, this.cdc_DataCollection, CommandType.Text, false);
+    }
+
+    public void logSave(string date, string serial)
+    {
+      this.str_PROC = "tb_temp_PS";
+      this.cdc_DataCollection.Clear();
+      this.cdc_DataCollection.Add("@IN_SRCH_MODE", (object) "1");
+      this.cdc_DataCollection.Add("@IN_FILE_NAME", (object) date);
+      this.cdc_DataCollection.Add("@IN_SERL_NUMB", (object) serial);
+      DBINFO.DBCON.ExcuteProcedure(this.str_PROC, this.cdc_DataCollection, CommandType.Text);
+    }
+
+    public DataTable dataFIND(string date, string serial)
+    {
+      this.str_PROC = "tb_data_PS";
+      this.cdc_DataCollection.Clear();
+      this.cdc_DataCollection.Add("@IN_SRCH_MODE", (object) "0");
+      this.cdc_DataCollection.Add("@IN_year", (object) date);
+      this.cdc_DataCollection.Add("@IN_data", (object) int.Parse(serial));
+      return DBINFO.DBCON.ExcuteSelectProcedureDT(this.str_PROC, this.cdc_DataCollection, CommandType.Text, false);
+    }
+
+    public void dataSave(string date, string serial)
+    {
+      this.str_PROC = "tb_data_PS";
+      this.cdc_DataCollection.Clear();
+      this.cdc_DataCollection.Add("@IN_SRCH_MODE", (object) "1");
+      this.cdc_DataCollection.Add("@IN_year", (object) date);
+      this.cdc_DataCollection.Add("@IN_data", (object) int.Parse(serial));
+      DBINFO.DBCON.ExcuteProcedure(this.str_PROC, this.cdc_DataCollection, CommandType.Text);
+    }
+
+    private void txtCONT_SRIAL_KeyPress(object sender, KeyPressEventArgs e)
+    {
+      if (e.KeyChar != '\r')
+        return;
+      if (this.txtCONT_SRIAL.Text.Length == 14)
+      {
+        this.MainProcess();
+        this.txtCONT_SRIAL.Text = "";
+      }
+      else
+      {
+        this.txtCONT_SRIAL.Text = "";
+        this.txtCONT_SRIAL.Focus();
+      }
+    }
+
+    private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
+    {
+      if (this.serialPort1.IsOpen)
+      {
+        string Text = this.serialPort1.ReadExisting();
+        if (Text != string.Empty)
+        {
+          Text.ToCharArray();
+          this.DataProcessing(Text);
+        }
+      }
+      if (this.txtCONT_SRIAL.Text.Length != 14)
+        return;
+      this.MainProcess();
+      this.DataProcessing("1");
+    }
+
+    private void DataProcessing(string Text)
+    {
+      if (this.txtCONT_SRIAL.InvokeRequired)
+        this.Invoke((Delegate) new PACK800C.SetTextCallback(this.DataProcessing), (object) Text);
+      else if (Text == "1")
+        this.txtCONT_SRIAL.Text = "";
+      else
+        this.txtCONT_SRIAL.Text += Text.Replace("{", "").Replace("}", "");
+    }
+
+    private DataTable GetModelSpec(string modelcode)
+    {
+      this.str_PROC = "PACK400_PS";
+      this.cdc_DataCollection.Clear();
+      this.cdc_DataCollection.Add("@IN_SRCH_MODE", (object) "13");
+      this.cdc_DataCollection.Add("@IN_LBPT_SDAT", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_EDAT", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_LINE", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_LOTN", (object) "");
+      this.cdc_DataCollection.Add("@IN_LBPT_MDCD", (object) modelcode);
+      this.cdc_DataCollection.Add("@IN_LBPT_SFIX", (object) "");
+      this.cdc_DataCollection.Add("@IN_USED_CHCK", (object) "");
+      return DBINFO.DBCON.ExcuteSelectProcedureDT(this.str_PROC, this.cdc_DataCollection, CommandType.Text, false);
+    }
+
+    private void MainProcess()
+    {
+      this.serial_data = this.txtCONT_SRIAL.Text.Substring(5, 5);
+      DataTable dataTable1 = new DataTable();
+      DataTable dataTable2 = new DataTable();
+      DataTable dataTable3 = new DataTable();
+      if (this.xtraTextEdit1.Text == "")
+        this.xtraTextEdit1.Text = "0";
+      if (this.xtraTextEdit2.Text == "")
+        this.xtraTextEdit2.Text = "0";
+      if (this.xtraTextEdit3.Text == "")
+        this.xtraTextEdit3.Text = "0";
+      if (this.xtraTextEdit4.Text == "")
+        this.xtraTextEdit4.Text = "0";
+      DataTable data1 = this.GetData();
+      if (data1.Rows.Count <= 0)
+        return;
+      if (this.oldTemp == 0)
+        this.oldTemp = int.Parse(data1.Rows[0]["LBPT_SEQ"].ToString());
+      if (int.Parse(data1.Rows[0]["LBPT_SEQ"].ToString()) != this.oldTemp)
+      {
+        this.oldTemp = 0;
+        this.array_count = "";
+        this.mst_array = "";
+        this.int_mst_no = 0;
+        this.int_mid_no = 0;
+        this.xtraTextEdit1.Text = int.Parse("0").ToString();
+        this.xtraTextEdit2.Text = int.Parse("0").ToString();
+        this.xtraTextEdit3.Text = int.Parse("0").ToString();
+        this.xtraTextEdit4.Text = int.Parse("0").ToString();
+      }
+      this.L_QTY = data1.Rows[0]["LBPT_LOTQ"].ToString();
+      this.R_QTY = data1.Rows[0]["LBPT_RSTQ"].ToString();
+      this.LBPT_LOTN = data1.Rows[0]["LBPT_LOTN"].ToString();
+      this.LBPT_MDCD = data1.Rows[0]["LBPT_MDCD"].ToString();
+      this.LBPT_SEQ = data1.Rows[0]["LBPT_SEQ"].ToString();
+      DataTable modelSpec = this.GetModelSpec(this.LBPT_MDCD);
+      if (modelSpec.Rows.Count > 0)
+      {
+        this.MID_COUNT = int.Parse(modelSpec.Rows[0]["MIDDLE_COUNT"].ToString());
+        this.MST_COUNT = int.Parse(modelSpec.Rows[0]["MASTER_COUNT"].ToString());
+      }
+      if (this.logFIND(this.LBPT_LOTN + "_" + this.LBPT_MDCD + "_" + this.LBPT_SEQ, this.txtCONT_SRIAL.Text).Rows.Count > 0)
+      {
+        if (!this.chk_DATA_CHCK.Checked)
+        {
+          int num = (int) MessageBox.Show("중복입니다.");
+          this.txtCONT_SRIAL.Text = "";
+          this.txtCONT_SRIAL.Focus();
+          return;
+        }
+      }
+      else
+        this.logSave(data1.Rows[0]["LBPT_LOTN"].ToString() + "_" + data1.Rows[0]["LBPT_MDCD"].ToString() + "_" + data1.Rows[0]["LBPT_SEQ"].ToString(), this.txtCONT_SRIAL.Text);
+      this.xtraTextEdit1.Text = (int.Parse(this.xtraTextEdit1.Text) + 1).ToString();
+      XtraTextEdit xtraTextEdit2 = this.xtraTextEdit2;
+      int num1 = int.Parse(this.xtraTextEdit2.Text) + 1;
+      string str1 = num1.ToString();
+      xtraTextEdit2.Text = str1;
+      if (!(this.array_count != ""))
+        ;
+      this.array_count = this.array_count + "," + this.txtCONT_SRIAL.Text;
+      this.mst_array = this.mst_array + "," + this.txtCONT_SRIAL.Text;
+      if (int.Parse(this.xtraTextEdit2.Text) % this.MID_COUNT == 0)
+      {
+        XtraTextEdit xtraTextEdit4 = this.xtraTextEdit4;
+        num1 = int.Parse(this.xtraTextEdit4.Text) + 1;
+        string str2 = num1.ToString();
+        xtraTextEdit4.Text = str2;
+        this.int_mid_no = this.MID_COUNT;
+        this.str_mdcd = data1.Rows[0]["LBPT_MDCD"].ToString();
+        this.str_lotno = data1.Rows[0]["LBPT_LOTN"].ToString();
+        this.str_EAN = data1.Rows[0]["LBPT_EANC"].ToString();
+        this.str_prod = data1.Rows[0]["LBPT_PROD"].ToString();
+        this.mid_print();
+        this.array_count = "";
+      }
+      else if (int.Parse(this.L_QTY) == int.Parse(this.R_QTY) + 1)
+      {
+        XtraTextEdit xtraTextEdit4 = this.xtraTextEdit4;
+        num1 = int.Parse(this.xtraTextEdit4.Text) + 1;
+        string str3 = num1.ToString();
+        xtraTextEdit4.Text = str3;
+        num1 = int.Parse(this.xtraTextEdit2.Text);
+        this.int_mid_no = int.Parse(num1.ToString().Substring(this.xtraTextEdit2.Text.Length - 1, 1));
+        this.str_mdcd = data1.Rows[0]["LBPT_MDCD"].ToString();
+        this.str_lotno = data1.Rows[0]["LBPT_LOTN"].ToString();
+        this.str_EAN = data1.Rows[0]["LBPT_EANC"].ToString();
+        this.str_prod = data1.Rows[0]["LBPT_PROD"].ToString();
+        this.mid_print();
+        this.array_count = "";
+      }
+      if (int.Parse(this.xtraTextEdit4.Text) != 0 && int.Parse(this.xtraTextEdit4.Text) % this.MST_COUNT == 0 && int.Parse(this.xtraTextEdit2.Text) % (this.MID_COUNT * this.MST_COUNT) == 0)
+      {
+        XtraTextEdit xtraTextEdit3 = this.xtraTextEdit3;
+        num1 = int.Parse(this.xtraTextEdit3.Text) + 1;
+        string str4 = num1.ToString();
+        xtraTextEdit3.Text = str4;
+        this.int_mst_no = this.MID_COUNT * this.MST_COUNT;
+        this.str_mdcd = data1.Rows[0]["LBPT_MDCD"].ToString();
+        this.str_lotno = data1.Rows[0]["LBPT_LOTN"].ToString();
+        this.str_EAN = data1.Rows[0]["LBPT_EANC"].ToString();
+        this.str_prod = data1.Rows[0]["LBPT_PROD"].ToString();
+        this.mst_print();
+        this.mst_array = "";
+      }
+      else if (int.Parse(this.L_QTY) == int.Parse(this.R_QTY) + 1)
+      {
+        XtraTextEdit xtraTextEdit3 = this.xtraTextEdit3;
+        num1 = int.Parse(this.xtraTextEdit3.Text) + 1;
+        string str5 = num1.ToString();
+        xtraTextEdit3.Text = str5;
+        this.int_mst_no = int.Parse(this.xtraTextEdit2.Text) % (this.MID_COUNT * this.MST_COUNT);
+        this.str_mdcd = data1.Rows[0]["LBPT_MDCD"].ToString();
+        this.str_lotno = data1.Rows[0]["LBPT_LOTN"].ToString();
+        this.str_EAN = data1.Rows[0]["LBPT_EANC"].ToString();
+        this.str_prod = data1.Rows[0]["LBPT_PROD"].ToString();
+        this.mst_print();
+        this.mst_array = "";
+        this.btnSearch.PerformClick();
+      }
+      this.save(data1.Rows[0]["LBPT_SEQ"].ToString(), data1.Rows[0]["LBPT_YEAR"].ToString(), data1.Rows[0]["LBPT_MDCD"].ToString(), data1.Rows[0]["LBPT_LOTN"].ToString());
+      DataTable data2 = this.GetData();
+      this.xtraTextEdit1.Text = data2.Rows[0]["LBPT_RSTQ"].ToString();
+      this.xtraTextEdit2.Text = data2.Rows[0]["LBPT_RSTQ"].ToString();
+      XtraTextEdit xtraTextEdit3_1 = this.xtraTextEdit3;
+      num1 = int.Parse(this.xtraTextEdit4.Text) / this.MST_COUNT;
+      string str6 = num1.ToString();
+      xtraTextEdit3_1.Text = str6;
+      XtraTextEdit xtraTextEdit4_1 = this.xtraTextEdit4;
+      num1 = int.Parse(data2.Rows[0]["LBPT_RSTQ"].ToString()) / 10;
+      string str7 = num1.ToString();
+      xtraTextEdit4_1.Text = str7;
+      if (this.L_QTY == data2.Rows[0]["LBPT_RSTQ"].ToString())
+      {
+        XtraTextEdit xtraTextEdit4_2 = this.xtraTextEdit4;
+        num1 = int.Parse(this.xtraTextEdit4.Text) + 1;
+        string str8 = num1.ToString();
+        xtraTextEdit4_2.Text = str8;
+        XtraTextEdit xtraTextEdit3_2 = this.xtraTextEdit3;
+        num1 = int.Parse(this.xtraTextEdit3.Text) + 1;
+        string str9 = num1.ToString();
+        xtraTextEdit3_2.Text = str9;
+        this.save1(data2.Rows[0]["LBPT_SEQ"].ToString(), data2.Rows[0]["LBPT_YEAR"].ToString(), data2.Rows[0]["LBPT_MDCD"].ToString(), data2.Rows[0]["LBPT_LOTN"].ToString());
+      }
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+      if (disposing && this.components != null)
+        this.components.Dispose();
+      base.Dispose(disposing);
+    }
+
+    private void InitializeComponent()
+    {
+      this.components = (IContainer) new System.ComponentModel.Container();
+      ComponentResourceManager componentResourceManager = new ComponentResourceManager(typeof (PACK800C));
+      this.xtraLayoutControl1 = new XtraLayoutControl();
+      this.btnSearch = new XtraButton();
+      this.btnAdd = new XtraButton();
+      this.btnSave = new XtraButton();
+      this.btnPrint = new XtraButton();
+      this.btnClose = new XtraButton();
+      this.btnClear = new XtraButton();
+      this.xtraTextEdit1 = new XtraTextEdit();
+      this.xtraTextEdit2 = new XtraTextEdit();
+      this.xtraTextEdit4 = new XtraTextEdit();
+      this.xtraTextEdit3 = new XtraTextEdit();
+      this.grdMain = new XtraGridControlExt();
+      this.grvMain = new GridView();
+      this.txtCONT_SRIAL = new TextBox();
+      this.chk_DATA_CHCK = new XtraCheckEdit();
+      this.layMain = new LayoutControlGroup();
+      this.layoutControlItem2 = new LayoutControlItem();
+      this.emptySpaceItem1 = new EmptySpaceItem();
+      this.layoutControlItem3 = new LayoutControlItem();
+      this.layoutControlItem6 = new LayoutControlItem();
+      this.layoutControlItem7 = new LayoutControlItem();
+      this.layoutControlItem9 = new LayoutControlItem();
+      this.layoutControlItem10 = new LayoutControlItem();
+      this.layInfo = new LayoutControlGroup();
+      this.layoutControlItem8 = new LayoutControlItem();
+      this.layoutControlItem12 = new LayoutControlItem();
+      this.layoutControlItem11 = new LayoutControlItem();
+      this.layoutControlItem5 = new LayoutControlItem();
+      this.layList = new LayoutControlGroup();
+      this.layoutControlItem1 = new LayoutControlItem();
+      this.layoutControlItem13 = new LayoutControlItem();
+      this.layoutControlItem14 = new LayoutControlItem();
+      this.serialPort1 = new SerialPort(this.components);
+      this.xtraLayoutControl1.BeginInit();
+      this.xtraLayoutControl1.SuspendLayout();
+      this.xtraTextEdit1.Properties.BeginInit();
+      this.xtraTextEdit2.Properties.BeginInit();
+      this.xtraTextEdit4.Properties.BeginInit();
+      this.xtraTextEdit3.Properties.BeginInit();
+      this.grdMain.BeginInit();
+      this.grvMain.BeginInit();
+      this.chk_DATA_CHCK.Properties.BeginInit();
+      this.layMain.BeginInit();
+      this.layoutControlItem2.BeginInit();
+      this.emptySpaceItem1.BeginInit();
+      this.layoutControlItem3.BeginInit();
+      this.layoutControlItem6.BeginInit();
+      this.layoutControlItem7.BeginInit();
+      this.layoutControlItem9.BeginInit();
+      this.layoutControlItem10.BeginInit();
+      this.layInfo.BeginInit();
+      this.layoutControlItem8.BeginInit();
+      this.layoutControlItem12.BeginInit();
+      this.layoutControlItem11.BeginInit();
+      this.layoutControlItem5.BeginInit();
+      this.layList.BeginInit();
+      this.layoutControlItem1.BeginInit();
+      this.layoutControlItem13.BeginInit();
+      this.layoutControlItem14.BeginInit();
+      this.SuspendLayout();
+      this.xtraLayoutControl1.Controls.Add((Control) this.btnSearch);
+      this.xtraLayoutControl1.Controls.Add((Control) this.btnAdd);
+      this.xtraLayoutControl1.Controls.Add((Control) this.btnSave);
+      this.xtraLayoutControl1.Controls.Add((Control) this.btnPrint);
+      this.xtraLayoutControl1.Controls.Add((Control) this.btnClose);
+      this.xtraLayoutControl1.Controls.Add((Control) this.btnClear);
+      this.xtraLayoutControl1.Controls.Add((Control) this.xtraTextEdit1);
+      this.xtraLayoutControl1.Controls.Add((Control) this.xtraTextEdit2);
+      this.xtraLayoutControl1.Controls.Add((Control) this.xtraTextEdit4);
+      this.xtraLayoutControl1.Controls.Add((Control) this.xtraTextEdit3);
+      this.xtraLayoutControl1.Controls.Add((Control) this.grdMain);
+      this.xtraLayoutControl1.Controls.Add((Control) this.txtCONT_SRIAL);
+      this.xtraLayoutControl1.Controls.Add((Control) this.chk_DATA_CHCK);
+      this.xtraLayoutControl1.Dock = DockStyle.Fill;
+      this.xtraLayoutControl1.Location = new Point(0, 0);
+      this.xtraLayoutControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+      this.xtraLayoutControl1.Name = "xtraLayoutControl1";
+      this.xtraLayoutControl1.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new Rectangle?(new Rectangle(-979, 204, 250, 350));
+      this.xtraLayoutControl1.Root = this.layMain;
+      this.xtraLayoutControl1.Size = new Size(1257, 1000);
+      this.xtraLayoutControl1.TabIndex = 0;
+      this.xtraLayoutControl1.Text = "xtraLayoutControl1";
+      this.btnSearch.BtnIconType = BtnIconType.조회;
+      this.btnSearch.ExecuteQuery = (ArrayList) componentResourceManager.GetObject("btnSearch.ExecuteQuery");
+      this.btnSearch.ExecuteQueryType = (ArrayList) componentResourceManager.GetObject("btnSearch.ExecuteQueryType");
+      this.btnSearch.ExecuteTable = (ArrayList) componentResourceManager.GetObject("btnSearch.ExecuteTable");
+      this.btnSearch.Image = (Image) componentResourceManager.GetObject("btnSearch.Image");
+      this.btnSearch.Location = new Point(667, 16);
+      this.btnSearch.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+      this.btnSearch.MaximumSize = new Size(110, 32);
+      this.btnSearch.MinimumSize = new Size(110, 32);
+      this.btnSearch.Name = "btnSearch";
+      this.btnSearch.Size = new Size(110, 32);
+      this.btnSearch.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.btnSearch.TabIndex = 41;
+      this.btnSearch.Text = "조회";
+      this.btnSearch.Click += new EventHandler(this.btnSearch_Click);
+      this.btnAdd.BtnIconType = BtnIconType.추가;
+      this.btnAdd.ExecuteQuery = (ArrayList) componentResourceManager.GetObject("btnAdd.ExecuteQuery");
+      this.btnAdd.ExecuteQueryType = (ArrayList) componentResourceManager.GetObject("btnAdd.ExecuteQueryType");
+      this.btnAdd.ExecuteTable = (ArrayList) componentResourceManager.GetObject("btnAdd.ExecuteTable");
+      this.btnAdd.Image = (Image) componentResourceManager.GetObject("btnAdd.Image");
+      this.btnAdd.Location = new Point(783, 16);
+      this.btnAdd.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+      this.btnAdd.MaximumSize = new Size(110, 32);
+      this.btnAdd.MinimumSize = new Size(110, 32);
+      this.btnAdd.Name = "btnAdd";
+      this.btnAdd.Size = new Size(110, 32);
+      this.btnAdd.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.btnAdd.TabIndex = 43;
+      this.btnAdd.Text = "추가";
+      this.btnAdd.Visible = false;
+      this.btnSave.BtnIconType = BtnIconType.저장;
+      this.btnSave.ExecuteQuery = (ArrayList) componentResourceManager.GetObject("btnSave.ExecuteQuery");
+      this.btnSave.ExecuteQueryType = (ArrayList) componentResourceManager.GetObject("btnSave.ExecuteQueryType");
+      this.btnSave.ExecuteTable = (ArrayList) componentResourceManager.GetObject("btnSave.ExecuteTable");
+      this.btnSave.Image = (Image) componentResourceManager.GetObject("btnSave.Image");
+      this.btnSave.Location = new Point(899, 16);
+      this.btnSave.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+      this.btnSave.MaximumSize = new Size(110, 32);
+      this.btnSave.MinimumSize = new Size(110, 32);
+      this.btnSave.Name = "btnSave";
+      this.btnSave.Size = new Size(110, 32);
+      this.btnSave.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.btnSave.TabIndex = 40;
+      this.btnSave.Text = "저장";
+      this.btnSave.Visible = false;
+      this.btnPrint.BtnIconType = BtnIconType.출력;
+      this.btnPrint.ExecuteQuery = (ArrayList) componentResourceManager.GetObject("btnPrint.ExecuteQuery");
+      this.btnPrint.ExecuteQueryType = (ArrayList) componentResourceManager.GetObject("btnPrint.ExecuteQueryType");
+      this.btnPrint.ExecuteTable = (ArrayList) componentResourceManager.GetObject("btnPrint.ExecuteTable");
+      this.btnPrint.Image = (Image) componentResourceManager.GetObject("btnPrint.Image");
+      this.btnPrint.Location = new Point(1015, 16);
+      this.btnPrint.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+      this.btnPrint.MaximumSize = new Size(110, 32);
+      this.btnPrint.MinimumSize = new Size(110, 32);
+      this.btnPrint.Name = "btnPrint";
+      this.btnPrint.Size = new Size(110, 32);
+      this.btnPrint.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.btnPrint.TabIndex = 44;
+      this.btnPrint.Text = "출력";
+      this.btnPrint.Visible = false;
+      this.btnPrint.Click += new EventHandler(this.btnPrint_Click);
+      this.btnClose.BtnIconType = BtnIconType.닫기;
+      this.btnClose.ExecuteQuery = (ArrayList) componentResourceManager.GetObject("btnClose.ExecuteQuery");
+      this.btnClose.ExecuteQueryType = (ArrayList) componentResourceManager.GetObject("btnClose.ExecuteQueryType");
+      this.btnClose.ExecuteTable = (ArrayList) componentResourceManager.GetObject("btnClose.ExecuteTable");
+      this.btnClose.Image = (Image) componentResourceManager.GetObject("btnClose.Image");
+      this.btnClose.Location = new Point(1131, 16);
+      this.btnClose.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+      this.btnClose.MaximumSize = new Size(110, 32);
+      this.btnClose.MinimumSize = new Size(110, 32);
+      this.btnClose.Name = "btnClose";
+      this.btnClose.Size = new Size(110, 32);
+      this.btnClose.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.btnClose.TabIndex = 7;
+      this.btnClose.Text = "닫기";
+      this.btnClose.Visible = false;
+      this.btnClose.Click += new EventHandler(this.btnClose_Click);
+      this.btnClear.BtnIconType = BtnIconType.초기화;
+      this.btnClear.ExecuteQuery = (ArrayList) componentResourceManager.GetObject("btnClear.ExecuteQuery");
+      this.btnClear.ExecuteQueryType = (ArrayList) componentResourceManager.GetObject("btnClear.ExecuteQueryType");
+      this.btnClear.ExecuteTable = (ArrayList) componentResourceManager.GetObject("btnClear.ExecuteTable");
+      this.btnClear.Image = (Image) componentResourceManager.GetObject("btnClear.Image");
+      this.btnClear.Location = new Point(551, 16);
+      this.btnClear.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+      this.btnClear.MaximumSize = new Size(110, 32);
+      this.btnClear.MinimumSize = new Size(110, 32);
+      this.btnClear.Name = "btnClear";
+      this.btnClear.Size = new Size(110, 32);
+      this.btnClear.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.btnClear.TabIndex = 42;
+      this.btnClear.Text = "초기화";
+      this.btnClear.Click += new EventHandler(this.btnClear_Click);
+      this.xtraTextEdit1.ColorSkin = ColorSkinType.ReadOnly;
+      this.xtraTextEdit1.CtrlErrorText = "";
+      this.xtraTextEdit1.DataField = "LBPT_YEAR";
+      this.xtraTextEdit1.EditValue = (object) "0";
+      this.xtraTextEdit1.EnterExcuteBtn = (SimpleButton) null;
+      this.xtraTextEdit1.IsDataFormatType = TextEditTextFormatType.CustomType;
+      this.xtraTextEdit1.IsPK = false;
+      this.xtraTextEdit1.IsRequired = true;
+      this.xtraTextEdit1.Location = new Point(619, 698);
+      this.xtraTextEdit1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+      this.xtraTextEdit1.Name = "xtraTextEdit1";
+      this.xtraTextEdit1.Properties.Appearance.BackColor = Color.Yellow;
+      this.xtraTextEdit1.Properties.Appearance.Font = new Font("Arial", 120f, FontStyle.Bold, GraphicsUnit.Point, (byte) 0);
+      this.xtraTextEdit1.Properties.Appearance.ForeColor = Color.Red;
+      this.xtraTextEdit1.Properties.Appearance.Options.UseBackColor = true;
+      this.xtraTextEdit1.Properties.Appearance.Options.UseFont = true;
+      this.xtraTextEdit1.Properties.Appearance.Options.UseForeColor = true;
+      this.xtraTextEdit1.Properties.MaxLength = 2;
+      this.xtraTextEdit1.Properties.ReadOnly = true;
+      this.xtraTextEdit1.RightToLeft = RightToLeft.Yes;
+      this.xtraTextEdit1.SetSuperToolTip = (SuperToolTip) null;
+      this.xtraTextEdit1.Size = new Size(607, 234);
+      this.xtraTextEdit1.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.xtraTextEdit1.TabIndex = 1;
+      this.xtraTextEdit1.TABLE = (string) null;
+      this.xtraTextEdit1.WHEREFIELD = true;
+      this.xtraTextEdit1.Click += new EventHandler(this.xtraTextEdit1_Click);
+      this.xtraTextEdit2.ColorSkin = ColorSkinType.ReadOnly;
+      this.xtraTextEdit2.CtrlErrorText = "";
+      this.xtraTextEdit2.DataField = "LBPT_YEAR";
+      this.xtraTextEdit2.EditValue = (object) "0";
+      this.xtraTextEdit2.EnterExcuteBtn = (SimpleButton) null;
+      this.xtraTextEdit2.IsDataFormatType = TextEditTextFormatType.CustomType;
+      this.xtraTextEdit2.IsPK = false;
+      this.xtraTextEdit2.IsRequired = true;
+      this.xtraTextEdit2.Location = new Point(84, 698);
+      this.xtraTextEdit2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+      this.xtraTextEdit2.Name = "xtraTextEdit2";
+      this.xtraTextEdit2.Properties.Appearance.BackColor = Color.White;
+      this.xtraTextEdit2.Properties.Appearance.Font = new Font("Arial", 36f, FontStyle.Bold, GraphicsUnit.Point, (byte) 0);
+      this.xtraTextEdit2.Properties.Appearance.Options.UseBackColor = true;
+      this.xtraTextEdit2.Properties.Appearance.Options.UseFont = true;
+      this.xtraTextEdit2.Properties.MaxLength = 2;
+      this.xtraTextEdit2.Properties.ReadOnly = true;
+      this.xtraTextEdit2.RightToLeft = RightToLeft.Yes;
+      this.xtraTextEdit2.SetSuperToolTip = (SuperToolTip) null;
+      this.xtraTextEdit2.Size = new Size(451, 76);
+      this.xtraTextEdit2.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.xtraTextEdit2.TabIndex = 1;
+      this.xtraTextEdit2.TABLE = (string) null;
+      this.xtraTextEdit2.WHEREFIELD = true;
+      this.xtraTextEdit2.Click += new EventHandler(this.xtraTextEdit2_Click);
+      this.xtraTextEdit4.ColorSkin = ColorSkinType.ReadOnly;
+      this.xtraTextEdit4.CtrlErrorText = "";
+      this.xtraTextEdit4.DataField = "LBPT_YEAR";
+      this.xtraTextEdit4.EditValue = (object) "0";
+      this.xtraTextEdit4.EnterExcuteBtn = (SimpleButton) null;
+      this.xtraTextEdit4.IsDataFormatType = TextEditTextFormatType.CustomType;
+      this.xtraTextEdit4.IsPK = false;
+      this.xtraTextEdit4.IsRequired = true;
+      this.xtraTextEdit4.Location = new Point(84, 780);
+      this.xtraTextEdit4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+      this.xtraTextEdit4.Name = "xtraTextEdit4";
+      this.xtraTextEdit4.Properties.Appearance.BackColor = Color.White;
+      this.xtraTextEdit4.Properties.Appearance.Font = new Font("Arial", 36f, FontStyle.Bold, GraphicsUnit.Point, (byte) 0);
+      this.xtraTextEdit4.Properties.Appearance.Options.UseBackColor = true;
+      this.xtraTextEdit4.Properties.Appearance.Options.UseFont = true;
+      this.xtraTextEdit4.Properties.MaxLength = 2;
+      this.xtraTextEdit4.Properties.ReadOnly = true;
+      this.xtraTextEdit4.RightToLeft = RightToLeft.Yes;
+      this.xtraTextEdit4.SetSuperToolTip = (SuperToolTip) null;
+      this.xtraTextEdit4.Size = new Size(451, 76);
+      this.xtraTextEdit4.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.xtraTextEdit4.TabIndex = 1;
+      this.xtraTextEdit4.TABLE = (string) null;
+      this.xtraTextEdit4.WHEREFIELD = true;
+      this.xtraTextEdit4.Click += new EventHandler(this.xtraTextEdit4_Click);
+      this.xtraTextEdit3.ColorSkin = ColorSkinType.ReadOnly;
+      this.xtraTextEdit3.CtrlErrorText = "";
+      this.xtraTextEdit3.DataField = "LBPT_YEAR";
+      this.xtraTextEdit3.EditValue = (object) "0";
+      this.xtraTextEdit3.EnterExcuteBtn = (SimpleButton) null;
+      this.xtraTextEdit3.IsDataFormatType = TextEditTextFormatType.CustomType;
+      this.xtraTextEdit3.IsPK = false;
+      this.xtraTextEdit3.IsRequired = true;
+      this.xtraTextEdit3.Location = new Point(84, 862);
+      this.xtraTextEdit3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+      this.xtraTextEdit3.Name = "xtraTextEdit3";
+      this.xtraTextEdit3.Properties.Appearance.BackColor = Color.White;
+      this.xtraTextEdit3.Properties.Appearance.Font = new Font("Arial", 36f, FontStyle.Bold, GraphicsUnit.Point, (byte) 0);
+      this.xtraTextEdit3.Properties.Appearance.Options.UseBackColor = true;
+      this.xtraTextEdit3.Properties.Appearance.Options.UseFont = true;
+      this.xtraTextEdit3.Properties.MaxLength = 2;
+      this.xtraTextEdit3.Properties.ReadOnly = true;
+      this.xtraTextEdit3.RightToLeft = RightToLeft.Yes;
+      this.xtraTextEdit3.SetSuperToolTip = (SuperToolTip) null;
+      this.xtraTextEdit3.Size = new Size(451, 76);
+      this.xtraTextEdit3.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.xtraTextEdit3.TabIndex = 1;
+      this.xtraTextEdit3.TABLE = (string) null;
+      this.xtraTextEdit3.WHEREFIELD = true;
+      this.xtraTextEdit3.Click += new EventHandler(this.xtraTextEdit3_Click);
+      this.grdMain.CheckBoxFieldName = "CHK";
+      this.grdMain.DataRowCountZeroMessage = "조회된 자료가 없습니다.";
+      this.grdMain.DataSourceChangedMoveFirstRowHandle = false;
+      this.grdMain.EmbeddedNavigator.Buttons.Append.ImageIndex = 0;
+      this.grdMain.EmbeddedNavigator.Buttons.Append.Visible = false;
+      this.grdMain.EmbeddedNavigator.Buttons.CancelEdit.Visible = false;
+      this.grdMain.EmbeddedNavigator.Buttons.Edit.Visible = false;
+      this.grdMain.EmbeddedNavigator.Buttons.EndEdit.Visible = false;
+      this.grdMain.EmbeddedNavigator.Buttons.Remove.Visible = false;
+      this.grdMain.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+      this.grdMain.FocusedColumn = (GridColumn) null;
+      this.grdMain.FocusedRowHandle = int.MinValue;
+      this.grdMain.GridViewStyle = XtraGridViewType.Default;
+      this.grdMain.IsApplyDataSourceEffect = true;
+      this.grdMain.IsCellValueChangedCheckedItem = true;
+      this.grdMain.IsDataRowCountZeroMessage = true;
+      this.grdMain.IsHeaderClickAllCheckedItem = true;
+      this.grdMain.IsRecordAddCheckedItem = true;
+      this.grdMain.IsSetCustomDrawRowIndicator = true;
+      this.grdMain.IsShowRowNumber = true;
+      this.grdMain.IsWriteMode = false;
+      this.grdMain.Location = new Point(31, 94);
+      this.grdMain.MainView = (BaseView) this.grvMain;
+      this.grdMain.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+      this.grdMain.Name = "grdMain";
+      this.grdMain.ReportHeaderTitle = "";
+      this.grdMain.Size = new Size(1195, 506);
+      this.grdMain.TabIndex = 5;
+      this.grdMain.UseEmbeddedNavigator = true;
+      this.grdMain.ViewCollection.AddRange(new BaseView[1]
+      {
+        (BaseView) this.grvMain
+      });
+      this.grvMain.FocusRectStyle = DrawFocusRectStyle.RowFocus;
+      this.grvMain.GridControl = (GridControl) this.grdMain;
+      this.grvMain.Name = "grvMain";
+      this.grvMain.OptionsView.ColumnAutoWidth = false;
+      this.grvMain.OptionsView.ShowGroupPanel = false;
+      this.txtCONT_SRIAL.Location = new Point(24, 959);
+      this.txtCONT_SRIAL.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+      this.txtCONT_SRIAL.Name = "txtCONT_SRIAL";
+      this.txtCONT_SRIAL.Size = new Size(1217, 25);
+      this.txtCONT_SRIAL.TabIndex = 50;
+      this.txtCONT_SRIAL.Visible = false;
+      this.txtCONT_SRIAL.KeyPress += new KeyPressEventHandler(this.txtCONT_SRIAL_KeyPress);
+      this.chk_DATA_CHCK.CheckedValue = "Y";
+      this.chk_DATA_CHCK.ColorSkin = ColorSkinType.Nomal;
+      this.chk_DATA_CHCK.CtrlErrorText = "";
+      this.chk_DATA_CHCK.DataField = (string) null;
+      this.chk_DATA_CHCK.EnterExcuteBtn = (SimpleButton) null;
+      this.chk_DATA_CHCK.IsRequired = false;
+      this.chk_DATA_CHCK.Location = new Point(16, 621);
+      this.chk_DATA_CHCK.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+      this.chk_DATA_CHCK.Name = "chk_DATA_CHCK";
+      this.chk_DATA_CHCK.Properties.Appearance.BackColor = Color.Transparent;
+      this.chk_DATA_CHCK.Properties.Appearance.Options.UseBackColor = true;
+      this.chk_DATA_CHCK.Properties.Caption = "데이터 중복체크 off";
+      this.chk_DATA_CHCK.Properties.NullStyle = StyleIndeterminate.Unchecked;
+      this.chk_DATA_CHCK.SetSuperToolTip = (SuperToolTip) null;
+      this.chk_DATA_CHCK.Size = new Size(1225, 22);
+      this.chk_DATA_CHCK.StyleController = (IStyleController) this.xtraLayoutControl1;
+      this.chk_DATA_CHCK.TabIndex = 51;
+      this.chk_DATA_CHCK.TABLE = (string) null;
+      this.chk_DATA_CHCK.UnCheckedValue = "N";
+      this.chk_DATA_CHCK.WHEREFIELD = false;
+      this.layMain.EnableIndentsWithoutBorders = DefaultBoolean.True;
+      this.layMain.GroupBordersVisible = false;
+      this.layMain.Items.AddRange(new BaseLayoutItem[11]
+      {
+        (BaseLayoutItem) this.layoutControlItem2,
+        (BaseLayoutItem) this.emptySpaceItem1,
+        (BaseLayoutItem) this.layoutControlItem3,
+        (BaseLayoutItem) this.layoutControlItem6,
+        (BaseLayoutItem) this.layoutControlItem7,
+        (BaseLayoutItem) this.layoutControlItem9,
+        (BaseLayoutItem) this.layoutControlItem10,
+        (BaseLayoutItem) this.layInfo,
+        (BaseLayoutItem) this.layList,
+        (BaseLayoutItem) this.layoutControlItem13,
+        (BaseLayoutItem) this.layoutControlItem14
+      });
+      this.layMain.Location = new Point(0, 0);
+      this.layMain.Name = "Root";
+      this.layMain.Size = new Size(1257, 1000);
+      this.layMain.Tag = (object) "";
+      this.layMain.TextVisible = false;
+      this.layoutControlItem2.Control = (Control) this.btnClear;
+      this.layoutControlItem2.Location = new Point(535, 0);
+      this.layoutControlItem2.Name = "layoutControlItem2";
+      this.layoutControlItem2.Size = new Size(116, 38);
+      this.layoutControlItem2.TextSize = new Size(0, 0);
+      this.layoutControlItem2.TextVisible = false;
+      this.emptySpaceItem1.AllowHotTrack = false;
+      this.emptySpaceItem1.Location = new Point(0, 0);
+      this.emptySpaceItem1.Name = "emptySpaceItem1";
+      this.emptySpaceItem1.Size = new Size(535, 38);
+      this.emptySpaceItem1.TextSize = new Size(0, 0);
+      this.layoutControlItem3.Control = (Control) this.btnClose;
+      this.layoutControlItem3.Location = new Point(1115, 0);
+      this.layoutControlItem3.Name = "layoutControlItem3";
+      this.layoutControlItem3.Size = new Size(116, 38);
+      this.layoutControlItem3.TextSize = new Size(0, 0);
+      this.layoutControlItem3.TextVisible = false;
+      this.layoutControlItem3.Visibility = LayoutVisibility.Never;
+      this.layoutControlItem6.Control = (Control) this.btnPrint;
+      this.layoutControlItem6.Location = new Point(999, 0);
+      this.layoutControlItem6.Name = "layoutControlItem6";
+      this.layoutControlItem6.Size = new Size(116, 38);
+      this.layoutControlItem6.TextSize = new Size(0, 0);
+      this.layoutControlItem6.TextVisible = false;
+      this.layoutControlItem6.Visibility = LayoutVisibility.Never;
+      this.layoutControlItem7.Control = (Control) this.btnSave;
+      this.layoutControlItem7.Location = new Point(883, 0);
+      this.layoutControlItem7.Name = "layoutControlItem7";
+      this.layoutControlItem7.Size = new Size(116, 38);
+      this.layoutControlItem7.TextSize = new Size(0, 0);
+      this.layoutControlItem7.TextVisible = false;
+      this.layoutControlItem7.Visibility = LayoutVisibility.Never;
+      this.layoutControlItem9.Control = (Control) this.btnAdd;
+      this.layoutControlItem9.Location = new Point(767, 0);
+      this.layoutControlItem9.Name = "layoutControlItem9";
+      this.layoutControlItem9.Size = new Size(116, 38);
+      this.layoutControlItem9.TextAlignMode = TextAlignModeItem.CustomSize;
+      this.layoutControlItem9.TextSize = new Size(0, 0);
+      this.layoutControlItem9.TextToControlDistance = 0;
+      this.layoutControlItem9.TextVisible = false;
+      this.layoutControlItem9.Visibility = LayoutVisibility.Never;
+      this.layoutControlItem10.Control = (Control) this.btnSearch;
+      this.layoutControlItem10.Location = new Point(651, 0);
+      this.layoutControlItem10.Name = "layoutControlItem10";
+      this.layoutControlItem10.Size = new Size(116, 38);
+      this.layoutControlItem10.TextSize = new Size(0, 0);
+      this.layoutControlItem10.TextVisible = false;
+      this.layInfo.AppearanceGroup.Font = new Font("Tahoma", 9f, FontStyle.Bold);
+      this.layInfo.AppearanceGroup.Options.UseFont = true;
+      this.layInfo.CaptionImage = (Image) Resources._circle_info;
+      this.layInfo.CustomizationFormText = "정보";
+      this.layInfo.Items.AddRange(new BaseLayoutItem[4]
+      {
+        (BaseLayoutItem) this.layoutControlItem8,
+        (BaseLayoutItem) this.layoutControlItem5,
+        (BaseLayoutItem) this.layoutControlItem11,
+        (BaseLayoutItem) this.layoutControlItem12
+      });
+      this.layInfo.Location = new Point(0, 633);
+      this.layInfo.Name = "layInfo";
+      this.layInfo.Size = new Size(1231, 310);
+      this.layInfo.Text = "정보";
+      this.layoutControlItem8.Control = (Control) this.xtraTextEdit2;
+      this.layoutControlItem8.CustomizationFormText = "수량";
+      this.layoutControlItem8.Image = (Image) componentResourceManager.GetObject("layoutControlItem8.Image");
+      this.layoutControlItem8.Location = new Point(0, 0);
+      this.layoutControlItem8.Name = "layoutControlItem8";
+      this.layoutControlItem8.Size = new Size(510, 82);
+      this.layoutControlItem8.Spacing = new DevExpress.XtraLayout.Utils.Padding(5, 0, 0, 0);
+      this.layoutControlItem8.Text = "수량";
+      this.layoutControlItem8.TextAlignMode = TextAlignModeItem.CustomSize;
+      this.layoutControlItem8.TextSize = new Size(45, 16);
+      this.layoutControlItem8.TextToControlDistance = 3;
+      this.layoutControlItem12.Control = (Control) this.xtraTextEdit4;
+      this.layoutControlItem12.CustomizationFormText = "중간";
+      this.layoutControlItem12.Image = (Image) componentResourceManager.GetObject("layoutControlItem12.Image");
+      this.layoutControlItem12.Location = new Point(0, 82);
+      this.layoutControlItem12.Name = "layoutControlItem12";
+      this.layoutControlItem12.Size = new Size(510, 82);
+      this.layoutControlItem12.Spacing = new DevExpress.XtraLayout.Utils.Padding(5, 0, 0, 0);
+      this.layoutControlItem12.Text = "중간";
+      this.layoutControlItem12.TextAlignMode = TextAlignModeItem.CustomSize;
+      this.layoutControlItem12.TextSize = new Size(45, 16);
+      this.layoutControlItem12.TextToControlDistance = 3;
+      this.layoutControlItem11.Control = (Control) this.xtraTextEdit3;
+      this.layoutControlItem11.CustomizationFormText = "완성";
+      this.layoutControlItem11.Image = (Image) componentResourceManager.GetObject("layoutControlItem11.Image");
+      this.layoutControlItem11.Location = new Point(0, 164);
+      this.layoutControlItem11.Name = "layoutControlItem11";
+      this.layoutControlItem11.Size = new Size(510, 82);
+      this.layoutControlItem11.Spacing = new DevExpress.XtraLayout.Utils.Padding(5, 0, 0, 0);
+      this.layoutControlItem11.Text = "완성";
+      this.layoutControlItem11.TextAlignMode = TextAlignModeItem.CustomSize;
+      this.layoutControlItem11.TextSize = new Size(45, 16);
+      this.layoutControlItem11.TextToControlDistance = 3;
+      this.layoutControlItem5.Control = (Control) this.xtraTextEdit1;
+      this.layoutControlItem5.CustomizationFormText = "카운터";
+      this.layoutControlItem5.Image = (Image) componentResourceManager.GetObject("layoutControlItem5.Image");
+      this.layoutControlItem5.Location = new Point(510, 0);
+      this.layoutControlItem5.MaxSize = new Size(0, 188);
+      this.layoutControlItem5.MinSize = new Size(137, 188);
+      this.layoutControlItem5.Name = "layoutControlItem5";
+      this.layoutControlItem5.Size = new Size(691, 246);
+      this.layoutControlItem5.SizeConstraintsType = SizeConstraintsType.Custom;
+      this.layoutControlItem5.Spacing = new DevExpress.XtraLayout.Utils.Padding(5, 0, 0, 0);
+      this.layoutControlItem5.Text = "카운터";
+      this.layoutControlItem5.TextAlignMode = TextAlignModeItem.CustomSize;
+      this.layoutControlItem5.TextSize = new Size(70, 16);
+      this.layoutControlItem5.TextToControlDistance = 3;
+      this.layList.CustomizationFormText = "리스트";
+      this.layList.Items.AddRange(new BaseLayoutItem[1]
+      {
+        (BaseLayoutItem) this.layoutControlItem1
+      });
+      this.layList.Location = new Point(0, 38);
+      this.layList.Name = "layList";
+      this.layList.Size = new Size(1231, 567);
+      this.layList.Text = " ";
+      this.layoutControlItem1.Control = (Control) this.grdMain;
+      this.layoutControlItem1.CustomizationFormText = "layoutControlItem1";
+      this.layoutControlItem1.Location = new Point(0, 0);
+      this.layoutControlItem1.Name = "layoutControlItem1";
+      this.layoutControlItem1.Size = new Size(1201, 512);
+      this.layoutControlItem1.TextSize = new Size(0, 0);
+      this.layoutControlItem1.TextVisible = false;
+      this.layoutControlItem13.Control = (Control) this.txtCONT_SRIAL;
+      this.layoutControlItem13.CustomizationFormText = " ";
+      this.layoutControlItem13.Location = new Point(0, 943);
+      this.layoutControlItem13.Name = "layoutControlItem13";
+      this.layoutControlItem13.Size = new Size(1231, 31);
+      this.layoutControlItem13.Text = " ";
+      this.layoutControlItem13.TextSize = new Size(5, 18);
+      this.layoutControlItem14.Control = (Control) this.chk_DATA_CHCK;
+      this.layoutControlItem14.CustomizationFormText = "layoutControlItem14";
+      this.layoutControlItem14.Location = new Point(0, 605);
+      this.layoutControlItem14.Name = "layoutControlItem14";
+      this.layoutControlItem14.Size = new Size(1231, 28);
+      this.layoutControlItem14.TextSize = new Size(0, 0);
+      this.layoutControlItem14.TextVisible = false;
+      this.serialPort1.PortName = "COM4";
+      this.serialPort1.DataReceived += new SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
+      this.AutoScaleDimensions = new SizeF(8f, 15f);
+      this.AutoScaleMode = AutoScaleMode.Font;
+      this.Controls.Add((Control) this.xtraLayoutControl1);
+      this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+      this.Name = nameof (PACK800C);
+      this.Size = new Size(1257, 1000);
+      this.xtraLayoutControl1.EndInit();
+      this.xtraLayoutControl1.ResumeLayout(false);
+      this.xtraTextEdit1.Properties.EndInit();
+      this.xtraTextEdit2.Properties.EndInit();
+      this.xtraTextEdit4.Properties.EndInit();
+      this.xtraTextEdit3.Properties.EndInit();
+      this.grdMain.EndInit();
+      this.grvMain.EndInit();
+      this.chk_DATA_CHCK.Properties.EndInit();
+      this.layMain.EndInit();
+      this.layoutControlItem2.EndInit();
+      this.emptySpaceItem1.EndInit();
+      this.layoutControlItem3.EndInit();
+      this.layoutControlItem6.EndInit();
+      this.layoutControlItem7.EndInit();
+      this.layoutControlItem9.EndInit();
+      this.layoutControlItem10.EndInit();
+      this.layInfo.EndInit();
+      this.layoutControlItem8.EndInit();
+      this.layoutControlItem12.EndInit();
+      this.layoutControlItem11.EndInit();
+      this.layoutControlItem5.EndInit();
+      this.layList.EndInit();
+      this.layoutControlItem1.EndInit();
+      this.layoutControlItem13.EndInit();
+      this.layoutControlItem14.EndInit();
+      this.ResumeLayout(false);
+    }
+
+    private delegate void DelegateCloseClick(object sender, EventArgs e);
+
+    private delegate void SetTextCallback(string Text);
+  }
+}

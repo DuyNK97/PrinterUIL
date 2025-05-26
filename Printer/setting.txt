@@ -1,0 +1,6 @@
+CurrentUnitSerial= 1
+CurrentMiddleSerial= 3
+CurrentMasterSerial= 0
+UnitExcelfoler=D:\Printer\Unit
+MiddleExcelfoler=D:\Printer\Middle
+MasterExcelfoler=D:\Printer\Master
