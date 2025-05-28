@@ -19,8 +19,13 @@ namespace Printer.Class
             { 2031, 'B' }, { 2032, 'C' }, { 2033, 'D' }, { 2034, 'F' }, { 2035, 'G' },
             { 2036, 'H' }, { 2037, 'J' }, { 2038, 'K' }, { 2039, 'M' }, { 2040, 'N' }
         };
-
-
+        public static string LastMonthCode = "";
+        public static string MiddlePrinter = "";
+        public static string MasterPrinter = "";
+        public static string LastDateCode = "";
+        public static int SNlen = 14;
+        public static bool AUTOPRINT = false;
+        public static List<Config> configmodel { get; set;}
         // Bộ ký tự hệ 33 (bỏ các chữ I, O, U để tránh nhầm lẫn)
         public static readonly char[] Base33Chars = "0123456789ABCDEFGHJKLMNPQRSTVWXYZ".ToCharArray();
         public static readonly int Base = 33;
@@ -32,6 +37,7 @@ namespace Printer.Class
         public static string UnitExcelfoler = @"D:\Printer\Unit";
         public static string MiddleExcelfoler = @"D:\Printer\Middle";
         public static string MasterExcelfoler = @"D:\Printer\Master";
+        public static string Configfile = @"D:\Printer\Setting";
 
 
         private static readonly object _lockData = new object();
@@ -108,6 +114,24 @@ namespace Printer.Class
             string vendorCode = "TY",
             char deliveryType = 'A')
         {
+         
+
+            // Kiểm tra nếu tháng thay đổi
+            if (!string.IsNullOrEmpty(Global.LastMonthCode) && Global.LastMonthCode != monthCode.ToString())
+            {
+                // Đặt lại CurrentUnitSerial khi tháng thay đổi
+                Global.CurrentUnitSerial = "0";
+                // Cập nhật LastMonthCode
+                Global.LastMonthCode = monthCode.ToString();
+                // Lưu LastMonthCode và CurrentUnitSerial vào file setting.txt
+                var valuesToSave = new Dictionary<string, string>
+                {
+                    ["LastMonthCode"] = Global.LastMonthCode,
+                    ["CurrentUnitSerial"] = Global.CurrentUnitSerial
+                };
+                WriteFileToTxt(GetFilePathSetting(), valuesToSave);
+            }
+
 
             int currentYear = DateTime.Now.Year;
             if (!YearCodeMapping.TryGetValue(currentYear, out char yearCode))
@@ -146,10 +170,6 @@ namespace Printer.Class
        
         public static string GenerateMiddleLotno(string vendorcode)
         {
-           
-            string  currentMiddleLotno = Global.CurrentMiddleSerial;
-            long newSerialDecimal = long.Parse(currentMiddleLotno) + 1;
-
             int currentYear = DateTime.Now.Year;
             if (!YearCodeMapping.TryGetValue(currentYear, out char yearCode))
             {
@@ -158,6 +178,28 @@ namespace Printer.Class
             }
             char monthCode = "123456789ABC"[DateTime.Now.Month - 1];
             string dayCode = DateTime.Now.Day.ToString("D2");
+            // Kiểm tra nếu tháng thay đổi
+            if (!string.IsNullOrEmpty(Global.LastDateCode) && Global.LastDateCode != dayCode.ToString())
+            {
+                // Đặt lại CurrentUnitSerial khi tháng thay đổi
+                Global.CurrentMiddleSerial = "0";
+                // Cập nhật LastMonthCode
+                Global.LastDateCode = dayCode.ToString();
+                // Lưu LastMonthCode và CurrentUnitSerial vào file setting.txt
+                var valuesToSave = new Dictionary<string, string>
+                {
+                    ["LastDateCode"] = Global.LastDateCode,
+                    ["CurrentMiddleSerial"] = Global.CurrentMiddleSerial
+                };
+                WriteFileToTxt(GetFilePathSetting(), valuesToSave);
+            }
+
+
+            string currentMiddleLotno = Global.CurrentMiddleSerial;
+            long newSerialDecimal = long.Parse(currentMiddleLotno) + 1;
+
+            
+
             string Lotno = $"{vendorcode}{yearCode}{monthCode}{dayCode}{newSerialDecimal.ToString("D4")}";
 
             return Lotno;
@@ -169,7 +211,7 @@ namespace Printer.Class
 
         public static string GetFilePathSetting()
         {
-            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "setting.txt");
+            return Path.Combine("D:\\Printer\\Setting", "setting.txt");
         }
 
         public static Dictionary<string, string> ReadValueFileTxt(string filePath, List<string> keys)
@@ -243,7 +285,7 @@ namespace Printer.Class
             }
         }
         private static readonly object lockExcel = new object();
-        public static void CreateExcelFile(string path, UNITDATA unitdata)
+        public static void CreateExcelFile(string path, UNITDATA unitdata,string note=null)
         {
             lock (lockExcel)
             {
@@ -266,7 +308,7 @@ namespace Printer.Class
                         {
                             worksheet = package.Workbook.Worksheets.Add("Data");
 
-                            string[] headers = { "EAN/UPC", "SKU", "ITEM MODEL", "MANUFACTURE DATE", "ORIGIN", "SN", "Print Time" };
+                            string[] headers = { "EAN/UPC", "SKU", "ITEM MODEL","COLOR", "MANUFACTURE DATE", "ORIGIN", "SN", "Print Time","Remark" };
                             for (int i = 0; i < headers.Length; i++)
                             {
                                 worksheet.Cells[1, i + 1].Value = headers[i];
@@ -281,10 +323,12 @@ namespace Printer.Class
                         worksheet.Cells[rowIndex, 1].Value = unitdata.EAN_UPC;
                         worksheet.Cells[rowIndex, 2].Value = unitdata.SKU;
                         worksheet.Cells[rowIndex, 3].Value = unitdata.ITEM_MODEL;
-                        worksheet.Cells[rowIndex, 4].Value = unitdata.MANUFACTURE_DATE;
-                        worksheet.Cells[rowIndex, 5].Value = unitdata.ORIGIN;
-                        worksheet.Cells[rowIndex, 6].Value = unitdata.SN;
-                        worksheet.Cells[rowIndex, 7].Value = DateTime.Now.ToString("yyyy-mm-dd HH:mm:ss");
+                        worksheet.Cells[rowIndex, 4].Value = unitdata.COLOR;
+                        worksheet.Cells[rowIndex, 5].Value = unitdata.MANUFACTURE_DATE;
+                        worksheet.Cells[rowIndex, 6].Value = unitdata.ORIGIN;
+                        worksheet.Cells[rowIndex, 7].Value = unitdata.SN;
+                        worksheet.Cells[rowIndex, 8].Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                        worksheet.Cells[rowIndex, 9].Value = note;
                         package.Save();
                     }
                 }
@@ -342,7 +386,7 @@ namespace Printer.Class
                         worksheet.Cells[rowIndex, 8].Value = middledata.EAN_UPC;
                         worksheet.Cells[rowIndex, 9].Value = middledata.ORIGIN;
                         worksheet.Cells[rowIndex, 10].Value = middledata.Matrixdata;
-                        worksheet.Cells[rowIndex, 11].Value = DateTime.Now.ToString("yyyy-mm-dd HH:mm:ss");
+                        worksheet.Cells[rowIndex, 11].Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
                         package.Save();
                     }
@@ -400,7 +444,7 @@ namespace Printer.Class
                         worksheet.Cells[rowIndex, 8].Value = masterdata.EAN_UPC;
                         worksheet.Cells[rowIndex, 9].Value = masterdata.ORIGIN;
                         worksheet.Cells[rowIndex, 10].Value = masterdata.Matrixdata;
-                        worksheet.Cells[rowIndex, 11].Value = DateTime.Now.ToString("yyyy-mm-dd HH:mm:ss");
+                        worksheet.Cells[rowIndex, 11].Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
                         package.Save();
                     }
@@ -439,6 +483,34 @@ namespace Printer.Class
                     Console.WriteLine($"Error can not write log, error: {ex.Message}");
                 }
             }
+        }
+
+
+        public static List<Config> ReadConfigs(string filePath)
+        {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            var configs = new List<Config>();
+
+            using (var package = new ExcelPackage(new FileInfo(filePath)))
+            {
+                var worksheet = package.Workbook.Worksheets[0];
+                int rowCount = worksheet.Dimension.Rows;
+
+                for (int row = 2; row <= rowCount; row++) 
+                {
+                    var config = new Config
+                    {
+                        Item = worksheet.Cells[row, 1].Text,
+                        Model = worksheet.Cells[row, 2].Text,
+                        Color = worksheet.Cells[row, 3].Text,
+                        UpcCode = worksheet.Cells[row, 4].Text
+                    };
+
+                    configs.Add(config);
+                }
+            }
+
+            return configs;
         }
 
 

@@ -29,7 +29,8 @@ namespace Printer
         private static string vendorcode = "";
         private string mastervendorcode = "";
         private string middlevendorcode = "";
-
+        private int middleboxqty = 0;
+        private bool auto = false;
 
         public MainForm()
         {
@@ -38,12 +39,19 @@ namespace Printer
             printer = new LabelPrinter();
             _boxsn = new UnitBoxSN();
             InitializeRadioButtonEvents();
+
+
+            Global.configmodel = Global.ReadConfigs(Path.Combine(Global.Configfile, "CONFIGMODEL.xlsx"));
+
+
+
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            datepick.Value = DateTime.Today;
             LoadPrinters();
-
+            LoadModel();
             string settingPath = Global.GetFilePathSetting();
 
             if (!File.Exists(settingPath))
@@ -61,7 +69,7 @@ namespace Printer
 
                 Global.WriteFileToTxt(settingPath, defaultValues);
             }
-            Dictionary<string, string> currentData = Global.ReadValueFileTxt(Global.GetFilePathSetting(), new List<string> { "CurrentUnitSerial", "CurrentMiddleSerial", "CurrentMasterSerial", "UnitExcelfoler", "MiddleExcelfoler", "MasterExcelfoler" });
+            Dictionary<string, string> currentData = Global.ReadValueFileTxt(Global.GetFilePathSetting(), new List<string> { "CurrentUnitSerial", "CurrentMiddleSerial", "CurrentMasterSerial", "UnitExcelfoler", "MiddleExcelfoler", "MasterExcelfoler" , "LastMonthCode", "LastDateCode" , "SNlen", "MiddlePrinter", "MasterPrinter" });
 
             Global.CurrentUnitSerial = currentData["CurrentUnitSerial"];
             Global.CurrentMiddleSerial = currentData["CurrentMiddleSerial"];
@@ -69,6 +77,13 @@ namespace Printer
             Global.UnitExcelfoler = currentData["UnitExcelfoler"];
             Global.MiddleExcelfoler = currentData["MiddleExcelfoler"];
             Global.MasterExcelfoler = currentData["MasterExcelfoler"];
+            Global.LastMonthCode = currentData["LastMonthCode"];
+            Global.LastDateCode = currentData["LastDateCode"];
+            Global.SNlen = int.Parse(currentData["SNlen"]);
+            Global.MiddlePrinter = currentData["MiddlePrinter"];
+            Global.MasterPrinter = currentData["MasterPrinter"];
+
+            rdomanual.Checked = true;
             rdoSEV.Checked = true;
             rdohhp.Checked = true;
 
@@ -95,7 +110,29 @@ namespace Printer
             rdomp3.CheckedChanged += RadioButton_CheckedChangedProducttype;
             rdohhp.CheckedChanged += RadioButton_CheckedChangedProducttype;
             rdomedicaldevices.CheckedChanged += RadioButton_CheckedChangedProducttype;
+
+            rdomanual.CheckedChanged += RadioButton_CheckedChangedRunmode;
+            rdoauto.CheckedChanged += RadioButton_CheckedChangedRunmode;
         }
+        private void RadioButton_CheckedChangedRunmode(object sender, EventArgs e)
+        {
+
+            if (rdomanual.Checked)
+            {
+                rdomanual.Checked = true;
+                rdoauto.Checked = false;
+               auto=false;
+            }
+            else if (rdoauto.Checked)
+            {
+
+                rdomanual.Checked = false;
+                rdoauto.Checked = true;
+                auto = true;
+            }
+           
+        }
+
         private void RadioButton_CheckedChangedProducttype(object sender, EventArgs e)
         {
 
@@ -187,7 +224,22 @@ namespace Printer
             //    customer = "5";
             //}
         }
-
+        private void LoadModel()
+        {
+            try
+            {
+                foreach (var model in Global.configmodel)
+                {
+                    cmbModel.Items.Add(model.Model);
+                }
+                if (cmbModel.Items.Count > 0)
+                    cmbModel.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading printers: {ex.Message}");
+            }
+        }
         private void LoadPrinters()
         {
             try
@@ -234,6 +286,12 @@ namespace Printer
                     MessageBox.Show("ITEM (MODEL) is not null");
                     return;
                 }
+                if (numqty.Value <= 0)
+                {
+                    MessageBox.Show("Qty <= 0");
+                    return;
+                }
+
                 unititemmodel = txtunititemmodel.Text.Trim();
 
                 string unitmanufacturedate;
@@ -315,56 +373,152 @@ namespace Printer
 
 
                     char monthCode = "123456789ABC"[DateTime.Now.Month - 1];
+                    string printername = comboBoxPrinters.SelectedItem?.ToString();
 
-                    sn = Global.GenerateSerialNumber(
-                        productGroup[0],
-                        customer[0],
-                        '7',
-                        monthCode,
-                        vendorcode,
-                        ordertype[0]
-                    );
+                    if (string.IsNullOrWhiteSpace(printername))
+                    {
+                        MessageBox.Show("Please select a printer (e.g., Zebra ZT411).");
+                        return;
+                    }
+
+                    if (string.IsNullOrWhiteSpace(txvendor.Text))
+                    {
+                        MessageBox.Show("Please input Vendor code.");
+                        return;
+                    }
+
+
+
+                    string color = txunitcolor.Text;
+
+                    //switch (unitsku)
+                    //{
+                    //    case "ET-SLL50LWEGUJ":
+                    //    case "ET-SNL33LWEGUJ":
+                    //        color = "WHITE";
+                    //        break;
+                    //    case "ET-SLL50LNEGUJ":
+                    //    case "ET-SNL33LNEGUJ":
+                    //        color = "NAVY";
+                    //        break;
+                    //    case "ET-SLL50LJEGUJ":
+                    //        color = "TAUPE";
+                    //        break;
+                    //    case "ET-SLL50LBEGUJ":
+                    //        color = "BLACK";
+                    //        break;
+                    //    case "ET-SLL50LAEGUJ":
+                    //        color = "CARMEL";
+                    //        break;
+                    //    case "ET-SNL33LPEGUJ":
+                    //        color = "PINK";
+                    //        break;
+                    //    case "ET-SNL33LMEGUJ":
+                    //        color = "MINT";
+                    //        break;
+                    //    case "ET-SNL33LBEGUJ":
+                    //        color = "DARK GRAY";
+                    //        break;
+                    //    default:
+                    //        color = "";
+                    //        break;
+                    //}
+
+                    int successCount = 0;
+
+
+                    for (int i = 1; i <= numqty.Value; i++)
+                    {
+                        sn = Global.GenerateSerialNumber(
+                            productGroup[0],
+                            customer[0],
+                            '7',
+                            monthCode,
+                            vendorcode,
+                            ordertype[0]
+                        );
+
+                        UNITDATA unitdata = new UNITDATA
+                        {
+                            EAN_UPC = unitean_upc,
+                            SKU = unitsku,
+                            ITEM_MODEL = unititemmodel,
+                            MANUFACTURE_DATE = unitmanufacturedate,
+                            ORIGIN = origin,
+                            SN = sn,
+                            COLOR = color,
+                        };
+
+                        bool result = PrintAndSaveLabel(unitdata, printername);
+                        if (result)
+                        {
+                            successCount++;
+                        }
+
+                        Task.Delay(100);
+                    }
+                    if (successCount == numqty.Value)
+                    {
+                        numqty.Value = 0;
+                        MessageBox.Show($"{successCount} label(s) printed successfully.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to print any labels.");
+                    }
+
+
+
                 }
-                Action UpdateSN = () =>
-                {
+                //Action UpdateSN = () =>
+                //{
 
-                    txtunitsn1.Text = sn;
-                };
+                //    txtunitsn1.Text = sn;
+                //};
 
-                if (this.InvokeRequired)
-                    this.Invoke(UpdateSN);
-                else
-                    UpdateSN();
+                //if (this.InvokeRequired)
+                //    this.Invoke(UpdateSN);
+                //else
+                //    UpdateSN();
 
                 //else
                 //{
                 //    sn = txtunitsn1.Text.Trim();
-                //}
+                //}              
 
-                UNITDATA unitdata = new UNITDATA
-                {
-                    EAN_UPC = unitean_upc,
-                    SKU = unitsku,
-                    ITEM_MODEL = unititemmodel,
-                    MANUFACTURE_DATE = unitmanufacturedate,
-                    ORIGIN = origin,
-                    SN = sn
-                };
-
-
-                if (comboBoxPrinters.SelectedItem == null)
-                {
-                    MessageBox.Show("Please select a printer (e.g., Zebra ZT411).");
-                    return;
-                }
-                string printername = comboBoxPrinters.SelectedItem.ToString();
-                printer.PrintUnitBoxLabel(unitdata, printername);
 
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error printing unit box label: {ex.Message}");
             }
+        }
+        private bool PrintAndSaveLabel(UNITDATA unitdata, string printerName)
+        {
+            bool printSuccess = printer.PrintUnitBoxLabelbool(unitdata, printerName);
+
+            if (printSuccess)
+            {
+                long serial = Global.FromBase33(unitdata.SN.Substring(5, 5));
+                Global.SaveLastSerialToSetting("CurrentUnitSerial", serial);
+                Global.CreateExcelFile(Global.UnitExcelfoler, unitdata);
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool RePrintAndSaveLabel(UNITDATA unitdata, string printerName)
+        {
+            bool printSuccess = printer.PrintUnitBoxLabelbool(unitdata, printerName);
+
+            if (printSuccess)
+            {
+                Global.CreateExcelFile(Global.UnitExcelfoler, unitdata,"Reprint");
+                return true;
+            }
+
+            return false;
         }
 
         private void btprintmiddlebox_Click(object sender, EventArgs e)
@@ -437,6 +591,15 @@ namespace Printer
 
 
                 string lotno = txmidlelotno.Text;
+                if (lotno.Length != 10)
+                {
+                    MessageBox.Show("Lot no is 10 character!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+
+                }
+
+
+
                 string middleqty = txmidleqty.Text + " PCS";
                 string barcodelotno = txmidlesku.Text + lotno + " " + qty.ToString("D3") + middlevendorcode;
 
@@ -480,6 +643,10 @@ namespace Printer
                     return;
                 }
 
+                var selectedSerials = serialNumbers.Take(qty)
+                    .ToList();
+
+
                 if (comboBoxPrinters.SelectedItem == null)
                 {
                     MessageBox.Show("Please select a printer (e.g., Zebra ZT411).");
@@ -487,7 +654,7 @@ namespace Printer
                 }
 
 
-                string serialNumbersString = string.Join(",", serialNumbers);
+                string serialNumbersString = string.Join(",", selectedSerials);
                 string matrixdata = txmidlesku.Text + "," + lotno + "," + qty.ToString("D3") + "," + serialNumbersString;
 
                 MIDDLECODE middledata = new MIDDLECODE
@@ -499,7 +666,7 @@ namespace Printer
                     MODEL = model,
                     LOTNO = lotno,
                     BarcodeMODEL = barcodemodel,
-                    QTY = middleqty,
+                    QTY = qty.ToString(),
                     ORIGIN = origin,
                     Matrixdata = matrixdata,
                 };
@@ -516,7 +683,13 @@ namespace Printer
                 if (confirmResult == DialogResult.Yes)
                 {
                     printer.PrintMiddleBoxLabel(printername, middledata);
-                    dgvsn.Rows.Clear();
+                    if ( int.Parse(lblqty.Text )== 50)
+                    {
+                        dgvsn.Rows.Clear(); 
+                        lblqty.Text = "0";
+                    }
+                   
+                    middleboxqty = 0;
                     txmidlelotno.Text = "";
                     txmidlelotnobarcode.Text = "";
                     txmidleqty.Text = "0";
@@ -530,6 +703,29 @@ namespace Printer
                 MessageBox.Show($"Error printing middle box label: {ex.Message}");
             }
         }
+        public void printmiddlelabel(MIDDLECODE middledata)
+        {
+
+            string printername = comboBoxPrinters.SelectedItem.ToString();
+
+
+          
+
+                printer.PrintMiddleBoxLabel(printername, middledata);
+                if (int.Parse(lblqty.Text) == 50)
+                {
+                    dgvsn.Rows.Clear();
+                    lblqty.Text = "0";
+                }
+
+                middleboxqty = 0;
+                txmidlelotno.Text = "";
+                txmidlelotnobarcode.Text = "";
+                txmidleqty.Text = "0";
+                txmidlebarcodemodel.Text = "";
+            
+
+        }
 
 
         private void txmidleitem_KeyPress(object sender, KeyPressEventArgs e)
@@ -541,7 +737,7 @@ namespace Printer
                 {
                     if (!string.IsNullOrWhiteSpace(txmidleitem.Text.Trim()))
                     {
-                        txtunitsn1.Focus();
+                        txmiddlesn.Focus();
                     }
                 }
             }
@@ -608,7 +804,45 @@ namespace Printer
                 {
                     if (!string.IsNullOrWhiteSpace(txtunitskucode.Text.Trim()))
                     {
-                        txtunititemmodel.Focus();
+                        txmiddlesn.Focus();
+                        string color;
+
+                        switch (txtunitskucode.Text.Trim())
+                        {
+                            case "ET-SLL50LWEGUJ":
+                            case "ET-SNL33LWEGUJ":
+                                color = "WHITE";
+                                break;
+                            case "ET-SLL50LNEGUJ":
+                            case "ET-SNL33LNEGUJ":
+                                color = "NAVY";
+                                break;
+                            case "ET-SLL50LJEGUJ":
+                                color = "TAUPE";
+                                break;
+                            case "ET-SLL50LBEGUJ":
+                                color = "BLACK";
+                                break;
+                            case "ET-SLL50LAEGUJ":
+                                color = "CARMEL";
+                                break;
+                            case "ET-SNL33LPEGUJ":
+                                color = "PINK";
+                                break;
+                            case "ET-SNL33LMEGUJ":
+                                color = "MINT";
+                                break;
+                            case "ET-SNL33LBEGUJ":
+                                color = "DARK GRAY";
+                                break;
+                            default:
+                                color = "";
+                                break;
+                        }
+
+
+                        txunitcolor.Text = color;
+
                     }
                 }
             }
@@ -637,65 +871,290 @@ namespace Printer
 
         }
 
-
+        private bool IsMiddleDuplicate(string sn)
+        {
+            foreach (DataGridViewRow row in dgvsn.Rows)
+            {
+                if (!row.IsNewRow && row.Cells[0].Value != null && row.Cells[0].Value.ToString() == sn)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         private void txmiddlesn_KeyPress(object sender, KeyPressEventArgs e)
         {
             try
             {
                 if (e.KeyChar == (char)Keys.Enter)
                 {
-                    if (dgvsn.Rows.Count == 1)
+                    string sn = txmiddlesn.Text.Trim();
+                    if (!string.IsNullOrWhiteSpace(sn))
                     {
-                        string lotno = Global.GenerateMiddleLotno(middlevendorcode);
-                        Action UpdatLot = () =>
+                        if (sn.Length != Global.SNlen)
                         {
-
-                            txmidlelotno.Text = lotno;
-                        };
-
-                        if (this.InvokeRequired)
-                            this.Invoke(UpdatLot);
+                            MessageBox.Show($"Serial number not correct :!{sn}", "SN Format", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            txmiddlesn.Clear();
+                            return;
+                        }
+                        if (IsMiddleDuplicate(sn))
+                        {
+                            MessageBox.Show("Serial number already exists!", "Duplicate SN", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            txmiddlesn.Clear();
+                            return;
+                        }
                         else
-                            UpdatLot();
-
-                        if (string.IsNullOrWhiteSpace(txmidlesku.Text))
                         {
-                            long newmodel = long.Parse(Global.CurrentMiddleSerial) + 1;
-                            string model = txmidlesku.Text.Substring(0, 9);
+                            dgvsn.Rows.Insert(0, new object[] { sn });
+                            middleboxqty++;
+                            txmiddlesn.Clear();
 
-                            string barcodemodel = txmidlesku.Text + newmodel.ToString("D3");
-                            Action Updatmodel = () =>
+                            var serialNumbers = dgvsn.Rows
+                                .Cast<DataGridViewRow>()
+                                .Where(row => !row.IsNewRow)
+                                .Select(row => row.Cells[0].Value?.ToString())
+                                .Where(value => !string.IsNullOrEmpty(value))
+                                .ToList();
+                            
+                            txmidleqty.Text = middleboxqty.ToString();
+
+                            lblqty.Text= serialNumbers.Count.ToString();
+                            if (auto)
                             {
+                                if (int.Parse(lblqty.Text) % 10 == 0 && int.Parse(lblqty.Text) <= 50)
+                                {
+                                    // Validate input fields
+                                    if (string.IsNullOrWhiteSpace(txmidleitem.Text))
+                                    {
+                                        MessageBox.Show("Item is not null");
+                                        return;
+                                    }
+                                    if (string.IsNullOrWhiteSpace(txmidlesku.Text))
+                                    {
+                                        MessageBox.Show("SKU CODE is not null");
+                                        return;
+                                    }
+                                    if (string.IsNullOrWhiteSpace(txmidlebarcodeean.Text))
+                                    {
+                                        MessageBox.Show("UPC/EAN CODE is not null");
+                                        return;
+                                    }
+                                    if (string.IsNullOrWhiteSpace(middlevendorcode))
+                                    {
+                                        MessageBox.Show("Please input Vendor Code!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        return;
+                                    }
+                                    if (middlevendorcode.Length != 2)
+                                    {
+                                        MessageBox.Show("Vendor code must be 2 characters!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        return;
+                                    }
+                                    if (string.IsNullOrWhiteSpace(txmidleqty.Text) || !int.TryParse(txmidleqty.Text, out int qty))
+                                    {
+                                        MessageBox.Show("Please input valid Q'ty!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        return;
+                                    }
+                                    if (string.IsNullOrWhiteSpace(txmidlelotno.Text) || txmidlelotno.Text.Length != 10)
+                                    {
+                                        MessageBox.Show("Lot no is 10 characters!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        return;
+                                    }
+                                    if (comboBoxPrinters.SelectedItem == null)
+                                    {
+                                        MessageBox.Show("Please select a printer (e.g., Zebra ZT411).");
+                                        return;
+                                    }
+                                    
+                                    // Tính toán chỉ số bắt đầu và kết thúc để lấy 10 SN từ dưới lên
+                                    int totalRows = serialNumbers.Count;
+                                    int batchIndex = totalRows / 10; // Xác định lô thứ mấy (1, 2, 3, 4, 5)
+                                    int startIndex = Math.Max(0, totalRows - (batchIndex * 10)); // Chỉ số bắt đầu
+                                    int endIndex = Math.Min(totalRows, startIndex + 10); // Chỉ số kết thúc
+                                    int takeCount = endIndex - startIndex;
 
-                                txmidlemodel.Text = model;
-                                txmidlebarcodemodel.Text = barcodemodel;
+                                    if (takeCount < 10)
+                                    {
+                                        MessageBox.Show("Not enough serial numbers to print (need 10)!");
+                                        return;
+                                    }
+
+                                    // Lấy 10 SN từ dưới lên
+                                    
+                                    var selectedSerials = serialNumbers
+                                        .Skip(startIndex)
+                                        .Take(10)
+                                        .ToList();
+
+                                    // Cập nhật thông tin cho nhãn
+                                    string origin = string.IsNullOrWhiteSpace(txmidleorigin.Text)
+                                        ? "MADE IN VIETNAM"
+                                        : txmidleorigin.Text.Trim();
+
+                                    string model = txmidlesku.Text.Substring(0, 9);
+                                    string lotno = txmidlelotno.Text;
+                                    string middleqty = qty.ToString() + " PCS";
+                                    string barcodelotno = txmidlesku.Text + lotno + " " + qty.ToString("D3") + middlevendorcode;
+
+                                    long newmodel = long.Parse(Global.CurrentMiddleSerial) + 1;
+                                    string barcodemodel = txmidlesku.Text + newmodel.ToString("D3");
+
+                                    // Cập nhật UI
+                                    Action updateUI = () =>
+                                    {
+                                        txmidlelotnobarcode.Text = barcodelotno;
+                                        txmidlemodel.Text = model;
+                                        txmidlebarcodemodel.Text = barcodemodel;
+                                    };
+
+                                    if (this.InvokeRequired)
+                                        this.Invoke(updateUI);
+                                    else
+                                        updateUI();
+
+                                    string serialNumbersString = string.Join(",", selectedSerials);
+                                    string matrixdata = txmidlesku.Text + "," + lotno + "," + qty.ToString("D3") + "," + serialNumbersString;
+
+                                    MIDDLECODE middledata = new MIDDLECODE
+                                    {
+                                        EAN_UPC = txmidlebarcodeean.Text,
+                                        SKU = txmidlesku.Text,
+                                        Item = txmidleitem.Text,
+                                        BarcodeLotno = barcodelotno,
+                                        MODEL = model,
+                                        LOTNO = lotno,
+                                        BarcodeMODEL = barcodemodel,
+                                        QTY = qty.ToString(),
+                                        ORIGIN = origin,
+                                        Matrixdata = matrixdata,
+                                    };
+
+                                    string printername = Global.MiddlePrinter;
+
+
+                                    printer.PrintMiddleBoxLabel(printername, middledata);
+                                  
+
+                                    middleboxqty = 0;
+                                    txmidlelotno.Text = "";
+                                    txmidlelotnobarcode.Text = "";
+                                    txmidleqty.Text = "0";
+                                    txmidlebarcodemodel.Text = "";
+
+                                    // Tăng CurrentMiddleSerial
+                                    Global.SaveLastSerialToSetting("CurrentMiddleSerial", newmodel);
+
+                                }
+                                if (int.Parse(lblqty.Text) == 50)
+                                {
+                                    Task.Delay(100);
+                                    string  mtlotno = Global.GenerateMiddleLotno(middlevendorcode);
+                                    string mtsku = txmidlesku.Text.Trim().ToUpper();
+                                    string mtmodel = txmidlesku.Text.Substring(0, 9);
+                                    long newmodel = long.Parse(Global.CurrentMiddleSerial) + 1;
+                                    var modelconfig = Global.configmodel.Where(r => r.Model == txmidlesku.Text).FirstOrDefault();
+                                    string mtitem = modelconfig.Item;
+                                    string mtbarcodemodel = txmidlesku.Text + newmodel.ToString("D3");
+                                    string mtbarcodeean = modelconfig.UpcCode;
+                                    string mtorigin = txmidleorigin.Text;
+
+                                    var mtserialNumbers = dgvsn.Rows
+                                  .Cast<DataGridViewRow>()
+                                  .Where(row => !row.IsNewRow)
+                                  .Select(row => row.Cells[0].Value?.ToString())
+                                  .Where(value => !string.IsNullOrEmpty(value))
+                                  .ToList();
+                                    if (serialNumbers.Count() <= 0)
+                                    {
+                                        MessageBox.Show("Please input SN!");
+                                        return;
+                                    }
+                                    int qty = int.Parse(lblqty.Text);
+
+                                    string mtserialNumbersString = string.Join(",", mtserialNumbers);
+                                    string mtmatrixdata = mtsku + "," + mtlotno + "," + qty.ToString("D3") + "," + mtserialNumbersString;
+                                    string mtbarcodelotno = mtsku + mtlotno + " " + qty.ToString("D3") + middlevendorcode;
+                                    MASTERDATA masterdata = new MASTERDATA
+                                    {
+                                        EAN_UPC = mtbarcodeean,
+                                        SKU = mtsku,
+                                        Item =mtitem,
+                                        BarcodeLotno = mtbarcodelotno,
+                                        MODEL = mtmodel,
+                                        LOTNO = mtlotno,
+                                        BarcodeMODEL = mtbarcodemodel,
+                                        QTY = qty.ToString()+ " PCS",
+                                        ORIGIN = mtorigin,
+                                        Matrixdata = mtmatrixdata,
+                                    };
+                                    string mtprintername = Global.MasterPrinter;
+
+                                    DialogResult confirmResult = MessageBox.Show(
+                                       "Are you sure you want to print the Master box label?",
+                                       "Confirm Print",
+                                       MessageBoxButtons.YesNo,
+                                       MessageBoxIcon.Question
+                                    );
+
+                                    if (confirmResult == DialogResult.Yes)
+                                    {
+                                        printer.PrintMasterBoxLabel(mtprintername, masterdata);
+                                        dgvsn.Rows.Clear();
+                                        lblqty.Text = "0";
+                                        middleboxqty = 0;
+                                        txmidlelotno.Text = "";
+                                        txmidlelotnobarcode.Text = "";
+                                        txmidleqty.Text = "0";
+                                        txmidlebarcodemodel.Text = "";
+                                       
+                                    }
+
+
+
+                                }
+                            }
+
+                            
+
+
+
+                        }
+                        if (dgvsn.Rows.Count > 1 && !string.IsNullOrWhiteSpace(sn))
+                        {
+
+                            string lotno = Global.GenerateMiddleLotno(middlevendorcode);
+                            Action updateLot = () =>
+                            {
+                                txmidlelotno.Text = lotno;
                             };
 
                             if (this.InvokeRequired)
-                                this.Invoke(Updatmodel);
+                                this.Invoke(updateLot);
                             else
-                                Updatmodel();
+                                updateLot();
+
+                            if (!string.IsNullOrWhiteSpace(txmidlesku.Text) && txmidlesku.Text.Length >= 9)
+                            {
+                                long newmodel = long.Parse(Global.CurrentMiddleSerial) + 1;
+                                string model = txmidlesku.Text.Substring(0, 9);
+                                string barcodemodel = txmidlesku.Text + newmodel.ToString("D3");
+
+                                Action updateModel = () =>
+                                {
+                                    txmidlemodel.Text = model;
+                                    txmidlebarcodemodel.Text = barcodemodel;
+                                };
+
+                                if (this.InvokeRequired)
+                                    this.Invoke(updateModel);
+                                else
+                                    updateModel();
+                            }
+
+
                         }
-
+                        e.Handled = true;
                     }
 
-
-
-
-
-                    if (!string.IsNullOrWhiteSpace(txmiddlesn.Text))
-                    {
-                        dgvsn.Rows.Insert(0, new object[] { txmiddlesn.Text });
-                        txmiddlesn.Clear();
-                        var serialNumbers = dgvsn.Rows
-                         .Cast<DataGridViewRow>()
-                         .Where(row => !row.IsNewRow)
-                         .Select(row => row.Cells[0].Value?.ToString())
-                         .Where(value => !string.IsNullOrEmpty(value))
-                         .ToList();
-                        txmidleqty.Text = serialNumbers.Count().ToString();
-                    }
-                    e.Handled = true;
                 }
             }
             catch (Exception ex)
@@ -704,6 +1163,7 @@ namespace Printer
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void txmidlebarcodeean_KeyPress(object sender, KeyPressEventArgs e)
         {
             try
@@ -730,7 +1190,8 @@ namespace Printer
                 {
                     if (!string.IsNullOrWhiteSpace(txmiddlevendorcode.Text))
                     {
-
+                        middlevendorcode = txmiddlevendorcode.Text.ToUpper();
+                        txmiddlevendorcode.Text = txmiddlevendorcode.Text.ToUpper();
 
                         if (string.IsNullOrWhiteSpace(middlevendorcode))
                         {
@@ -743,7 +1204,6 @@ namespace Printer
                             MessageBox.Show("Vendor code must be 2 characters!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
-                        middlevendorcode = txmiddlevendorcode.Text;
                         string lotno = Global.GenerateMiddleLotno(middlevendorcode);
                         Action UpdatLot = () =>
                         {
@@ -754,7 +1214,7 @@ namespace Printer
                             this.Invoke(UpdatLot);
                         else
                             UpdatLot();
-                        txmidlebarcodeean.Focus();
+                        txmidlesku.Focus();
 
                     }
 
@@ -782,6 +1242,7 @@ namespace Printer
                         if (!row.IsNewRow)
                         {
                             dgvsn.Rows.Remove(row);
+                            middleboxqty--;
                         }
                     }
                     var serialNumbers = dgvsn.Rows
@@ -791,6 +1252,8 @@ namespace Printer
                         .Where(value => !string.IsNullOrEmpty(value))
                         .ToList();
                     txmidleqty.Text = serialNumbers.Count().ToString();
+                    lblqty.Text= middleboxqty.ToString();
+                    txmiddlesn.Focus();
                 }
                 else
                 {
@@ -810,6 +1273,9 @@ namespace Printer
             {
                 dgvsn.Rows.Clear();
                 txmidleqty.Text = "0";
+                lblqty.Text = "0";
+                middleboxqty = 0;
+                txmiddlesn.Focus();
             }
             catch (Exception ex)
             {
@@ -832,9 +1298,13 @@ namespace Printer
 
 
                         string barcodemodel = txmidlesku.Text + newmodel.ToString("D3");
+
+                        var modelconfig = Global.configmodel.Where(r =>r.Model== txmidlesku.Text).FirstOrDefault();
+
                         Action Updatmodel = () =>
                         {
-
+                            txmidleitem.Text = modelconfig.Item;
+                            txmidlebarcodeean.Text =modelconfig.UpcCode;
                             txmidlemodel.Text = model;
                             txmidlebarcodemodel.Text = barcodemodel;
                         };
@@ -843,7 +1313,7 @@ namespace Printer
                             this.Invoke(Updatmodel);
                         else
                             Updatmodel();
-                        txmidleitem.Focus();
+                        txmiddlesn.Focus();
                     }
 
 
@@ -999,13 +1469,9 @@ namespace Printer
                     dgvmastersn.Rows.Clear();
                     txmasterlotno.Text = "";
                     txmasterbarcode.Text = "";
+                    txmasterbarcodemodel.Text = "";
+                    MessageBox.Show($"Send Print comand to Printer successfully!");
                 }
-
-
-
-
-
-
             }
             catch (Exception ex)
             {
@@ -1025,11 +1491,12 @@ namespace Printer
 
                         long newmodel = long.Parse(Global.CurrentMiddleSerial) + 1;
 
-
+                        var modelconfig = Global.configmodel.Where(r => r.Model == txmastersku.Text).FirstOrDefault();
                         string barcodemodel = txmastersku.Text + newmodel.ToString("D3");
                         Action Updatmodel = () =>
                         {
-
+                            txmasteritem.Text = modelconfig.Item;
+                            txmasterbarcodeean.Text = modelconfig.UpcCode;
                             txmastermodel.Text = model;
                             txmasterbarcodemodel.Text = barcodemodel;
                         };
@@ -1039,6 +1506,14 @@ namespace Printer
                         else
                             Updatmodel();
                         txmasteritem.Focus();
+
+
+
+                      
+
+
+
+
                     }
                 }
             }
@@ -1058,6 +1533,12 @@ namespace Printer
                 {
                     if (!string.IsNullOrWhiteSpace(txmtsn.Text.Trim()))
                     {
+                        if (txmtsn.Text.Length < Global.SNlen)
+                        {
+                            MessageBox.Show($"Serial number not correct :!{txmtsn.Text}", "SN Format", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            txmtsn.Clear();
+                            return;
+                        }
                         mastervendorcode = txmtvendercode.Text;
                         if (string.IsNullOrWhiteSpace(mastervendorcode))
                         {
@@ -1072,11 +1553,18 @@ namespace Printer
                         }
                         if (dgvmastersn.Rows.Count == 1)
                         {
+
+                            long newmodel = long.Parse(Global.CurrentMiddleSerial) + 1;
+
+
+                            string barcodemodel = txmastersku.Text + newmodel.ToString("D3");
+
                             string lotno = Global.GenerateMiddleLotno(mastervendorcode);
                             Action UpdatLot = () =>
                             {
 
                                 txmasterlotno.Text = lotno;
+                                txmasterbarcodemodel.Text = barcodemodel;
                             };
 
                             if (this.InvokeRequired)
@@ -1084,18 +1572,19 @@ namespace Printer
                             else
                                 UpdatLot();
                         }
-                        if (!string.IsNullOrWhiteSpace(txmtsn.Text))
-                        {
-                            dgvmastersn.Rows.Insert(0, new object[] { txmtsn.Text });
-                            txmtsn.Clear();
-                            var serialNumbers = dgvmastersn.Rows
-                             .Cast<DataGridViewRow>()
-                             .Where(row => !row.IsNewRow)
-                             .Select(row => row.Cells[0].Value?.ToString())
-                             .Where(value => !string.IsNullOrEmpty(value))
-                             .ToList();
-                            txmasterqty.Text = serialNumbers.Count().ToString();
-                        }
+                        AddSNsFromInput(txmtsn.Text);
+
+
+                        //dgvmastersn.Rows.Insert(0, new object[] { txmtsn.Text });
+                        //txmtsn.Clear();
+                        //var serialNumbers = dgvmastersn.Rows
+                        // .Cast<DataGridViewRow>()
+                        // .Where(row => !row.IsNewRow)
+                        // .Select(row => row.Cells[0].Value?.ToString())
+                        // .Where(value => !string.IsNullOrEmpty(value))
+                        // .ToList();
+                        //txmasterqty.Text = serialNumbers.Count().ToString();
+
                     }
 
                 }
@@ -1106,51 +1595,115 @@ namespace Printer
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void RemoveSNsByStringFromGrid(DataGridView dgv, string rawData)
+        {
+            if (string.IsNullOrWhiteSpace(rawData))
+                return;
 
+            string[] parts = rawData.Split(',');
+
+            if (parts.Length <= 3)
+                return;
+
+            List<string> removed = new List<string>();
+            List<string> notFound = new List<string>();
+
+            for (int i = 3; i < parts.Length; i++)
+            {
+                string sn = parts[i].Trim();
+                bool found = false;
+
+                foreach (DataGridViewRow row in dgv.Rows)
+                {
+                    if (!row.IsNewRow && row.Cells[0].Value?.ToString() == sn)
+                    {
+                        dgv.Rows.Remove(row);
+                        removed.Add(sn);
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found)
+                    notFound.Add(sn);
+            }
+
+            if (removed.Any())
+            {
+                MessageBox.Show("Đã xóa SN:\n" + string.Join("\n", removed),
+                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            if (notFound.Any())
+            {
+                MessageBox.Show("Không tìm thấy SN để xóa:\n" + string.Join("\n", notFound),
+                                "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            // Cập nhật lại số lượng
+            txmasterqty.Text = dgv.Rows
+                .Cast<DataGridViewRow>()
+                .Where(r => !r.IsNewRow && r.Cells[0].Value != null)
+                .Count()
+                .ToString();
+        }
         private void btnmtdelete_Click(object sender, EventArgs e)
         {
             try
             {
-                if (dgvmastersn.SelectedRows.Count > 0)
+                if (!string.IsNullOrWhiteSpace(txmtsn.Text))
+                {
+                    RemoveSNsByStringFromGrid(dgvmastersn, txmtsn.Text);
+                }
+                else if (dgvmastersn.SelectedRows.Count > 0)
                 {
                     foreach (DataGridViewRow row in dgvmastersn.SelectedRows)
                     {
                         if (!row.IsNewRow)
-                        {
                             dgvmastersn.Rows.Remove(row);
-                        }
                     }
+
                     var serialNumbers = dgvmastersn.Rows
                         .Cast<DataGridViewRow>()
                         .Where(row => !row.IsNewRow)
                         .Select(row => row.Cells[0].Value?.ToString())
                         .Where(value => !string.IsNullOrEmpty(value))
                         .ToList();
-                    txmasterqty.Text = serialNumbers.Count().ToString();
+                    txmasterqty.Text = serialNumbers.Count.ToString();
+                    txmtsn.Focus();
                 }
                 else
                 {
-                    MessageBox.Show("Please select row!", "Alarm", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Please select row or enter SN list!", "Alarm", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)
             {
-                Global.WriteLog($"delete eror : {ex.Message}");
+                Global.WriteLog($"delete error: {ex.Message}");
                 MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
 
         private void btnmtdeleteall_Click(object sender, EventArgs e)
         {
             try
             {
-                dgvmastersn.Rows.Clear();
-
-                txmasterqty.Text = "0";
+                if (!string.IsNullOrWhiteSpace(txmtsn.Text))
+                {
+                    RemoveSNsByStringFromGrid(dgvmastersn, txmtsn.Text);
+                    txmtsn.Focus();
+                }
+                else
+                {
+                    dgvmastersn.Rows.Clear();
+                    txmasterqty.Text = "0";
+                }
             }
             catch (Exception ex)
             {
-                Global.WriteLog($"delete eror : {ex.Message}");
+                Global.WriteLog($"delete error: {ex.Message}");
                 MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -1198,7 +1751,7 @@ namespace Printer
                     if (!string.IsNullOrWhiteSpace(txmtvendercode.Text))
                     {
 
-                        mastervendorcode = txmtvendercode.Text;
+                        mastervendorcode = txmtvendercode.Text.ToUpper();
                         if (string.IsNullOrWhiteSpace(mastervendorcode))
                         {
                             MessageBox.Show("Please input Vendor Code!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -1221,7 +1774,7 @@ namespace Printer
                             this.Invoke(UpdatLot);
                         else
                             UpdatLot();
-                        txmasterbarcodeean.Focus();
+                        txmastersku.Focus();
 
                     }
                 }
@@ -1252,6 +1805,173 @@ namespace Printer
                 Global.WriteLog("txmasterbarcodeean_KeyPress fail:" + ex.Message);
             }
         }
+
+        private void AddSNsFromInput(string rawData)
+        {
+            if (string.IsNullOrWhiteSpace(rawData))
+                return;
+
+            string[] parts = rawData.Split(',');
+
+            if (parts.Length <= 3)
+                return;
+
+            HashSet<string> snToAdd = new HashSet<string>(); // Tránh trùng trong list
+            List<string> duplicatedSNs = new List<string>();  // Danh sách SN trùng
+
+            for (int i = 3; i < parts.Length; i++) // Bắt đầu từ phần tử thứ 4
+            {
+                string sn = parts[i].Trim();
+
+                // Kiểm tra trùng trong danh sách và trong dgv
+                if (snToAdd.Contains(sn) || IsMasterDuplicate(sn))
+                {
+                    duplicatedSNs.Add(sn);
+                }
+                else
+                {
+                    snToAdd.Add(sn); // Cho vào danh sách hợp lệ
+                    dgvmastersn.Rows.Add(sn);
+                }
+            }
+
+            if (duplicatedSNs.Count > 0)
+            {
+                MessageBox.Show("Các SN bị trùng đã bị bỏ qua:\n" + string.Join("\n", duplicatedSNs),
+                                "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            // Cập nhật lại số lượng nếu cần
+            txmasterqty.Text = dgvmastersn.Rows
+                .Cast<DataGridViewRow>()
+                .Where(row => !row.IsNewRow && row.Cells[0].Value != null)
+                .Count()
+                .ToString();
+            txmtsn.Text = "";
+        }
+        private bool IsMasterDuplicate(string sn)
+        {
+            foreach (DataGridViewRow row in dgvmastersn.Rows)
+            {
+                if (!row.IsNewRow && row.Cells[0].Value?.ToString() == sn)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private void cmbModel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var model = cmbModel.SelectedItem;
+            var modelconfig = Global.configmodel.Where(r => r.Model == model).FirstOrDefault();
+            txtunititemmodel.Text = modelconfig.Item.ToString();
+            txtunitearncode.Text = modelconfig.UpcCode.ToString();
+            txunitcolor.Text = modelconfig.Color.ToString();
+            txtunitskucode.Text = modelconfig.Model.ToString();
+
+
+        }
+
+        private void btnreprintunit_Click(object sender, EventArgs e)
+        {
+            string sn = "";
+            if (string.IsNullOrWhiteSpace(txtunitearncode.Text))
+            {
+                MessageBox.Show("UPC/EAN CODE is not null");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(txtunitskucode.Text))
+            {
+                MessageBox.Show("SKU CODE is not null");
+                return;
+            }
+            string unitean_upc = txtunitearncode.Text.Trim();
+            string unitsku = txtunitskucode.Text.Trim();
+            if (unitsku.Length != 14)
+            {
+                MessageBox.Show("SKU CODE is not correct format");
+                return;
+            }
+            string unititemmodel;
+            if (string.IsNullOrWhiteSpace(txtunititemmodel.Text))
+            {
+                MessageBox.Show("ITEM (MODEL) is not null");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(txtunitsn1.Text))
+            {
+                MessageBox.Show("Please Input SN need Reprint!!!");
+                return;
+            }
+
+            unititemmodel = txtunititemmodel.Text.Trim();
+
+            string unitmanufacturedate;
+            if (string.IsNullOrWhiteSpace(datepick.Value.ToString()))
+            {
+                unitmanufacturedate = DateTime.Now.ToString("yyyy.MM.dd");
+            }
+            else
+            {
+                if (DateTime.TryParse(datepick.Value.ToString(), out DateTime parsedDate))
+                {
+                    unitmanufacturedate = parsedDate.ToString("yyyy.MM.dd");
+                }
+                else
+                {
+                    unitmanufacturedate = DateTime.Now.ToString("yyyy.MM.dd");
+                }
+            }
+
+            string origin;
+            if (string.IsNullOrWhiteSpace(txtunitorigin.Text))
+            {
+                origin = "MADE IN VIETNAM / FABRIQUE AU VIETNAM";
+            }
+            else
+            {
+                origin = txtunitorigin.Text.Trim();
+            }
+
+            string printername = comboBoxPrinters.SelectedItem?.ToString();
+
+            if (string.IsNullOrWhiteSpace(printername))
+            {
+                MessageBox.Show("Please select a printer (e.g., Zebra ZT411).");
+                return;
+            }
+
+          
+            string color = txunitcolor.Text;
+
+            sn = txtunitsn1.Text;
+
+            UNITDATA unitdata = new UNITDATA
+            {
+                EAN_UPC = unitean_upc,
+                SKU = unitsku,
+                ITEM_MODEL = unititemmodel,
+                MANUFACTURE_DATE = unitmanufacturedate,
+                ORIGIN = origin,
+                SN = sn,
+                COLOR = color,
+            };
+
+            bool result = RePrintAndSaveLabel(unitdata, printername);
+            if (result)
+            {
+                MessageBox.Show($"Printed successfully.");
+
+            }
+            else
+            {
+                MessageBox.Show("Failed to print any labels.");
+            }
+
+        }
+
+       
 
         //public void LoadDataToGridView(DataGridView dataGridView, string sn = null, string lot = null, DateTime? dateFrom = null, DateTime? dateTo = null)
         //{

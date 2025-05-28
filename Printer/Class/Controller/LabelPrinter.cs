@@ -97,6 +97,67 @@ namespace Printer
             return data.SN;
         }
 
+        public bool PrintUnitBoxLabelbool(UNITDATA data, string printerName)
+        {
+            string origin;
+            string comma = "^FO268,113^GFA,00256,00256,00004,:Z64:eJxjYKAnOADEDxgYGD8AMZBmBvKZgULsQMxEV4fAAQBLYQRC:3CC2";
+            string sku;
+            string model;
+            if (!string.IsNullOrWhiteSpace(data.COLOR))
+            {
+                model = $@"^FT10,130^A0N,16,16^FH\\^FD{data.ITEM_MODEL}({data.SKU.Substring(0, 9)}) COLOR : {data.COLOR}^FS";
+            }
+            else
+            {
+                model = $@"^FT10,130^A0N,16,16^FH\\^FD{data.ITEM_MODEL}({data.SKU.Substring(0, 9)})^FS";
+            }            
+
+            if (data.ORIGIN.Trim() == "MADE IN VIETNAM / FABRIQUE AU VIETNAM")
+            {
+                origin = $" ^FT10,170^A0N,25,22^FH\\^FD{data.ORIGIN}^FS" + comma;
+            }
+            else
+            {
+                origin = $" ^FT10,170^A0N,25,22^FH\\^FD{data.ORIGIN}^FS";
+            }
+
+            if (data.EAN_UPC.Length >= 13) //check upc >=13 se la ma uan-13
+            {
+                sku = "^BY3,2,59^FT080,60^BEN,,Y,N";
+            }
+            else
+            {
+                sku = "^BY3,2,59^FT080,60^BUN,,Y,N";
+            }
+
+            //^FT30,170 ^ A0N,25,22 ^ FH\\^FD{ data.ORIGIN}
+            //^FS
+            string zplCommand = $@"^XA^PON^LH0,0^LL0444                               
+                            {sku}^FD{data.EAN_UPC}^FS
+                            ^FT100,110^A0N,24,24^FH\\^FD{data.SKU}^FS                                 
+                            ^FT10,145^A0N,12,12^FH\\^FDMANUFACTURE DATE: {data.MANUFACTURE_DATE}^FS    
+                            {model} {origin}  
+                            ^BY2,3,24^FT10,200^BCN,,Y,N^FD>:{data.SN}^FS
+                            ^FT65,220^A0N,20,25^FH^FDS/N:^FS
+                            ^FT430,220^A0N,18,20^FH^FDA^FS
+                            ^BY2,3,24^FT10,259^BCN,,Y,N^FD>:{data.SN}^FS
+                            ^FT65,277^A0N,20,25^FH^FDS/N:^FS
+                            ^FT430,278^A0N,18,20^FH^FDB^FS
+                            ^BY2,3,24^FT10,316^BCN,,Y,N^FD>:{data.SN}^FS
+                            ^FT65,336^A0N,20,25^FH^FDS/N:^FS
+                            ^FT430,336^A0N,18,20^FH^FDC^FS
+                            ^PQ1,0,1,Y^XZ";
+
+            if (!RawPrinterHelper.SendStringToPrinter(printerName, zplCommand))
+            {
+                return false; // Return false if printing failed
+            }
+
+
+            return true; // Return true if printing succeeded
+        }
+
+
         public string PrintMiddleBoxLabel(string printerName, MIDDLECODE middledata)
         {
              
@@ -119,7 +180,7 @@ namespace Printer
             ^FO400,60^A0R,50,50^FDSKU : {middledata.SKU}^FS
             ^FO350,60^A0R,50,50^FDLOT NO : {middledata.LOTNO}^FS
             ^FO300,60^A0R,50,50^FD{middledata.ORIGIN}^FS
-            ^FO200,60^A0R,50,50^FDQ'TY : {middledata.QTY}^FS
+            ^FO200,60^A0R,50,50^FDQ'TY : {middledata.QTY} PCS^FS
             ^FO200,380^BY2,1.0^BCR,80,N,N,N^FD{middledata.BarcodeMODEL}^FS
             {earncommand}
             ^FO300,1100^BY3.0^BXR,4,200^FD{middledata.Matrixdata}^FS
@@ -151,6 +212,104 @@ namespace Printer
             return middledata.LOTNO;
 
         }
+
+        public string RePrintMiddleBoxLabel(string printerName, MIDDLECODE middledata)
+        {
+
+            string earncommand;
+            if (middledata.EAN_UPC.Length >= 13)
+            {
+                earncommand = @"^FO100,100^BY3,2.0^BER,80,Y,N^FD" + middledata.EAN_UPC + "^FS";
+            }
+            else
+            {
+                earncommand = @"^FO100,100^BY3,2.0^BUR,80,Y,N^FD" + middledata.EAN_UPC + "^FS";
+            }
+
+
+
+            string zplCommand = $@"^XA^PON^LH0,0
+            ^FO570,60^BY2,1.0^BCR,80,N,N,N^FD{middledata.BarcodeLotno}^FS
+            ^FO500,60^A0R,50,50^FD{middledata.Item}^FS
+            ^FO450,60^A0R,50,50^FDMODEL : {middledata.MODEL}^FS
+            ^FO400,60^A0R,50,50^FDSKU : {middledata.SKU}^FS
+            ^FO350,60^A0R,50,50^FDLOT NO : {middledata.LOTNO}^FS
+            ^FO300,60^A0R,50,50^FD{middledata.ORIGIN}^FS
+            ^FO200,60^A0R,50,50^FDQ'TY : {middledata.QTY} PCS^FS
+            ^FO200,380^BY2,1.0^BCR,80,N,N,N^FD{middledata.BarcodeMODEL}^FS
+            {earncommand}
+            ^FO300,1100^BY3.0^BXR,4,200^FD{middledata.Matrixdata}^FS
+            ^FO20,900^GB1000,0,5^FS^XZ";
+
+
+
+            //            string zplCommand = $@"^XA^PON^LH0,0
+            //^FO570,60^BY2,1.0^BCR,80,N,Y,N^FDlotnobarcodeSG^FS
+            //^FO500,60^A0R,50,50^FDItem^FS
+            //^FO450,60^A0R,50,50^FDMODEL : modelcode^FS
+            //^FO400,60^A0R,50,50^FDSKU : Sku^FS
+            //^FO350,60^A0R,50,50^FDLOT NO : Lonot^FS
+            //^FO300,60^A0R,50,50^FDMADE IN VIETNAM^FS
+            //^FO200,60^A0R,50,50^FDQ'TY : 50 PCS^FS
+            //^FO200,380^BY2,1.0^BCR,80,N,Y,N^FDmodelbarcod^FS
+            //{earncommand}
+            //^FO300,1100^BY3.0^BXR,4,200^FDmatrix^FS
+            //^FO20,900^GB1000,0,5^FS^XZ";
+
+            if (!RawPrinterHelper.SendStringToPrinter(printerName, zplCommand))
+                throw new Exception("Failed to send Middle Box label to printer.");
+
+            Global.CreateMiddleExcelFile(Global.MiddleExcelfoler, middledata);
+            return middledata.LOTNO;
+
+        }
+
+        public bool PrintMiddleBoxLabelbool(string printerName, MIDDLECODE middledata)
+        {
+            try
+            {
+                string earncommand;
+                if (middledata.EAN_UPC.Length >= 13)
+                {
+                    earncommand = @"^FO100,100^BY3,2.0^BER,80,Y,N^FD" + middledata.EAN_UPC + "^FS";
+                }
+                else
+                {
+                    earncommand = @"^FO100,100^BY3,2.0^BUR,80,Y,N^FD" + middledata.EAN_UPC + "^FS";
+                }
+
+                string zplCommand = $@"^XA^PON^LH0,0
+        ^FO570,60^BY2,1.0^BCR,80,N,N,N^FD{middledata.BarcodeLotno}^FS
+        ^FO500,60^A0R,50,50^FD{middledata.Item}^FS
+        ^FO450,60^A0R,50,50^FDMODEL : {middledata.MODEL}^FS
+        ^FO400,60^A0R,50,50^FDSKU : {middledata.SKU}^FS
+        ^FO350,60^A0R,50,50^FDLOT NO : {middledata.LOTNO}^FS
+        ^FO300,60^A0R,50,50^FD{middledata.ORIGIN}^FS
+        ^FO200,60^A0R,50,50^FDQ'TY : {middledata.QTY}^FS
+        ^FO200,380^BY2,1.0^BCR,80,N,N,N^FD{middledata.BarcodeMODEL}^FS
+        {earncommand}
+        ^FO300,1100^BY3.0^BXR,4,200^FD{middledata.Matrixdata}^FS
+        ^FO20,900^GB1000,0,5^FS^XZ";
+
+                bool printResult = RawPrinterHelper.SendStringToPrinter(printerName, zplCommand);
+
+                if (!printResult)
+                    return false;  // Nếu không thành công, trả về false
+
+                int middlecurr = int.Parse(middledata.LOTNO.Substring(middledata.LOTNO.Length - 4));
+
+                Global.SaveLastSerialToSetting("CurrentMiddleSerial", middlecurr);
+                Global.CurrentMiddleSerial = middlecurr.ToString();
+                Global.CreateMiddleExcelFile(Global.MiddleExcelfoler, middledata);
+
+                return true;  // Nếu tất cả các bước thành công, trả về true
+            }
+            catch (Exception)
+            {
+                return false;  // Nếu có lỗi, trả về false
+            }
+        }
+
 
         public string PrintMasterBoxLabel(string printerName, MASTERDATA masterdata)
         {
@@ -192,6 +351,53 @@ namespace Printer
             Global.CreateMasterExcelFile(Global.MasterExcelfoler, masterdata);
             return masterdata.LOTNO;
         }
+
+        public bool PrintMasterBoxLabelbool(string printerName, MASTERDATA masterdata)
+        {
+            try
+            {
+                string earncommand;
+                if (masterdata.EAN_UPC.Length >= 13)
+                {
+                    earncommand = @"^FO100,100^BY3,2.0^BER,80,Y,N^FD" + masterdata.EAN_UPC + "^FS";
+                }
+                else
+                {
+                    earncommand = @"^FO100,100^BY3,2.0^BUR,80,Y,N^FD" + masterdata.EAN_UPC + "^FS";
+                }
+
+                string zplCommand = $@"
+        ^XA^PON^FO750,60^BY2,1.0^BCR,130,N,N,N^FD:{masterdata.BarcodeLotno}^FS
+        ^FO660,60^A0R,60,60^FD{masterdata.Item}^FS
+        ^FO580,60^A0R,60,60^FDMODEL : {masterdata.MODEL}^FS
+        ^FO510,60^A0R,60,60^FDSKU : {masterdata.SKU}^FS
+        ^FO440,60^A0R,60,60^FDLOT NO : {masterdata.LOTNO}^FS
+        ^FO370,60^A0R,60,60^FD{masterdata.ORIGIN}^FS
+        ^FO270,60^A0R,60,60^FDQ'TY : {masterdata.QTY}^FS
+        ^FO260,440^BY2,1.0^BCR,100,N,N,N^FD{masterdata.BarcodeMODEL}^FS
+        {earncommand}
+        ^FO150,1020^BY4.3^BXR,8,200^FD{masterdata.Matrixdata}^FS
+        ^FO0,1000^GB1400,0,5^FS^XZ";
+
+                bool printResult = RawPrinterHelper.SendStringToPrinter(printerName, zplCommand);
+
+                if (!printResult)
+                    return false;  // Nếu không thành công, trả về false
+
+                int middlecurr = int.Parse(masterdata.LOTNO.Substring(masterdata.LOTNO.Length - 4));
+
+                Global.SaveLastSerialToSetting("CurrentMiddleSerial", middlecurr);
+                Global.CurrentMiddleSerial = middlecurr.ToString();
+                Global.CreateMasterExcelFile(Global.MasterExcelfoler, masterdata);
+
+                return true;  // Nếu tất cả các bước thành công, trả về true
+            }
+            catch (Exception)
+            {
+                return false;  // Nếu có lỗi, trả về false
+            }
+        }
+
 
         public void PrintTestLabel(string printerName)
         {

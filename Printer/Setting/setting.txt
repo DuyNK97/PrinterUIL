@@ -1,0 +1,11 @@
+MiddlePrinter =ZDesigner ZT411-300dpi ZPL (1)
+MasterPrinter =ZDesigner ZT410-300dpi ZPL
+SNlen=14
+LastMonthCode= 5
+LastDateCode= 31
+CurrentUnitSerial= 1
+CurrentMiddleSerial= 12
+CurrentMasterSerial= 0
+UnitExcelfoler=D:\Printer\Unit
+MiddleExcelfoler=D:\Printer\Middle
+MasterExcelfoler=D:\Printer\Master

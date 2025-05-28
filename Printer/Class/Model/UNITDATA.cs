@@ -16,5 +16,6 @@ namespace Printer.Class.Model
         public string MANUFACTURE_DATE { get; set; }
         public string ORIGIN { get; set; }
         public string SN {  get; set; }
+        public string COLOR {  get; set; }
     }
 }
