@@ -333,8 +333,8 @@ namespace Printer
 ^FO510,60^A0R,60,60^FDSKU : {masterdata.SKU}^FS
 ^FO440,60^A0R,60,60^FDLOT NO : {masterdata.LOTNO}^FS
 ^FO370,60^A0R,60,60^FD{masterdata.ORIGIN}^FS
-^FO270,60^A0R,60,60^FDQ'TY : {masterdata.QTY}^FS
-^FO260,440^BY2,1.0^BCR,100,N,N,N^FD{masterdata.BarcodeMODEL}^FS
+^FO270,60^A0R,60,60^FDQ'TY : {masterdata.QTY} PCS^FS
+^FO260,440^BY2,1.0^BCR,100,N,N,N^FD{masterdata.QTY}^FS
 {earncommand}
 ^FO150,1020^BY4.3^BXR,8,200^FD{masterdata.Matrixdata}^FS
 ^FO0,1000^GB1400,0,5^FS^XZ
@@ -350,6 +350,27 @@ namespace Printer
             Global.CurrentMiddleSerial = middlecurr.ToString();
             Global.CreateMasterExcelFile(Global.MasterExcelfoler, masterdata);
             return masterdata.LOTNO;
+        }
+        public bool PrintMasterBoxLabel2(string Cartonid, string printerName, string date = null)
+        {
+
+            if (string.IsNullOrWhiteSpace(date))
+            {
+                date = DateTime.Today.ToString("dd/MM/yy");
+            }    
+
+            string zplCommand = $@"^XA^PON
+^FO100,10^A0R,55,55^FDCARTON ID: {Cartonid}^FS
+^FO60,550^BY1.5,1.0^BCR,100,N,N,N^FD{Cartonid}^FS
+^FO30,10^A0R,55,55^FDDate :{date}^FS
+^XZ";
+
+            if (!RawPrinterHelper.SendStringToPrinter(printerName, zplCommand))
+            {
+                return false;
+            }
+
+            return true; 
         }
 
         public bool PrintMasterBoxLabelbool(string printerName, MASTERDATA masterdata)
