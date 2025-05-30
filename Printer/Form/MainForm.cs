@@ -63,13 +63,19 @@ namespace Printer
                     ["CurrentMasterSerial"] = "0",
                     ["UnitExcelfoler"] = @"D:\Printer\Unit",
                     ["MiddleExcelfoler"] = @"D:\Printer\Middle",
-                    ["MasterExcelfoler"] = @"D:\Printer\Master"
+                    ["MasterExcelfoler"] = @"D:\Printer\Master",
+                    ["CartonExcelfoler"] = @"D:\Printer\Carton",
+                    ["MiddlePrinter"] = @"ZDesigner ZT411-300dpi ZPL (1)",
+                    ["MasterPrinter"] = @"ZDesigner ZT410-300dpi ZPL",
+                    ["SNlen"] = "14",
+                    ["LastMonthCode"] = "5",
+                    ["LastDateCode"] = "29",
 
                 };
 
                 Global.WriteFileToTxt(settingPath, defaultValues);
             }
-            Dictionary<string, string> currentData = Global.ReadValueFileTxt(Global.GetFilePathSetting(), new List<string> { "CurrentUnitSerial", "CurrentMiddleSerial", "CurrentMasterSerial", "UnitExcelfoler", "MiddleExcelfoler", "MasterExcelfoler" , "LastMonthCode", "LastDateCode" , "SNlen", "MiddlePrinter", "MasterPrinter" });
+            Dictionary<string, string> currentData = Global.ReadValueFileTxt(Global.GetFilePathSetting(), new List<string> { "CurrentUnitSerial", "CurrentMiddleSerial", "CurrentMasterSerial", "UnitExcelfoler", "MiddleExcelfoler", "MasterExcelfoler" , "LastMonthCode", "LastDateCode" , "SNlen", "MiddlePrinter", "MasterPrinter", "CartonExcelfoler" });
 
             Global.CurrentUnitSerial = currentData["CurrentUnitSerial"];
             Global.CurrentMiddleSerial = currentData["CurrentMiddleSerial"];
@@ -82,6 +88,7 @@ namespace Printer
             Global.SNlen = int.Parse(currentData["SNlen"]);
             Global.MiddlePrinter = currentData["MiddlePrinter"];
             Global.MasterPrinter = currentData["MasterPrinter"];
+            Global.CartonExcelfoler = currentData["CartonExcelfoler"];
 
             rdomanual.Checked = true;
             rdoSEV.Checked = true;

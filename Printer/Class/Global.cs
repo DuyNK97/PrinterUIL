@@ -30,18 +30,18 @@ namespace Printer.Class
         public static readonly char[] Base33Chars = "0123456789ABCDEFGHJKLMNPQRSTVWXYZ".ToCharArray();
         public static readonly int Base = 33;
 
-        // Serial hiện tại
         public static string CurrentUnitSerial { get;  set; }
         public static string CurrentMiddleSerial { get;  set; }
         public static string CurrentMasterSerial { get;  set; }
         public static string UnitExcelfoler = @"D:\Printer\Unit";
         public static string MiddleExcelfoler = @"D:\Printer\Middle";
         public static string MasterExcelfoler = @"D:\Printer\Master";
+        public static string CartonExcelfoler = @"D:\Printer\Carton";
         public static string Configfile = @"D:\Printer\Setting";
 
 
         private static readonly object _lockData = new object();
-        // Static constructor để khởi tạo serial từ file
+      
     
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Printer.Class
                 if (long.TryParse(content, out long lastSerial) && lastSerial >= 0)
                     return lastSerial;
             }
-            return 0; // Mặc định bắt đầu từ 0 nếu file không hợp lệ
+            return 0;
         }
 
         /// <summary>
@@ -116,14 +116,10 @@ namespace Printer.Class
         {
          
 
-            // Kiểm tra nếu tháng thay đổi
             if (!string.IsNullOrEmpty(Global.LastMonthCode) && Global.LastMonthCode != monthCode.ToString())
             {
-                // Đặt lại CurrentUnitSerial khi tháng thay đổi
                 Global.CurrentUnitSerial = "0";
-                // Cập nhật LastMonthCode
                 Global.LastMonthCode = monthCode.ToString();
-                // Lưu LastMonthCode và CurrentUnitSerial vào file setting.txt
                 var valuesToSave = new Dictionary<string, string>
                 {
                     ["LastMonthCode"] = Global.LastMonthCode,
@@ -139,7 +135,6 @@ namespace Printer.Class
                 throw new ArgumentException($"Year {currentYear} is not supported (must be between 2021 and 2040).");
                 
             }
-            // Kiểm tra hợp lệ
             if (vendorCode.Length != 2 || !vendorCode.All(char.IsLetter))
                 throw new ArgumentException("Mã nhà cung cấp phải gồm 2 chữ cái.");
             if (!"R1M".Contains(productGroup))
@@ -157,7 +152,6 @@ namespace Printer.Class
             long newSerialDecimal = currentSerialDecimal + 1;
             string serialBase33 = ToBase33(newSerialDecimal);
 
-            //SaveLastSerial(UnitSerialFile, newSerial); // Ghi lại serial mới
 
 
 
@@ -178,14 +172,10 @@ namespace Printer.Class
             }
             char monthCode = "123456789ABC"[DateTime.Now.Month - 1];
             string dayCode = DateTime.Now.Day.ToString("D2");
-            // Kiểm tra nếu tháng thay đổi
             if (!string.IsNullOrEmpty(Global.LastDateCode) && Global.LastDateCode != dayCode.ToString())
             {
-                // Đặt lại CurrentUnitSerial khi tháng thay đổi
                 Global.CurrentMiddleSerial = "0";
-                // Cập nhật LastMonthCode
                 Global.LastDateCode = dayCode.ToString();
-                // Lưu LastMonthCode và CurrentUnitSerial vào file setting.txt
                 var valuesToSave = new Dictionary<string, string>
                 {
                     ["LastDateCode"] = Global.LastDateCode,
@@ -444,6 +434,54 @@ namespace Printer.Class
                         worksheet.Cells[rowIndex, 8].Value = masterdata.EAN_UPC;
                         worksheet.Cells[rowIndex, 9].Value = masterdata.ORIGIN;
                         worksheet.Cells[rowIndex, 10].Value = masterdata.Matrixdata;
+                        worksheet.Cells[rowIndex, 11].Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                        package.Save();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    WriteLog($"Error cannot save to Excel file: {ex.Message}");
+                }
+            }
+        }
+        public static void CreateCartonExcelFile(string path, string CartonID,string date)
+        {
+            lock (lockExcel)
+            {
+                try
+                {
+                    string localFolderMES = Path.Combine(path, DateTime.Now.ToString("yyyy"), DateTime.Now.ToString("MM"), DateTime.Now.ToString("dd"));
+
+                    if (!Directory.Exists(localFolderMES))
+                    {
+                        Directory.CreateDirectory(localFolderMES);
+                    }
+
+                    path = Path.Combine(localFolderMES, DateTime.Now.ToString("yyyyMMdd") + "_Master.xlsx");
+
+                    using (var package = new ExcelPackage(new FileInfo(path)))
+                    {
+                        var worksheet = package.Workbook.Worksheets.FirstOrDefault();
+
+                        if (worksheet == null)
+                        {
+                            worksheet = package.Workbook.Worksheets.Add("MasterData");
+
+                            string[] headers = { "CartonId", "Date", "Print Time" };
+                            for (int i = 0; i < headers.Length; i++)
+                            {
+                                worksheet.Cells[1, i + 1].Value = headers[i];
+                                worksheet.Cells[1, i + 1].Style.Font.Bold = true;
+                            }
+
+                            package.Save();
+                        }
+
+                        int rowIndex = worksheet.Dimension?.Rows + 1 ?? 2;
+
+                        worksheet.Cells[rowIndex, 1].Value = CartonID;
+                        worksheet.Cells[rowIndex, 2].Value = date;                    
                         worksheet.Cells[rowIndex, 11].Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
                         package.Save();

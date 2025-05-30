@@ -357,19 +357,32 @@ namespace Printer
             if (string.IsNullOrWhiteSpace(date))
             {
                 date = DateTime.Today.ToString("dd/MM/yy");
-            }    
-
+            }
+            // trường hợp tem  dọc
             string zplCommand = $@"^XA^PON
 ^FO100,10^A0R,55,55^FDCARTON ID: {Cartonid}^FS
 ^FO60,550^BY1.5,1.0^BCR,100,N,N,N^FD{Cartonid}^FS
 ^FO30,10^A0R,55,55^FDDate :{date}^FS
 ^XZ";
+            //XA^PON ^XZ"  đây là ký tự bắt buộc không xóa
+
+            //^FO100,10^A0R,55,55^FDCARTON ID: {Cartonid}^FS =====^FO x,y  A0 : font chữ mặc định arial 55,55  điểm dot (dpi ) font 14 =(14/72)*300(dpi)=58 dot   N (Normal): 0° (hiện tại là mặc định). R (Rotated): 90° ngược chiều kim đồng hồ (mã vạch nằm dọc, các thanh song song với trục Y, đọc từ dưới lên trên). I (Inverted): 180° (mã vạch nằm ngang nhưng ngược hướng). B (Bottom): 270° ngược chiều kim đồng hồ (mã vạch nằm dọc, các thanh song song với trục Y, đọc từ trên xuống dưới).
+            //link review label https://labelary.com/viewer.html
+
+            //// trường hợp tem  ngang
+//            string zplCommand = $@"^XA^PON
+//^FO10,10^A0N,55,55^FDCARTON ID: {Cartonid}^FS
+//^FO570,10^BY1.5,1.0^BCN,100,N,N,N^FD{Cartonid}^FS
+//^FO10,70^A0N,55,55^FDDate : {date}^FS
+//^XZ";
+
+
 
             if (!RawPrinterHelper.SendStringToPrinter(printerName, zplCommand))
             {
                 return false;
             }
-
+            Global.CreateCartonExcelFile(Global.CartonExcelfoler, Cartonid, date);
             return true; 
         }
 
