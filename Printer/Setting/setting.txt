@@ -1,5 +1,6 @@
 MiddlePrinter =ZDesigner ZT411-300dpi ZPL (1)
 MasterPrinter =ZDesigner ZT410-300dpi ZPL
+MasterPrinterCarton =ZDesigner ZT410-300dpi ZPL
 SNlen=14
 LastMonthCode= 5
 LastDateCode= 29

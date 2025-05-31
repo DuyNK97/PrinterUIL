@@ -10,7 +10,7 @@ namespace Printer
 {
     public class LabelPrinter
     {
-        public string PrintUnitBoxLabel(UNITDATA data,string printerName)
+        public string PrintUnitBoxLabel(UNITDATA data, string printerName)
         {
             string origin;
             string comma = "^FO288,124^GFA,00256,00256,00004,:Z64:eJxjYKAnOADEDxgYGD8AMZBmBvKZgULsQMxEV4fAAQBLYQRC:3CC2";
@@ -20,7 +20,7 @@ namespace Printer
             {
                 case "ET-SLL50LWEGUJ":
                 case "ET-SNL33LWEGUJ":
-                    model = $@"^FT30,130^A0N,16,16^FH\\^FD{data.ITEM_MODEL}({data.SKU.Substring(0,9)}) COLOR : WHITE^FS";
+                    model = $@"^FT30,130^A0N,16,16^FH\\^FD{data.ITEM_MODEL}({data.SKU.Substring(0, 9)}) COLOR : WHITE^FS";
                     break;
                 case "ET-SLL50LNEGUJ":
                 case "ET-SNL33LNEGUJ":
@@ -43,7 +43,7 @@ namespace Printer
                     break;
                 case "ET-SNL33LBEGUJ":
                     model = $@"^FT30,130^A0N,16,16^FH\\^FD{data.ITEM_MODEL}({data.SKU.Substring(0, 9)}) COLOR : DARK GRAY^FS";
-                    break;            
+                    break;
                 default:
                     model = $@"^FT30,130^A0N,16,16^FH\\^FD{data.ITEM_MODEL}({data.SKU.Substring(0, 9)})^FS";
                     break;
@@ -51,9 +51,9 @@ namespace Printer
 
             if (data.ORIGIN.Trim() == "MADE IN VIETNAM / FABRIQUE AU VIETNAM")
             {
-                origin = $" ^FT30,180^A0N,25,22^FH\\^FD{data.ORIGIN}^FS"+comma;
+                origin = $" ^FT30,180^A0N,25,22^FH\\^FD{data.ORIGIN}^FS" + comma;
             }
-            else 
+            else
             {
                 origin = $" ^FT30,180^A0N,25,22^FH\\^FD{data.ORIGIN}^FS";
             }
@@ -61,7 +61,7 @@ namespace Printer
             {
                 sku = "^BY3,2,59^FT0100,60^BEN,,Y,N";
             }
-            else 
+            else
             {
                 sku = "^BY3,2,59^FT0100,60^BUN,,Y,N";
             }
@@ -91,7 +91,7 @@ namespace Printer
 
 
             long serial = Global.FromBase33(data.SN.Substring(5, 5));
-            
+
             Global.SaveLastSerialToSetting("CurrentUnitSerial", serial);
             Global.CreateExcelFile(Global.UnitExcelfoler, data);
             return data.SN;
@@ -110,7 +110,7 @@ namespace Printer
             else
             {
                 model = $@"^FT10,130^A0N,16,16^FH\\^FD{data.ITEM_MODEL}({data.SKU.Substring(0, 9)})^FS";
-            }            
+            }
 
             if (data.ORIGIN.Trim() == "MADE IN VIETNAM / FABRIQUE AU VIETNAM")
             {
@@ -160,17 +160,17 @@ namespace Printer
 
         public string PrintMiddleBoxLabel(string printerName, MIDDLECODE middledata)
         {
-             
+
             string earncommand;
             if (middledata.EAN_UPC.Length >= 13)
             {
-                earncommand = @"^FO100,100^BY3,2.0^BER,80,Y,N^FD"+ middledata.EAN_UPC + "^FS";
+                earncommand = @"^FO100,100^BY3,2.0^BER,80,Y,N^FD" + middledata.EAN_UPC + "^FS";
             }
             else
             {
                 earncommand = @"^FO100,100^BY3,2.0^BUR,80,Y,N^FD" + middledata.EAN_UPC + "^FS";
             }
-            
+
 
 
             string zplCommand = $@"^XA^PON^LH0,0
@@ -279,17 +279,17 @@ namespace Printer
                 }
 
                 string zplCommand = $@"^XA^PON^LH0,0
-        ^FO570,60^BY2,1.0^BCR,80,N,N,N^FD{middledata.BarcodeLotno}^FS
-        ^FO500,60^A0R,50,50^FD{middledata.Item}^FS
-        ^FO450,60^A0R,50,50^FDMODEL : {middledata.MODEL}^FS
-        ^FO400,60^A0R,50,50^FDSKU : {middledata.SKU}^FS
-        ^FO350,60^A0R,50,50^FDLOT NO : {middledata.LOTNO}^FS
-        ^FO300,60^A0R,50,50^FD{middledata.ORIGIN}^FS
-        ^FO200,60^A0R,50,50^FDQ'TY : {middledata.QTY}^FS
-        ^FO200,380^BY2,1.0^BCR,80,N,N,N^FD{middledata.BarcodeMODEL}^FS
-        {earncommand}
-        ^FO300,1100^BY3.0^BXR,4,200^FD{middledata.Matrixdata}^FS
-        ^FO20,900^GB1000,0,5^FS^XZ";
+                                    ^FO570,60^BY2,1.0^BCR,80,N,N,N^FD{middledata.BarcodeLotno}^FS
+                                    ^FO500,60^A0R,50,50^FD{middledata.Item}^FS
+                                    ^FO450,60^A0R,50,50^FDMODEL : {middledata.MODEL}^FS
+                                    ^FO400,60^A0R,50,50^FDSKU : {middledata.SKU}^FS
+                                    ^FO350,60^A0R,50,50^FDLOT NO : {middledata.LOTNO}^FS
+                                    ^FO300,60^A0R,50,50^FD{middledata.ORIGIN}^FS
+                                    ^FO200,60^A0R,50,50^FDQ'TY : {middledata.QTY}^FS
+                                    ^FO200,380^BY2,1.0^BCR,80,N,N,N^FD{middledata.BarcodeMODEL}^FS
+                                    {earncommand}
+                                    ^FO300,1100^BY3.0^BXR,4,200^FD{middledata.Matrixdata}^FS
+                                    ^FO20,900^GB1000,0,5^FS^XZ";
 
                 bool printResult = RawPrinterHelper.SendStringToPrinter(printerName, zplCommand);
 
@@ -327,20 +327,20 @@ namespace Printer
 
 
             string zplCommand = $@"
-^XA^PON^FO750,60^BY2,1.0^BCR,130,N,N,N^FD:{masterdata.BarcodeLotno}^FS
-^FO660,60^A0R,60,60^FD{masterdata.Item}^FS
-^FO580,60^A0R,60,60^FDMODEL : {masterdata.MODEL}^FS
-^FO510,60^A0R,60,60^FDSKU : {masterdata.SKU}^FS
-^FO440,60^A0R,60,60^FDLOT NO : {masterdata.LOTNO}^FS
-^FO370,60^A0R,60,60^FD{masterdata.ORIGIN}^FS
-^FO270,60^A0R,60,60^FDQ'TY : {masterdata.QTY} PCS^FS
-^FO260,440^BY2,1.0^BCR,100,N,N,N^FD{masterdata.QTY}^FS
-{earncommand}
-^FO150,1020^BY4.3^BXR,8,200^FD{masterdata.Matrixdata}^FS
-^FO0,1000^GB1400,0,5^FS^XZ
-";
+                                ^XA^PON^FO750,60^BY2,1.0^BCR,130,N,N,N^FD:{masterdata.BarcodeLotno}^FS
+                                ^FO660,60^A0R,60,60^FD{masterdata.Item}^FS
+                                ^FO580,60^A0R,60,60^FDMODEL : {masterdata.MODEL}^FS
+                                ^FO510,60^A0R,60,60^FDSKU : {masterdata.SKU}^FS
+                                ^FO440,60^A0R,60,60^FDLOT NO : {masterdata.LOTNO}^FS
+                                ^FO370,60^A0R,60,60^FD{masterdata.ORIGIN}^FS
+                                ^FO270,60^A0R,60,60^FDQ'TY : {masterdata.QTY} PCS^FS
+                                ^FO260,440^BY2,1.0^BCR,100,N,N,N^FD{masterdata.QTY}^FS
+                                {earncommand}
+                                ^FO150,1020^BY4.3^BXR,8,200^FD{masterdata.Matrixdata}^FS
+                                ^FO0,1000^GB1400,0,5^FS^XZ
+                                ";
 
-            
+
             if (!RawPrinterHelper.SendStringToPrinter(printerName, zplCommand))
                 throw new Exception("Failed to send Middle Box label to printer.");
 
@@ -356,25 +356,27 @@ namespace Printer
 
             if (string.IsNullOrWhiteSpace(date))
             {
-                date = DateTime.Today.ToString("dd/MM/yy");
+                date = DateTime.Today.ToString("MM/dd/yy");
             }
             // trường hợp tem  dọc
-            string zplCommand = $@"^XA^PON
-^FO100,10^A0R,55,55^FDCARTON ID: {Cartonid}^FS
-^FO60,550^BY1.5,1.0^BCR,100,N,N,N^FD{Cartonid}^FS
-^FO30,10^A0R,55,55^FDDate :{date}^FS
-^XZ";
+            //string zplCommand = $@"^XA^PON
+            //                        ^FO30,30^A0N,65,65^FDCARTON ID: {Cartonid}^FS
+            //                        ^FO750,30^BY1.5,1.0^BCN,120,N,N,N^FD{Cartonid}^FS
+            //                        ^FO30,100^A0N,65,65^FDDate : {date}^FS
+            //                        ^XZ";
+
             //XA^PON ^XZ"  đây là ký tự bắt buộc không xóa
 
             //^FO100,10^A0R,55,55^FDCARTON ID: {Cartonid}^FS =====^FO x,y  A0 : font chữ mặc định arial 55,55  điểm dot (dpi ) font 14 =(14/72)*300(dpi)=58 dot   N (Normal): 0° (hiện tại là mặc định). R (Rotated): 90° ngược chiều kim đồng hồ (mã vạch nằm dọc, các thanh song song với trục Y, đọc từ dưới lên trên). I (Inverted): 180° (mã vạch nằm ngang nhưng ngược hướng). B (Bottom): 270° ngược chiều kim đồng hồ (mã vạch nằm dọc, các thanh song song với trục Y, đọc từ trên xuống dưới).
             //link review label https://labelary.com/viewer.html
 
+
             //// trường hợp tem  ngang
-//            string zplCommand = $@"^XA^PON
-//^FO10,10^A0N,55,55^FDCARTON ID: {Cartonid}^FS
-//^FO570,10^BY1.5,1.0^BCN,100,N,N,N^FD{Cartonid}^FS
-//^FO10,70^A0N,55,55^FDDate : {date}^FS
-//^XZ";
+            string zplCommand = $@"^XA^PON
+                                    ^FO70,60^A0N,65,65^FDCARTON ID: {Cartonid}^FS
+                                    ^FO720,60^BY1.5,1.0^BCN,120,N,N,N^FD{Cartonid}^FS
+                                    ^FO70,130^A0N,65,65^FDDate : {date}^FS
+                                    ^XZ";
 
 
 
@@ -383,7 +385,7 @@ namespace Printer
                 return false;
             }
             Global.CreateCartonExcelFile(Global.CartonExcelfoler, Cartonid, date);
-            return true; 
+            return true;
         }
 
         public bool PrintMasterBoxLabelbool(string printerName, MASTERDATA masterdata)
@@ -401,17 +403,17 @@ namespace Printer
                 }
 
                 string zplCommand = $@"
-        ^XA^PON^FO750,60^BY2,1.0^BCR,130,N,N,N^FD:{masterdata.BarcodeLotno}^FS
-        ^FO660,60^A0R,60,60^FD{masterdata.Item}^FS
-        ^FO580,60^A0R,60,60^FDMODEL : {masterdata.MODEL}^FS
-        ^FO510,60^A0R,60,60^FDSKU : {masterdata.SKU}^FS
-        ^FO440,60^A0R,60,60^FDLOT NO : {masterdata.LOTNO}^FS
-        ^FO370,60^A0R,60,60^FD{masterdata.ORIGIN}^FS
-        ^FO270,60^A0R,60,60^FDQ'TY : {masterdata.QTY}^FS
-        ^FO260,440^BY2,1.0^BCR,100,N,N,N^FD{masterdata.BarcodeMODEL}^FS
-        {earncommand}
-        ^FO150,1020^BY4.3^BXR,8,200^FD{masterdata.Matrixdata}^FS
-        ^FO0,1000^GB1400,0,5^FS^XZ";
+                                    ^XA^PON^FO750,60^BY2,1.0^BCR,130,N,N,N^FD:{masterdata.BarcodeLotno}^FS
+                                    ^FO660,60^A0R,60,60^FD{masterdata.Item}^FS
+                                    ^FO580,60^A0R,60,60^FDMODEL : {masterdata.MODEL}^FS
+                                    ^FO510,60^A0R,60,60^FDSKU : {masterdata.SKU}^FS
+                                    ^FO440,60^A0R,60,60^FDLOT NO : {masterdata.LOTNO}^FS
+                                    ^FO370,60^A0R,60,60^FD{masterdata.ORIGIN}^FS
+                                    ^FO270,60^A0R,60,60^FDQ'TY : {masterdata.QTY}^FS
+                                    ^FO260,440^BY2,1.0^BCR,100,N,N,N^FD{masterdata.BarcodeMODEL}^FS
+                                    {earncommand}
+                                    ^FO150,1020^BY4.3^BXR,8,200^FD{masterdata.Matrixdata}^FS
+                                    ^FO0,1000^GB1400,0,5^FS^XZ";
 
                 bool printResult = RawPrinterHelper.SendStringToPrinter(printerName, zplCommand);
 

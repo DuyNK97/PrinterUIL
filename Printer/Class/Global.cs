@@ -22,6 +22,7 @@ namespace Printer.Class
         public static string LastMonthCode = "";
         public static string MiddlePrinter = "";
         public static string MasterPrinter = "";
+        public static string MasterPrinterCarton = "";
         public static string LastDateCode = "";
         public static int SNlen = 14;
         public static bool AUTOPRINT = false;

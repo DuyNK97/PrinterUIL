@@ -49,7 +49,7 @@ namespace Printer
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            datepick.Value = DateTime.Today;
+            dateMasterBox.Value = datepick.Value = DateTime.Today;
             LoadPrinters();
             LoadModel();
             string settingPath = Global.GetFilePathSetting();
@@ -67,6 +67,7 @@ namespace Printer
                     ["CartonExcelfoler"] = @"D:\Printer\Carton",
                     ["MiddlePrinter"] = @"ZDesigner ZT411-300dpi ZPL (1)",
                     ["MasterPrinter"] = @"ZDesigner ZT410-300dpi ZPL",
+                    ["MasterPrinterCarton"] = @"ZDesigner ZT411-300dpi ZPL (IN)",
                     ["SNlen"] = "14",
                     ["LastMonthCode"] = "5",
                     ["LastDateCode"] = "29",
@@ -75,7 +76,7 @@ namespace Printer
 
                 Global.WriteFileToTxt(settingPath, defaultValues);
             }
-            Dictionary<string, string> currentData = Global.ReadValueFileTxt(Global.GetFilePathSetting(), new List<string> { "CurrentUnitSerial", "CurrentMiddleSerial", "CurrentMasterSerial", "UnitExcelfoler", "MiddleExcelfoler", "MasterExcelfoler" , "LastMonthCode", "LastDateCode" , "SNlen", "MiddlePrinter", "MasterPrinter", "CartonExcelfoler" });
+            Dictionary<string, string> currentData = Global.ReadValueFileTxt(Global.GetFilePathSetting(), new List<string> { "CurrentUnitSerial", "CurrentMiddleSerial", "CurrentMasterSerial", "UnitExcelfoler", "MiddleExcelfoler", "MasterExcelfoler", "LastMonthCode", "LastDateCode", "SNlen", "MiddlePrinter", "MasterPrinter", "MasterPrinterCarton", "CartonExcelfoler" });
 
             Global.CurrentUnitSerial = currentData["CurrentUnitSerial"];
             Global.CurrentMiddleSerial = currentData["CurrentMiddleSerial"];
@@ -88,6 +89,7 @@ namespace Printer
             Global.SNlen = int.Parse(currentData["SNlen"]);
             Global.MiddlePrinter = currentData["MiddlePrinter"];
             Global.MasterPrinter = currentData["MasterPrinter"];
+            Global.MasterPrinterCarton = currentData["MasterPrinterCarton"];
             Global.CartonExcelfoler = currentData["CartonExcelfoler"];
 
             rdomanual.Checked = true;
@@ -128,7 +130,7 @@ namespace Printer
             {
                 rdomanual.Checked = true;
                 rdoauto.Checked = false;
-               auto=false;
+                auto = false;
             }
             else if (rdoauto.Checked)
             {
@@ -137,7 +139,7 @@ namespace Printer
                 rdoauto.Checked = true;
                 auto = true;
             }
-           
+
         }
 
         private void RadioButton_CheckedChangedProducttype(object sender, EventArgs e)
@@ -254,9 +256,12 @@ namespace Printer
                 foreach (string printerName in PrinterSettings.InstalledPrinters)
                 {
                     comboBoxPrinters.Items.Add(printerName);
+                    cbxMasterPrinterCartonName.Items.Add(printerName);
                 }
                 if (comboBoxPrinters.Items.Count > 0)
                     comboBoxPrinters.SelectedIndex = 0;
+                if (comboBoxPrinters.Items.Count > 1)
+                    cbxMasterPrinterCartonName.SelectedIndex = 1;
             }
             catch (Exception ex)
             {
@@ -521,7 +526,7 @@ namespace Printer
 
             if (printSuccess)
             {
-                Global.CreateExcelFile(Global.UnitExcelfoler, unitdata,"Reprint");
+                Global.CreateExcelFile(Global.UnitExcelfoler, unitdata, "Reprint");
                 return true;
             }
 
@@ -690,12 +695,12 @@ namespace Printer
                 if (confirmResult == DialogResult.Yes)
                 {
                     printer.PrintMiddleBoxLabel(printername, middledata);
-                    if ( int.Parse(lblqty.Text )== 50)
+                    if (int.Parse(lblqty.Text) == 50)
                     {
-                        dgvsn.Rows.Clear(); 
+                        dgvsn.Rows.Clear();
                         lblqty.Text = "0";
                     }
-                   
+
                     middleboxqty = 0;
                     txmidlelotno.Text = "";
                     txmidlelotnobarcode.Text = "";
@@ -716,21 +721,21 @@ namespace Printer
             string printername = comboBoxPrinters.SelectedItem.ToString();
 
 
-          
 
-                printer.PrintMiddleBoxLabel(printername, middledata);
-                if (int.Parse(lblqty.Text) == 50)
-                {
-                    dgvsn.Rows.Clear();
-                    lblqty.Text = "0";
-                }
 
-                middleboxqty = 0;
-                txmidlelotno.Text = "";
-                txmidlelotnobarcode.Text = "";
-                txmidleqty.Text = "0";
-                txmidlebarcodemodel.Text = "";
-            
+            printer.PrintMiddleBoxLabel(printername, middledata);
+            if (int.Parse(lblqty.Text) == 50)
+            {
+                dgvsn.Rows.Clear();
+                lblqty.Text = "0";
+            }
+
+            middleboxqty = 0;
+            txmidlelotno.Text = "";
+            txmidlelotnobarcode.Text = "";
+            txmidleqty.Text = "0";
+            txmidlebarcodemodel.Text = "";
+
 
         }
 
@@ -922,12 +927,13 @@ namespace Printer
                                 .Select(row => row.Cells[0].Value?.ToString())
                                 .Where(value => !string.IsNullOrEmpty(value))
                                 .ToList();
-                            
+
                             txmidleqty.Text = middleboxqty.ToString();
 
-                            lblqty.Text= serialNumbers.Count.ToString();
+                            lblqty.Text = serialNumbers.Count.ToString();
                             if (auto)
                             {
+
                                 if (int.Parse(lblqty.Text) % 10 == 0 && int.Parse(lblqty.Text) <= 50)
                                 {
                                     // Validate input fields
@@ -971,7 +977,25 @@ namespace Printer
                                         MessageBox.Show("Please select a printer (e.g., Zebra ZT411).");
                                         return;
                                     }
-                                    
+                                    if (cbxMasterPrinterCartonName.SelectedItem == null)
+                                    {
+                                        MessageBox.Show("Please select a printer (e.g., Zebra ZT411).");
+                                        return;
+                                    }
+
+
+                                    if (string.IsNullOrWhiteSpace(txCartonID.Text))
+                                    {
+                                        MessageBox.Show("CARTON ID is not null");
+                                        return;
+                                    }
+
+                                    if (string.IsNullOrWhiteSpace(dateMasterBox.Value.ToString()))
+                                    {
+                                        MessageBox.Show("PACKING DATE is not null");
+                                        return;
+                                    }
+
                                     // Tính toán chỉ số bắt đầu và kết thúc để lấy 10 SN từ dưới lên
                                     int totalRows = serialNumbers.Count;
                                     int batchIndex = totalRows / 10; // Xác định lô thứ mấy (1, 2, 3, 4, 5)
@@ -986,7 +1010,7 @@ namespace Printer
                                     }
 
                                     // Lấy 10 SN từ dưới lên
-                                    
+
                                     var selectedSerials = serialNumbers
                                         .Skip(startIndex)
                                         .Take(10)
@@ -1039,7 +1063,7 @@ namespace Printer
 
 
                                     printer.PrintMiddleBoxLabel(printername, middledata);
-                                  
+
 
                                     middleboxqty = 0;
                                     txmidlelotno.Text = "";
@@ -1054,7 +1078,7 @@ namespace Printer
                                 if (int.Parse(lblqty.Text) == 50)
                                 {
                                     Task.Delay(100);
-                                    string  mtlotno = Global.GenerateMiddleLotno(middlevendorcode);
+                                    string mtlotno = Global.GenerateMiddleLotno(middlevendorcode);
                                     string mtsku = txmidlesku.Text.Trim().ToUpper();
                                     string mtmodel = txmidlesku.Text.Substring(0, 9);
                                     long newmodel = long.Parse(Global.CurrentMiddleSerial) + 1;
@@ -1084,16 +1108,17 @@ namespace Printer
                                     {
                                         EAN_UPC = mtbarcodeean,
                                         SKU = mtsku,
-                                        Item =mtitem,
+                                        Item = mtitem,
                                         BarcodeLotno = mtbarcodelotno,
                                         MODEL = mtmodel,
                                         LOTNO = mtlotno,
                                         BarcodeMODEL = mtbarcodemodel,
-                                        QTY = qty.ToString()+ " PCS",
+                                        QTY = qty.ToString() + " PCS",
                                         ORIGIN = mtorigin,
                                         Matrixdata = mtmatrixdata,
                                     };
                                     string mtprintername = Global.MasterPrinter;
+                                    string mtprintercartonname = Global.MasterPrinterCarton;
 
                                     DialogResult confirmResult = MessageBox.Show(
                                        "Are you sure you want to print the Master box label?",
@@ -1104,7 +1129,16 @@ namespace Printer
 
                                     if (confirmResult == DialogResult.Yes)
                                     {
+                                        //if (!chbUseCartonID.Checked)
+                                        //{
+                                        //    printer.PrintMasterBoxLabel(mtprintername, masterdata);
+                                        //}
+                                        //else
+                                        //{
+                                        //    
+                                        //}
                                         printer.PrintMasterBoxLabel(mtprintername, masterdata);
+                                        printer.PrintMasterBoxLabel2(txCartonID.Text, mtprintercartonname, dateMasterBox.Value.ToString("MM/dd/yy"));
                                         dgvsn.Rows.Clear();
                                         lblqty.Text = "0";
                                         middleboxqty = 0;
@@ -1112,7 +1146,7 @@ namespace Printer
                                         txmidlelotnobarcode.Text = "";
                                         txmidleqty.Text = "0";
                                         txmidlebarcodemodel.Text = "";
-                                       
+
                                     }
 
 
@@ -1120,7 +1154,7 @@ namespace Printer
                                 }
                             }
 
-                            
+
 
 
 
@@ -1259,7 +1293,7 @@ namespace Printer
                         .Where(value => !string.IsNullOrEmpty(value))
                         .ToList();
                     txmidleqty.Text = serialNumbers.Count().ToString();
-                    lblqty.Text= middleboxqty.ToString();
+                    lblqty.Text = middleboxqty.ToString();
                     txmiddlesn.Focus();
                 }
                 else
@@ -1306,12 +1340,12 @@ namespace Printer
 
                         string barcodemodel = txmidlesku.Text + newmodel.ToString("D3");
 
-                        var modelconfig = Global.configmodel.Where(r =>r.Model== txmidlesku.Text).FirstOrDefault();
+                        var modelconfig = Global.configmodel.Where(r => r.Model == txmidlesku.Text).FirstOrDefault();
 
                         Action Updatmodel = () =>
                         {
                             txmidleitem.Text = modelconfig.Item;
-                            txmidlebarcodeean.Text =modelconfig.UpcCode;
+                            txmidlebarcodeean.Text = modelconfig.UpcCode;
                             txmidlemodel.Text = model;
                             txmidlebarcodemodel.Text = barcodemodel;
                         };
@@ -1413,7 +1447,12 @@ namespace Printer
                     MessageBox.Show("Please select a printer (e.g., Zebra ZT411).");
                     return;
                 }
-                string masterqty = txmasterqty.Text + " PCS";
+                if (cbxMasterPrinterCartonName.SelectedItem == null)
+                {
+                    MessageBox.Show("Please select a printer (e.g., Zebra ZT411).");
+                    return;
+                }
+                string masterqty = txmasterqty.Text /*+ " PCS"*/;
                 string mtbarcodelotno = txmastersku.Text + lotno + " " + qty.ToString("D3") + mastervendorcode;
 
                 Action mtUpdatbarcodelotno = () =>
@@ -1427,6 +1466,29 @@ namespace Printer
                 else
                     mtUpdatbarcodelotno();
 
+                string packingdate = null;
+
+                if (string.IsNullOrWhiteSpace(txCartonID.Text))
+                {
+                    MessageBox.Show("CARTON ID is not null");
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(dateMasterBox.Value.ToString()))
+                {
+                    packingdate = DateTime.Now.ToString("MM/dd/yy");
+                }
+                else
+                {
+                    if (DateTime.TryParse(dateMasterBox.Value.ToString(), out DateTime parsedDate))
+                    {
+                        packingdate = parsedDate.ToString("MM/dd/yy");
+                    }
+                    else
+                    {
+                        packingdate = DateTime.Now.ToString("MM/dd/yy");
+                    }
+                }
 
 
                 var serialNumbers = dgvmastersn.Rows
@@ -1461,6 +1523,7 @@ namespace Printer
                     Matrixdata = matrixdata,
                 };
                 string printername = comboBoxPrinters.SelectedItem.ToString();
+                string printerCartonname = cbxMasterPrinterCartonName.SelectedItem.ToString();
 
 
                 DialogResult confirmResult = MessageBox.Show(
@@ -1472,7 +1535,11 @@ namespace Printer
 
                 if (confirmResult == DialogResult.Yes)
                 {
+
                     printer.PrintMasterBoxLabel(printername, masterdata);
+
+                    printer.PrintMasterBoxLabel2(txCartonID.Text, printerCartonname, packingdate);
+
                     dgvmastersn.Rows.Clear();
                     txmasterlotno.Text = "";
                     txmasterbarcode.Text = "";
@@ -1516,7 +1583,7 @@ namespace Printer
 
 
 
-                      
+
 
 
 
@@ -1567,11 +1634,15 @@ namespace Printer
                             string barcodemodel = txmastersku.Text + newmodel.ToString("D3");
 
                             string lotno = Global.GenerateMiddleLotno(mastervendorcode);
+
+                            //chuỗi cartonID fix cứng 04 + lotno.Substring(2)
+                            string cartonId = "04" + lotno.Substring(2);
                             Action UpdatLot = () =>
                             {
 
                                 txmasterlotno.Text = lotno;
                                 txmasterbarcodemodel.Text = barcodemodel;
+                                txCartonID.Text = cartonId;
                             };
 
                             if (this.InvokeRequired)
@@ -1772,9 +1843,13 @@ namespace Printer
                         }
 
                         string lotno = Global.GenerateMiddleLotno(mastervendorcode);
+
+                        //chuỗi cartonID fix cứng 04 + lotno.Substring(2)
+                        string cartonId = "04" + lotno.Substring(2);
                         Action UpdatLot = () =>
                         {
                             txmasterlotno.Text = lotno;
+                            txCartonID.Text = cartonId;
                         };
 
                         if (this.InvokeRequired)
@@ -1949,7 +2024,7 @@ namespace Printer
                 return;
             }
 
-          
+
             string color = txunitcolor.Text;
 
             sn = txtunitsn1.Text;
@@ -1978,7 +2053,7 @@ namespace Printer
 
         }
 
-       
+
 
         //public void LoadDataToGridView(DataGridView dataGridView, string sn = null, string lot = null, DateTime? dateFrom = null, DateTime? dateTo = null)
         //{
