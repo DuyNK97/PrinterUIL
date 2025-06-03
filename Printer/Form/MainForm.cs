@@ -72,6 +72,7 @@ namespace Printer
                     ["LastMonthCode"] = "5",
                     ["LastDateCode"] = "29",
 
+
                 };
 
                 Global.WriteFileToTxt(settingPath, defaultValues);
@@ -1100,7 +1101,7 @@ namespace Printer
                                         MODEL = mtmodel,
                                         LOTNO = mtlotno,
                                         BarcodeMODEL = mtbarcodemodel,
-                                        QTY = qty.ToString() + " PCS",
+                                        QTY = qty.ToString(),
                                         ORIGIN = mtorigin,
                                         Matrixdata = mtmatrixdata,
                                     };
@@ -1124,8 +1125,10 @@ namespace Printer
                                         //{
                                         //    
                                         //}
+                                        string cartonId = "04" + mtlotno.Substring(2);
+
                                         printer.PrintMasterBoxLabel(mtprintername, masterdata);
-                                        printer.PrintMasterBoxLabel2(txCartonID.Text, mtprintercartonname, dateMasterBox.Value.ToString("MM/dd/yy"));
+                                        printer.PrintMasterBoxLabel2(cartonId, mtprintercartonname, dateMasterBox.Value.ToString("MM/dd/yy"));
                                         dgvsn.Rows.Clear();
                                         lblqty.Text = "0";
                                         middleboxqty = 0;
@@ -1455,6 +1458,7 @@ namespace Printer
 
                 string packingdate = null;
 
+
                 if (string.IsNullOrWhiteSpace(txCartonID.Text))
                 {
                     MessageBox.Show("CARTON ID is not null");
@@ -1467,7 +1471,7 @@ namespace Printer
                 }
                 else
                 {
-                    if (DateTime.TryParse(dateMasterBox.Value.ToString(), out DateTime parsedDate))
+                    if (DateTime.TryParse(dateMasterBox.Value.ToString("MM/dd/yy"), out DateTime parsedDate))
                     {
                         packingdate = parsedDate.ToString("MM/dd/yy");
                     }
