@@ -334,10 +334,10 @@ namespace Printer
                                 ^FO440,60^A0R,60,60^FDLOT NO : {masterdata.LOTNO}^FS
                                 ^FO370,60^A0R,60,60^FD{masterdata.ORIGIN}^FS
                                 ^FO270,60^A0R,60,60^FDQ'TY : {masterdata.QTY} PCS^FS
-                                ^FO260,440^BY2,1.0^BCR,100,N,N,N^FD{masterdata.QTY}^FS
+                                ^FO260,440^BY2,1.0^BCR,100,N,N,N^FD{masterdata.LOTNO}^FS
                                 {earncommand}
-                                ^FO150,1020^BY4.3^BXR,8,200^FD{masterdata.Matrixdata}^FS
-                                ^FO0,1000^GB1400,0,5^FS^XZ
+                                ^FO100,970^BY4.3^BXR,8,200^FD{masterdata.Matrixdata}^FS
+                                ^FO0,940^GB1400,0,5^FS^XZ
                                 ";
 
 
@@ -373,9 +373,9 @@ namespace Printer
 
             //// trường hợp tem  ngang
             string zplCommand = $@"^XA^PON
-                                    ^FO70,60^A0N,65,65^FDCARTON ID: {Cartonid}^FS
-                                    ^FO720,60^BY1.5,1.0^BCN,120,N,N,N^FD{Cartonid}^FS
-                                    ^FO70,130^A0N,65,65^FDDate : {date}^FS
+                                    ^FO130,60^A0N,65,65^FDCARTON ID: {Cartonid}^FS
+                                    ^FO810,85^BY1.5,1.0^BCN,120,N,N,N^FD{Cartonid}^FS
+                                    ^FO130,190^A0N,65,65^FDDate : {date}^FS
                                     ^XZ";
 
 

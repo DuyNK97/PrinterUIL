@@ -983,19 +983,6 @@ namespace Printer
                                         return;
                                     }
 
-
-                                    if (string.IsNullOrWhiteSpace(txCartonID.Text))
-                                    {
-                                        MessageBox.Show("CARTON ID is not null");
-                                        return;
-                                    }
-
-                                    if (string.IsNullOrWhiteSpace(dateMasterBox.Value.ToString()))
-                                    {
-                                        MessageBox.Show("PACKING DATE is not null");
-                                        return;
-                                    }
-
                                     // Tính toán chỉ số bắt đầu và kết thúc để lấy 10 SN từ dưới lên
                                     int totalRows = serialNumbers.Count;
                                     int batchIndex = totalRows / 10; // Xác định lô thứ mấy (1, 2, 3, 4, 5)
