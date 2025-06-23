@@ -327,14 +327,14 @@ namespace Printer
 
 
             string zplCommand = $@"
-                                ^XA^PON^FO750,60^BY2,1.0^BCR,130,N,N,N^FD:{masterdata.BarcodeLotno}^FS
+                                ^XA^PON^FO750,60^BY2,1.0^BCR,130,N,N,N^FD{masterdata.BarcodeLotno}^FS
                                 ^FO660,60^A0R,60,60^FD{masterdata.Item}^FS
                                 ^FO580,60^A0R,60,60^FDMODEL : {masterdata.MODEL}^FS
                                 ^FO510,60^A0R,60,60^FDSKU : {masterdata.SKU}^FS
                                 ^FO440,60^A0R,60,60^FDLOT NO : {masterdata.LOTNO}^FS
                                 ^FO370,60^A0R,60,60^FD{masterdata.ORIGIN}^FS
                                 ^FO270,60^A0R,60,60^FDQ'TY : {masterdata.QTY} PCS^FS
-                                ^FO260,440^BY2,1.0^BCR,100,N,N,N^FD{masterdata.LOTNO}^FS
+                                ^FO260,440^BY2,1.0^BCR,100,N,N,N^FD{masterdata.QTY}^FS
                                 {earncommand}
                                 ^FO100,970^BY4.3^BXR,8,200^FD{masterdata.Matrixdata}^FS
                                 ^FO0,940^GB1400,0,5^FS^XZ
