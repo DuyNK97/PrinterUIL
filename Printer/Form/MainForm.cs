@@ -50,6 +50,8 @@ namespace Printer
         private void MainForm_Load(object sender, EventArgs e)
         {
             dateMasterBox.Value = datepick.Value = DateTime.Today;
+            dateMasterBox.Enabled = true;
+            datepick.Enabled = true;
             LoadPrinters();
             LoadModel();
             string settingPath = Global.GetFilePathSetting();
@@ -137,6 +139,10 @@ namespace Printer
                 rdomanual.Checked = true;
                 rdoauto.Checked = false;
                 auto = false;
+                datepick.Value = DateTime.Today;
+                dateMasterBox.Value= DateTime.Today;
+                dateMasterBox.Enabled = true;
+                datepick.Enabled = true;
             }
             else if (rdoauto.Checked)
             {
@@ -144,6 +150,10 @@ namespace Printer
                 rdomanual.Checked = false;
                 rdoauto.Checked = true;
                 auto = true;
+                datepick.Value = DateTime.Today;
+                dateMasterBox.Value = DateTime.Today;
+                dateMasterBox.Enabled = false;
+                datepick.Enabled = false;
             }
 
         }
@@ -1463,7 +1473,23 @@ namespace Printer
                     MessageBox.Show("CARTON ID is not null");
                     return;
                 }
-              
+
+                //debug issue 07072025
+                //if (string.IsNullOrWhiteSpace(dateMasterBox.Value.ToString()))
+                //{
+                //    packingdate = DateTime.Now.ToString("MM/dd/yy");
+                //}
+                //else
+                //{
+                //    if (DateTime.TryParse(dateMasterBox.Value.ToString("MM/dd/yy"), out DateTime parsedDate))
+                //    {
+                //        packingdate = parsedDate.ToString("MM/dd/yy");
+                //    }
+                //    else
+                //    {
+                //        packingdate = DateTime.Now.ToString("MM/dd/yy");
+                //    }
+                //}
 
                 packingdate = dateMasterBox.Value.Month.ToString("D2") + "-" + dateMasterBox.Value.Day.ToString("D2") + "-" + dateMasterBox.Value.Year.ToString().Substring(2,2);   
 
