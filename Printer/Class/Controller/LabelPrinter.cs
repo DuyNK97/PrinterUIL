@@ -20,32 +20,32 @@ namespace Printer
             {
                 case "ET-SLL50LWEGUJ":
                 case "ET-SNL33LWEGUJ":
-                    model = $@"^FT30,130^A0N,16,16^FH\\^FD{data.ITEM_MODEL}({data.SKU.Substring(0, 9)}) COLOR : WHITE^FS";
+                    model = $@"^FT30,130^A0N,16,16^FH\\^FD{data.ITEM_MODEL}({data.SKU.Substring(0, 8)}) COLOR : WHITE^FS";
                     break;
                 case "ET-SLL50LNEGUJ":
                 case "ET-SNL33LNEGUJ":
-                    model = $@"^FT30,130^A0N,16,16^FH\\^FD{data.ITEM_MODEL}({data.SKU.Substring(0, 9)}) COLOR : NAVY^FS";
+                    model = $@"^FT30,130^A0N,16,16^FH\\^FD{data.ITEM_MODEL}({data.SKU.Substring(0, 8)}) COLOR : NAVY^FS";
                     break;
                 case "ET-SLL50LJEGUJ":
-                    model = $@"^FT30,130^A0N,16,16^FH\\^FD{data.ITEM_MODEL}({data.SKU.Substring(0, 9)}) COLOR : TAUPE^FS";
+                    model = $@"^FT30,130^A0N,16,16^FH\\^FD{data.ITEM_MODEL}({data.SKU.Substring(0, 8)}) COLOR : TAUPE^FS";
                     break;
                 case "ET-SLL50LBEGUJ":
-                    model = $@"^FT30,130^A0N,16,16^FH\\^FD{data.ITEM_MODEL}({data.SKU.Substring(0, 9)}) COLOR : BLACK^FS";
+                    model = $@"^FT30,130^A0N,16,16^FH\\^FD{data.ITEM_MODEL}({data.SKU.Substring(0, 8)}) COLOR : BLACK^FS";
                     break;
                 case "ET-SLL50LAEGUJ":
-                    model = $@"^FT30,130^A0N,16,16^FH\\^FD{data.ITEM_MODEL}({data.SKU.Substring(0, 9)}) COLOR : CARMEL^FS";
+                    model = $@"^FT30,130^A0N,16,16^FH\\^FD{data.ITEM_MODEL}({data.SKU.Substring(0, 8)}) COLOR : CARMEL^FS";
                     break;
                 case "ET-SNL33LPEGUJ":
-                    model = $@"^FT30,130^A0N,16,16^FH\\^FD{data.ITEM_MODEL}({data.SKU.Substring(0, 9)}) COLOR : PINK^FS";
+                    model = $@"^FT30,130^A0N,16,16^FH\\^FD{data.ITEM_MODEL}({data.SKU.Substring(0, 8)}) COLOR : PINK^FS";
                     break;
                 case "ET-SNL33LMEGUJ":
-                    model = $@"^FT30,130^A0N,16,16^FH\\^FD{data.ITEM_MODEL}({data.SKU.Substring(0, 9)}) COLOR : MINT^FS";
+                    model = $@"^FT30,130^A0N,16,16^FH\\^FD{data.ITEM_MODEL}({data.SKU.Substring(0, 8)}) COLOR : MINT^FS";
                     break;
                 case "ET-SNL33LBEGUJ":
-                    model = $@"^FT30,130^A0N,16,16^FH\\^FD{data.ITEM_MODEL}({data.SKU.Substring(0, 9)}) COLOR : DARK GRAY^FS";
+                    model = $@"^FT30,130^A0N,16,16^FH\\^FD{data.ITEM_MODEL}({data.SKU.Substring(0, 8)}) COLOR : DARK GRAY^FS";
                     break;
                 default:
-                    model = $@"^FT30,130^A0N,16,16^FH\\^FD{data.ITEM_MODEL}({data.SKU.Substring(0, 9)})^FS";
+                    model = $@"^FT30,130^A0N,16,16^FH\\^FD{data.ITEM_MODEL}({data.SKU.Substring(0, 8)})^FS";
                     break;
             }
 
@@ -105,11 +105,11 @@ namespace Printer
             string model;
             if (!string.IsNullOrWhiteSpace(data.COLOR))
             {
-                model = $@"^FT10,130^A0N,16,16^FH\\^FD{data.ITEM_MODEL}({data.SKU.Substring(0, 9)}) COLOR : {data.COLOR}^FS";
+                model = $@"^FT10,130^A0N,16,16^FH\\^FD{data.ITEM_MODEL}({data.SKU.Substring(0, 8)}) COLOR : {data.COLOR}^FS";
             }
             else
             {
-                model = $@"^FT10,130^A0N,16,16^FH\\^FD{data.ITEM_MODEL}({data.SKU.Substring(0, 9)})^FS";
+                model = $@"^FT10,130^A0N,16,16^FH\\^FD{data.ITEM_MODEL}({data.SKU.Substring(0, 8)})^FS";
             }
 
             if (data.ORIGIN.Trim() == "MADE IN VIETNAM / FABRIQUE AU VIETNAM")
@@ -334,7 +334,7 @@ namespace Printer
                                 ^FO440,60^A0R,60,60^FDLOT NO : {masterdata.LOTNO}^FS
                                 ^FO370,60^A0R,60,60^FD{masterdata.ORIGIN}^FS
                                 ^FO270,60^A0R,60,60^FDQ'TY : {masterdata.QTY} PCS^FS
-                                ^FO260,440^BY2,1.0^BCR,100,N,N,N^FD{masterdata.QTY}^FS
+                                ^FO260,440^BY2,1.0^BCR,100,N,N,N^FD{masterdata.BarcodeMODEL}^FS
                                 {earncommand}
                                 ^FO100,970^BY4.3^BXR,8,200^FD{masterdata.Matrixdata}^FS
                                 ^FO0,940^GB1400,0,5^FS^XZ

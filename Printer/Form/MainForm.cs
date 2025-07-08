@@ -71,13 +71,14 @@ namespace Printer
                     ["SNlen"] = "14",
                     ["LastMonthCode"] = "5",
                     ["LastDateCode"] = "29",
+                    //["VendorCode"] = "DU",
 
 
                 };
 
                 Global.WriteFileToTxt(settingPath, defaultValues);
             }
-            Dictionary<string, string> currentData = Global.ReadValueFileTxt(Global.GetFilePathSetting(), new List<string> { "CurrentUnitSerial", "CurrentMiddleSerial", "CurrentMasterSerial", "UnitExcelfoler", "MiddleExcelfoler", "MasterExcelfoler", "LastMonthCode", "LastDateCode", "SNlen", "MiddlePrinter", "MasterPrinter", "MasterPrinterCarton", "CartonExcelfoler" });
+            Dictionary<string, string> currentData = Global.ReadValueFileTxt(Global.GetFilePathSetting(), new List<string> { "CurrentUnitSerial", "CurrentMiddleSerial", "CurrentMasterSerial", "UnitExcelfoler", "MiddleExcelfoler", "MasterExcelfoler", "LastMonthCode", "LastDateCode", "SNlen", "MiddlePrinter", "MasterPrinter", "MasterPrinterCarton", "CartonExcelfoler"/*, "VendorCode"*/ });
 
             Global.CurrentUnitSerial = currentData["CurrentUnitSerial"];
             Global.CurrentMiddleSerial = currentData["CurrentMiddleSerial"];
@@ -92,11 +93,15 @@ namespace Printer
             Global.MasterPrinter = currentData["MasterPrinter"];
             Global.MasterPrinterCarton = currentData["MasterPrinterCarton"];
             Global.CartonExcelfoler = currentData["CartonExcelfoler"];
+            //Global.VendorCode = currentData["VendorCode"];
 
             rdomanual.Checked = true;
             rdoSEV.Checked = true;
             rdohhp.Checked = true;
 
+            //txvendor.Text = Global.VendorCode;
+            //txmiddlevendorcode.Text = Global.VendorCode;
+            //txmtvendercode.Text = Global.VendorCode;    
 
         }
 
@@ -323,21 +328,24 @@ namespace Printer
                 //        unitmanufacturedate = DateTime.Now.ToString("yyyy.MM.dd");
                 //    }
                 //}
-                if (string.IsNullOrWhiteSpace(datepick.Value.ToString()))
-                {
-                    unitmanufacturedate = DateTime.Now.ToString("yyyy.MM.dd");
-                }
-                else
-                {
-                    if (DateTime.TryParse(datepick.Value.ToString(), out DateTime parsedDate))
-                    {
-                        unitmanufacturedate = parsedDate.ToString("yyyy.MM.dd");
-                    }
-                    else
-                    {
-                        unitmanufacturedate = DateTime.Now.ToString("yyyy.MM.dd");
-                    }
-                }
+                //if (string.IsNullOrWhiteSpace(datepick.Value.ToString()))
+                //{
+                //    unitmanufacturedate = DateTime.Now.ToString("yyyy.MM.dd");
+                //}
+                //else
+                //{
+
+                    unitmanufacturedate= datepick.Value.Year+"." + datepick.Value.Month.ToString("D2")+"." + datepick.Value.Day.ToString("D2");
+
+                    //if (DateTime.TryParse(datepick.Value.ToString(), out DateTime parsedDate))
+                    //{
+                    //    unitmanufacturedate = parsedDate.ToString("yyyy.MM.dd");
+                    //}
+                    //else
+                    //{
+                    //    unitmanufacturedate = DateTime.Now.ToString("yyyy.MM.dd");
+                    //}
+                    //}
 
                 string origin;
                 if (string.IsNullOrWhiteSpace(txtunitorigin.Text))
@@ -538,9 +546,6 @@ namespace Printer
         {
             try
             {
-
-
-
                 if (string.IsNullOrWhiteSpace(txmidleitem.Text))
                 {
                     MessageBox.Show("Item is not null");
@@ -598,7 +603,7 @@ namespace Printer
                 }
 
 
-                string model = txmidlesku.Text.Substring(0, 9);
+                string model = txmidlesku.Text.Substring(0, 8);
 
 
 
@@ -630,7 +635,7 @@ namespace Printer
                 long newmodel = long.Parse(Global.CurrentMiddleSerial) + 1;
 
 
-                string barcodemodel = txmidlesku.Text + newmodel.ToString("D3");
+                string barcodemodel = txmidlesku.Text + qty.ToString("D3");
                 Action Updatmodel = () =>
                 {
 
@@ -928,10 +933,10 @@ namespace Printer
                                 .Select(row => row.Cells[0].Value?.ToString())
                                 .Where(value => !string.IsNullOrEmpty(value))
                                 .ToList();
-
                             txmidleqty.Text = middleboxqty.ToString();
 
                             lblqty.Text = serialNumbers.Count.ToString();
+                            txmidlebarcodemodel.Text = txmidlesku.Text + middleboxqty.ToString("D3"); ;
                             if (auto)
                             {
 
@@ -1009,13 +1014,13 @@ namespace Printer
                                         ? "MADE IN VIETNAM"
                                         : txmidleorigin.Text.Trim();
 
-                                    string model = txmidlesku.Text.Substring(0, 9);
+                                    string model = txmidlesku.Text.Substring(0, 8);
                                     string lotno = txmidlelotno.Text;
                                     string middleqty = qty.ToString() + " PCS";
                                     string barcodelotno = txmidlesku.Text + lotno + " " + qty.ToString("D3") + middlevendorcode;
 
                                     long newmodel = long.Parse(Global.CurrentMiddleSerial) + 1;
-                                    string barcodemodel = txmidlesku.Text + newmodel.ToString("D3");
+                                    string barcodemodel = txmidlesku.Text + qty.ToString("D3");
 
                                     // Cập nhật UI
                                     Action updateUI = () =>
@@ -1065,70 +1070,62 @@ namespace Printer
                                 }
                                 if (int.Parse(lblqty.Text) == 50)
                                 {
-                                    Task.Delay(100);
-                                    string mtlotno = Global.GenerateMiddleLotno(middlevendorcode);
-                                    string mtsku = txmidlesku.Text.Trim().ToUpper();
-                                    string mtmodel = txmidlesku.Text.Substring(0, 9);
-                                    long newmodel = long.Parse(Global.CurrentMiddleSerial) + 1;
-                                    var modelconfig = Global.configmodel.Where(r => r.Model == txmidlesku.Text).FirstOrDefault();
-                                    string mtitem = modelconfig.Item;
-                                    string mtbarcodemodel = txmidlesku.Text + newmodel.ToString("D3");
-                                    string mtbarcodeean = modelconfig.UpcCode;
-                                    string mtorigin = txmidleorigin.Text;
+                                  //  Task.Delay(100);
+                                  //  string mtlotno = Global.GenerateMiddleLotno(middlevendorcode);
+                                  //  string mtsku = txmidlesku.Text.Trim().ToUpper();
+                                  //  string mtmodel = txmidlesku.Text.Substring(0, 8);
+                                  //  long newmodel = long.Parse(Global.CurrentMiddleSerial) + 1;
+                                  //  var modelconfig = Global.configmodel.Where(r => r.Model == txmidlesku.Text).FirstOrDefault();
+                                  //  string mtitem = modelconfig.Item;
+                                  //  string mtbarcodemodel = txmidlesku.Text + int.Parse(lblqty.Text).ToString("D3");
+                                  //  string mtbarcodeean = modelconfig.UpcCode;
+                                  //  string mtorigin = txmidleorigin.Text;
 
-                                    var mtserialNumbers = dgvsn.Rows
-                                  .Cast<DataGridViewRow>()
-                                  .Where(row => !row.IsNewRow)
-                                  .Select(row => row.Cells[0].Value?.ToString())
-                                  .Where(value => !string.IsNullOrEmpty(value))
-                                  .ToList();
-                                    if (serialNumbers.Count() <= 0)
-                                    {
-                                        MessageBox.Show("Please input SN!");
-                                        return;
-                                    }
-                                    int qty = int.Parse(lblqty.Text);
+                                  //  var mtserialNumbers = dgvsn.Rows
+                                  //.Cast<DataGridViewRow>()
+                                  //.Where(row => !row.IsNewRow)
+                                  //.Select(row => row.Cells[0].Value?.ToString())
+                                  //.Where(value => !string.IsNullOrEmpty(value))
+                                  //.ToList();
+                                  //  if (serialNumbers.Count() <= 0)
+                                  //  {
+                                  //      MessageBox.Show("Please input SN!");
+                                  //      return;
+                                  //  }
+                                  //  int qty = int.Parse(lblqty.Text);
 
-                                    string mtserialNumbersString = string.Join(",", mtserialNumbers);
-                                    string mtmatrixdata = mtsku + "," + mtlotno + "," + qty.ToString("D3") + "," + mtserialNumbersString;
-                                    string mtbarcodelotno = mtsku + mtlotno + " " + qty.ToString("D3") + middlevendorcode;
-                                    MASTERDATA masterdata = new MASTERDATA
-                                    {
-                                        EAN_UPC = mtbarcodeean,
-                                        SKU = mtsku,
-                                        Item = mtitem,
-                                        BarcodeLotno = mtbarcodelotno,
-                                        MODEL = mtmodel,
-                                        LOTNO = mtlotno,
-                                        BarcodeMODEL = mtbarcodemodel,
-                                        QTY = qty.ToString(),
-                                        ORIGIN = mtorigin,
-                                        Matrixdata = mtmatrixdata,
-                                    };
-                                    string mtprintername = Global.MasterPrinter;
-                                    string mtprintercartonname = Global.MasterPrinterCarton;
+                                  //  string mtserialNumbersString = string.Join(",", mtserialNumbers);
+                                  //  string mtmatrixdata = mtsku + "," + mtlotno + "," + qty.ToString("D3") + "," + mtserialNumbersString;
+                                  //  string mtbarcodelotno = mtsku + mtlotno + " " + qty.ToString("D3") + middlevendorcode;
+                                  //  MASTERDATA masterdata = new MASTERDATA
+                                  //  {
+                                  //      EAN_UPC = mtbarcodeean,
+                                  //      SKU = mtsku,
+                                  //      Item = mtitem,
+                                  //      BarcodeLotno = mtbarcodelotno,
+                                  //      MODEL = mtmodel,
+                                  //      LOTNO = mtlotno,
+                                  //      BarcodeMODEL = mtbarcodemodel,
+                                  //      QTY = qty.ToString(),
+                                  //      ORIGIN = mtorigin,
+                                  //      Matrixdata = mtmatrixdata,
+                                  //  };
+                                  //  string mtprintername = Global.MasterPrinter;
+                                  //  string mtprintercartonname = Global.MasterPrinterCarton;
 
-                                    DialogResult confirmResult = MessageBox.Show(
-                                       "Are you sure you want to print the Master box label?",
-                                       "Confirm Print",
-                                       MessageBoxButtons.YesNo,
-                                       MessageBoxIcon.Question
-                                    );
+                                  //  DialogResult confirmResult = MessageBox.Show(
+                                  //     "Are you sure you want to print the Master box label?",
+                                  //     "Confirm Print",
+                                  //     MessageBoxButtons.YesNo,
+                                  //     MessageBoxIcon.Question
+                                  //  );
 
-                                    if (confirmResult == DialogResult.Yes)
-                                    {
-                                        //if (!chbUseCartonID.Checked)
-                                        //{
-                                        //    printer.PrintMasterBoxLabel(mtprintername, masterdata);
-                                        //}
-                                        //else
-                                        //{
-                                        //    
-                                        //}
-                                        string cartonId = "04" + mtlotno.Substring(2);
+                                  //  if (confirmResult == DialogResult.Yes)
+                                  //  {
+                                  //      string cartonId = "04" + mtlotno.Substring(2);
 
-                                        printer.PrintMasterBoxLabel(mtprintername, masterdata);
-                                        printer.PrintMasterBoxLabel2(cartonId, mtprintercartonname, dateMasterBox.Value.ToString("MM/dd/yy"));
+                                  //      printer.PrintMasterBoxLabel(mtprintername, masterdata);
+                                  //      printer.PrintMasterBoxLabel2(cartonId, mtprintercartonname, DateTime.Today.ToString("MM/dd/yy"));
                                         dgvsn.Rows.Clear();
                                         lblqty.Text = "0";
                                         middleboxqty = 0;
@@ -1137,7 +1134,7 @@ namespace Printer
                                         txmidleqty.Text = "0";
                                         txmidlebarcodemodel.Text = "";
 
-                                    }
+                                    //}
 
 
 
@@ -1166,8 +1163,8 @@ namespace Printer
                             if (!string.IsNullOrWhiteSpace(txmidlesku.Text) && txmidlesku.Text.Length >= 9)
                             {
                                 long newmodel = long.Parse(Global.CurrentMiddleSerial) + 1;
-                                string model = txmidlesku.Text.Substring(0, 9);
-                                string barcodemodel = txmidlesku.Text + newmodel.ToString("D3");
+                                string model = txmidlesku.Text.Substring(0, 8);
+                                string barcodemodel = txmidlesku.Text + middleboxqty.ToString("D3");
 
                                 Action updateModel = () =>
                                 {
@@ -1323,12 +1320,12 @@ namespace Printer
                 {
                     if (!string.IsNullOrWhiteSpace(txmidlesku.Text.Trim()))
                     {
-                        string model = txmidlesku.Text.Substring(0, 9);
+                        string model = txmidlesku.Text.Substring(0, 8);
 
                         long newmodel = long.Parse(Global.CurrentMiddleSerial) + 1;
 
-
-                        string barcodemodel = txmidlesku.Text + newmodel.ToString("D3");
+                        string miqty = "000";
+                        string barcodemodel = txmidlesku.Text + miqty;
 
                         var modelconfig = Global.configmodel.Where(r => r.Model == txmidlesku.Text).FirstOrDefault();
 
@@ -1444,11 +1441,13 @@ namespace Printer
                 }
                 string masterqty = txmasterqty.Text /*+ " PCS"*/;
                 string mtbarcodelotno = txmastersku.Text + lotno + " " + qty.ToString("D3") + mastervendorcode;
+                string mtbarcodemodel = txmastersku.Text + qty.ToString("D3");
 
                 Action mtUpdatbarcodelotno = () =>
                 {
 
                     txmasterbarcode.Text = mtbarcodelotno;
+                    txmasterbarcodemodel.Text = mtbarcodemodel;
                 };
 
                 if (this.InvokeRequired)
@@ -1464,23 +1463,9 @@ namespace Printer
                     MessageBox.Show("CARTON ID is not null");
                     return;
                 }
+              
 
-                if (string.IsNullOrWhiteSpace(dateMasterBox.Value.ToString()))
-                {
-                    packingdate = DateTime.Now.ToString("MM/dd/yy");
-                }
-                else
-                {
-                    if (DateTime.TryParse(dateMasterBox.Value.ToString("MM/dd/yy"), out DateTime parsedDate))
-                    {
-                        packingdate = parsedDate.ToString("MM/dd/yy");
-                    }
-                    else
-                    {
-                        packingdate = DateTime.Now.ToString("MM/dd/yy");
-                    }
-                }
-
+                packingdate = dateMasterBox.Value.Month.ToString("D2") + "-" + dateMasterBox.Value.Day.ToString("D2") + "-" + dateMasterBox.Value.Year.ToString().Substring(2,2);   
 
                 var serialNumbers = dgvmastersn.Rows
               .Cast<DataGridViewRow>()
@@ -1535,6 +1520,8 @@ namespace Printer
                     txmasterlotno.Text = "";
                     txmasterbarcode.Text = "";
                     txmasterbarcodemodel.Text = "";
+                    txmasterqty.Text = "0";
+                    lbmtqty.Text = "0";
                     MessageBox.Show($"Send Print comand to Printer successfully!");
                 }
             }
@@ -1552,12 +1539,13 @@ namespace Printer
                 {
                     if (!string.IsNullOrWhiteSpace(txmastersku.Text.Trim()))
                     {
-                        string model = txmastersku.Text.Substring(0, 9);
+                        string model = txmastersku.Text.Substring(0, 8);
 
                         long newmodel = long.Parse(Global.CurrentMiddleSerial) + 1;
 
+
                         var modelconfig = Global.configmodel.Where(r => r.Model == txmastersku.Text).FirstOrDefault();
-                        string barcodemodel = txmastersku.Text + newmodel.ToString("D3");
+                        string barcodemodel = txmastersku.Text + "000";
                         Action Updatmodel = () =>
                         {
                             txmasteritem.Text = modelconfig.Item;
@@ -1571,13 +1559,6 @@ namespace Printer
                         else
                             Updatmodel();
                         txmasteritem.Focus();
-
-
-
-
-
-
-
 
                     }
                 }
@@ -1616,13 +1597,15 @@ namespace Printer
                             MessageBox.Show("Vendor code must be 2 characters!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
+
+
                         if (dgvmastersn.Rows.Count == 1)
                         {
 
                             long newmodel = long.Parse(Global.CurrentMiddleSerial) + 1;
 
 
-                            string barcodemodel = txmastersku.Text + newmodel.ToString("D3");
+
 
                             string lotno = Global.GenerateMiddleLotno(mastervendorcode);
 
@@ -1632,7 +1615,6 @@ namespace Printer
                             {
 
                                 txmasterlotno.Text = lotno;
-                                txmasterbarcodemodel.Text = barcodemodel;
                                 txCartonID.Text = cartonId;
                             };
 
@@ -1644,6 +1626,97 @@ namespace Printer
                         AddSNsFromInput(txmtsn.Text);
 
 
+
+
+
+                        string barcodemodel = txmastersku.Text + int.Parse(txmasterqty.Text).ToString("D3");
+                        Action Updatbarcodmodel = () =>
+                        {
+                            txmasterbarcodemodel.Text = barcodemodel;
+
+                        };
+
+                        if (this.InvokeRequired)
+                            this.Invoke(Updatbarcodmodel);
+                        else
+                            Updatbarcodmodel();
+                        if (auto)
+                        {
+                            
+                            if (!int.TryParse(txmasterqty.Text, out int qty))
+                            {
+                                MessageBox.Show("Quantity must be a valid integer!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
+                            }
+                            if (qty == 50)
+                            {
+
+                                string mtvendercode = txmtvendercode.Text.ToUpper();
+                                Task.Delay(100);
+                                string mtlotno = Global.GenerateMiddleLotno(mtvendercode);
+                                string mtsku = txmastersku.Text.Trim().ToUpper();
+                                string mtmodel = txmastermodel.Text.Substring(0, 8);
+                                long newmodel = long.Parse(Global.CurrentMiddleSerial) + 1;
+                                var modelconfig = Global.configmodel.Where(r => r.Model == txmastersku.Text).FirstOrDefault();
+                                string mtitem = modelconfig.Item;
+                                string mtbarcodemodel = txmastersku.Text + int.Parse(lbmtqty.Text).ToString("D3");
+                                string mtbarcodeean = modelconfig.UpcCode;
+                                string mtorigin = txmasterorigin.Text;
+
+                                var mtserialNumbers = dgvmastersn.Rows
+                              .Cast<DataGridViewRow>()
+                              .Where(row => !row.IsNewRow)
+                              .Select(row => row.Cells[0].Value?.ToString())
+                              .Where(value => !string.IsNullOrEmpty(value))
+                              .ToList();
+                                if (mtserialNumbers.Count() <= 0)
+                                {
+                                    MessageBox.Show("Please input SN!");
+                                    return;
+                                }
+
+                                string mtserialNumbersString = string.Join(",", mtserialNumbers);
+                                string mtmatrixdata = mtsku + "," + mtlotno + "," + qty.ToString("D3") + "," + mtserialNumbersString;
+                                string mtbarcodelotno = mtsku + mtlotno + " " + qty.ToString("D3") + mtvendercode;
+                                MASTERDATA masterdata = new MASTERDATA
+                                {
+                                    EAN_UPC = mtbarcodeean,
+                                    SKU = mtsku,
+                                    Item = mtitem,
+                                    BarcodeLotno = mtbarcodelotno,
+                                    MODEL = mtmodel,
+                                    LOTNO = mtlotno,
+                                    BarcodeMODEL = mtbarcodemodel,
+                                    QTY = qty.ToString(),
+                                    ORIGIN = mtorigin,
+                                    Matrixdata = mtmatrixdata,
+                                };
+                                string mtprintername = Global.MasterPrinter;
+                                string mtprintercartonname = Global.MasterPrinterCarton;
+
+                                string cartonId = "04" + mtlotno.Substring(2);
+                             
+
+                                string packingdate = dateMasterBox.Value.Month.ToString("D2") + "-" + dateMasterBox.Value.Day.ToString("D2") + "-" + dateMasterBox.Value.Year.ToString().Substring(2, 2);
+
+                                printer.PrintMasterBoxLabel(mtprintername, masterdata);
+                                printer.PrintMasterBoxLabel2(cartonId, mtprintercartonname, packingdate);
+                                dgvmastersn.Rows.Clear();
+                                lbmtqty.Text = "0";
+
+                                txmasterlotno.Text = "";
+
+                                txmasterbarcode.Text = "";
+
+
+                                txmasterqty.Text = "0";
+
+                                txmasterbarcodemodel.Text = "";
+
+
+                            }
+
+                        }
                         //dgvmastersn.Rows.Insert(0, new object[] { txmtsn.Text });
                         //txmtsn.Clear();
                         //var serialNumbers = dgvmastersn.Rows
@@ -1710,10 +1783,10 @@ namespace Printer
             }
 
             // Cập nhật lại số lượng
-            txmasterqty.Text = dgv.Rows
+            txmasterqty.Text = (dgv.Rows
                 .Cast<DataGridViewRow>()
                 .Where(r => !r.IsNewRow && r.Cells[0].Value != null)
-                .Count()
+                .Count() - 1)
                 .ToString();
         }
         private void btnmtdelete_Click(object sender, EventArgs e)
@@ -1739,7 +1812,81 @@ namespace Printer
                         .Where(value => !string.IsNullOrEmpty(value))
                         .ToList();
                     txmasterqty.Text = serialNumbers.Count.ToString();
+                    lbmtqty.Text = serialNumbers.Count.ToString();
                     txmtsn.Focus();
+                    if (auto)
+                    {
+                        if (!int.TryParse(txmasterqty.Text, out int qty))
+                        {
+                            MessageBox.Show("Quantity must be a valid integer!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                        if (qty == 50)
+                        {
+
+                            string mtvendercode = txmtvendercode.Text.ToUpper();
+                            Task.Delay(100);
+                            string mtlotno = Global.GenerateMiddleLotno(mtvendercode);
+                            string mtsku = txmastersku.Text.Trim().ToUpper();
+                            string mtmodel = txmastermodel.Text.Substring(0, 8);
+                            long newmodel = long.Parse(Global.CurrentMiddleSerial) + 1;
+                            var modelconfig = Global.configmodel.Where(r => r.Model == txmastersku.Text).FirstOrDefault();
+                            string mtitem = modelconfig.Item;
+                            string mtbarcodemodel = txmastersku.Text + int.Parse(lbmtqty.Text).ToString("D3");
+                            string mtbarcodeean = modelconfig.UpcCode;
+                            string mtorigin = txmasterorigin.Text;
+
+                            var mtserialNumbers = dgvmastersn.Rows
+                          .Cast<DataGridViewRow>()
+                          .Where(row => !row.IsNewRow)
+                          .Select(row => row.Cells[0].Value?.ToString())
+                          .Where(value => !string.IsNullOrEmpty(value))
+                          .ToList();
+                            if (mtserialNumbers.Count() <= 0)
+                            {
+                                MessageBox.Show("Please input SN!");
+                                return;
+                            }
+
+                            string mtserialNumbersString = string.Join(",", mtserialNumbers);
+                            string mtmatrixdata = mtsku + "," + mtlotno + "," + qty.ToString("D3") + "," + mtserialNumbersString;
+                            string mtbarcodelotno = mtsku + mtlotno + " " + qty.ToString("D3") + mtvendercode;
+                            MASTERDATA masterdata = new MASTERDATA
+                            {
+                                EAN_UPC = mtbarcodeean,
+                                SKU = mtsku,
+                                Item = mtitem,
+                                BarcodeLotno = mtbarcodelotno,
+                                MODEL = mtmodel,
+                                LOTNO = mtlotno,
+                                BarcodeMODEL = mtbarcodemodel,
+                                QTY = qty.ToString(),
+                                ORIGIN = mtorigin,
+                                Matrixdata = mtmatrixdata,
+                            };
+                            string mtprintername = Global.MasterPrinter;
+                            string mtprintercartonname = Global.MasterPrinterCarton;
+
+                            string cartonId = "04" + mtlotno.Substring(2);
+
+                            printer.PrintMasterBoxLabel(mtprintername, masterdata);
+                            printer.PrintMasterBoxLabel2(cartonId, mtprintercartonname, DateTime.Today.ToString("MM/dd/yy"));
+                            dgvmastersn.Rows.Clear();
+                            lbmtqty.Text = "0";
+
+                            txmasterlotno.Text = "";
+
+                            txmasterbarcode.Text = "";
+
+
+                            txmasterqty.Text = "0";
+
+                            txmasterbarcodemodel.Text = "";
+
+
+                        }
+
+                    }
                 }
                 else
                 {
@@ -1768,6 +1915,7 @@ namespace Printer
                 {
                     dgvmastersn.Rows.Clear();
                     txmasterqty.Text = "0";
+                    lbmtqty.Text = "0";
                 }
             }
             catch (Exception ex)
@@ -1895,16 +2043,18 @@ namespace Printer
             for (int i = 3; i < parts.Length; i++) // Bắt đầu từ phần tử thứ 4
             {
                 string sn = parts[i].Trim();
-
-                // Kiểm tra trùng trong danh sách và trong dgv
-                if (snToAdd.Contains(sn) || IsMasterDuplicate(sn))
+                if (!string.IsNullOrWhiteSpace(sn))
                 {
-                    duplicatedSNs.Add(sn);
-                }
-                else
-                {
-                    snToAdd.Add(sn); // Cho vào danh sách hợp lệ
-                    dgvmastersn.Rows.Add(sn);
+                    // Kiểm tra trùng trong danh sách và trong dgv
+                    if (snToAdd.Contains(sn) || IsMasterDuplicate(sn))
+                    {
+                        duplicatedSNs.Add(sn);
+                    }
+                    else
+                    {
+                        snToAdd.Add(sn); // Cho vào danh sách hợp lệ
+                        dgvmastersn.Rows.Add(sn);
+                    }
                 }
             }
 
@@ -1914,12 +2064,21 @@ namespace Printer
                                 "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
-            // Cập nhật lại số lượng nếu cần
-            txmasterqty.Text = dgvmastersn.Rows
-                .Cast<DataGridViewRow>()
-                .Where(row => !row.IsNewRow && row.Cells[0].Value != null)
-                .Count()
-                .ToString();
+            //// Cập nhật lại số lượng nếu cần
+            //txmasterqty.Text = dgvmastersn.Rows
+            //    .Cast<DataGridViewRow>()
+            //    .Where(row => !row.IsNewRow && row.Cells[0].Value != null)
+            //    .Count()
+            //    .ToString();
+            var mtserialNumbers = dgvmastersn.Rows
+                            .Cast<DataGridViewRow>()
+                            .Where(row => !row.IsNewRow)
+                            .Select(row => row.Cells[0].Value?.ToString())
+                            .Where(value => !string.IsNullOrEmpty(value))
+                            .ToList();
+            txmasterqty.Text = mtserialNumbers.Count().ToString();
+            lbmtqty.Text = mtserialNumbers.Count().ToString();
+
             txmtsn.Text = "";
         }
         private bool IsMasterDuplicate(string sn)

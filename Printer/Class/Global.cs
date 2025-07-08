@@ -39,6 +39,7 @@ namespace Printer.Class
         public static string MasterExcelfoler = @"D:\Printer\Master";
         public static string CartonExcelfoler = @"D:\Printer\Carton";
         public static string Configfile = @"D:\Printer\Setting";
+        public static string VendorCode  { get; set; }
 
 
         private static readonly object _lockData = new object();

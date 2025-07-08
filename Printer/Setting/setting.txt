@@ -11,3 +11,4 @@ UnitExcelfoler=D:\Printer\Unit
 MiddleExcelfoler=D:\Printer\Middle
 MasterExcelfoler=D:\Printer\Master
 CartonExcelfoler=D:\Printer\Carton
+VendorCode=DU
