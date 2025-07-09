@@ -345,8 +345,11 @@ namespace Printer
                 throw new Exception("Failed to send Middle Box label to printer.");
 
             int middlecurr = int.Parse(masterdata.LOTNO.Substring(masterdata.LOTNO.Length - 4));
+            if (!Global.IsMasterPC) 
+            {
+                Global.SaveLastSerialToSetting("CurrentMiddleSerial", middlecurr);
+            }
 
-            Global.SaveLastSerialToSetting("CurrentMiddleSerial", middlecurr);
             Global.CurrentMiddleSerial = middlecurr.ToString();
             Global.CreateMasterExcelFile(Global.MasterExcelfoler, masterdata);
             return masterdata.LOTNO;

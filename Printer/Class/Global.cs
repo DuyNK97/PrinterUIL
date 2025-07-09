@@ -39,7 +39,8 @@ namespace Printer.Class
         public static string MasterExcelfoler = @"D:\Printer\Master";
         public static string CartonExcelfoler = @"D:\Printer\Carton";
         public static string Configfile = @"D:\Printer\Setting";
-        public static string VendorCode  { get; set; }
+        public static string LotnoPath { get; set; }
+        public static bool IsMasterPC { get; set; }=false;
 
 
         private static readonly object _lockData = new object();
@@ -76,6 +77,16 @@ namespace Printer.Class
                 [key] = serial.ToString()
             };
             WriteFileToTxt(GetFilePathSetting(), values);
+        }
+
+        public static bool MTSaveLastSerialToSetting(string key, long serial)
+        {
+            Global.CurrentUnitSerial = serial.ToString();
+            var values = new Dictionary<string, string>
+            {
+                [key] = serial.ToString()
+            };
+            return TFWriteFileToTxt(GetLotNoPathSetting(), values);
         }
         /// <summary>
         /// Chuyển số thập phân sang hệ 33 (5 ký tự, không dùng I, O, U).
@@ -205,6 +216,10 @@ namespace Printer.Class
         {
             return Path.Combine("D:\\Printer\\Setting", "setting.txt");
         }
+        public static string GetLotNoPathSetting()
+        {
+            return Path.Combine(Global.LotnoPath,"setting.txt");
+        }
 
         public static Dictionary<string, string> ReadValueFileTxt(string filePath, List<string> keys)
         {
@@ -276,6 +291,51 @@ namespace Printer.Class
                 }
             }
         }
+        public static bool TFWriteFileToTxt(string filePath, Dictionary<string, string> values)
+        {
+            lock (_lockData)
+            {
+                try
+                {
+                    var lines = File.ReadAllLines(filePath).ToList();
+                    var keysToUpdate = values.Keys.ToList();
+
+                    var updatedKeys = new HashSet<string>();
+
+                    for (int i = 0; i < lines.Count; i++)
+                    {
+                        var parts = lines[i].Split(new[] { '=' }, 2);
+                        if (parts.Length == 2)
+                        {
+                            string key = parts[0].Trim();
+                            if (values.ContainsKey(key))
+                            {
+                                lines[i] = $"{key}= {values[key]}";
+                                updatedKeys.Add(key);
+                            }
+                        }
+                    }
+
+                    foreach (var key in keysToUpdate)
+                    {
+                        if (!updatedKeys.Contains(key))
+                        {
+                            lines.Add($"{key}= {values[key]}");
+                        }
+                    }
+
+                    File.WriteAllLines(filePath, lines);
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error can not write value to file txt: {ex.Message}");
+                    return false;
+                }
+            }
+        }
+
+
         private static readonly object lockExcel = new object();
         public static void CreateExcelFile(string path, UNITDATA unitdata,string note=null)
         {

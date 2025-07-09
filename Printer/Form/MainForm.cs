@@ -73,14 +73,13 @@ namespace Printer
                     ["SNlen"] = "14",
                     ["LastMonthCode"] = "5",
                     ["LastDateCode"] = "29",
-                    //["VendorCode"] = "DU",
-
-
+                    ["LotnoPath"] = "Z:",
+                    ["IsMasterPC"] = "Y",
                 };
 
                 Global.WriteFileToTxt(settingPath, defaultValues);
             }
-            Dictionary<string, string> currentData = Global.ReadValueFileTxt(Global.GetFilePathSetting(), new List<string> { "CurrentUnitSerial", "CurrentMiddleSerial", "CurrentMasterSerial", "UnitExcelfoler", "MiddleExcelfoler", "MasterExcelfoler", "LastMonthCode", "LastDateCode", "SNlen", "MiddlePrinter", "MasterPrinter", "MasterPrinterCarton", "CartonExcelfoler"/*, "VendorCode"*/ });
+            Dictionary<string, string> currentData = Global.ReadValueFileTxt(Global.GetFilePathSetting(), new List<string> { "CurrentUnitSerial", "CurrentMiddleSerial", "CurrentMasterSerial", "UnitExcelfoler", "MiddleExcelfoler", "MasterExcelfoler", "LastMonthCode", "LastDateCode", "SNlen", "MiddlePrinter", "MasterPrinter", "MasterPrinterCarton", "CartonExcelfoler", "LotnoPath", "IsMasterPC" });
 
             Global.CurrentUnitSerial = currentData["CurrentUnitSerial"];
             Global.CurrentMiddleSerial = currentData["CurrentMiddleSerial"];
@@ -95,7 +94,13 @@ namespace Printer
             Global.MasterPrinter = currentData["MasterPrinter"];
             Global.MasterPrinterCarton = currentData["MasterPrinterCarton"];
             Global.CartonExcelfoler = currentData["CartonExcelfoler"];
-            //Global.VendorCode = currentData["VendorCode"];
+            Global.LotnoPath = currentData["LotnoPath"];
+            Global.IsMasterPC = currentData["IsMasterPC"].Trim() == "Y" ? true : false;
+
+            if (Global.IsMasterPC)
+            {
+                tabmain.SelectedIndex = 2;
+            }    
 
             rdomanual.Checked = true;
             rdoSEV.Checked = true;
@@ -107,7 +112,33 @@ namespace Printer
 
         }
 
+        public bool GetCurrentMiddleSerial()
+        {
+            try {
+                Dictionary<string, string> currentData = Global.ReadValueFileTxt(Global.GetLotNoPathSetting(), new List<string> { "CurrentUnitSerial", "CurrentMiddleSerial", "CurrentMasterSerial", "UnitExcelfoler", "MiddleExcelfoler", "MasterExcelfoler", "LastMonthCode", "LastDateCode", "SNlen", "MiddlePrinter", "MasterPrinter", "MasterPrinterCarton", "CartonExcelfoler", "LotnoPath", "IsMasterPC" });
 
+                Global.CurrentMiddleSerial = currentData["CurrentMiddleSerial"]; 
+                return true;
+            }
+            catch (Exception e)
+            { 
+                return false;
+            }
+        }
+        public bool MiddleGetCurrentMiddleSerial()
+        {
+            try
+            {
+                Dictionary<string, string> currentData = Global.ReadValueFileTxt(Global.GetFilePathSetting(), new List<string> { "CurrentUnitSerial", "CurrentMiddleSerial", "CurrentMasterSerial", "UnitExcelfoler", "MiddleExcelfoler", "MasterExcelfoler", "LastMonthCode", "LastDateCode", "SNlen", "MiddlePrinter", "MasterPrinter", "MasterPrinterCarton", "CartonExcelfoler", "LotnoPath", "IsMasterPC" });
+
+                Global.CurrentMiddleSerial = currentData["CurrentMiddleSerial"];
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
 
 
         private void InitializeRadioButtonEvents()
@@ -619,10 +650,22 @@ namespace Printer
 
                 string model = txmidlesku.Text.Substring(0, 8);
 
+                if (!MiddleGetCurrentMiddleSerial())
+                {
+                    MessageBox.Show("Không thể lấy giá trị hiện tại của Middle Box!");
+                    return;
+                }
+                string lotno = Global.GenerateMiddleLotno(middlevendorcode);
+                Action updateLot = () =>
+                {
+                    txmidlelotno.Text = lotno;
+                };
 
+                if (this.InvokeRequired)
+                    this.Invoke(updateLot);
+                else
+                    updateLot();             
 
-
-                string lotno = txmidlelotno.Text;
                 if (lotno.Length != 10)
                 {
                     MessageBox.Show("Lot no is 10 character!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -922,9 +965,11 @@ namespace Printer
             {
                 if (e.KeyChar == (char)Keys.Enter)
                 {
+
                     string sn = txmiddlesn.Text.Trim();
                     if (!string.IsNullOrWhiteSpace(sn))
                     {
+
                         if (sn.Length != Global.SNlen)
                         {
                             MessageBox.Show($"Serial number not correct :!{sn}", "SN Format", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -1032,7 +1077,24 @@ namespace Printer
                                         : txmidleorigin.Text.Trim();
 
                                     string model = txmidlesku.Text.Substring(0, 8);
-                                    string lotno = txmidlelotno.Text;
+
+                                    if (!MiddleGetCurrentMiddleSerial())
+                                    {
+                                        MessageBox.Show("Không thể lấy giá trị hiện tại của Middle Box!");
+                                        return;
+                                    }
+                                    string lotno = Global.GenerateMiddleLotno(middlevendorcode);
+                                    Action updateLot = () =>
+                                    {
+                                        txmidlelotno.Text = lotno;
+                                    };
+
+                                    if (this.InvokeRequired)
+                                        this.Invoke(updateLot);
+                                    else
+                                        updateLot();
+
+                                    //string lotno = txmidlelotno.Text;
                                     string middleqty = qty.ToString() + " PCS";
                                     string barcodelotno = txmidlesku.Text + lotno + " " + qty.ToString("D3") + middlevendorcode;
 
@@ -1163,8 +1225,14 @@ namespace Printer
 
 
                         }
-                        if (dgvsn.Rows.Count > 1 && !string.IsNullOrWhiteSpace(sn))
+
+                        if (int.Parse(txmidleqty.Text) > 0)
                         {
+                            if (!MiddleGetCurrentMiddleSerial())
+                            {
+                                MessageBox.Show("Không thể lấy giá trị hiện tại của Middle Box!");
+                                return;
+                            }
 
                             string lotno = Global.GenerateMiddleLotno(middlevendorcode);
                             Action updateLot = () =>
@@ -1176,6 +1244,12 @@ namespace Printer
                                 this.Invoke(updateLot);
                             else
                                 updateLot();
+                        }    
+                      
+
+                        if (dgvsn.Rows.Count > 1 && !string.IsNullOrWhiteSpace(sn))
+                        {
+                          
 
                             if (!string.IsNullOrWhiteSpace(txmidlesku.Text) && txmidlesku.Text.Length >= 9)
                             {
@@ -1249,6 +1323,12 @@ namespace Printer
                             MessageBox.Show("Vendor code must be 2 characters!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
+                        if (!MiddleGetCurrentMiddleSerial())
+                        {
+                            MessageBox.Show("Không thể lấy giá trị hiện tại của Middle Box!");
+                            return;
+                        }
+                        
                         string lotno = Global.GenerateMiddleLotno(middlevendorcode);
                         Action UpdatLot = () =>
                         {
@@ -1341,6 +1421,22 @@ namespace Printer
                 {
                     if (!string.IsNullOrWhiteSpace(txmidlesku.Text.Trim()))
                     {
+                        if (!MiddleGetCurrentMiddleSerial())
+                        {
+                            MessageBox.Show("Không thể lấy giá trị hiện tại của Middle Box!");
+                            return;
+                        }
+                        string lotno = Global.GenerateMiddleLotno(middlevendorcode);
+                        Action updateLot = () =>
+                        {
+                            txmidlelotno.Text = lotno;
+                        };
+
+                        if (this.InvokeRequired)
+                            this.Invoke(updateLot);
+                        else
+                            updateLot();
+
                         string model = txmidlesku.Text.Substring(0, 8);
 
                         long newmodel = long.Parse(Global.CurrentMiddleSerial) + 1;
@@ -1448,7 +1544,31 @@ namespace Printer
                     MessageBox.Show("Please input SN!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-                string lotno = txmasterlotno.Text;
+                if (Global.IsMasterPC)
+                {
+                    if (!GetCurrentMiddleSerial())
+                    {
+                        MessageBox.Show("Vui lòng kiểm tra kết nối với máy tính in tem middlebox!");
+                        return;
+                    }
+                }
+                string lotno = Global.GenerateMiddleLotno(mastervendorcode);
+
+                string cartonId = "04" + lotno.Substring(2);
+                Action UpdatLot = () =>
+                {
+
+                    txmasterlotno.Text = lotno;
+                    txCartonID.Text = cartonId;
+                };
+
+                if (this.InvokeRequired)
+                    this.Invoke(UpdatLot);
+                else
+                    UpdatLot();
+
+
+                //string lotno = txmasterlotno.Text;
 
                 if (comboBoxPrinters.SelectedItem == null)
                 {
@@ -1553,7 +1673,15 @@ namespace Printer
 
                 if (confirmResult == DialogResult.Yes)
                 {
-
+                    if (Global.IsMasterPC)
+                    {
+                        int middlecurr = int.Parse(masterdata.LOTNO.Substring(masterdata.LOTNO.Length - 4));
+                        if (!Global.MTSaveLastSerialToSetting("CurrentMiddleSerial", middlecurr))
+                        {
+                            MessageBox.Show($"Không thể lưu thông tin Curr Middle. Vui lòng kiểm tra kết nối với Middle box PC!");
+                            return;
+                        }
+                    }
                     printer.PrintMasterBoxLabel(printername, masterdata);
 
                     printer.PrintMasterBoxLabel2(txCartonID.Text, printerCartonname, packingdate);
@@ -1564,6 +1692,7 @@ namespace Printer
                     txmasterbarcodemodel.Text = "";
                     txmasterqty.Text = "0";
                     lbmtqty.Text = "0";
+                    txCartonID.Text = "";
                     MessageBox.Show($"Send Print comand to Printer successfully!");
                 }
             }
@@ -1644,31 +1773,39 @@ namespace Printer
                             MessageBox.Show("Vendor code must be 2 characters!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
+                        if (Global.IsMasterPC)
+                        {
+                            if (!GetCurrentMiddleSerial())
+                            {
+                                MessageBox.Show("Vui lòng kiểm tra kết nối với máy tính in tem middlebox!");
+                                return;
+                            }
+                        }
 
+
+                        string lotno = Global.GenerateMiddleLotno(mastervendorcode);
+
+                        //chuỗi cartonID fix cứng 04 + lotno.Substring(2)
+                        string cartonId = "04" + lotno.Substring(2);
+                        Action UpdatLot = () =>
+                        {
+
+                            txmasterlotno.Text = lotno;
+                            txCartonID.Text = cartonId;
+                        };
+
+                        if (this.InvokeRequired)
+                            this.Invoke(UpdatLot);
+                        else
+                            UpdatLot();
 
                         if (dgvmastersn.Rows.Count == 1)
                         {
+                           
 
                             long newmodel = long.Parse(Global.CurrentMiddleSerial) + 1;
 
 
-
-
-                            string lotno = Global.GenerateMiddleLotno(mastervendorcode);
-
-                            //chuỗi cartonID fix cứng 04 + lotno.Substring(2)
-                            string cartonId = "04" + lotno.Substring(2);
-                            Action UpdatLot = () =>
-                            {
-
-                                txmasterlotno.Text = lotno;
-                                txCartonID.Text = cartonId;
-                            };
-
-                            if (this.InvokeRequired)
-                                this.Invoke(UpdatLot);
-                            else
-                                UpdatLot();
                         }
                         AddSNsFromInput(txmtsn.Text);
 
@@ -1697,6 +1834,14 @@ namespace Printer
                             }
                             if (qty == 50)
                             {
+                                if (Global.IsMasterPC)
+                                {
+                                    if (!GetCurrentMiddleSerial())
+                                    {
+                                        MessageBox.Show("Vui lòng kiểm tra kết nối với máy tính in tem middlebox!");
+                                        return;
+                                    }
+                                }
 
                                 string mtvendercode = txmtvendercode.Text.ToUpper();
                                 Task.Delay(100);
@@ -1741,7 +1886,7 @@ namespace Printer
                                 string mtprintername = Global.MasterPrinter;
                                 string mtprintercartonname = Global.MasterPrinterCarton;
 
-                                string cartonId = "04" + mtlotno.Substring(2);
+                                 cartonId = "04" + mtlotno.Substring(2);
                              
 
                                 string packingdate = dateMasterBox.Value.Month.ToString("D2") + "-" + dateMasterBox.Value.Day.ToString("D2") + "-" + dateMasterBox.Value.Year.ToString().Substring(2, 2);
@@ -1990,6 +2135,15 @@ namespace Printer
                     break;
                 case 2:
                     txmtvendercode.Focus();
+                    if (Global.IsMasterPC) 
+                    {
+                        if (!GetCurrentMiddleSerial())
+                        {
+                            MessageBox.Show("Vui lòng kiểm tra kết nối với máy tính in tem middlebox!");
+                            return;
+                        }
+                    }
+                   
                     break;
             }
         }
@@ -2032,6 +2186,14 @@ namespace Printer
                         {
                             MessageBox.Show("Vendor code must be 2 characters!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
+                        }
+                        if (Global.IsMasterPC)
+                        {
+                            if (!GetCurrentMiddleSerial())
+                            {
+                                MessageBox.Show("Vui lòng kiểm tra kết nối với máy tính in tem middlebox!");
+                                return;
+                            }
                         }
 
                         string lotno = Global.GenerateMiddleLotno(mastervendorcode);
