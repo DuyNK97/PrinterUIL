@@ -344,6 +344,10 @@ namespace Printer
                 //}
                 //else
                 //{
+                if (auto)
+                {
+                    datepick.Value = DateTime.Today;
+                }    
 
                     unitmanufacturedate= datepick.Value.Year+"." + datepick.Value.Month.ToString("D2")+"." + datepick.Value.Day.ToString("D2");
 
@@ -716,7 +720,8 @@ namespace Printer
                         dgvsn.Rows.Clear();
                         lblqty.Text = "0";
                     }
-
+                    //dgvsn.Rows.Clear();
+                    //lblqty.Text = "0";
                     middleboxqty = 0;
                     txmidlelotno.Text = "";
                     txmidlelotnobarcode.Text = "";
@@ -797,9 +802,10 @@ namespace Printer
             {
                 if (e.KeyChar == (Char)Keys.Enter)
                 {
+                    txvendor.Text=txvendor.Text.ToUpper();
                     if (!string.IsNullOrWhiteSpace(txvendor.Text.Trim()))
                     {
-
+                        txvendor.Text.ToUpper();
                         if (!string.IsNullOrWhiteSpace(txvendor.Text))
                         {
                             vendorcode = txvendor.Text.ToUpper();
@@ -933,6 +939,7 @@ namespace Printer
                         }
                         else
                         {
+                            
                             dgvsn.Rows.Insert(0, new object[] { sn });
                             middleboxqty++;
                             txmiddlesn.Clear();
@@ -1291,6 +1298,9 @@ namespace Printer
                         .ToList();
                     txmidleqty.Text = serialNumbers.Count().ToString();
                     lblqty.Text = middleboxqty.ToString();
+                   
+                    string barcodemodel = txmidlesku.Text + serialNumbers.Count().ToString("D3");
+                    txmidlebarcodemodel.Text = barcodemodel;
                     txmiddlesn.Focus();
                 }
                 else
@@ -1313,6 +1323,7 @@ namespace Printer
                 txmidleqty.Text = "0";
                 lblqty.Text = "0";
                 middleboxqty = 0;
+                txmidlebarcodemodel.Text = "";
                 txmiddlesn.Focus();
             }
             catch (Exception ex)
@@ -1451,6 +1462,7 @@ namespace Printer
                 }
                 string masterqty = txmasterqty.Text /*+ " PCS"*/;
                 string mtbarcodelotno = txmastersku.Text + lotno + " " + qty.ToString("D3") + mastervendorcode;
+
                 string mtbarcodemodel = txmastersku.Text + qty.ToString("D3");
 
                 Action mtUpdatbarcodelotno = () =>
@@ -1472,6 +1484,10 @@ namespace Printer
                 {
                     MessageBox.Show("CARTON ID is not null");
                     return;
+                }
+                if (auto)
+                {
+                    dateMasterBox.Value = DateTime.Today;
                 }
 
                 //debug issue 07072025
@@ -1605,13 +1621,18 @@ namespace Printer
                 {
                     if (!string.IsNullOrWhiteSpace(txmtsn.Text.Trim()))
                     {
+                        if (auto)
+                        {
+                            dateMasterBox.Value = DateTime.Today;
+                        }
                         if (txmtsn.Text.Length < Global.SNlen)
                         {
                             MessageBox.Show($"Serial number not correct :!{txmtsn.Text}", "SN Format", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             txmtsn.Clear();
                             return;
                         }
-                        mastervendorcode = txmtvendercode.Text;
+                        txmtvendercode.Text.ToUpper();
+                        mastervendorcode = txmtvendercode.Text.ToUpper();
                         if (string.IsNullOrWhiteSpace(mastervendorcode))
                         {
                             MessageBox.Show("Please input Vendor Code!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -1839,14 +1860,18 @@ namespace Printer
                         .ToList();
                     txmasterqty.Text = serialNumbers.Count.ToString();
                     lbmtqty.Text = serialNumbers.Count.ToString();
+                    if (!int.TryParse(txmasterqty.Text, out int qty))
+                    {
+                        MessageBox.Show("Quantity must be a valid integer!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                    string mtbarcodemodel = txmastersku.Text + qty.ToString("D3");
+
+                    txmasterbarcodemodel.Text = mtbarcodemodel;
                     txmtsn.Focus();
                     if (auto)
                     {
-                        if (!int.TryParse(txmasterqty.Text, out int qty))
-                        {
-                            MessageBox.Show("Quantity must be a valid integer!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            return;
-                        }
+                     
                         if (qty == 50)
                         {
 
@@ -1858,7 +1883,7 @@ namespace Printer
                             long newmodel = long.Parse(Global.CurrentMiddleSerial) + 1;
                             var modelconfig = Global.configmodel.Where(r => r.Model == txmastersku.Text).FirstOrDefault();
                             string mtitem = modelconfig.Item;
-                            string mtbarcodemodel = txmastersku.Text + int.Parse(lbmtqty.Text).ToString("D3");
+                            mtbarcodemodel = txmastersku.Text + int.Parse(lbmtqty.Text).ToString("D3");
                             string mtbarcodeean = modelconfig.UpcCode;
                             string mtorigin = txmasterorigin.Text;
 
@@ -1939,6 +1964,8 @@ namespace Printer
                 }
                 else
                 {
+
+                    txmasterbarcodemodel.Text = "";
                     dgvmastersn.Rows.Clear();
                     txmasterqty.Text = "0";
                     lbmtqty.Text = "0";
@@ -1993,7 +2020,7 @@ namespace Printer
                 {
                     if (!string.IsNullOrWhiteSpace(txmtvendercode.Text))
                     {
-
+                        txmtvendercode.Text = txmtvendercode.Text.ToUpper();
                         mastervendorcode = txmtvendercode.Text.ToUpper();
                         if (string.IsNullOrWhiteSpace(mastervendorcode))
                         {
@@ -2226,6 +2253,11 @@ namespace Printer
             {
                 MessageBox.Show("Failed to print any labels.");
             }
+
+        }
+
+        private void txmtvendercode_TextChanged(object sender, EventArgs e)
+        {
 
         }
 
