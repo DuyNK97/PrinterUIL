@@ -52,6 +52,9 @@ namespace Printer
             dateMasterBox.Value = datepick.Value = DateTime.Today;
             dateMasterBox.Enabled = true;
             datepick.Enabled = true;
+            txmiddlevendorcode.Enabled = false;
+            txmtvendercode.Enabled = false;
+            txvendor.Focus();
             LoadPrinters();
             LoadModel();
             string settingPath = Global.GetFilePathSetting();
@@ -288,12 +291,12 @@ namespace Printer
                 {
                     cmbModel.Items.Add(model.Model);
                 }
-                if (cmbModel.Items.Count > 0)
-                    cmbModel.SelectedIndex = 0;
+                //if (cmbModel.Items.Count > 0)
+                //    cmbModel.SelectedIndex = 1;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading printers: {ex.Message}");
+                MessageBox.Show($"Error loading Model: {ex.Message}");
             }
         }
         private void LoadPrinters()
@@ -770,6 +773,8 @@ namespace Printer
                     txmidlelotnobarcode.Text = "";
                     txmidleqty.Text = "0";
                     txmidlebarcodemodel.Text = "";
+                    txmasterlotno.Text = "";
+                    txCartonID.Text = "";
                 }
 
 
@@ -846,6 +851,9 @@ namespace Printer
                 if (e.KeyChar == (Char)Keys.Enter)
                 {
                     txvendor.Text=txvendor.Text.ToUpper();
+
+                   
+
                     if (!string.IsNullOrWhiteSpace(txvendor.Text.Trim()))
                     {
                         txvendor.Text.ToUpper();
@@ -865,6 +873,21 @@ namespace Printer
                         }
                         txtunitearncode.Focus();
                     }
+
+                    middlevendorcode = txvendor.Text.ToUpper();
+                    txmiddlevendorcode.Text = txvendor.Text.ToUpper();
+                    if (!string.IsNullOrWhiteSpace(middlevendorcode))
+                    {
+                        txmiddlevendorcode_KeyPress(sender, e);
+                    }
+
+                    txmtvendercode.Text = txvendor.Text.ToUpper();
+                    mastervendorcode = txvendor.Text.ToUpper();
+                    if (!string.IsNullOrWhiteSpace(mastervendorcode))
+                    {
+                        txmtvendercode_KeyPress(sender, e);
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -1341,6 +1364,24 @@ namespace Printer
                             UpdatLot();
                         txmidlesku.Focus();
 
+
+
+                        //vendorcode = txmiddlevendorcode.Text.ToUpper();
+                        //txvendor.Text = txmiddlevendorcode.Text.ToUpper();
+                       
+                        //if (!string.IsNullOrWhiteSpace(vendorcode))
+                        //{
+                        //    txvendor_KeyPress(sender, e);
+                        //}
+
+                        //txmtvendercode.Text = txmiddlevendorcode.Text.ToUpper();
+                        //mastervendorcode = txmiddlevendorcode.Text.ToUpper();
+                        //if (!string.IsNullOrWhiteSpace(mastervendorcode))
+                        //{
+                        //    txmtvendercode_KeyPress(sender, e);
+                        //}
+
+
                     }
 
 
@@ -1426,39 +1467,7 @@ namespace Printer
                             MessageBox.Show("Không thể lấy giá trị hiện tại của Middle Box!");
                             return;
                         }
-                        string lotno = Global.GenerateMiddleLotno(middlevendorcode);
-                        Action updateLot = () =>
-                        {
-                            txmidlelotno.Text = lotno;
-                        };
-
-                        if (this.InvokeRequired)
-                            this.Invoke(updateLot);
-                        else
-                            updateLot();
-
-                        string model = txmidlesku.Text.Substring(0, 8);
-
-                        long newmodel = long.Parse(Global.CurrentMiddleSerial) + 1;
-
-                        string miqty = "000";
-                        string barcodemodel = txmidlesku.Text + miqty;
-
-                        var modelconfig = Global.configmodel.Where(r => r.Model == txmidlesku.Text).FirstOrDefault();
-
-                        Action Updatmodel = () =>
-                        {
-                            txmidleitem.Text = modelconfig.Item;
-                            txmidlebarcodeean.Text = modelconfig.UpcCode;
-                            txmidlemodel.Text = model;
-                            txmidlebarcodemodel.Text = barcodemodel;
-                        };
-
-                        if (this.InvokeRequired)
-                            this.Invoke(Updatmodel);
-                        else
-                            Updatmodel();
-                        txmiddlesn.Focus();
+                        RenderMDSkuevent();
                     }
 
 
@@ -1472,6 +1481,43 @@ namespace Printer
         }
 
 
+
+        private void RenderMDSkuevent()
+        {
+            string lotno = Global.GenerateMiddleLotno(middlevendorcode);
+            Action updateLot = () =>
+            {
+                txmidlelotno.Text = lotno;
+            };
+
+            if (this.InvokeRequired)
+                this.Invoke(updateLot);
+            else
+                updateLot();
+
+            string model = txmidlesku.Text.Substring(0, 8);
+
+            long newmodel = long.Parse(Global.CurrentMiddleSerial) + 1;
+
+            string miqty = "000";
+            string barcodemodel = txmidlesku.Text + miqty;
+
+            var modelconfig = Global.configmodel.Where(r => r.Model == txmidlesku.Text).FirstOrDefault();
+
+            Action Updatmodel = () =>
+            {
+                txmidleitem.Text = modelconfig.Item;
+                txmidlebarcodeean.Text = modelconfig.UpcCode;
+                txmidlemodel.Text = model;
+                txmidlebarcodemodel.Text = barcodemodel;
+            };
+
+            if (this.InvokeRequired)
+                this.Invoke(Updatmodel);
+            else
+                Updatmodel();
+            txmiddlesn.Focus();
+        }
 
         private void btprintmasterbox_Click(object sender, EventArgs e)
         {
@@ -1693,7 +1739,9 @@ namespace Printer
                     txmasterqty.Text = "0";
                     lbmtqty.Text = "0";
                     txCartonID.Text = "";
-                    MessageBox.Show($"Send Print comand to Printer successfully!");
+                    txmidlelotno.Text = "";
+                    //MessageBox.Show($"Send Print comand to Printer successfully!");
+
                 }
             }
             catch (Exception ex)
@@ -1710,26 +1758,7 @@ namespace Printer
                 {
                     if (!string.IsNullOrWhiteSpace(txmastersku.Text.Trim()))
                     {
-                        string model = txmastersku.Text.Substring(0, 8);
-
-                        long newmodel = long.Parse(Global.CurrentMiddleSerial) + 1;
-
-
-                        var modelconfig = Global.configmodel.Where(r => r.Model == txmastersku.Text).FirstOrDefault();
-                        string barcodemodel = txmastersku.Text + "000";
-                        Action Updatmodel = () =>
-                        {
-                            txmasteritem.Text = modelconfig.Item;
-                            txmasterbarcodeean.Text = modelconfig.UpcCode;
-                            txmastermodel.Text = model;
-                            txmasterbarcodemodel.Text = barcodemodel;
-                        };
-
-                        if (this.InvokeRequired)
-                            this.Invoke(Updatmodel);
-                        else
-                            Updatmodel();
-                        txmasteritem.Focus();
+                        RenderMTSkuevent();
 
                     }
                 }
@@ -1740,6 +1769,29 @@ namespace Printer
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+        }
+        private void RenderMTSkuevent()
+         {
+            string model = txmastersku.Text.Substring(0, 8);
+
+            long newmodel = long.Parse(Global.CurrentMiddleSerial) + 1;
+
+
+            var modelconfig = Global.configmodel.Where(r => r.Model == txmastersku.Text).FirstOrDefault();
+            string barcodemodel = txmastersku.Text + "000";
+            Action Updatmodel = () =>
+            {
+                txmasteritem.Text = modelconfig.Item;
+                txmasterbarcodeean.Text = modelconfig.UpcCode;
+                txmastermodel.Text = model;
+                txmasterbarcodemodel.Text = barcodemodel;
+            };
+
+            if (this.InvokeRequired)
+                this.Invoke(Updatmodel);
+            else
+                Updatmodel();
+            txmasteritem.Focus();
         }
 
         private void txmtsn_KeyPress(object sender, KeyPressEventArgs e)
@@ -1799,14 +1851,14 @@ namespace Printer
                         else
                             UpdatLot();
 
-                        if (dgvmastersn.Rows.Count == 1)
-                        {
+                        //if (dgvmastersn.Rows.Count == 1)
+                        //{
                            
 
-                            long newmodel = long.Parse(Global.CurrentMiddleSerial) + 1;
+                        //    long newmodel = long.Parse(Global.CurrentMiddleSerial) + 1;
 
 
-                        }
+                        //}
                         AddSNsFromInput(txmtsn.Text);
 
 
@@ -2210,6 +2262,23 @@ namespace Printer
                             this.Invoke(UpdatLot);
                         else
                             UpdatLot();
+
+
+
+                        //vendorcode = txmtvendercode.Text.ToUpper();
+                        //txvendor.Text = txmtvendercode.Text.ToUpper();
+
+                        //if (!string.IsNullOrWhiteSpace(vendorcode))
+                        //{
+                        //    txvendor_KeyPress(sender, e);
+                        //}
+                        //middlevendorcode = txmtvendercode.Text.ToUpper();
+                        //txmiddlevendorcode.Text = txmtvendercode.Text.ToUpper();
+                        //if (!string.IsNullOrWhiteSpace(middlevendorcode))
+                        //{
+                        //    txmiddlevendorcode_KeyPress(sender, e);
+                        //}
+
                         txmastersku.Focus();
 
                     }
@@ -2312,11 +2381,39 @@ namespace Printer
         {
             var model = cmbModel.SelectedItem;
             var modelconfig = Global.configmodel.Where(r => r.Model == model).FirstOrDefault();
+            //Unit form
             txtunititemmodel.Text = modelconfig.Item.ToString();
             txtunitearncode.Text = modelconfig.UpcCode.ToString();
             txunitcolor.Text = modelconfig.Color.ToString();
             txtunitskucode.Text = modelconfig.Model.ToString();
 
+            //middleform
+            txmidlemodel.Text = modelconfig.Item.ToString();
+            txmidlebarcodeean.Text = modelconfig.UpcCode.ToString();
+            txmidlesku.Text = modelconfig.Model.ToString();
+            if (!string.IsNullOrWhiteSpace(txmidlesku.Text))
+            {
+                if (string.IsNullOrWhiteSpace(txvendor.Text))
+                {
+                    MessageBox.Show("Please Input Vender code First!!!");
+                    return;
+                }
+                RenderMDSkuevent();
+            }
+
+            //masterform
+            txmastermodel.Text = modelconfig.Item.ToString();
+            txmasterbarcodeean.Text = modelconfig.UpcCode.ToString();
+            txmastersku.Text = modelconfig.Model.ToString();
+            if (!string.IsNullOrWhiteSpace(txmastersku.Text))
+            {
+                if (string.IsNullOrWhiteSpace(txvendor.Text))
+                {
+                    MessageBox.Show("Please Input Vender code First!!!");
+                    return;
+                }
+                RenderMTSkuevent();
+            }
 
         }
 
